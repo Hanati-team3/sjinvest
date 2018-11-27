@@ -281,65 +281,39 @@
         <div class="ui-block">
           <div class="news-feed-form">
             <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-              <li class="nav-item"><a class="nav-link active inline-items" data-toggle="tab"
-                href="#home-1" role="tab" aria-expanded="true"> <svg class="olymp-status-icon">
-                    <use xlink:href="#olymp-status-icon"></use></svg> <span>상승률 상위</span>
+            <ul class="nav nav-tabs stock-index-ul" role="tablist">
+              <li class="nav-item" ><a class="nav-link active inline-items" data-toggle="tab"
+                href="#home-1" role="tab" aria-expanded="true"> <span>상승률 상위</span>
               </a></li>
-              <li class="nav-item"><a class="nav-link inline-items" data-toggle="tab" 
-                href="#profile-1" role="tab" aria-expanded="false"> <svg class="olymp-multimedia-icon">
-                    <use xlink:href="#olymp-multimedia-icon"></use></svg> <span>하락률 상위</span>
+              <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
+                href="#profile-1" role="tab" aria-expanded="false"><span>하락률 상위</span>
               </a></li>
     
-              <li class="nav-item"><a class="nav-link inline-items" data-toggle="tab" 
-                href="#blog" role="tab" aria-expanded="false"> <svg class="olymp-blog-icon">
-                    <use xlink:href="#olymp-blog-icon"></use></svg> <span>외국인 순매수</span>
+              <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
+                href="#blog" role="tab" aria-expanded="false"><span>외국인 순매수</span>
+              </a></li>
+    
+              <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
+                href="#blog" role="tab" aria-expanded="false"><span>기관 순매수</span>
+              </a></li>
+    
+              <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
+                href="#blog" role="tab" aria-expanded="false"><span>거래량</span>
+              </a></li>
+    
+              <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
+                href="#blog" role="tab" aria-expanded="false"><span>시가총액</span>
               </a></li>
             </ul>
     
             <!-- Tab panes -->
             <div class="tab-content">
-              <div class="tab-pane active" id="home-1" role="tabpanel"
-                aria-expanded="true">
-                <form>
-                  <div class="author-thumb">
-                    <img src="<%=application.getContextPath()%>/resources/img/author-page.jpg" alt="author">
-                  </div>
-                  <div class="form-group with-icon label-floating is-empty">
-                    <label class="control-label">Share what you are
-                      thinking here...</label>
-                    <textarea class="form-control" placeholder=""></textarea>
-                    <span class="material-input"></span>
-                  </div>
-                  <div class="add-options-message">
-                    <a href="#" class="options-message"
-                      data-toggle="tooltip" data-placement="top"
-                      data-original-title="ADD PHOTOS"> <svg
-                        class="olymp-camera-icon" data-toggle="modal"
-                        data-target="#update-header-photo">
-                        <use xlink:href="#olymp-camera-icon"></use></svg>
-                    </a> <a href="#" class="options-message"
-                      data-toggle="tooltip" data-placement="top"
-                      data-original-title="TAG YOUR FRIENDS"> <svg
-                        class="olymp-computer-icon">
-                        <use xlink:href="#olymp-computer-icon"></use></svg>
-                    </a> <a href="#" class="options-message"
-                      data-toggle="tooltip" data-placement="top"
-                      data-original-title="ADD LOCATION"> <svg
-                        class="olymp-small-pin-icon">
-                        <use xlink:href="#olymp-small-pin-icon"></use></svg>
-                    </a>
-    
-                    <button class="btn btn-primary btn-md-2">Post
-                      Status</button>
-                    <button
-                      class="btn btn-md-2 btn-border-think btn-transparent c-grey">Preview</button>
-    
-                  </div>
-    
-                </form>
+              <%-- home-1탭 시작 --%>
+              <div class="tab-pane active" id="home-1" role="tabpanel" aria-expanded="true">
+
               </div>
-    
+              <%-- home-1탭 끝 --%>
+              <%-- profile-1탭 시작 --%>
               <div class="tab-pane" id="profile-1" role="tabpanel"
                 aria-expanded="true">
                 <form>
@@ -377,7 +351,8 @@
     
                 </form>
               </div>
-    
+              <%-- profile-1탭 끝 --%>
+              <%-- blog 탭 시작 --%>
               <div class="tab-pane" id="blog" role="tabpanel"
                 aria-expanded="true">
                 <form>
@@ -418,6 +393,7 @@
     
                 </form>
               </div>
+              <%-- blog 탭 끝 --%>
             </div>
           </div>
         </div>
