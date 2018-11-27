@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="com.sjinvest.sos.notice.mapper.NoticeMapper">
+	<resultMap type="Notice" id="noticeResultMap">
+		<result column="point_seq" property="noticeSeq" />
+		<result column="user_seq" property="userSeq" />
+		<result column="notice_content" property="noticeContent" />
+		<result column="notice_is_checked" property="noticeIsChecked" />
+		<result column="notice_date" property="noticeDate" />
+		<result column="notice_type" property="noticeType" />
+	</resultMap>
+	<insert id="create" parameterType="Notice">
+	</insert>
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="com.sjinvest.sos.interest.mapper.InterestMapper">
+	<resultMap type="Interest" id="interestResultMap">
+		<result column="interest_seq" property="interestSeq" />
+		<result column="user_seq" property="userSeq" />
+		<result column="company_seq" property="companySeq" />
+		<result column="company_name" property="companyName" />
+	</resultMap>
+	<insert id="create" parameterType="Interest">
+	</insert>	
+</mapper>

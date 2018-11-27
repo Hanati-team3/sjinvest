@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="com.sjinvest.sos.holding.mapper.HoldingMapper">
+	<resultMap type="Holding" id="holdingResultMap">
+		<result column="holding_seq" property="holdingSeq" />
+		<result column="company_seq" property="companySeq" />
+		<result column="company_name" property="companyName" />
+		<result column="user_seq" property="userSeq" />
+		<result column="holding_amount" property="holdingAmount" />
+		<result column="holding_total_money" property="holdingTotalMoney" />
+	</resultMap>
+	<insert id="create" parameterType="Holding">
+	</insert>	
+</mapper>

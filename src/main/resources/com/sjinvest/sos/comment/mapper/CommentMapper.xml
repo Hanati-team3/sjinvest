@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="com.sjinvest.sos.comment.mapper.CommentMapper">
+	<resultMap type="Comment" id="commentResultMap">
+		<result column="comment_seq" property="commentSeq" />
+		<result column="feed_seq" property="feedSeq" />
+		<result column="user_seq" property="userSeq" />
+		<result column="comment_regdate" property="commentRegdate" />
+		<result column="comment_update_date" property="commentUpdateDate" />
+		<result column="comment_content" property="commentContent" />
+	</resultMap>
+	<insert id="create" parameterType="Comment">
+	</insert>
+</mapper>

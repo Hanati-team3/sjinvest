@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="com.sjinvest.sos.field.mapper.FieldMapper">
+	<resultMap type="Field" id="fieldResultMap">
+		<result column="field_number" property="fieldNumber" />
+		<result column="field_name" property="fieldName" />
+		<result column="field_detail" property="fieldDetail" />
+	</resultMap>
+	<insert id="create" parameterType="Field">
+	</insert>
+</mapper>

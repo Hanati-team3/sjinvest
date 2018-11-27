@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!--  Hikari(光) Config Bean 설정 -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<!-- 
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+		 -->
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"/> 
+		<property name="username" value="hr"/>
+		<property name="password" value="hr"/>
+	</bean>
+	
+	<!--  Hikari(光) DataSource 설정 -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+	
+	<!--  Mybatis SqlSessionFactory 설정 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+		<property name="dataSource" ref="dataSource"/>
+		<property name="typeAliasesPackage" value="com.sjinvest.sos"/>
+	</bean>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.comment.mapper"/>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.company.mapper"/>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.feed.mapper"/>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.field.mapper"/>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.follow.mapper"/>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.holding.mapper"/>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.interest.mapper"/>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.like.mapper"/>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.point.mapper"/>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.trading.mapper"/>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.user.mapper"/>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.notice.mapper"/>
+	
+	<!-- 트랜잭션 매니저 설정 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<tx:annotation-driven/>
+	
+	<!-- AOP 설정 -->
+	<context:annotation-config />
+	<context:component-scan base-package="com.sjinvest.sos" /> 
+	
+	<!-- AOP Proxy 객체 설정 -->
+	<aop:aspectj-autoproxy />
+		
+</beans>

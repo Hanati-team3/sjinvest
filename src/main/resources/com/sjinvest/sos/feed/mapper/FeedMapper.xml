@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="com.sjinvest.sos.feed.mapper.FeedMapper">
+	<resultMap type="Feed" id="feedResultMap">
+		<result column="feed_seq" property="feedSeq" />
+		<result column="user_seq" property="userSeq" />
+		<result column="feed_regdate" property="feedRegdate" />
+		<result column="feed_update_date" property="feedUpdateDate" />
+		<result column="feed_content" property="feedContent" />
+		<result column="feed_like_count" property="feedLikeCnt" />
+		<result column="feed_share_count" property="feedShareCnt" />
+		<result column="feed_picture" property="feedPicture" />
+		<result column="feed_original_seq" property="feedOriginalSeq" />
+	</resultMap>
+	<insert id="create" parameterType="Feed">
+	</insert>
+</mapper>

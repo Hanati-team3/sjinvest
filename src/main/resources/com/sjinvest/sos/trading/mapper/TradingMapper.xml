@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="com.sjinvest.sos.trading.mapper.TradingMapper">
+	<resultMap type="Trading" id="tradingResultMap">
+		<result column="trading_seq" property="tradingSeq" />
+		<result column="user_seq" property="userSeq" />
+		<result column="company_seq" property="companySeq" />
+		<result column="company_name" property="companyName" />
+		<result column="trading_type" property="tradingType" />
+		<result column="trading_time" property="tradingTime" />
+		<result column="trading_price" property="tradingPrice" />
+		<result column="trading_amount" property="tradingAmount" />
+	</resultMap>
+	<insert id="create" parameterType="Trading">
+	</insert>	
+</mapper>

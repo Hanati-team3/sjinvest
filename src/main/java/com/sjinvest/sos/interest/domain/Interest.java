@@ -1,0 +1,16 @@
+package com.sjinvest.sos.interest.domain;
+
+import java.util.Date;
+
+import org.apache.ibatis.type.Alias;
+
+import lombok.Data;
+
+@Data
+@Alias(value = "Interest")
+public class Interest {
+	private int interestSeq;
+	private int userSeq;
+	private int companySeq;
+	private String companyName;
+}
