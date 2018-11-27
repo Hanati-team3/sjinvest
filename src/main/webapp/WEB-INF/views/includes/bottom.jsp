@@ -29,6 +29,8 @@
 <!-- Lightbox plugin script-->
 <script src="<%=application.getContextPath()%>/resources/js/jquery.magnific-popup.min.js"></script>
 
+<!-- Swiper / Sliders -->
+<script src="<%=application.getContextPath()%>/resources/js/swiper.jquery.min.js"></script>
 
 <script src="<%=application.getContextPath()%>/resources/js/mediaelement-and-player.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/mediaelement-playlist-plugin.min.js"></script>

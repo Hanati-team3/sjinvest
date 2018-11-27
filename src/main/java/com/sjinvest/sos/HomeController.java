@@ -74,6 +74,12 @@ public class HomeController {
 		
 		return "temp/origin-newsfeed";
 	}
+	@RequestMapping(value = "/stock", method = RequestMethod.GET)
+	public String stock() {
+		logger.info("stock.");
+		
+		return "stock";
+	}
 	
 	
 }
