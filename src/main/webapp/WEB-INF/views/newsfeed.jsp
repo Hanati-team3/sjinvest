@@ -18,7 +18,6 @@
 
 <!-- Header -->
 <%-- 테스트 로그인 ID로 Yegyeom Yu 보냄 --%>
-
 <jsp:include page="includes/header.jsp">
   <jsp:param value="Yegyeom Yu" name="loginId"/>
 </jsp:include>
@@ -32,42 +31,19 @@
     <!-- Main Content -->
 
     <main class="col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12">
+      <%-- 검색 시작 --%>
       <div class="ui-block">
-        <div class="news-feed-form">
-          <!-- Nav tabs -->
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active inline-items" data-toggle="tab" href="#home-1" role="tab" aria-expanded="true">
-
-                <svg class="olymp-status-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-status-icon"></use></svg>
-
-                <span>Status</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link inline-items" data-toggle="tab" href="#profile-1" role="tab" aria-expanded="false">
-
-                <svg class="olymp-multimedia-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-multimedia-icon"></use></svg>
-
-                <span>Trading Lists</span>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link inline-items" data-toggle="tab" href="#blog" role="tab" aria-expanded="false">
-                <svg class="olymp-blog-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-blog-icon"></use></svg>
-
-                <span>Holding Lists</span>
-              </a>
-            </li>
-          </ul>
-
-          <!-- Tab panes -->
-          <div class="tab-content">
-
-          </div>
-        </div>
+        <form class="w-search" style="width: 100%;">
+        	<div class="form-group with-button is-empty">
+        		<input class="form-control" type="text" placeholder="Search Blog Posts...">
+        		<button style="background-color: #3f4257;">
+        			<svg class="olymp-magnifying-glass-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
+        		</button>
+        	<span class="material-input"></span></div>
+        </form>
       </div>
+      <%-- 검색 끝 --%>
+      <%-- 글 작성 시작 --%>
       <div class="ui-block">
         <div class="news-feed-form">
           <!-- Nav tabs -->
@@ -189,7 +165,8 @@
           </div>
         </div>
       </div>
-
+      <%-- 글 작성 끝 --%>
+      <%-- 피드 목록 시작--%>
       <div id="newsfeed-items-grid">
 
         <div class="ui-block">
@@ -822,11 +799,9 @@
         </div>
 
       </div>
-
-
+      <%-- 피드 목록 끝 --%>
+      <%-- 더보기 버튼 --%>
       <a id="load-more-button" href="#" class="btn btn-control btn-more" data-load-link="items-to-load.html" data-container="newsfeed-items-grid"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
-
-
     </main>
 
     <!-- ... end Main Content -->
