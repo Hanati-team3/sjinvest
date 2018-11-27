@@ -40,6 +40,10 @@ public class HomeController {
 	}
 	
 	
+	/**
+	 * SNS, USER 관련 start by 형철
+	 */
+	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String profile() {
 		logger.info("profile.");
@@ -47,18 +51,11 @@ public class HomeController {
 		return "profile";
 	}
 	
-	@RequestMapping(value = "/newsfeed", method = RequestMethod.GET)
+	@RequestMapping(value = "/sns/newsfeed", method = RequestMethod.GET)
 	public String newsfeed() {
 		logger.info("newsfeed.");
 		
-		return "newsfeed";
-	}
-	
-	@RequestMapping(value = "/newsfeed2", method = RequestMethod.GET)
-	public String newsfeed2() {
-		logger.info("newsfeed2.");
-		
-		return "newsfeed2";
+		return "/sns/newsfeed";
 	}
 	
 	@RequestMapping(value = "/widgets", method = RequestMethod.GET)
@@ -74,12 +71,72 @@ public class HomeController {
 		
 		return "temp/origin-newsfeed";
 	}
+
+	@RequestMapping(value = "/sns/login", method = RequestMethod.GET)
+	public String login() {
+		logger.info("login.");
+		
+		return "/sns/login";
+	}
+	
+	@RequestMapping(value = "/sns/naverLogin", method = RequestMethod.GET)
+	public String naverLogin() {
+		logger.info("naverLogin.");
+		
+		return "/sns/naverLogin";
+	}
+	
+	@RequestMapping(value = "/sns/naverLoginCallback", method = RequestMethod.GET)
+	public String naverLoginCallback() {
+		logger.info("naverLoginCallback.");
+		
+		return "/sns/naverLoginCallback";
+	}
+	
+	@RequestMapping(value = "/sns/googleLogin", method = RequestMethod.GET)
+	public String googleLogin() {
+		logger.info("googleLogin.");
+		
+		return "/sns/googleLogin";	
+	}
+	
+	@RequestMapping(value = "/sns/googleLoginCallback", method = RequestMethod.GET)
+	public String googleLoginCallback() {
+		logger.info("googleLoginCallback.");
+		
+		return "/sns/googleLoginCallback";	
+	}
+	
+	@RequestMapping(value = "/sns/signup", method = RequestMethod.GET)
+	public String signup() {
+		logger.info("signup.");
+		
+		return "/sns/signup";
+	}
+	
+	@RequestMapping(value = "/sns/mypage_index", method = RequestMethod.GET)
+	public String mypage_index() {
+		logger.info("mypage_index.");
+		
+		return "/sns/mypage_index";
+	}
+	
+	@RequestMapping(value = "/sns/mypage_follow", method = RequestMethod.GET)
+	public String mypage_follow() {
+		logger.info("mypage_follow.");
+		
+		return "/sns/mypage_follow";
+	}
+	
+	/**
+	 * stock 관련 start by 예겸
+	 */
+
 	@RequestMapping(value = "/stock", method = RequestMethod.GET)
 	public String stock() {
 		logger.info("stock.");
 		
 		return "stock";
 	}
-	
 	
 }
