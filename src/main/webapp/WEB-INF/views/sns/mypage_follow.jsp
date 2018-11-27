@@ -12,13 +12,13 @@
 
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" type="text/css" href="/resources/Bootstrap/dist/css/bootstrap-reboot.css">
-  <link rel="stylesheet" type="text/css" href="/resources/Bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="/resources/Bootstrap/dist/css/bootstrap-grid.css">
+  <link rel="stylesheet" type="text/css" href="../resources/Bootstrap/dist/css/bootstrap-reboot.css">
+  <link rel="stylesheet" type="text/css" href="../resources/Bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../resources/Bootstrap/dist/css/bootstrap-grid.css">
 
   <!-- Theme Styles CSS -->
-  <link rel="stylesheet" type="text/css" href="/resources/css/theme-styles.css">
-  <link rel="stylesheet" type="text/css" href="/resources/css/blocks.css">
+  <link rel="stylesheet" type="text/css" href="../resources/css/theme-styles.css">
+  <link rel="stylesheet" type="text/css" href="../resources/css/blocks.css">
 
   <!-- Main Font -->
   <script src="/resources/js/webfontloader.min.js"></script>
@@ -30,12 +30,12 @@
     });
   </script>
 
-  <link rel="stylesheet" type="text/css" href="/resources/css/fonts.css">
+  <link rel="stylesheet" type="text/css" href="../resources/css/fonts.css">
 
   <!-- Styles for plugins -->
-  <link rel="stylesheet" type="text/css" href="/resources/css/daterangepicker.css">
-  <link rel="stylesheet" type="text/css" href="/resources/css/jquery.mCustomScrollbar.min.css">
-  <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap-select.css">
+  <link rel="stylesheet" type="text/css" href="../resources/css/daterangepicker.css">
+  <link rel="stylesheet" type="text/css" href="../resources/css/jquery.mCustomScrollbar.min.css">
+  <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap-select.css">
 
 
 </head>
@@ -68,7 +68,7 @@
       <div class="ui-block">
         <div class="ui-block-title">
           <h6 class="title">Friend Requests</h6>
-          <a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
+          <a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="../resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
         </div>
 
         <ul class="notification-list friend-requests">
@@ -83,22 +83,22 @@
             <span class="notification-icon">
               <a href="#" class="accept-request">
                 <span class="icon-add">
-                  <svg class="olymp-happy-face-icon"><use xlink:href="/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+                  <svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
                 </span>
                 Accept Friend Request
               </a>
 
               <a href="#" class="accept-request request-del">
                 <span class="icon-minus">
-                  <svg class="olymp-happy-face-icon"><use xlink:href="/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+                  <svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
                 </span>
               </a>
 
             </span>
 
             <div class="more">
-              <svg class="olymp-three-dots-icon"><use xlink:href="/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-              <svg class="olymp-little-delete"><use xlink:href="/resources/icons/icons.svg#olymp-little-delete"></use></svg>
+              <svg class="olymp-three-dots-icon"><use xlink:href="../resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
+              <svg class="olymp-little-delete"><use xlink:href="../resources/icons/icons.svg#olymp-little-delete"></use></svg>
             </div>
           </li>
 
@@ -113,22 +113,22 @@
             <span class="notification-icon">
               <a href="#" class="accept-request">
                 <span class="icon-add">
-                  <svg class="olymp-happy-face-icon"><use xlink:href="/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+                  <svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
                 </span>
                 Accept Friend Request
               </a>
 
               <a href="#" class="accept-request request-del">
                 <span class="icon-minus">
-                  <svg class="olymp-happy-face-icon"><use xlink:href="/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+                  <svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
                 </span>
               </a>
 
             </span>
 
             <div class="more">
-              <svg class="olymp-three-dots-icon"><use xlink:href="/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-              <svg class="olymp-little-delete"><use xlink:href="/resources/icons/icons.svg#olymp-little-delete"></use></svg>
+              <svg class="olymp-three-dots-icon"><use xlink:href="../resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
+              <svg class="olymp-little-delete"><use xlink:href="../resources/icons/icons.svg#olymp-little-delete"></use></svg>
             </div>
           </li>
 
@@ -140,12 +140,12 @@
               You and <a href="#" class="h6 notification-friend">Mary Jane Stark</a> just became friends. Write on <a href="#" class="notification-link">his wall</a>.
             </div>
             <span class="notification-icon">
-              <svg class="olymp-happy-face-icon"><use xlink:href="/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+              <svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
             </span>
 
             <div class="more">
-              <svg class="olymp-three-dots-icon"><use xlink:href="/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-              <svg class="olymp-little-delete"><use xlink:href="/resources/icons/icons.svg#olymp-little-delete"></use></svg>
+              <svg class="olymp-three-dots-icon"><use xlink:href="../resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
+              <svg class="olymp-little-delete"><use xlink:href="../resources/icons/icons.svg#olymp-little-delete"></use></svg>
             </div>
           </li>
 

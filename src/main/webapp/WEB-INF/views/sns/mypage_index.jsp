@@ -12,16 +12,16 @@
 
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" type="text/css" href="/resources/Bootstrap/dist/css/bootstrap-reboot.css">
-  <link rel="stylesheet" type="text/css" href="/resources/Bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="/resources/Bootstrap/dist/css/bootstrap-grid.css">
+  <link rel="stylesheet" type="text/css" href="../resources/Bootstrap/dist/css/bootstrap-reboot.css">
+  <link rel="stylesheet" type="text/css" href="../resources/Bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../resources/Bootstrap/dist/css/bootstrap-grid.css">
 
   <!-- Theme Styles CSS -->
-  <link rel="stylesheet" type="text/css" href="/resources/css/theme-styles.css">
-  <link rel="stylesheet" type="text/css" href="/resources/css/blocks.css">
+  <link rel="stylesheet" type="text/css" href="../resources/css/theme-styles.css">
+  <link rel="stylesheet" type="text/css" href="../resources/css/blocks.css">
 
   <!-- Main Font -->
-  <script src="/resources/js/webfontloader.min.js"></script>
+  <script src="../resources/js/webfontloader.min.js"></script>
   <script>
     WebFont.load({
       google: {
@@ -30,12 +30,12 @@
     });
   </script>
 
-  <link rel="stylesheet" type="text/css" href="/resources/css/fonts.css">
+  <link rel="stylesheet" type="text/css" href="../resources/css/fonts.css">
 
   <!-- Styles for plugins -->
-  <link rel="stylesheet" type="text/css" href="/resources/css/daterangepicker.css">
-  <link rel="stylesheet" type="text/css" href="/resources/css/jquery.mCustomScrollbar.min.css">
-  <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap-select.css">
+  <link rel="stylesheet" type="text/css" href="../resources/css/daterangepicker.css">
+  <link rel="stylesheet" type="text/css" href="../resources/css/jquery.mCustomScrollbar.min.css">
+  <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap-select.css">
 
 
 </head>
@@ -106,7 +106,7 @@
                   <label class="control-label">생년월일</label>
                   <input name="datetimepicker" value="10/24/1984" />
                   <span class="input-group-addon">
-                    <svg class="olymp-month-calendar-icon icon"><use xlink:href="/resources/icons/icons.svg#olymp-month-calendar-icon"></use></svg>
+                    <svg class="olymp-month-calendar-icon icon"><use xlink:href="../resources/icons/icons.svg#olymp-month-calendar-icon"></use></svg>
                   </span>
                 </div>
 

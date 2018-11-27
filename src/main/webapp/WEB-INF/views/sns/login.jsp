@@ -11,16 +11,16 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" type="text/css" href="/resources/Bootstrap/dist/css/bootstrap-reboot.css">
-	<link rel="stylesheet" type="text/css" href="/resources/Bootstrap/dist/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="/resources/Bootstrap/dist/css/bootstrap-grid.css">
+	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/Bootstrap/dist/css/bootstrap-reboot.css">
+	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/Bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/Bootstrap/dist/css/bootstrap-grid.css">
 
 	<!-- Theme Styles CSS -->
-	<link rel="stylesheet" type="text/css" href="/resources/css/theme-styles.css">
-	<link rel="stylesheet" type="text/css" href="/resources/css/blocks.css">
+	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/theme-styles.css">
+	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/blocks.css">
 
 	<!-- Main Font -->
-	<script src="/resources/js/webfontloader.min.js"></script>
+	<script src="<%=application.getContextPath()%>/resources/js/webfontloader.min.js"></script>
 	<script>
 		WebFont.load({
 			google: {
@@ -29,11 +29,11 @@
 		});
 	</script>
 
-	<link rel="stylesheet" type="text/css" href="/resources/css/fonts.css">
+	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/fonts.css">
 
 	<!-- Styles for plugins -->
-	<link rel="stylesheet" type="text/css" href="/resources/css/jquery.mCustomScrollbar.min.css">
-	<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap-select.css">
+	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/jquery.mCustomScrollbar.min.css">
+	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/bootstrap-select.css">
 
 </head>
 
@@ -45,7 +45,7 @@
 <div class="modal fade show" id="fav-page-popup" style="display:block;">
 	<div class="modal-dialog ui-block window-popup fav-page-popup">
 		<a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
-			<svg class="olymp-close-icon"><use xlink:href="/resources/icons/icons.svg#olymp-close-icon"></use></svg>
+			<svg class="olymp-close-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-close-icon"></use></svg>
 		</a>
 
 		<div class="ui-block-title">
@@ -110,21 +110,26 @@
 <!-- ... login page end -->
 
 
-
 <!-- jQuery first, then Other JS. -->
-<script src="/resources/js/jquery-3.2.0.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
 <!-- Js effects for material design. + Tooltips -->
-<script src="/resources/js/material.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/material.min.js"></script>
 <!-- Helper scripts (Tabs, Equal height, Scrollbar, etc) -->
-<script src="/resources/js/theme-plugins.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/theme-plugins.js"></script>
 <!-- Init functions -->
-<script src="/resources/js/main.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/main.js"></script>
 
 <!-- Select / Sorting script -->
-<script src="/resources/js/selectize.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/selectize.min.js"></script>
 
-<script src="/resources/js/mediaelement-and-player.min.js"></script>
-<script src="/resources/js/mediaelement-playlist-plugin.min.js"></script>
+<!-- Datepicker input field script-->
+<script src="<%=application.getContextPath()%>/resources/js/moment.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/daterangepicker.min.js"></script>
+
+<script src="<%=application.getContextPath()%>/resources/js/mediaelement-and-player.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/mediaelement-playlist-plugin.min.js"></script>
+
+
 
 </body>
 </html>
