@@ -7,13 +7,13 @@
 
   <div class="header-content-wrapper" >
   
-    <a href="<%=application.getContextPath()%>/newsfeed" class="logo" style="float: left; padding:10px; min-width: 70px;">
+    <a href="<%=application.getContextPath()%>/sns/newsfeed" class="logo" style="float: left; padding:10px; min-width: 70px;">
       <img src="<%=application.getContextPath()%>/resources/img/sos.png" alt="Olympus" style="width: 70px; height: auto; margin: 0px">
     </a>
-    <a href="<%=application.getContextPath()%>/newsfeed" class="logo" style="float: left; padding: 20px 10px;" >
+    <a href="<%=application.getContextPath()%>/sns/newsfeed" class="logo" style="float: left; padding: 20px 10px;" >
       <h6 class="logo-title" style="margin-top: 0px">SNS</h6>
     </a>
-    <a href="<%=application.getContextPath()%>/stock" class="logo" style="float: left; padding: 20px 10px;" >
+    <a href="<%=application.getContextPath()%>/stock/stock-index" class="logo" style="float: left; padding: 20px 10px;" >
       <h6 class="logo-title" style="margin-top: 0px">STOCK</h6>
     </a>
     <a href="#" class="open-responsive-menu js-open-responsive-menu">

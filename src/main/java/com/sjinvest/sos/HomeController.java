@@ -132,11 +132,11 @@ public class HomeController {
 	 * stock 관련 start by 예겸
 	 */
 
-	@RequestMapping(value = "/stock", method = RequestMethod.GET)
+	@RequestMapping(value = "/stock/index", method = RequestMethod.GET)
 	public String stock() {
-		logger.info("stock.");
+		logger.info("stock index ");
 		
-		return "stock";
+		return "/stock/stock-index";
 	}
 	
 }
