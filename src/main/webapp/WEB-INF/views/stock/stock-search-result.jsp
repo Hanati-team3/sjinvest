@@ -73,6 +73,7 @@
                     <th class="trading-amount">거래량</th>
                     <th class="day-before">전일대비</th>
                     <th class="day-before-rate">등락률</th>
+                    <th class="add-to-interest">관심목록추가</th>
                   </tr>
                 </thead>
     
@@ -105,6 +106,9 @@
                         <a href="#" class="h6 title">+ 1.90 %</a>
                       </div>
                     </td>
+                    <td class="add-to-interest">
+                        <a href="#" class="more"><i class="fas fa-heart"></i></a>
+                    </td>
                   </tr>
                   
                   <tr>
@@ -130,10 +134,13 @@
                         <a href="#" class="h6 title">- 1000</a>
                       </div>
                     </td>
-                    <td class="day-before-rate minus">
-                      <div class="author-freshness">
+                    <td class="day-before-rate">
+                      <div class="author-freshness  minus">
                         <a href="#" class="h6 title">- 1.41 %</a>
                       </div>
+                    </td>
+                    <td class="add-to-interest">
+                        <a href="#" class="more"><i class="far fa-heart"></i></a>
                     </td>
                   </tr>
     
