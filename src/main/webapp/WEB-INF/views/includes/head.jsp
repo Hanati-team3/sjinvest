@@ -42,7 +42,7 @@
 
 <!-- Lightbox popup script-->
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/magnific-popup.css">
-
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <style>
 .stock-index-ul {
   text-align: center; 
@@ -58,6 +58,54 @@
     color: #ff5e3a;
 }
 
+.header--standard-dark .header-menu .header-a-padding{
+  padding: 20px 30px;
+}
 
+.stock-index-news .h6 {
+  font-family: 'Nanum Myeongjo', sans-serif;
+  min-width: 100px;
+}
+
+.stock-index-news .notification-list li {
+  padding: 15px 25px;
+}
+
+.stock-index-tab .tab-content .ui-block {
+  border : none;
+}
+
+.stock-index-tab .tab-content .ui-block-title {
+  border : none;
+  margin-top : 2px;
+}
+
+.stock-my-interests .statistics-slide .company-name {
+    font-size: 20px;
+    color: #515365;
+    margin-bottom: 0px;
+
+}
+.stock-my-interests .statistics-slide .company-stock {
+    font-size: 40px;
+    color: #ff5e3a;
+}
+
+.stock-index-trend .chart-js-pie-color {
+  margin-top: 60px; 
+}
+
+.stock-index-main {
+  margin-top : 20px;
+}
+
+.stock-index-main .h6{
+  margin-top : 20px;
+  font-family: 'Nanum Myeongjo', sans-serif;
+}
+
+.stock-index-main .forums-table .text{
+  font-size: 10px;
+}
 </style>
 
