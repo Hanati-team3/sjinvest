@@ -149,5 +149,46 @@
   color : #ff5e3a;
 }
 
+.stock-company-main {
+  margin-top : 20px;
+}
+
+.stock-company-main .statistics-slide .company-name {
+    font-size: 40px;
+    color: #515365;
+    margin-bottom: 0px;
+
+}
+.stock-company-main .statistics-slide .company-stock {
+    font-size: 30px;
+    color: #ff5e3a;
+}
+
+.stock-company-main .company-main-card .company-name {
+    font-size: 40px;
+    color: #515365;
+    margin-bottom: 0px;
+    text-align: center;
+    font-weight: nomal;
+
+}
+.stock-company-main .company-main-card .company-stock {
+    font-size: 30px;
+    color: #ff5e3a;
+    text-align: center;
+    font-weight: nomal;
+    margin-bottom: 20px;
+}
+.stock-company-main .company-main-card-sub .ui-block {
+  border:none;
+}
+
+.stock-company-main .single-post-v1 {
+}
+
+
+.post-control-button .bg-interest {
+    background-color: #f9708d;
+}
 </style>
 

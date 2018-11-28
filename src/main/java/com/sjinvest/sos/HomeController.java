@@ -188,4 +188,11 @@ public class HomeController {
 		return "/stock/stock-search-result";
 	}
 	
+	@RequestMapping(value = "/stock/company", method = RequestMethod.GET)
+	public String company() {
+		logger.info("stock company ");
+		
+		return "/stock/stock-company";
+	}
+	
 }

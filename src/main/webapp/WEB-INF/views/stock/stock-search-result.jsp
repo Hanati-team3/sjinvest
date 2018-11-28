@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>SOS - 모의투자</title>
+<title>SOS - 모의투자 검색 결과</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
 </head>
 
