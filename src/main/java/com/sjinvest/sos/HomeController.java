@@ -145,5 +145,11 @@ public class HomeController {
 		
 		return "/stock/stock-index";
 	}
+	@RequestMapping(value = "/icon", method = RequestMethod.GET)
+	public String icon() {
+		logger.info("icon ");
+		
+		return "/temp/icon";
+	}
 	
 }

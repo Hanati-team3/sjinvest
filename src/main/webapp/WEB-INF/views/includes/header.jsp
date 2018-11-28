@@ -24,10 +24,10 @@
       <div class="mCustomScrollbar">
         <ul>
           <li class="nav-item">
-            <a href="#" class="nav-link">Interests</a>
+            <a href="#" class="nav-link header-a-padding">Interests</a>
           </li>
           <li class="nav-item dropdown" style="min-width: 120px;">
-            <a class="nav-link dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" tabindex='1'>Trading Lists</a>
+            <a class="nav-link dropdown-toggle header-a-padding" data-hover="dropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" tabindex='1'>Trading Lists</a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="#">Profile Page</a>
               <a class="dropdown-item" href="#">Newsfeed</a>
@@ -35,7 +35,7 @@
             </div>
           </li>
           <li class="nav-item" style="min-width: 110px;">
-            <a href="#" class="nav-link">Holding Lists</a>
+            <a href="#" class="nav-link header-a-padding">Holding Lists</a>
           </li>
 
           <li class="close-responsive-menu js-close-responsive-menu">
