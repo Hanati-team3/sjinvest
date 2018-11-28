@@ -6,7 +6,7 @@
 	<div class="mCustomScrollbar" data-mcs-theme="dark" >
 
 		<div class="ui-block-title ui-block-title-small">
-			<a href="#" class="title">Followings</a>
+			<a href="#" class="title">Following</a>
 		</div>
 
 		<ul class="chat-users">
@@ -177,7 +177,7 @@
 		</ul>
 
 		<div class="ui-block-title ui-block-title-small">
-			<a href="#" class="title">Followers</a>
+			<a href="#" class="title">Follower</a>
 		</div>
 
 		<ul class="chat-users">
