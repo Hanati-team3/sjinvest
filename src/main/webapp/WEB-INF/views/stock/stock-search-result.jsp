@@ -29,7 +29,7 @@
   <!-- Widget Weather -->
   <div class="container">
     <%-- 사이드 포함 row 시작 --%>
-    <div class="row stock-index-main">
+    <div class="row stock-search-main">
       <!-- Left Sidebar -->
       <aside class="col-xl-3 order-xl-1 col-lg-3 order-lg-1 col-md-3 order-md-1 col-sm-12 col-xs-12">
         <%-- 내 정보 위젯 --%>
@@ -67,8 +67,8 @@
               <table class="forums-table">
                 <thead>
                   <tr>
-                    <th class="forum">종목번호</th>
-                    <th class="topics">기업명</th>
+                    <th class="">종목번호</th>
+                    <th class="company-name">기업명</th>
                     <th class="posts">현재주가</th>
                     <th class="freshness">전일대비</th>
                     <th class="freshness">등락률</th>
@@ -77,39 +77,30 @@
     
                 <tbody>
                   <tr>
-                    <td class="forum">
+                    <td class="">
                       <div class="forum-item">
                         <a href="#" class="h6 count">3</a>
                       </div>
                     </td>
-                    <td class="topics">
-                        <div class="content">
-                          <a href="#" class="h6 title">하나금융지주</a>
-                          <p class="text">은행</p>
-                        </div>
+                    <td class="company-name">
+                      <div class="author-freshness">
+                        <a href="#" class="h6 title">하나금융지주</a>
+                        <time class="entry-date updated"
+                          datetime="2017-06-24T18:18">은행</time>
+                      </div>
                     </td>
                     <td class="posts"><a href="#" class="h6 count">10</a>
                     </td>
                     <td class="freshness">
                       <div class="author-freshness">
-                        <div class="author-thumb">
-                          <img src="<%=application.getContextPath()%>/resources/img/avatar10-sm.jpg" alt="author">
-                        </div>
                         <a href="#" class="h6 title">Elaine Dreyfuss</a>
-                        <time class="entry-date updated"
-                          datetime="2017-06-24T18:18">13 hours, 58
-                          minutes ago</time>
+                        <time class="entry-date updated" datetime="2017-06-24T18:18">13 hours, 58 minutes ago</time>
                       </div>
                     </td>
                     <td class="freshness">
                       <div class="author-freshness">
-                        <div class="author-thumb">
-                          <img src="<%=application.getContextPath()%>/resources/img/avatar10-sm.jpg" alt="author">
-                        </div>
                         <a href="#" class="h6 title">Elaine Dreyfuss</a>
-                        <time class="entry-date updated"
-                          datetime="2017-06-24T18:18">13 hours, 58
-                          minutes ago</time>
+                        <time class="entry-date updated" datetime="2017-06-24T18:18">13 hours, 58 minutes ago</time>
                       </div>
                     </td>
                   </tr>

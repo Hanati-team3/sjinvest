@@ -104,7 +104,11 @@
   font-family: 'Nanum Myeongjo', sans-serif;
 }
 
-.stock-index-main .forums-table .text{
+.stock-search-main .forums-table .text{
+  font-size: 10px;
+}
+
+.stock-search-main .forums-table .company-name{
   font-size: 10px;
 }
 </style>
