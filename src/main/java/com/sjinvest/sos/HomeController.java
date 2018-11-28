@@ -135,6 +135,34 @@ public class HomeController {
 		return "/sns/mypage_follow2";
 	}
 	
+	@RequestMapping(value = "/sns/mypage_sns", method = RequestMethod.GET)
+	public String mypage_sns() {
+		logger.info("mypage_sns.");
+		
+		return "/sns/mypage_sns";
+	}
+	
+	@RequestMapping(value = "/sns/mypage_stock", method = RequestMethod.GET)
+	public String mypage_stock() {
+		logger.info("mypage_stock.");
+		
+		return "/sns/mypage_stock";
+	}
+	
+	@RequestMapping(value = "/sns/mypage_point", method = RequestMethod.GET)
+	public String mypage_point() {
+		logger.info("mypage_point.");
+		
+		return "/sns/mypage_point";
+	}
+	
+	@RequestMapping(value = "/sns/user_profile", method = RequestMethod.GET)
+	public String user_profile() {
+		logger.info("user_profile.");
+		
+		return "/sns/user_profile";
+	}
+	
 	/**
 	 * stock 관련 start by 예겸
 	 */
