@@ -104,12 +104,51 @@
   font-family: 'Nanum Myeongjo', sans-serif;
 }
 
+.stock-search-main {
+  margin-top : 20px;
+}
+
 .stock-search-main .forums-table .text{
   font-size: 10px;
 }
 
-.stock-search-main .forums-table .company-name{
-  font-size: 10px;
+.stock-search-main .forums-table th{
+  padding : 15px 5px;
 }
+.stock-search-main .forums-table td{
+  padding : 15px 5px;
+}
+
+.stock-search-main .forums-table .company-number{
+  width : 100px;
+}
+
+.stock-search-main .forums-table .company-name{
+}
+.stock-search-main .forums-table tbody .company-name{
+  font-size: 10px;
+  text-align: left;
+}
+
+.stock-search-main .forums-table .stock-price{
+  width : 100px;
+}
+.stock-search-main .forums-table .trading-amount{
+  width : 100px;
+}
+.stock-search-main .forums-table .day-before{
+  width : 100px;
+}
+.stock-search-main .forums-table .day-before-rate{
+  width : 100px;
+}
+
+.minus a {
+  color : #38a9ff;
+}
+.plus a {
+  color : #ff5e3a;
+}
+
 </style>
 
