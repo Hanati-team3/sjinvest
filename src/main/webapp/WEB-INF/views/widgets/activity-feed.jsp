@@ -2,7 +2,7 @@
 <div class="ui-block">
 
   <div class="ui-block-title">
-    <h6 class="title">관심목록</h6>
+    <h6 class="title">관심종목</h6>
     <a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
   </div>
 

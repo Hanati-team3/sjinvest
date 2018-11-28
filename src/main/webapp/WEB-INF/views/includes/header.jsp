@@ -19,7 +19,10 @@
     <a href="#" class="open-responsive-menu js-open-responsive-menu">
     	<svg class="olymp-menu-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-menu-icon"></use></svg>
     </a>
-    
+
+
+<!-- 예겸이랑 상의해서 날린부분 -->
+<%--
     <div class="nav nav-pills nav1 header-menu" style=" margin-left: 5%">
       <div class="mCustomScrollbar">
         <ul>
@@ -44,9 +47,8 @@
         </ul>
         
       </div>
-      
     </div>
-    
+--%>
     
 
     <div class="control-block " style="padding: 10px 30px;">
@@ -69,8 +71,6 @@
             <div class="more-dropdown more-with-triangle triangle-top-center">
               <div class="ui-block-title ui-block-title-small">
                 <h6 class="title">FRIEND REQUESTS</h6>
-                <a href="#">Find Friends</a>
-                <a href="#">Settings</a>
               </div>
     
               <div class="mCustomScrollbar" data-mcs-theme="dark">
@@ -103,34 +103,7 @@
                     </div>
                   </li>
     
-                  <li>
-                    <div class="author-thumb">
-                      <img src="<%=application.getContextPath()%>/resources/img/avatar56-sm.jpg" alt="author">
-                    </div>
-                    <div class="notification-event">
-                      <a href="#" class="h6 notification-friend">Tony Stevens</a>
-                      <span class="chat-message-item">4 Friends in Common</span>
-                    </div>
-                    <span class="notification-icon">
-                      <a href="#" class="accept-request">
-                        <span class="icon-add without-text">
-                          <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-                        </span>
-                      </a>
-    
-                      <a href="#" class="accept-request request-del">
-                        <span class="icon-minus">
-                          <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-                        </span>
-                      </a>
-    
-                    </span>
-    
-                    <div class="more">
-                      <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-                    </div>
-                  </li>
-    
+
                   <li class="accepted">
                     <div class="author-thumb">
                       <img src="<%=application.getContextPath()%>/resources/img/avatar57-sm.jpg" alt="author">
@@ -148,33 +121,6 @@
                     </div>
                   </li>
     
-                  <li>
-                    <div class="author-thumb">
-                      <img src="<%=application.getContextPath()%>/resources/img/avatar58-sm.jpg" alt="author">
-                    </div>
-                    <div class="notification-event">
-                      <a href="#" class="h6 notification-friend">Stagg Clothing</a>
-                      <span class="chat-message-item">9 Friends in Common</span>
-                    </div>
-                    <span class="notification-icon">
-                      <a href="#" class="accept-request">
-                        <span class="icon-add without-text">
-                          <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-                        </span>
-                      </a>
-    
-                      <a href="#" class="accept-request request-del">
-                        <span class="icon-minus">
-                          <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-                        </span>
-                      </a>
-    
-                    </span>
-    
-                    <div class="more">
-                      <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-                    </div>
-                  </li>
     
                 </ul>
               </div>
@@ -194,11 +140,10 @@
             <div class="more-dropdown more-with-triangle triangle-top-center">
               <div class="ui-block-title ui-block-title-small">
                 <h6 class="title">Notifications</h6>
-                <a href="#">Mark all as read</a>
-                <a href="#">Settings</a>
               </div>
               <div class="mCustomScrollbar" data-mcs-theme="dark">
                 <ul class="notification-list">
+                
                   <li>
                     <div class="author-thumb">
                       <img src="<%=application.getContextPath()%>/resources/img/avatar62-sm.jpg" alt="author">
@@ -235,29 +180,6 @@
                     </div>
                   </li>
     
-                  <li class="with-comment-photo">
-                    <div class="author-thumb">
-                      <img src="<%=application.getContextPath()%>/resources/img/avatar64-sm.jpg" alt="author">
-                    </div>
-                    <div class="notification-event">
-                      <div><a href="#" class="h6 notification-friend">Sarah Hetfield</a> commented on your <a href="#" class="notification-link">photo</a>.</div>
-                      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at 5:32am</time></span>
-                    </div>
-                      <span class="notification-icon">
-                        <svg class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-                      </span>
-    
-                    <div class="comment-photo">
-                      <img src="<%=application.getContextPath()%>/resources/img/comment-photo1.jpg" alt="photo">
-                      <span>“She looks incredible in that outfit! We should see each...”</span>
-                    </div>
-    
-                    <div class="more">
-                      <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-                      <svg class="olymp-little-delete"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-little-delete"></use></svg>
-                    </div>
-                  </li>
-    
                   <li>
                     <div class="author-thumb">
                       <img src="<%=application.getContextPath()%>/resources/img/avatar65-sm.jpg" alt="author">
@@ -276,23 +198,7 @@
                     </div>
                   </li>
     
-                  <li>
-                    <div class="author-thumb">
-                      <img src="<%=application.getContextPath()%>/resources/img/avatar66-sm.jpg" alt="author">
-                    </div>
-                    <div class="notification-event">
-                      <div><a href="#" class="h6 notification-friend">James Summers</a> commented on your new <a href="#" class="notification-link">profile status</a>.</div>
-                      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">March 2nd at 8:29pm</time></span>
-                    </div>
-                      <span class="notification-icon">
-                        <svg class="olymp-heart-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-heart-icon"></use></svg>
-                      </span>
-    
-                    <div class="more">
-                      <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-                      <svg class="olymp-little-delete"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-little-delete"></use></svg>
-                    </div>
-                  </li>
+
                 </ul>
               </div>
               <a href="#" class="view-all bg-primary">View All Notifications</a>
@@ -309,6 +215,31 @@
               <!-- 마우스 오버 -->
               <div class="more-dropdown more-with-triangle">
                 <div class="mCustomScrollbar" data-mcs-theme="dark">
+
+                  <%-- 기업정보 시작 --%>
+                  <div class="ui-block-title ui-block-title-small">
+                    <h6 class="title">MY STOCK</h6>
+                  </div>
+                  <ul>
+                    <li>
+                      <a href="#">
+                        <span>관심종목</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <span>주문내역</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <span>현재보유내역</span>
+                      </a>
+                    </li>
+                  </ul>
+                  <%-- 기업정보 끝 --%>
+
+
                   <%-- 계정 설정 시작 --%>
                   <div class="ui-block-title ui-block-title-small">
                     <h6 class="title">Your Account</h6>
@@ -318,19 +249,18 @@
                     <li>
                       <a href="29-YourAccount-AccountSettings.html">
                         <svg class="olymp-menu-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-menu-icon"></use></svg>
-                        <span>Profile Settings</span>
+                        <span>설정</span>
                       </a>
                     </li>
                     <li>
                       <a href="#">
                         <svg class="olymp-logout-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-logout-icon"></use></svg>
-                        <span>Log Out</span>
+                        <span>로그아웃</span>
                       </a>
                     </li>
                   </ul>
                   <%-- 계정 설정 끝 --%>
                   
-                 
                 </div>
               </div>
               <!-- 마우스 오버 끝-->
