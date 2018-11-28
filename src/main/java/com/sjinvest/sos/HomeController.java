@@ -139,17 +139,25 @@ public class HomeController {
 	 * stock 관련 start by 예겸
 	 */
 
+	@RequestMapping(value = "/icon", method = RequestMethod.GET)
+	public String icon() {
+		logger.info("icon ");
+		
+		return "/temp/icon";
+	}
+	
 	@RequestMapping(value = "/stock/index", method = RequestMethod.GET)
 	public String stock() {
 		logger.info("stock index ");
 		
 		return "/stock/stock-index";
 	}
-	@RequestMapping(value = "/icon", method = RequestMethod.GET)
-	public String icon() {
-		logger.info("icon ");
+	
+	@RequestMapping(value = "/stock/search", method = RequestMethod.GET)
+	public String search() {
+		logger.info("stock search ");
 		
-		return "/temp/icon";
+		return "/stock/stock-search-result";
 	}
 	
 }

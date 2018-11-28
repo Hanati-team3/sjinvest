@@ -101,7 +101,11 @@
 
 .stock-index-main .h6{
   margin-top : 20px;
-    font-family: 'Nanum Myeongjo', sans-serif;
+  font-family: 'Nanum Myeongjo', sans-serif;
+}
+
+.stock-index-main .forums-table .text{
+  font-size: 10px;
 }
 </style>
 
