@@ -14,11 +14,11 @@
   <script>
       WebFont.load({
           google: {
-              families: ['Roboto:300,400,500,700:latin']
+              families: ['Roboto:300,400,500,700:latin',
+            	  'Nanum Myeongjo', 'Nanum Gothic']
           }
       });
   </script>
-
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/Bootstrap/dist/css/bootstrap-reboot.css">
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/Bootstrap/dist/css/bootstrap.css">
@@ -43,9 +43,21 @@
 <!-- Lightbox popup script-->
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/magnific-popup.css">
 
+<style>
+.stock-index-ul {
+  text-align: center; 
+  font-weight: bold; 
+  font-family: 'Nanum Myeongjo', sans-serif;
+}
+
+.stock-index-ul li {
+  width: 16.66%;
+}
+
+.stock-index-ul li :hover {
+    color: #ff5e3a;
+}
 
 
-
-
-
+</style>
 
