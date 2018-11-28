@@ -283,10 +283,10 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs stock-index-ul" role="tablist">
               <li class="nav-item" ><a class="nav-link active inline-items" data-toggle="tab"
-                href="#home-1" role="tab" aria-expanded="true"> <span>상승률 상위</span>
+                href="#rising-rate" role="tab" aria-expanded="true"> <span>상승률 상위</span>
               </a></li>
               <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
-                href="#profile-1" role="tab" aria-expanded="false"><span>하락률 상위</span>
+                href="#falling-rate" role="tab" aria-expanded="false"><span>하락률 상위</span>
               </a></li>
     
               <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
@@ -308,90 +308,192 @@
     
             <!-- Tab panes -->
             <div class="tab-content">
-              <%-- home-1탭 시작 --%>
-              <div class="tab-pane active" id="home-1" role="tabpanel" aria-expanded="true">
-
+              <%-- rising-rate탭 시작 --%>
+              <div class="tab-pane active" id="rising-rate" role="tabpanel" aria-expanded="true">
+                <div class="ui-block" data-mh="pie-chart" style="border-top: none;">
+                  <div class="ui-block-title">
+                    <div class="h6 title">Progress Bars</div>
+                    <a href="#" class="more"><svg class="olymp-three-dots-icon">
+                        <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
+                  </div>
+        
+                  <div class="ui-block-content">
+                    <div class="skills-item">
+                      <div class="skills-item-info">
+                        <span class="skills-item-title">Orange Gradient Progress</span>
+                        <span class="skills-item-count"><span class="count-animate" data-speed="1000"
+                          data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">62%</span></span>
+                      </div>
+                      <div class="skills-item-meter">
+                        <span class="skills-item-meter-active bg-primary" style="width: 62%"></span>
+                      </div>
+                    </div>
+        
+                    <div class="skills-item">
+                      <div class="skills-item-info">
+                        <span class="skills-item-title">Violet Progress</span> <span
+                          class="skills-item-count"><span
+                          class="count-animate" data-speed="1000"
+                          data-refresh-interval="50" data-to="46" data-from="0"></span><span
+                          class="units">46%</span></span>
+                      </div>
+                      <div class="skills-item-meter">
+                        <span class="skills-item-meter-active bg-purple"
+                          style="width: 46%"></span>
+                      </div>
+                    </div>
+        
+                    <div class="skills-item">
+                      <div class="skills-item-info">
+                        <span class="skills-item-title">Blue Progress</span> <span
+                          class="skills-item-count"><span
+                          class="count-animate" data-speed="1000"
+                          data-refresh-interval="50" data-to="79" data-from="0"></span><span
+                          class="units">79%</span></span>
+                      </div>
+                      <div class="skills-item-meter">
+                        <span class="skills-item-meter-active bg-blue"
+                          style="width: 79%"></span>
+                      </div>
+                    </div>
+        
+                    <div class="skills-item">
+                      <div class="skills-item-info">
+                        <span class="skills-item-title">Aqua Progress</span> <span
+                          class="skills-item-count"><span
+                          class="count-animate" data-speed="1000"
+                          data-refresh-interval="50" data-to="34" data-from="0"></span><span
+                          class="units">34%</span></span>
+                      </div>
+                      <div class="skills-item-meter">
+                        <span class="skills-item-meter-active bg-breez"
+                          style="width: 34%"></span>
+                      </div>
+                    </div>
+        
+                    <div class="skills-item">
+                      <div class="skills-item-info">
+                        <span class="skills-item-title">Yellow Progress</span> <span
+                          class="skills-item-count"><span
+                          class="count-animate" data-speed="1000"
+                          data-refresh-interval="50" data-to="95" data-from="0"></span><span
+                          class="units">95%</span></span>
+                      </div>
+                      <div class="skills-item-meter">
+                        <span class="skills-item-meter-active bg-yellow"
+                          style="width: 95%"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <%-- home-1탭 끝 --%>
-              <%-- profile-1탭 시작 --%>
-              <div class="tab-pane" id="profile-1" role="tabpanel"
-                aria-expanded="true">
-                <form>
-                  <div class="form-group with-icon label-floating is-empty">
-                    <label class="control-label">Share what you are
-                      thinking here...</label>
-                    <textarea class="form-control" placeholder=""></textarea>
-                    <span class="material-input"></span>
+              <%-- rising-rate탭 끝 --%>
+              <%-- falling-rate탭 시작 --%>
+              <div class="tab-pane" id="falling-rate" role="tabpanel" aria-expanded="true">
+                <div class="ui-block" data-mh="pie-chart" style="border-top: none;">
+                  <div class="ui-block-title">
+                    <div class="h6 title">Progress Bars</div>
+                    <a href="#" class="more"><svg class="olymp-three-dots-icon">
+                        <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                   </div>
-                  <div class="add-options-message">
-                    <a href="#" class="options-message"
-                      data-toggle="tooltip" data-placement="top"
-                      data-original-title="ADD PHOTOS"> <svg
-                        class="olymp-camera-icon" data-toggle="modal"
-                        data-target="#update-header-photo">
-                        <use xlink:href="#olymp-camera-icon"></use></svg>
-                    </a> <a href="#" class="options-message"
-                      data-toggle="tooltip" data-placement="top"
-                      data-original-title="TAG YOUR FRIENDS"> <svg
-                        class="olymp-computer-icon">
-                        <use xlink:href="#olymp-computer-icon"></use></svg>
-                    </a> <a href="#" class="options-message"
-                      data-toggle="tooltip" data-placement="top"
-                      data-original-title="ADD LOCATION"> <svg
-                        class="olymp-small-pin-icon">
-                        <use xlink:href="#olymp-small-pin-icon"></use></svg>
-                    </a>
-    
-                    <button class="btn btn-primary btn-md-2">Post
-                      Status</button>
-                    <button
-                      class="btn btn-md-2 btn-border-think btn-transparent c-grey">Preview</button>
-    
+        
+                  <div class="ui-block-content">
+                    <div class="skills-item">
+                      <div class="skills-item-info">
+                        <span class="skills-item-title">Orange Gradient Progress</span>
+                        <span class="skills-item-count"><span class="count-animate" data-speed="1000"
+                          data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">62%</span></span>
+                      </div>
+                      <div class="skills-item-meter">
+                        <span class="skills-item-meter-active bg-primary" style="width: 62%"></span>
+                      </div>
+                    </div>
+        
+                    <div class="skills-item">
+                      <div class="skills-item-info">
+                        <span class="skills-item-title">Violet Progress</span> <span
+                          class="skills-item-count"><span
+                          class="count-animate" data-speed="1000"
+                          data-refresh-interval="50" data-to="46" data-from="0"></span><span
+                          class="units">46%</span></span>
+                      </div>
+                      <div class="skills-item-meter">
+                        <span class="skills-item-meter-active bg-purple"
+                          style="width: 46%"></span>
+                      </div>
+                    </div>
+        
+                    <div class="skills-item">
+                      <div class="skills-item-info">
+                        <span class="skills-item-title">Blue Progress</span> <span
+                          class="skills-item-count"><span
+                          class="count-animate" data-speed="1000"
+                          data-refresh-interval="50" data-to="79" data-from="0"></span><span
+                          class="units">79%</span></span>
+                      </div>
+                      <div class="skills-item-meter">
+                        <span class="skills-item-meter-active bg-blue"
+                          style="width: 79%"></span>
+                      </div>
+                    </div>
+        
+                    <div class="skills-item">
+                      <div class="skills-item-info">
+                        <span class="skills-item-title">Aqua Progress</span> <span
+                          class="skills-item-count"><span
+                          class="count-animate" data-speed="1000"
+                          data-refresh-interval="50" data-to="34" data-from="0"></span><span
+                          class="units">34%</span></span>
+                      </div>
+                      <div class="skills-item-meter">
+                        <span class="skills-item-meter-active bg-breez"
+                          style="width: 34%"></span>
+                      </div>
+                    </div>
+        
+                    <div class="skills-item">
+                      <div class="skills-item-info">
+                        <span class="skills-item-title">Yellow Progress</span> <span
+                          class="skills-item-count"><span
+                          class="count-animate" data-speed="1000"
+                          data-refresh-interval="50" data-to="95" data-from="0"></span><span
+                          class="units">95%</span></span>
+                      </div>
+                      <div class="skills-item-meter">
+                        <span class="skills-item-meter-active bg-yellow"
+                          style="width: 95%"></span>
+                      </div>
+                    </div>
                   </div>
-    
-                </form>
+                </div>
               </div>
-              <%-- profile-1탭 끝 --%>
-              <%-- blog 탭 시작 --%>
-              <div class="tab-pane" id="blog" role="tabpanel"
-                aria-expanded="true">
-                <form>
-                  <div class="author-thumb">
-                    <img src="<%=application.getContextPath()%>/resources/img/author-page.jpg" alt="author">
+              <%-- falling-rate 끝 --%>
+              <%-- foreigner 탭 시작 --%>
+              <div class="tab-pane" id="blog" role="tabpanel" aria-expanded="true">
+                <div class="ui-block">
+                  <div class="ui-block-title">
+                    <div class="h6 title">Pie Chart with Text</div>
+                    <a href="#" class="more"><svg
+                        class="olymp-three-dots-icon">
+                        <use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                   </div>
-                  <div class="form-group with-icon label-floating is-empty">
-                    <label class="control-label">Share what you are
-                      thinking here...</label>
-                    <textarea class="form-control" placeholder=""></textarea>
-                    <span class="material-input"></span>
+                  <div class="ui-block-content">
+                    <div class="circle-progress circle-pie-chart">
+                      <div class="pie-chart" data-value="0.68"
+                        data-startcolor="#38a9ff" data-endcolor="#317cb6">
+                        <div class="content">
+                          <span>%</span>
+                        </div>
+                      </div>
+                    </div>
+        
+                    <div class="chart-text">
+                      <h6>Friends Comments</h6>
+                      <p>68% of friends that visit your profile comment on
+                        your posts.</p>
+                    </div>
                   </div>
-                  <div class="add-options-message">
-                    <a href="#" class="options-message"
-                      data-toggle="tooltip" data-placement="top"
-                      data-original-title="ADD PHOTOS"> <svg
-                        class="olymp-camera-icon" data-toggle="modal"
-                        data-target="#update-header-photo">
-                        <use xlink:href="#olymp-camera-icon"></use></svg>
-                    </a> <a href="#" class="options-message"
-                      data-toggle="tooltip" data-placement="top"
-                      data-original-title="TAG YOUR FRIENDS"> <svg
-                        class="olymp-computer-icon">
-                        <use xlink:href="#olymp-computer-icon"></use></svg>
-                    </a> <a href="#" class="options-message"
-                      data-toggle="tooltip" data-placement="top"
-                      data-original-title="ADD LOCATION"> <svg
-                        class="olymp-small-pin-icon">
-                        <use xlink:href="#olymp-small-pin-icon"></use></svg>
-                    </a>
-    
-                    <button class="btn btn-primary btn-md-2">Post
-                      Status</button>
-                    <button
-                      class="btn btn-md-2 btn-border-think btn-transparent c-grey">Preview</button>
-    
-                  </div>
-    
-                </form>
+                </div>
               </div>
               <%-- blog 탭 끝 --%>
             </div>
