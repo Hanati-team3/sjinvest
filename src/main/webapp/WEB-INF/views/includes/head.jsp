@@ -190,5 +190,9 @@
 .post-control-button .bg-interest {
     background-color: #f9708d;
 }
+
+.company-main-card .btn-md-2 {
+  margin : 0 auto;
+}
 </style>
 

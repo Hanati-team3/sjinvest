@@ -59,7 +59,7 @@
         </div>
         <%-- 검색 시작 --%>
 
-        <%-- row 시작 --%>
+        <%-- 회사 메인 카드 row 시작 --%>
         <div class="row">
           <%-- 회사 메인 카드 시작 --%>
           <div class="col-xl-12 order-xl-1 col-lg-12 order-lg-1 col-md-12 order-md-1 col-sm-12 col-xs-12 company-main-card">
@@ -142,55 +142,17 @@
                     </div>
                   </div>
                 </div>
+                <%-- 구매 버튼 시작--%>
+                <div class="row">
+                  <a href="#" class="btn btn-primary btn-md-2">구매</a>
+                </div>
+                <%-- 구매 버튼 끝 --%>
               </article>
             </div>
           </div>
           <%-- 회사 메인 카드 끝 --%>
-          <%-- My Interests 시작 --%>
-          <div class="col-xl-12 order-xl-1 col-lg-12 order-lg-1 col-md-12 order-md-1 col-sm-12 col-xs-12 ">
-            <div class="ui-block" data-mh="pie-chart">
-              <div class="ui-block-content">
-                <div class="swiper-container" data-slide="fade">
-                  <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="company-name" data-swiper-parallax="-500">하나금융지주</div>
-                        <div class="company-stock" data-swiper-parallax="-500">38,750</div>
-                        <span class="indicator negative"> 전일대비 + 800</span>
-    					<div class="chart-js chart-js-line-stacked">
-    						<canvas id="line-stacked-chart" width="730" height="300"></canvas>
-    					</div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="count-stat" data-swiper-parallax="-500">358</div>
-                        <div class="title" data-swiper-parallax="-100">
-                          <span class="c-primary">Olympus</span> Posts Rank
-                        </div>
-                        <div class="sub-title" data-swiper-parallax="-100">The Olympus Rank measures the quantity of comments, likes and posts.</div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="count-stat" data-swiper-parallax="-500">711</div>
-                        <div class="title" data-swiper-parallax="-100">
-                          <span class="c-primary">Olympus</span> Posts Rank
-                        </div>
-                        <div class="sub-title" data-swiper-parallax="-100">The Olympus Rank measures the quantity of comments, likes and posts.</div>
-                      </div>
-                    </div>
-                  </div>
-  
-                  <!-- If we need pagination -->
-                  <div class="swiper-pagination pagination-blue"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <%-- My Interests 끝 --%>
         </div>
-        <%-- row 끝 --%>
+        <%-- 회사 메인 카드 row 끝 --%>
         
         <%-- 그래프 row 시작 --%>
         <div class="row">
@@ -199,10 +161,12 @@
             
               <div class="ui-block-title">
                 <!-- <div class="h6 title">KOSPI Line Graphic</div> -->
-                <div><h6 class="title">KOSPI Line Graphic</h6></div>
+                <div><h6 class="title">하나금융지주 차트</h6></div>
                 <select class="selectpicker form-control without-border" size="auto">
-                  <option value="LY">LAST YEAR (2016)</option>
-                  <option value="2">CURRENT YEAR (2017)</option>
+                  <option value="LY">기본</option>
+                  <option value="2">거래량</option>
+                  <option value="2">시장지수</option>
+                  <option value="2">20일 이동 평균</option>
                 </select>
                 <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
