@@ -43,7 +43,7 @@
 						  <div class="checkbox">
 							<label>
 							 <input name="optionsCheckboxes" type="checkbox">
-							 Remember Me
+							 아이디 저장
 							 </label>
 					   	  </div>
 						  <a href="#" class="forgot">아직 회원이 아니신가요?</a>

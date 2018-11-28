@@ -14,21 +14,31 @@
   </jsp:include>
   <!-- ... end Header -->
 
-  <div class="header-spacer"></div>
-
+  <div class="header-spacer" style="height:80px"></div>
+  
   <div class="container">
+    <div class="row">
+      
+      <!-- KOSPI 지수 start -->
+      <div class="col-xl-12 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12" style="text-align:right">
+
+      <h6>KOSPI <span style="color:red">+0.42%</span> &nbsp; &nbsp; KOSDAQ <span style="color:blue">-0.67%</span></h6>
+    
+      </div>
+      <!-- KOSPI 지수 start -->
+
+    </div>
+
     <div class="row">
 
       <!-- Main Content -->
 
-      <main
-        class="col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12">
+      <main class="col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12">
       <%-- 검색 시작 --%>
       <div class="ui-block">
         <form class="w-search" style="width: 100%;">
           <div class="form-group with-button is-empty">
-            <input class="form-control" type="text"
-              placeholder="캐시/태그/업종/다른유저">
+            <input class="form-control" type="text" placeholder="캐시/태그/업종/다른유저">
             <button style="background-color: #3f4257;">
               <svg class="olymp-magnifying-glass-icon">
                 <use
@@ -52,13 +62,11 @@
               <form>
                 <div class="author-thumb">
                   <img
-                    src="<%=application.getContextPath()%>/resources/img/author-page.jpg"
-                    alt="author">
+                    src="<%=application.getContextPath()%>/resources/img/author-page.jpg" alt="author">
                 </div>
                 <div
                   class="form-group with-icon label-floating is-empty">
-                  <textarea class="form-control"
-                    placeholder="주식정보를 공유하여 주세요..!"></textarea>
+                  <textarea class="form-control" placeholder="주식정보를 공유하여 주세요..!"></textarea>
                 </div>
                 <div class="add-options-message">
                   <a href="#" class="options-message"
@@ -521,9 +529,9 @@
       <!-- ... end Left Sidebar -->
 
       <!-- Right Sidebar -->
-      <aside
-        class="col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-xs-12">
+      <aside class="col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-xs-12">
         <%-- 관심 종목 위젯--%>
+        
         <jsp:include page="../widgets/activity-feed.jsp"></jsp:include>
         <%-- 팔로잉, 팔로워 --%>
         <jsp:include page="../widgets/follow.jsp"></jsp:include>
