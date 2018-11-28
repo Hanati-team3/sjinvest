@@ -39,27 +39,28 @@
                             <input class="form-control" placeholder="" type="password" value="">
                         </div>
                     
-                    <div>
-                      <input type="checkbox" value="check" id="check" style="width: 3%; display: inline;">
-                      <label for="check">아이디 저장</label>
-                    </div>
+					    <div class="remember">
+						  <div class="checkbox">
+							<label>
+							 <input name="optionsCheckboxes" type="checkbox">
+							 Remember Me
+							 </label>
+					   	  </div>
+						  <a href="#" class="forgot">아직 회원이 아니신가요?</a>
+					    </div>
                     
-                    
-                        <div style="margin-top: 20px; margin-bottom: 20px;">
-                            <a href="/signup" style="color: grey; float: right; ">아직 회원이 아니신가요?</a>
-                        </div>
-						
                         <button class="btn btn-primary btn-lg full-width">로그인</button>
                         
-                        <hr>
+                        <div class="or"></div>
 
                         
                         <!-- 네이버, 구글 로그인 start -->
+                        <a href="#" class="btn btn-lg bg-facebook full-width btn-icon-left"><i class="fa fa-facebook" aria-hidden="true"></i>login with facebook</a>
+                        <a href="#" class="btn btn-lg bg-twitter full-width btn-icon-left"><i class="fa fa-twitter" aria-hidden="true"></i>login with twitter</a>
 
-                        <jsp:include page="naverLogin.jsp"></jsp:include>
+                        <%-- <jsp:include page="naverLogin.jsp"></jsp:include> --%>
                         <!-- 네이버, 구글 로그인 end -->                        
 
-                        </div>
                     </div>
 
              </form>
