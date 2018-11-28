@@ -19,7 +19,7 @@
                 <h6 class="mb-0">
                   <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
                     팔로우
-                    <svg class="olymp-dropdown-arrow-icon"><use xlink:href="/resources/icons/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
+                    <svg class="olymp-dropdown-arrow-icon"><use xlink:href="../resources/icons/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
                   </a>
                 </h6>
               </div>

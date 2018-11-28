@@ -24,10 +24,12 @@
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/Bootstrap/dist/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/Bootstrap/dist/css/bootstrap-grid.css">
 
+
 <!-- Theme Styles CSS -->
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/theme-styles.css">
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/blocks.css">
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/fonts.css">
+
 
 <!-- Styles for plugins -->
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/jquery.mCustomScrollbar.min.css">
@@ -35,6 +37,8 @@
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/mediaelementplayer.css">
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/bootstrap-select.css">
+<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/daterangepicker.css">
+
 
 <!-- Lightbox popup script-->
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/magnific-popup.css">
@@ -56,3 +60,4 @@
 
 
 </style>
+
