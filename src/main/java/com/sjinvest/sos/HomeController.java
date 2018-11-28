@@ -128,6 +128,13 @@ public class HomeController {
 		return "/sns/mypage_follow";
 	}
 	
+	@RequestMapping(value = "/sns/mypage_follow2", method = RequestMethod.GET)
+	public String mypage_follow2() {
+		logger.info("mypage_follow2.");
+		
+		return "/sns/mypage_follow2";
+	}
+	
 	/**
 	 * stock 관련 start by 예겸
 	 */
