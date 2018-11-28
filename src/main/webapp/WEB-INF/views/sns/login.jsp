@@ -4,36 +4,7 @@
 <head>
 
 	<title>login</title>
-
-	<!-- Required meta tags always come first -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/Bootstrap/dist/css/bootstrap-reboot.css">
-	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/Bootstrap/dist/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/Bootstrap/dist/css/bootstrap-grid.css">
-
-	<!-- Theme Styles CSS -->
-	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/theme-styles.css">
-	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/blocks.css">
-
-	<!-- Main Font -->
-	<script src="<%=application.getContextPath()%>/resources/js/webfontloader.min.js"></script>
-	<script>
-		WebFont.load({
-			google: {
-				families: ['Roboto:300,400,500,700:latin']
-			}
-		});
-	</script>
-
-	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/fonts.css">
-
-	<!-- Styles for plugins -->
-	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/jquery.mCustomScrollbar.min.css">
-	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/bootstrap-select.css">
+    <jsp:include page="../includes/head.jsp"></jsp:include>
 
 </head>
 
@@ -85,49 +56,24 @@
                         
                         <!-- 네이버, 구글 로그인 start -->
 
-
-                        <%@ include file="naverLogin.jsp" %>
+                        <jsp:include page="naverLogin.jsp"></jsp:include>
                         <!-- 네이버, 구글 로그인 end -->                        
-          
-
-
 
                         </div>
-                        
-                                                
-
                     </div>
 
-
-				</div>
-
-			</form>
-		</div>
-
-	</div>
+             </form>
+		 </div>
+    </div>
 </div>
+
 
 <!-- ... login page end -->
 
 
-<!-- jQuery first, then Other JS. -->
-<script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
-<!-- Js effects for material design. + Tooltips -->
-<script src="<%=application.getContextPath()%>/resources/js/material.min.js"></script>
-<!-- Helper scripts (Tabs, Equal height, Scrollbar, etc) -->
-<script src="<%=application.getContextPath()%>/resources/js/theme-plugins.js"></script>
-<!-- Init functions -->
-<script src="<%=application.getContextPath()%>/resources/js/main.js"></script>
-
-<!-- Select / Sorting script -->
-<script src="<%=application.getContextPath()%>/resources/js/selectize.min.js"></script>
-
-<!-- Datepicker input field script-->
-<script src="<%=application.getContextPath()%>/resources/js/moment.min.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/daterangepicker.min.js"></script>
-
-<script src="<%=application.getContextPath()%>/resources/js/mediaelement-and-player.min.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/mediaelement-playlist-plugin.min.js"></script>
+    <!-- javascript 추가항목 start -->
+    <jsp:include page="../includes/bottom.jsp"></jsp:include>
+    <!-- javascript 추가항목 start --> 
 
 
 
