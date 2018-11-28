@@ -5,7 +5,14 @@
 
 <title>MyPagePoint</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
-
+<style type="text/css">
+.form-group.label-floating .bootstrap-select.btn-group .dropdown-toggle .filter-option{
+	top:0px;
+}
+.ui-block-content{
+	padding: 24px 23px 0px;
+}
+</style>
 </head>
 <body>
 
@@ -32,19 +39,27 @@
     <div class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12">
       <div class="ui-block">
         <div class="ui-block-title">
-         
-          <h6 class="title">포인트 내역</h6>
-          
-                <div class="form-group label-floating is-select">
-                  <select class="selectpicker form-control"  size="auto">
-                    <option value="pointAll" selected>전체</option>
-                    <option value="pointAdd">적립</option>
-                    <option value="pointUse">사용</option>
-                  </select>
-                </div>
-     
+         	
+	          		<h6 class="title">포인트 내역</h6>
+	          		<input type="hidden">
+	          	
         </div>
-
+        <div class="ui-block-content">
+        <div class="row">
+	         	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-4">
+	         	</div>
+	          	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+			         <div class="form-group label-floating is-select">
+			            <select class="selectpicker form-control"  size="auto">
+			              <option value="pointAll" selected>전체</option>
+			              <option value="pointAdd">적립</option>
+			              <option value="pointUse">사용</option>
+			            </select>
+			          </div>
+	     		</div>
+	     	</div>
+        </div>
+		
         <ul class="notification-list">
           
           <li>
