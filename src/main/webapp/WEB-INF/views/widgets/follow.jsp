@@ -338,24 +338,4 @@
 
 	</div>
 
-	<div class="search-friend inline-items">
-		<form class="form-group">
-			<input class="form-control" placeholder="Search Friends..." value="" type="text">
-		</form>
-
-		<a href="29-YourAccount-AccountSettings.html" class="settings">
-			<svg class="olymp-settings-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-settings-icon"></use></svg>
-		</a>
-
-		<a href="#" class="js-sidebar-open">
-			<svg class="olymp-close-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-close-icon"></use></svg>
-		</a>
-	</div>
-
-	<a href="34-YourAccount-ChatMessages.html" class="olympus-chat inline-items">
-
-		<h6 class="olympus-chat-title">OLYMPUS CHAT</h6>
-		<svg class="olymp-chat---messages-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-chat---messages-icon"></use></svg>
-	</a>
-  
-  </div>
+ </div>
