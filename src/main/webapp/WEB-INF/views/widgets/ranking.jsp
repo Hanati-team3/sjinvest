@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <div class="ui-block">
 	<div class="ui-block-title">
-		<h6 class="title">Mock Ranking</h6>
+		<h6 class="title">주식랭킹 TOP5</h6>
 	</div>
 
 	<ol class="widget w-playlist">
@@ -149,7 +149,7 @@
 					</ul>
 				</div>
 			</div>
-
 		</li>
+
 	</ol>
 </div>
