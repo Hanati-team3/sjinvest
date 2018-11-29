@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>SOS - 모의투자</title>
+<title>SOS - 모의투자 검색 결과</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
 </head>
 
@@ -67,19 +67,21 @@
               <table class="forums-table">
                 <thead>
                   <tr>
-                    <th class="">종목번호</th>
+                    <th class="company-number">종목번호</th>
                     <th class="company-name">기업명</th>
-                    <th class="posts">현재주가</th>
-                    <th class="freshness">전일대비</th>
-                    <th class="freshness">등락률</th>
+                    <th class="stock-price">현재주가</th>
+                    <th class="trading-amount">거래량</th>
+                    <th class="day-before">전일대비</th>
+                    <th class="day-before-rate">등락률</th>
+                    <th class="add-to-interest">관심목록추가</th>
                   </tr>
                 </thead>
     
                 <tbody>
                   <tr>
-                    <td class="">
+                    <td class="company-number">
                       <div class="forum-item">
-                        <a href="#" class="h6 count">3</a>
+                        <a href="#" class="h6 count">086790</a>
                       </div>
                     </td>
                     <td class="company-name">
@@ -89,19 +91,56 @@
                           datetime="2017-06-24T18:18">은행</time>
                       </div>
                     </td>
-                    <td class="posts"><a href="#" class="h6 count">10</a>
+                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
                     </td>
-                    <td class="freshness">
-                      <div class="author-freshness">
-                        <a href="#" class="h6 title">Elaine Dreyfuss</a>
-                        <time class="entry-date updated" datetime="2017-06-24T18:18">13 hours, 58 minutes ago</time>
+                    <td class="trading-amount">
+                      <a href="#" class="h6 count">1,024,522</a>
+                    </td>
+                    <td class="day-before">
+                      <div class="author-freshness plus">
+                        <a href="#" class="h6 title">+ 800</a>
                       </div>
                     </td>
-                    <td class="freshness">
-                      <div class="author-freshness">
-                        <a href="#" class="h6 title">Elaine Dreyfuss</a>
-                        <time class="entry-date updated" datetime="2017-06-24T18:18">13 hours, 58 minutes ago</time>
+                    <td class="day-before-rate">
+                      <div class="author-freshness plus">
+                        <a href="#" class="h6 title">+ 1.90 %</a>
                       </div>
+                    </td>
+                    <td class="add-to-interest">
+                        <a href="#" class="more"><i class="fas fa-heart"></i></a>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td class="company-number">
+                      <div class="forum-item">
+                        <a href="#" class="h6 count">039130</a>
+                      </div>
+                    </td>
+                    <td class="company-name">
+                      <div class="author-freshness">
+                        <a href="#" class="h6 title">하나투어</a>
+                        <time class="entry-date updated"
+                          datetime="2017-06-24T18:18">은행</time>
+                      </div>
+                    </td>
+                    <td class="stock-price"><a href="#" class="h6 count">69,800</a>
+                    </td>
+                    <td class="trading-amount">
+                      <a href="#" class="h6 count">166,143</a>
+                    </td>
+                    <td class="day-before">
+                      <div class="author-freshness minus">
+                        <a href="#" class="h6 title">- 1000</a>
+                      </div>
+                    </td>
+                    <td class="day-before-rate">
+                      <div class="author-freshness  minus">
+                        <a href="#" class="h6 title">- 1.41 %</a>
+                      </div>
+                    </td>
+                    <td class="add-to-interest">
+                        <a href="#" class="more"><i class="far fa-heart"></i></a>
                     </td>
                   </tr>
     

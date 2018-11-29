@@ -3,7 +3,7 @@
 /*------------- #HEADER --------------*/
 .header {
   height: 70px;
-  background-color: #3f4257;
+  background-color: #019591;
   padding-right: 70px;
   position: fixed;
   top: 0;
@@ -264,7 +264,7 @@
     display: block;
     font-weight: 700; }
     .account-settings a:hover {
-      color: #ff5e3a; }
+      color: #019591; }
     .account-settings a > * {
       display: inline-block;
       vertical-align: middle; }
@@ -595,7 +595,7 @@
     cursor: pointer;
     color: inherit; }
   .header-menu .nav-link:hover {
-    color: #ff5e3a; }
+    color: #019591; }
   .header-menu .dropdown:hover > .dropdown-menu {
     visibility: visible;
     opacity: 1; }
@@ -606,11 +606,11 @@
     transition: all .3s ease;
     margin: 0;
     padding: 0;
-    background-color: #3f4257;
+    background-color: #019591;
     border-color: #e6ecf5;
     box-shadow: 0 0 34px 0 rgba(63, 66, 87, 0.1); }
   .header-menu .dropdown-item:focus, .header-menu .dropdown-item:hover {
-    color: #ff5e3a;
+    color: #019591;
     background-color: transparent; }
   .header-menu.open {
     transform: translateX(71px); }
@@ -664,7 +664,7 @@
     display: none; }
 
 .header--standard-dark {
-  background-color: #3f4257; }
+  background-color: #019591; }
   .header--standard-dark .logo {
     color: #fff; }
     .header--standard-dark .logo .logo-title {
@@ -672,13 +672,13 @@
     .header--standard-dark .logo:hover {
       color: #fff; }
   .header--standard-dark .header-menu {
-    background-color: #3f4257; }
+    background-color: #019591; }
     .header--standard-dark .header-menu a {
       color: #fff; }
     .header--standard-dark .header-menu .dropdown-item:hover {
       background-color: #545875; }
   .header--standard-dark .dropdown-menu {
-    background-color: #3f4257;
+    background-color: #019591;
     border-color: #4a4d66; }
 
 .open-responsive-menu {
@@ -686,7 +686,7 @@
   display: none;
   fill: #9a9fbf; }
   .open-responsive-menu:hover {
-    fill: #ff5e3a; }
+    fill: #019591; }
 
 .close-responsive-menu {
   position: absolute;
@@ -700,7 +700,7 @@
     width: 16px;
     height: 16px; }
   .close-responsive-menu:hover {
-    fill: #ff5e3a; }
+    fill: #019591; }
 
 .has-standard-header .fixed-sidebar.right {
   top: 0; }
@@ -1275,8 +1275,8 @@
     background-color: #fff;
     padding: 10px 25px; }
     .profile-menu.expanded-menu li a {
-      color: #ff5e3a;
-      fill: #ff5e3a; }
+      color: #019591;
+      fill: #019591; }
       .profile-menu.expanded-menu li a:hover {
         opacity: .7; }
   .header-landing .logo {
@@ -1409,7 +1409,7 @@
     margin-bottom: 25px; }
 
 .footer--dark {
-  background-color: #3f4257; }
+  background-color: #019591; }
   .footer--dark .w-about .logo {
     color: #fff; }
     .footer--dark .w-about .logo .logo-title {
@@ -1421,7 +1421,7 @@
   .footer--dark .socials i {
     color: #fff; }
     .footer--dark .socials i:hover {
-      color: #ff5e3a; }
+      color: #019591; }
 
 /*------------- Responsive mode styles --------------*/
 @media (max-width: 1024px) {
@@ -1521,7 +1521,7 @@
 .mobile-app .left-menu a {
   color: #515365; }
   .mobile-app .left-menu a:hover {
-    color: #ff5e3a; }
+    color: #019591; }
 
 .mobile-app .fixed-sidebar-left.sidebar--large {
   width: 260px;
@@ -1622,10 +1622,10 @@
     display: block;
     font-weight: 700; }
     .about-olympus a:hover {
-      color: #ff5e3a; }
+      color: #019591; }
 
 .mobile-app-tabs {
-  background-color: #3f4257;
+  background-color: #019591;
   border-bottom-color: transparent;
   justify-content: space-around;
   align-items: center;
@@ -1651,7 +1651,7 @@
   .mobile-app-tabs .nav-link.active {
     background-color: transparent;
     border-color: transparent;
-    border-bottom-color: #ff5e3a; }
+    border-bottom-color: #019591; }
     .mobile-app-tabs .nav-link.active svg {
       fill: #fff; }
     .mobile-app-tabs .nav-link.active .olymp-close-icon {
@@ -1680,7 +1680,7 @@
   margin-left: -33px;
   z-index: 20; }
   .nav-tabs .app-tabs-close:hover svg {
-    fill: #ff5e3a; }
+    fill: #019591; }
 
 @media (max-width: 768px) {
   body.mobile-app {
@@ -1724,7 +1724,7 @@ ul {
 a {
   transition: all .15s ease; }
   a:hover {
-    color: #ff5e3a; }
+    color: #019591; }
 
 select,
 input,
@@ -1826,7 +1826,7 @@ blockquote {
       top: 0;
       left: -80px;
       display: block;
-      background-color: #ff5e3a; }
+      background-color: #019591; }
     @media (max-width: 640px) {
       blockquote p {
         font-size: 16px; } }

@@ -44,6 +44,7 @@
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/magnific-popup.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <style>
+/*주식 index*/
 .stock-index-ul {
   text-align: center; 
   font-weight: bold; 
@@ -55,7 +56,7 @@
 }
 
 .stock-index-ul li :hover {
-    color: #ff5e3a;
+    color: #019591;
 }
 
 .header--standard-dark .header-menu .header-a-padding{
@@ -88,7 +89,7 @@
 }
 .stock-my-interests .statistics-slide .company-stock {
     font-size: 40px;
-    color: #ff5e3a;
+    color: #019591;
 }
 
 .stock-index-trend .chart-js-pie-color {
@@ -100,16 +101,223 @@
 }
 
 .stock-index-main .h6{
-  margin-top : 20px;
   font-family: 'Nanum Myeongjo', sans-serif;
+}
+
+
+/*검색 목록*/
+.stock-search-main {
+  margin-top : 20px;
 }
 
 .stock-search-main .forums-table .text{
   font-size: 10px;
 }
 
-.stock-search-main .forums-table .company-name{
+.stock-search-main .forums-table th{
+  padding : 15px 5px;
+}
+.stock-search-main .forums-table td{
+  padding : 15px 5px;
+}
+
+.stock-search-main .forums-table .company-number{
+  width : 100px;
+}
+
+.stock-search-main .forums-table tbody .company-name{
+  text-align: left;
+}
+
+.stock-search-main .forums-table .stock-price{
+  width : 100px;
+}
+.stock-search-main .forums-table .trading-amount{
+  width : 100px;
+}
+.stock-search-main .forums-table .day-before{
+  width : 100px;
+}
+.stock-search-main .forums-table .day-before-rate{
+  width : 100px;
+}
+.stock-search-main .forums-table .add-to-interest{
+  width : 100px;
+}
+
+/*회사 상세*/
+.stock-company-main {
+  margin-top : 20px;
+}
+
+.stock-company-main .statistics-slide .company-name {
+    font-size: 40px;
+    color: #515365;
+    margin-bottom: 0px;
+
+}
+.stock-company-main .statistics-slide .company-stock {
+    font-size: 30px;
+    color: #ff5e3a;
+}
+
+.stock-company-main .company-main-card .company-name {
+    font-size: 40px;
+    color: #515365;
+    margin-bottom: 0px;
+    text-align: center;
+    font-weight: nomal;
+
+}
+.stock-company-main .company-main-card .company-stock {
+    font-size: 30px;
+    color: #ff5e3a;
+    text-align: center;
+    font-weight: nomal;
+    margin-bottom: 20px;
+}
+.stock-company-main .company-main-card-sub .ui-block {
+  border:none;
+}
+
+.post-control-button .bg-interest {
+    background-color: #f9708d;
+}
+
+.company-main-card .btn-md-2 {
+  margin : 0 auto;
+}
+
+.company-info-card table {
+  width : 80%;
+  margin-left : 13%;
+}
+.company-info-card table a{
+  float: left;
+}
+.company-info-card table tr{
+  height: 70px;
+}
+.company-info-card table .stat{
+  float: left;
+}
+.company-info-card table .figure{
+  font-size: 20px;
+  font-weight: bold;
+  color : #515365;
+}
+
+.stock-company-main .check-point-card .count-stat {
+  font-size : 45px;
+}
+.stock-company-main .small {
+  font-size : 11px;
+}
+.stock-company-main .company-today-table {
+}
+.stock-company-main .company-today-table thead th{
+  padding : 5px 5px;
+}
+.stock-company-main .company-today-table td{
+  padding : 5px 5px;
+}
+.stock-company-main .monthly-indicator-wrap .monthly-indicator{
+  width:155px;
+}
+
+/*관심종목*/
+.stock-interests-main {
+  margin-top : 20px;
+}
+
+.stock-interests-main .forums-table .text{
   font-size: 10px;
+}
+
+.stock-interests-main .forums-table th{
+  padding : 15px 5px;
+}
+.stock-interests-main .forums-table td{
+  padding : 15px 5px;
+}
+
+.stock-interests-main .forums-table .company-number{
+  width : 100px;
+}
+
+.stock-interests-main .forums-table tbody .company-name{
+  text-align: left;
+}
+
+.stock-interests-main .forums-table .stock-price{
+  width : 100px;
+}
+.stock-interests-main .forums-table .trading-amount{
+  width : 100px;
+}
+.stock-interests-main .forums-table .day-before{
+  width : 100px;
+}
+.stock-interests-main .forums-table .day-before-rate{
+  width : 100px;
+}
+.stock-interests-main .forums-table .add-to-interest{
+  width : 100px;
+}
+
+
+/* 거래목록 */
+.stock-trade-list-main {
+  margin-top : 20px;
+}
+
+.stock-trade-list-main .forums-table .text{
+  font-size: 10px;
+}
+
+.stock-trade-list-main .forums-table th{
+  padding : 15px 5px;
+}
+.stock-trade-list-main .forums-table td{
+  padding : 15px 5px;
+}
+
+.stock-trade-list-main .forums-table .trade-date{
+  width : 100px;
+}
+
+.stock-trade-list-main .forums-table .trade-type{
+  width : 60px;
+}
+
+.stock-trade-list-main .forums-table .company-number{
+  width : 90px;
+}
+
+.stock-trade-list-main .forums-table tbody .company-name{
+  text-align: left;
+}
+
+.stock-trade-list-main .forums-table .stock-price{
+  width : 100px;
+}
+.stock-trade-list-main .forums-table .stock-amount{
+  width : 90px;
+}
+.stock-trade-list-main .forums-table .trade-amount{
+  width : 100px;
+}
+.stock-trade-list-main .forums-table .profit-rate{
+  width : 100px;
+}
+
+
+/* */
+.minus a {
+  color : blue;
+}
+.plus a {
+  color : #ff5e3a;
 }
 </style>
 

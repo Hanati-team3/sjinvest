@@ -188,4 +188,25 @@ public class HomeController {
 		return "/stock/stock-search-result";
 	}
 	
+	@RequestMapping(value = "/stock/company", method = RequestMethod.GET)
+	public String company() {
+		logger.info("stock company ");
+		
+		return "/stock/stock-company";
+	}
+	
+	@RequestMapping(value = "/stock/interests", method = RequestMethod.GET)
+	public String interests() {
+		logger.info("stock interests ");
+		
+		return "/stock/stock-interests";
+	}
+	
+	@RequestMapping(value = "/stock/trade-list", method = RequestMethod.GET)
+	public String tradeList() {
+		logger.info("stock trade-list ");
+		
+		return "/stock/stock-trade-list";
+	}
+	
 }
