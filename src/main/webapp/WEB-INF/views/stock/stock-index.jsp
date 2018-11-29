@@ -25,80 +25,6 @@
   <!-- ... end Header -->
   <div class="header-spacer header-spacer-small"></div>
 
-
-  <!-- Main Header Weather -->
-<%-- 그림
-  <div class="main-header main-header-wethear">
-    <div class="content-bg-wrap">
-      <div class="content-bg bg-weather"></div>
-    </div>
-
-    <div class="date-and-place">
-      <div class="date">Saturday, March 26th</div>
-      <div class="place">San Francisco, CA</div>
-    </div>
-
-    <div class="wethear-update">
-      Updated: 20/10 6:32pm
-      <svg class="olymp-weather-refresh-icon">
-        <use
-          xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-weather-refresh-icon"></use></svg>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="m-auto col-lg-4 col-md-8 col-sm-12">
-          <div class="wethear-content">
-            <div class="wethear-now">
-              <svg class="olymp-weather-partly-sunny-icon icon">
-                <use
-                  xlink:href="<%=application.getContextPath()%>/resources/icons/icons-weather.svg#olymp-weather-partly-sunny-icon"></use></svg>
-
-              <div class="temperature-sensor">64°F</div>
-              <div class="max-min-temperature">
-                <span>Low: 58°</span> <span>High: 76°</span>
-              </div>
-            </div>
-
-
-            <div class="climate">Partly Sunny</div>
-
-            <div class="wethear-now-description">
-              <div>
-                <svg class="olymp-weather-thermometer-icon icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons-weather.svg#olymp-weather-thermometer-icon"></use></svg>
-                <div>Real Feel</div>
-                <span>67°</span>
-              </div>
-
-              <div>
-                <svg class="olymp-weather-rain-drops-icon icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons-weather.svg#olymp-weather-rain-drops-icon"></use></svg>
-                <div>Chance of Rain</div>
-                <span>5%</span>
-              </div>
-
-              <div>
-                <svg class="olymp-weather-wind-icon-header icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons-weather.svg#olymp-weather-wind-icon-header"></use></svg>
-                <div>Wind Speed</div>
-                <span>20MPH</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
---%>
-  <!-- ... end Main Header Weather -->
-
-
-  <!-- Widget Weather -->
-
   <div class="container">
     <%-- 사이드 포함 row 시작 --%>
     <div class="row stock-index-main">
@@ -674,9 +600,7 @@
             <div class="ui-block">
               <div class="ui-block-title">
                 <h6 class="title">News</h6>
-                <a href="#" class="more"><svg
-                    class="olymp-three-dots-icon">
-                    <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
+                <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
     
               <ul class="notification-list">

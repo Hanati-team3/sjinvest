@@ -50,13 +50,20 @@
 }
 
 /* */
+
+.forums-table a {
+}
+
+.forums-table .fa, .far, .fas{
+  font-size: 15px;
+}
+
 .minus a {
   color : blue;
 }
 .plus a {
   color : #ff5e3a;
 }
-
 
 /*주식 index*/
 .stock-index-ul {
@@ -328,6 +335,10 @@
   margin-top : 20px;
 }
 
+.stock-asset-main {
+  margin-top: 10px;
+}
+
 .stock-asset-main .forums-table .text{
   font-size: 10px;
 }
@@ -362,6 +373,7 @@
 .stock-asset-main .forums-table .holding-sell{
   width : 100px;
 }
+
 
 
 

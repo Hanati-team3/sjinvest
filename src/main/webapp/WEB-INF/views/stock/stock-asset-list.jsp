@@ -66,9 +66,7 @@
             <div class="ui-block" data-mh="pie-chart">
               <div class="ui-block-title">
                 <div class="h6 title">보유 자산</div>
-                <a href="#" class="more"><svg
-                    class="olymp-three-dots-icon">
-                    <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
+                <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
               
               <div class="ui-block-content">
@@ -111,8 +109,7 @@
             <div class="ui-block" data-mh="pie-chart">
               <div class="ui-block-title">
                 <div class="h6 title">종목별 수익률</div>
-                <a href="#" class="more"><svg class="olymp-three-dots-icon">
-                    <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
+                <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
               <div class="ui-block-content">
                 <div class="swiper-container" data-slide="fade">
@@ -206,16 +203,144 @@
                     </td>
                     <td class="holding-total-money">
                       <div class="author-freshness plus">
-                        <a href="#" class="h6 title">3,875,000</a>
+                        <a href="#" class="h6">3,875,000</a>
                       </div>
                     </td>
                     <td class="profit-rate">
                       <div class="author-freshness plus">
-                        <a href="#" class="h6 title">+ 1.90 %</a>
+                        <a href="#" class="h6 plus">+ 1.90 %</a>
                       </div>
                     </td>
                     <td class="holding-sell">
-                      <a href="#" class="btn btn-blue btn-sm">판매<div class="ripple-container"></div></a>
+                      <a href="#" class="h6 count"><i class="fas fa-minus-circle"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="company-number">
+                      <div class="forum-item">
+                        <a href="#" class="h6 count">086790</a>
+                      </div>
+                    </td>
+                    <td class="company-name">
+                      <div class="author-freshness">
+                        <a href="#" class="h6 title">하나금융지주</a>
+                        <time class="entry-date updated"
+                          datetime="2017-06-24T18:18">은행</time>
+                      </div>
+                    </td>
+                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
+                    </td>
+                    <td class="holding-amount">
+                      <a href="#" class="h6 count">100</a>
+                    </td>
+                    <td class="holding-total-money">
+                      <div class="author-freshness plus">
+                        <a href="#" class="h6">3,875,000</a>
+                      </div>
+                    </td>
+                    <td class="profit-rate">
+                      <div class="author-freshness plus">
+                        <a href="#" class="h6 plus">+ 1.90 %</a>
+                      </div>
+                    </td>
+                    <td class="holding-sell">
+                      <a href="#" class="h6 count"><i class="fas fa-minus-circle"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="company-number">
+                      <div class="forum-item">
+                        <a href="#" class="h6 count">086790</a>
+                      </div>
+                    </td>
+                    <td class="company-name">
+                      <div class="author-freshness">
+                        <a href="#" class="h6 title">하나금융지주</a>
+                        <time class="entry-date updated"
+                          datetime="2017-06-24T18:18">은행</time>
+                      </div>
+                    </td>
+                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
+                    </td>
+                    <td class="holding-amount">
+                      <a href="#" class="h6 count">100</a>
+                    </td>
+                    <td class="holding-total-money">
+                      <div class="author-freshness plus">
+                        <a href="#" class="h6">3,875,000</a>
+                      </div>
+                    </td>
+                    <td class="profit-rate">
+                      <div class="author-freshness plus">
+                        <a href="#" class="h6 plus">+ 1.90 %</a>
+                      </div>
+                    </td>
+                    <td class="holding-sell">
+                      <a href="#" class="h6 count"><i class="fas fa-minus-circle"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="company-number">
+                      <div class="forum-item">
+                        <a href="#" class="h6 count">086790</a>
+                      </div>
+                    </td>
+                    <td class="company-name">
+                      <div class="author-freshness">
+                        <a href="#" class="h6 title">하나금융지주</a>
+                        <time class="entry-date updated"
+                          datetime="2017-06-24T18:18">은행</time>
+                      </div>
+                    </td>
+                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
+                    </td>
+                    <td class="holding-amount">
+                      <a href="#" class="h6 count">100</a>
+                    </td>
+                    <td class="holding-total-money">
+                      <div class="author-freshness plus">
+                        <a href="#" class="h6">3,875,000</a>
+                      </div>
+                    </td>
+                    <td class="profit-rate">
+                      <div class="author-freshness plus">
+                        <a href="#" class="h6 plus">+ 1.90 %</a>
+                      </div>
+                    </td>
+                    <td class="holding-sell">
+                      <a href="#" class="h6 count"><i class="fas fa-minus-circle"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="company-number">
+                      <div class="forum-item">
+                        <a href="#" class="h6 count">086790</a>
+                      </div>
+                    </td>
+                    <td class="company-name">
+                      <div class="author-freshness">
+                        <a href="#" class="h6 title">하나금융지주</a>
+                        <time class="entry-date updated"
+                          datetime="2017-06-24T18:18">은행</time>
+                      </div>
+                    </td>
+                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
+                    </td>
+                    <td class="holding-amount">
+                      <a href="#" class="h6 count">100</a>
+                    </td>
+                    <td class="holding-total-money">
+                      <div class="author-freshness plus">
+                        <a href="#" class="h6">3,875,000</a>
+                      </div>
+                    </td>
+                    <td class="profit-rate">
+                      <div class="author-freshness plus">
+                        <a href="#" class="h6 plus">+ 1.90 %</a>
+                      </div>
+                    </td>
+                    <td class="holding-sell">
+                      <a href="#" class="h6 count"><i class="fas fa-minus-circle"></i></a>
                     </td>
                   </tr>
                 </tbody>
