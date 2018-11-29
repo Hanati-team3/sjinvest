@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" %>
-<!DOCTYPE html>
+<%-- <!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -25,7 +25,7 @@
 <!-- Your Account Personal Information -->
 
 <div class="container">
-  <div class="row">
+  <div class="row"> --%>
   
 
 
@@ -102,7 +102,7 @@
 
 
 
-
+<%-- 
     <!-- mypage leftside start -->
     <jsp:include page="../includes/mypage_leftside.jsp"></jsp:include>
     <!-- mypage leftside end -->
@@ -121,4 +121,4 @@
 
 
 </body>
-</html>
+</html> --%>

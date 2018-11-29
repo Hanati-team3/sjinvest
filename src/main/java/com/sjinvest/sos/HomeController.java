@@ -8,8 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.log4j.Log4j;
 
@@ -122,7 +124,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/sns/mypage_follow", method = RequestMethod.GET)
-	public String mypage_follow() {
+	public @ResponseBody String mypage_follow() {
 		logger.info("mypage_follow.");
 		
 		return "/sns/mypage_follow";
@@ -162,6 +164,7 @@ public class HomeController {
 		
 		return "/sns/user_profile";
 	}
+
 	
 	/**
 	 * stock 관련 start by 예겸

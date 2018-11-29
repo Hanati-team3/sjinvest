@@ -6,6 +6,27 @@
   <title>MyPage</title>
   <jsp:include page="../includes/head.jsp"></jsp:include>
 
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	$('#bbb').on('click', function(e) {
+			console.log('bb');
+		
+		e.stopPropagation();
+		e.currentTarget.onclick = function() {
+			console.log('aaa');
+			var review = $('<div></div>').load("<%=application.getContextPath()%>/sos/sns/mypage_follow.jsp");
+			$("#aaa").append(review);
+		};
+	})
+	
+}
+
+
+</script>
+
+
 </head>
 <body>
 
@@ -28,6 +49,10 @@
 <div class="container">
   <div class="row">
   
+    <div id="aaa">
+    
+    
+    </div>
     <!-- 개인정보 수정 start -->
 
     <div class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12">
