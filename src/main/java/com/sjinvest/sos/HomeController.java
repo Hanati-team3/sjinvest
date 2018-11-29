@@ -124,7 +124,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/sns/mypage_follow", method = RequestMethod.GET)
-	public @ResponseBody String mypage_follow() {
+	public String mypage_follow() {
 		logger.info("mypage_follow.");
 		
 		return "/sns/mypage_follow";
