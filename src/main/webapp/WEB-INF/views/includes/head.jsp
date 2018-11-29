@@ -44,6 +44,7 @@
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/magnific-popup.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <style>
+/*주식 index*/
 .stock-index-ul {
   text-align: center; 
   font-weight: bold; 
@@ -103,6 +104,8 @@
   font-family: 'Nanum Myeongjo', sans-serif;
 }
 
+
+/*검색 목록*/
 .stock-search-main {
   margin-top : 20px;
 }
@@ -142,13 +145,7 @@
   width : 100px;
 }
 
-.minus a {
-  color : blue;
-}
-.plus a {
-  color : #ff5e3a;
-}
-
+/*회사 상세*/
 .stock-company-main {
   margin-top : 20px;
 }
@@ -182,10 +179,6 @@
 .stock-company-main .company-main-card-sub .ui-block {
   border:none;
 }
-
-.stock-company-main .single-post-v1 {
-}
-
 
 .post-control-button .bg-interest {
     background-color: #f9708d;
@@ -232,6 +225,7 @@
   width:155px;
 }
 
+/*관심종목*/
 .stock-interests-main {
   margin-top : 20px;
 }
@@ -269,6 +263,61 @@
 }
 .stock-interests-main .forums-table .add-to-interest{
   width : 100px;
+}
+
+
+/* 거래목록 */
+.stock-trade-list-main {
+  margin-top : 20px;
+}
+
+.stock-trade-list-main .forums-table .text{
+  font-size: 10px;
+}
+
+.stock-trade-list-main .forums-table th{
+  padding : 15px 5px;
+}
+.stock-trade-list-main .forums-table td{
+  padding : 15px 5px;
+}
+
+.stock-trade-list-main .forums-table .trade-date{
+  width : 100px;
+}
+
+.stock-trade-list-main .forums-table .trade-type{
+  width : 60px;
+}
+
+.stock-trade-list-main .forums-table .company-number{
+  width : 90px;
+}
+
+.stock-trade-list-main .forums-table tbody .company-name{
+  text-align: left;
+}
+
+.stock-trade-list-main .forums-table .stock-price{
+  width : 100px;
+}
+.stock-trade-list-main .forums-table .stock-amount{
+  width : 90px;
+}
+.stock-trade-list-main .forums-table .trade-amount{
+  width : 100px;
+}
+.stock-trade-list-main .forums-table .profit-rate{
+  width : 100px;
+}
+
+
+/* */
+.minus a {
+  color : blue;
+}
+.plus a {
+  color : #ff5e3a;
 }
 </style>
 
