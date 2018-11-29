@@ -228,5 +228,47 @@
 .stock-company-main .company-today-table td{
   padding : 5px 5px;
 }
+.stock-company-main .monthly-indicator-wrap .monthly-indicator{
+  width:155px;
+}
+
+.stock-interests-main {
+  margin-top : 20px;
+}
+
+.stock-interests-main .forums-table .text{
+  font-size: 10px;
+}
+
+.stock-interests-main .forums-table th{
+  padding : 15px 5px;
+}
+.stock-interests-main .forums-table td{
+  padding : 15px 5px;
+}
+
+.stock-interests-main .forums-table .company-number{
+  width : 100px;
+}
+
+.stock-interests-main .forums-table tbody .company-name{
+  text-align: left;
+}
+
+.stock-interests-main .forums-table .stock-price{
+  width : 100px;
+}
+.stock-interests-main .forums-table .trading-amount{
+  width : 100px;
+}
+.stock-interests-main .forums-table .day-before{
+  width : 100px;
+}
+.stock-interests-main .forums-table .day-before-rate{
+  width : 100px;
+}
+.stock-interests-main .forums-table .add-to-interest{
+  width : 100px;
+}
 </style>
 

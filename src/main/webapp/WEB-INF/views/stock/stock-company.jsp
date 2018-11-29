@@ -286,11 +286,9 @@
         <div class="row">
           <%-- 현재가 카드 시작 --%>
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-          
-          
             <div class="ui-block" data-mh="pie-chart">
               <div class="ui-block-title">
-                <div class="h6 title">기업 정보</div>
+                <div class="h6 title">현재가</div>
                 <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
               <div class="ui-block-content">
