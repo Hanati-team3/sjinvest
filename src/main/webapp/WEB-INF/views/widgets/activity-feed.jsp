@@ -2,7 +2,7 @@
 <div class="ui-block">
 
   <div class="ui-block-title">
-    <h6 class="title">관심종목</h6>
+    <a href="#"><h6>관심종목</h6></a>
   </div>
 
   <ul class="widget w-activity-feed notification-list">

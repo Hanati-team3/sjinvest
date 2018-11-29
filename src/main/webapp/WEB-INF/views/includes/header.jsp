@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <!-- Header -->
 
 <header class="header--standard header--standard-dark" id="header--standard-2" style="width: 100%; left: 0px; padding: 0px 55px;">
@@ -27,7 +28,7 @@
       <c:choose>
         <%--로그인 아님 --%>
         <c:when test="${param.loginId eq null}">
-          <a href="#" class="link-find-friend">Login</a>
+          <a href="#" class="link-find-friend" data-toggle="modal" data-target="#login_modal">Login</a>
           <a href="#" class="link-find-friend">Sign up</a>
         </c:when>
         <%--로그인 중 --%>
@@ -97,7 +98,7 @@
                 </ul>
               </div>
     
-              <a href="#" class="view-all bg-blue">Check all your Events</a>
+              <a href="#" class="view-all bg-blue">모든 sns 알림 읽기</a>
             </div>
           </div>
           <%-- SNS 알림 끝 --%>
@@ -173,7 +174,7 @@
 
                 </ul>
               </div>
-              <a href="#" class="view-all bg-primary">View All Notifications</a>
+              <a href="#" class="view-all bg-primary">모든 stock 알림 읽기</a>
             </div>
           </div>
           <%-- 주식 알림 끝 --%>
@@ -219,7 +220,7 @@
     
                   <ul class="account-settings">
                     <li>
-                      <a href="29-YourAccount-AccountSettings.html">
+                      <a href="/sos/sns/mypage_index">
                         <svg class="olymp-menu-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-menu-icon"></use></svg>
                         <span>마이페이지</span>
                       </a>
@@ -237,7 +238,7 @@
               </div>
               <!-- 마우스 오버 끝-->
             </div>
-            <a href="02-ProfilePage.html" class="author-name fn">
+            <a href="/sos/sns/mypage_index" class="author-name fn">
               <div class="author-title">
                 ${param.loginId }
                 <svg class="olymp-dropdown-arrow-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
@@ -461,3 +462,15 @@
 </header>
 
 <!-- ... end Responsive Header -->
+
+
+
+
+<%--  
+  <!-- login modal -->
+  <jsp:include page="../sns/login.jsp"></jsp:include>
+  <!-- ... end login moda -->
+ --%>
+
+
+

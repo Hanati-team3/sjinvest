@@ -10,8 +10,10 @@
   <!-- Header -->
   <%-- 테스트 로그인 ID로 Yegyeom Yu 보냄 --%>
   <jsp:include page="../includes/header.jsp">
+
     <jsp:param value="Yegyeom Yu" name="loginId" />
   </jsp:include>
+
   <!-- ... end Header -->
 
   <div class="header-spacer" style="height:80px"></div>

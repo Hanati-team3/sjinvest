@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <div class="ui-block">
   <div class="ui-block-title">
-    <h6 class="title">Following & Follower</h6>
+    <a href="#"><h6>Following & Follower</h6></a>
   </div>
 	<div class="mCustomScrollbar" data-mcs-theme="dark" >
 
@@ -22,23 +22,6 @@
 					<span class="status">ONLINE</span>
 				</div>
 
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-
-					<ul class="more-icons">
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="START CONVERSATION" class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="ADD TO CONVERSATION" class="olymp-add-to-conversation-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-add-to-conversation-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="BLOCK FROM CHAT" class="olymp-block-from-chat-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-block-from-chat-icon"></use></svg>
-						</li>
-					</ul>
-
-				</div>
 
 			</li>
 			<li class="inline-items js-chat-open">
@@ -51,24 +34,6 @@
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Mathilda Brinker</a>
 					<span class="status">AT WORK!</span>
-				</div>
-
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-
-					<ul class="more-icons">
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="START CONVERSATION" class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="ADD TO CONVERSATION" class="olymp-add-to-conversation-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-add-to-conversation-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="BLOCK FROM CHAT" class="olymp-block-from-chat-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-block-from-chat-icon"></use></svg>
-						</li>
-					</ul>
-
 				</div>
 
 			</li>
@@ -84,24 +49,6 @@
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Carol Summers</a>
 					<span class="status">ONLINE</span>
-				</div>
-
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-
-					<ul class="more-icons">
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="START CONVERSATION" class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="ADD TO CONVERSATION" class="olymp-add-to-conversation-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-add-to-conversation-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="BLOCK FROM CHAT" class="olymp-block-from-chat-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-block-from-chat-icon"></use></svg>
-						</li>
-					</ul>
-
 				</div>
 
 
@@ -120,24 +67,6 @@
 					<span class="status">AWAY</span>
 				</div>
 
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-
-					<ul class="more-icons">
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="START CONVERSATION" class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="ADD TO CONVERSATION" class="olymp-add-to-conversation-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-add-to-conversation-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="BLOCK FROM CHAT" class="olymp-block-from-chat-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-block-from-chat-icon"></use></svg>
-						</li>
-					</ul>
-
-				</div>
-
 
 			</li>
 
@@ -152,24 +81,6 @@
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Rachel Howlett</a>
 					<span class="status">OFFLINE</span>
-				</div>
-
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-
-					<ul class="more-icons">
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="START CONVERSATION" class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="ADD TO CONVERSATION" class="olymp-add-to-conversation-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-add-to-conversation-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="BLOCK FROM CHAT" class="olymp-block-from-chat-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-block-from-chat-icon"></use></svg>
-						</li>
-					</ul>
-
 				</div>
 
 
@@ -193,24 +104,6 @@
 					<span class="status">ONLINE</span>
 				</div>
 
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-
-					<ul class="more-icons">
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="START CONVERSATION" class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="ADD TO CONVERSATION" class="olymp-add-to-conversation-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-add-to-conversation-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="BLOCK FROM CHAT" class="olymp-block-from-chat-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-block-from-chat-icon"></use></svg>
-						</li>
-					</ul>
-
-				</div>
-
 
 			</li>
 			<li class="inline-items js-chat-open">
@@ -223,24 +116,6 @@
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Chris Greyson</a>
 					<span class="status">AWAY</span>
-				</div>
-
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-
-					<ul class="more-icons">
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="START CONVERSATION" class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="ADD TO CONVERSATION" class="olymp-add-to-conversation-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-add-to-conversation-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="BLOCK FROM CHAT" class="olymp-block-from-chat-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-block-from-chat-icon"></use></svg>
-						</li>
-					</ul>
-
 				</div>
 
 			</li>
@@ -255,24 +130,7 @@
 					<a href="#" class="h6 author-name">Nicholas Grisom</a>
 					<span class="status">INVISIBLE</span>
 				</div>
-
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-
-					<ul class="more-icons">
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="START CONVERSATION" class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="ADD TO CONVERSATION" class="olymp-add-to-conversation-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-add-to-conversation-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="BLOCK FROM CHAT" class="olymp-block-from-chat-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-block-from-chat-icon"></use></svg>
-						</li>
-					</ul>
-
-				</div>
+        
 			</li>
 			<li class="inline-items js-chat-open">
 
@@ -286,23 +144,6 @@
 					<span class="status">AWAY</span>
 				</div>
 
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-
-					<ul class="more-icons">
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="START CONVERSATION" class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="ADD TO CONVERSATION" class="olymp-add-to-conversation-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-add-to-conversation-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="BLOCK FROM CHAT" class="olymp-block-from-chat-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-block-from-chat-icon"></use></svg>
-						</li>
-					</ul>
-
-				</div>
 			</li>
 			<li class="inline-items js-chat-open">
 
@@ -316,23 +157,7 @@
 					<span class="status">ONLINE</span>
 				</div>
 
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
 
-					<ul class="more-icons">
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="START CONVERSATION" class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="ADD TO CONVERSATION" class="olymp-add-to-conversation-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-add-to-conversation-icon"></use></svg>
-						</li>
-
-						<li>
-							<svg data-toggle="tooltip" data-placement="top" data-original-title="BLOCK FROM CHAT" class="olymp-block-from-chat-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-block-from-chat-icon"></use></svg>
-						</li>
-					</ul>
-
-				</div>
 			</li>
 		</ul>
 
