@@ -55,7 +55,7 @@
 }
 
 .stock-index-ul li :hover {
-    color: #ff5e3a;
+    color: #019591;
 }
 
 .header--standard-dark .header-menu .header-a-padding{
@@ -88,7 +88,7 @@
 }
 .stock-my-interests .statistics-slide .company-stock {
     font-size: 40px;
-    color: #ff5e3a;
+    color: #019591;
 }
 
 .stock-index-trend .chart-js-pie-color {
@@ -193,6 +193,40 @@
 
 .company-main-card .btn-md-2 {
   margin : 0 auto;
+}
+
+.company-info-card table {
+  width : 80%;
+  margin-left : 13%;
+}
+.company-info-card table a{
+  float: left;
+}
+.company-info-card table tr{
+  height: 70px;
+}
+.company-info-card table .stat{
+  float: left;
+}
+.company-info-card table .figure{
+  font-size: 20px;
+  font-weight: bold;
+  color : #515365;
+}
+
+.stock-company-main .check-point-card .count-stat {
+  font-size : 45px;
+}
+.stock-company-main .small {
+  font-size : 11px;
+}
+.stock-company-main .company-today-table {
+}
+.stock-company-main .company-today-table thead th{
+  padding : 5px 5px;
+}
+.stock-company-main .company-today-table td{
+  padding : 5px 5px;
 }
 </style>
 

@@ -154,6 +154,537 @@
         </div>
         <%-- 회사 메인 카드 row 끝 --%>
         
+        <%-- 기업정보, 체크포인트 row 시작 --%>
+        <div class="row">
+          <%-- 기업정보 카드 시작 --%>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 company-info-card">
+            <div class="ui-block" data-mh="pie-chart">
+              <div class="ui-block-title">
+                <div class="h6 title">기업 정보</div>
+                <a href="#" class="more"><i class="far fa-question-circle"></i></a>
+              </div>
+              <div class="ui-block-content">
+                <div class="friend-count" style="text-align: center; position: relative;" >
+                  <a href="#" class="friend-count-item">
+                    <div class="h6">은행</div>
+                    <div class="title">업종</div>
+                  </a> <a href="#" class="friend-count-item">
+                    <div class="h6">코스피 50</div>
+                    <div class="title">시장구분</div>
+                  </a> <a href="#" class="friend-count-item">
+                    <div class="h6">코스피 27위</div>
+                    <div class="title">시가총액</div>
+                  </a>
+                </div>
+                <div class="control-block-button" style="text-align: center; position: relative;" >
+                <table class="">
+                  <tr>
+                    <td>
+                      <a href="#" class="btn btn-control bg-primary">
+                        <svg class="olymp-star-icon">
+                          <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-star-icon"></use></svg>
+                      </a>
+                      <div class="stat">
+                        <div>EPS </div>
+                        <div class="figure">6,881</div>
+                      </div>
+                    </td>
+                    <td>
+                      <a href="#" class="btn btn-control bg-purple">
+                        <svg class="olymp-chat---messages-icon">
+                          <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-chat---messages-icon"></use></svg>
+                      </a>
+                      <div class="stat">
+                        <div>PER </div>
+                        <div class="figure">7.24</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="#" class="btn btn-control bg-primary">
+                        <svg class="olymp-star-icon">
+                          <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-star-icon"></use></svg>
+                      </a>
+                      <div class="stat">
+                        <div>PER </div>
+                        <div class="figure">19.41</div>
+                      </div>
+                    </td>
+                    <td>
+                      <a href="#" class="btn btn-control bg-purple">
+                        <svg class="olymp-chat---messages-icon">
+                          <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-chat---messages-icon"></use></svg>
+                      </a>
+                      <div class="stat">
+                        <div>PER </div>
+                        <div class="figure">19.41</div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%-- 기업정보 카드 끝 --%>
+          <%-- 체크포인트 카드 시작 --%>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 check-point-card">
+            <div class="ui-block" data-mh="pie-chart">
+              <div class="ui-block-title">
+                <div class="h6 title">체크포인트</div>
+                <a href="#" class="more"><i class="far fa-question-circle"></i></a>
+              </div>
+    
+              <div class="ui-block-content">
+                <div class="swiper-container" data-slide="fade">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <div class="statistics-slide">
+                        <div class="count-stat" data-swiper-parallax="-500">실적 정체</div>
+                        <div class="title" data-swiper-parallax="-100">
+                          <span class="c-primary">성장성</span> - 최근 1년간 실적 정체
+                        </div>
+                        <div class="sub-title" data-swiper-parallax="-100">매출액 증가율 보통. 자산 증가율 보통. 영업이익 증가율 보통</div>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="statistics-slide">
+                        <div class="count-stat" data-swiper-parallax="-500">재무건전성 나쁨</div>
+                        <div class="title" data-swiper-parallax="-100">
+                          <span class="c-primary">안전성</span> -  재무건전성 나쁨
+                        </div>
+                        <div class="sub-title" data-swiper-parallax="-100">부채비율이 지나치게 높음</div>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="statistics-slide">
+                        <div class="count-stat" data-swiper-parallax="-500">주가 저평가됨</div>
+                        <div class="title" data-swiper-parallax="-100">
+                          <span class="c-primary">밸류에이션</span> -  주가배수가 낮음
+                        </div>
+                        <div class="sub-title" data-swiper-parallax="-100">
+                          주당 순자산가치(PBR)에 비해 주가가 낮게 책정되어있습니다.<br/>
+                          주가매출비율(PSR)대비 주가가 높지 않습니다.<br/>
+                          주가수익비율(PER)대비 주가가 낮습니다.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <!-- If we need pagination -->
+                  <div class="swiper-pagination pagination-blue"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%-- 체크포인트 카드 끝 --%>
+        </div>
+        <%-- 기업정보, 체크포인트 row 끝 --%>
+        
+        <%-- 현재가, 비재무정보 row 시작 --%>
+        <div class="row">
+          <%-- 현재가 카드 시작 --%>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          
+          
+            <div class="ui-block" data-mh="pie-chart">
+              <div class="ui-block-title">
+                <div class="h6 title">기업 정보</div>
+                <a href="#" class="more"><i class="far fa-question-circle"></i></a>
+              </div>
+              <div class="ui-block-content">
+                <table class="forums-table company-today-table">
+                  <thead>
+                    <tr>
+                      <th class="company-name">증감</th>
+                      <th class="stock-price">매도잔량</th>
+                      <th class="trading-amount" colspan="2">10:01:23</th>
+                      <th class="day-before">매수잔량</th>
+                      <th class="day-before-rate">증감</th>
+                    </tr>
+                  </thead>
+      
+                  <tbody>
+                    <tr>
+                      <td class="company-name">
+                        <div class="author-freshness">
+                          <a href="#" class="small">6</a>
+                        </div>
+                      </td>
+                      <td class="stock-price">
+                        <a href="#" class="h6 count">6,498</a>
+                      </td>
+                      <td class="trading-amount plus">
+                        <a href="#" class="h6 count">39,000</a>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness plus">
+                          <a href="#" class="h6 title">+ 0.65</a>
+                        </div>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                      <td class="day-before-rate">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="company-name">
+                        <div class="author-freshness">
+                          <a href="#" class="small"></a>
+                        </div>
+                      </td>
+                      <td class="stock-price">
+                        <a href="#" class="h6 count">3,555</a>
+                      </td>
+                      <td class="trading-amount plus">
+                        <a href="#" class="h6 count">38,950</a>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness plus">
+                          <a href="#" class="h6 title">+ 0.85</a>
+                        </div>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                      <td class="day-before-rate">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="company-name">
+                        <div class="author-freshness">
+                          <a href="#" class="small"></a>
+                        </div>
+                      </td>
+                      <td class="stock-price">
+                        <a href="#" class="h6 count">6,498</a>
+                      </td>
+                      <td class="trading-amount plus">
+                        <a href="#" class="h6 count">39,000</a>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness plus">
+                          <a href="#" class="h6 title">+ 0.65</a>
+                        </div>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                      <td class="day-before-rate">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="company-name">
+                        <div class="author-freshness">
+                          <a href="#" class="small"></a>
+                        </div>
+                      </td>
+                      <td class="stock-price">
+                        <a href="#" class="h6 count">6,498</a>
+                      </td>
+                      <td class="trading-amount plus">
+                        <a href="#" class="h6 count">38,900</a>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness plus">
+                          <a href="#" class="h6 title">+ 0.65</a>
+                        </div>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                      <td class="day-before-rate">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="company-name">
+                        <div class="author-freshness">
+                          <a href="#" class="small">6</a>
+                        </div>
+                      </td>
+                      <td class="stock-price">
+                        <a href="#" class="h6 count">6,498</a>
+                      </td>
+                      <td class="trading-amount plus">
+                        <a href="#" class="h6 count">38,850</a>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness plus">
+                          <a href="#" class="h6 title">+ 0.65</a>
+                        </div>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                      <td class="day-before-rate">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="company-name">
+                        <div class="author-freshness">
+                          <a href="#" class="small"></a>
+                        </div>
+                      </td>
+                      <td class="stock-price">
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="trading-amount minus">
+                        <a href="#" class="h6 count">38,800</a>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness minus">
+                          <a href="#" class="h6 title">- 0.15</a>
+                        </div>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title">3,150</a>
+                        </div>
+                      </td>
+                      <td class="day-before-rate">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title">8</a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="company-name">
+                        <div class="author-freshness">
+                          <a href="#" class="small"></a>
+                        </div>
+                      </td>
+                      <td class="stock-price">
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="trading-amount minus">
+                        <a href="#" class="h6 count">38,800</a>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness minus">
+                          <a href="#" class="h6 title">- 0.15</a>
+                        </div>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title">3,150</a>
+                        </div>
+                      </td>
+                      <td class="day-before-rate">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="company-name">
+                        <div class="author-freshness">
+                          <a href="#" class="small"></a>
+                        </div>
+                      </td>
+                      <td class="stock-price">
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="trading-amount minus">
+                        <a href="#" class="h6 count">38,800</a>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness minus">
+                          <a href="#" class="h6 title">- 0.15</a>
+                        </div>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title">3,150</a>
+                        </div>
+                      </td>
+                      <td class="day-before-rate">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title">8</a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="company-name">
+                        <div class="author-freshness">
+                          <a href="#" class="small"></a>
+                        </div>
+                      </td>
+                      <td class="stock-price">
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="trading-amount minus">
+                        <a href="#" class="h6 count">38,800</a>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness minus">
+                          <a href="#" class="h6 title">- 0.15</a>
+                        </div>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title">3,150</a>
+                        </div>
+                      </td>
+                      <td class="day-before-rate">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title">15</a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="company-name">
+                        <div class="author-freshness">
+                          <a href="#" class="small"></a>
+                        </div>
+                      </td>
+                      <td class="stock-price">
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="trading-amount minus">
+                        <a href="#" class="h6 count">38,800</a>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness minus">
+                          <a href="#" class="h6 title">- 0.15</a>
+                        </div>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title">3,150</a>
+                        </div>
+                      </td>
+                      <td class="day-before-rate">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                    </tr>
+                    
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <%-- 현재가 카드 끝 --%>
+          
+          <%-- 비재무 정보 카드 시작 --%>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="ui-block" data-mh="pie-chart">
+              <div class="ui-block-title">
+                <div class="h6 title">비재무정보</div>
+                <a href="#" class="more"><i class="far fa-question-circle"></i></a>
+              </div>
+    
+              <div class="ui-block-content">
+                <div class="monthly-indicator-wrap">
+                  <div class="monthly-indicator">
+                    <a href="#" class="btn btn-control bg-blue"> <svg
+                        class="olymp-happy-face-icon">
+                        <use
+                          xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+                    </a>
+    
+                    <div class="monthly-count">
+                      9.855 <span class="period">최대 주주 지분율</span>
+                    </div>
+                  </div>
+    
+                  <div class="monthly-indicator">
+                    <a href="#" class="btn btn-control bg-blue"> <svg
+                        class="olymp-happy-face-icon">
+                        <use
+                          xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+                    </a>
+    
+                    <div class="monthly-count">
+                      6.721 <span class="period">직원평균 연봉</span>
+                    </div>
+                  </div>
+    
+                  <div class="monthly-indicator">
+                    <a href="#" class="btn btn-control bg-blue"> <svg
+                        class="olymp-happy-face-icon">
+                        <use
+                          xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+                    </a>
+    
+                    <div class="monthly-count">
+                      2.047 <span class="period">복리후생비</span>
+                    </div>
+                  </div>
+    
+                  <div class="monthly-indicator">
+                    <a href="#" class="btn btn-control bg-blue"> <svg
+                        class="olymp-happy-face-icon">
+                        <use
+                          xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+                    </a>
+    
+                    <div class="monthly-count">
+                      1.536 <span class="period">남녀 급여 비율</span>
+                    </div>
+                  </div>
+                  <div class="monthly-indicator">
+                    <a href="#" class="btn btn-control bg-blue"> <svg
+                        class="olymp-happy-face-icon">
+                        <use
+                          xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+                    </a>
+    
+                    <div class="monthly-count">
+                      1.536 <span class="period">비정규직 비율</span>
+                    </div>
+                  </div>
+    
+                  <div class="monthly-indicator">
+                    <a href="#" class="btn btn-control bg-primary"> <svg
+                        class="olymp-comments-post-icon">
+                        <use
+                          xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
+                    </a>
+    
+                    <div class="monthly-count">
+                       30.94배<span class="period">임직원 임금격차</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+            </div>
+          </div>
+          <%-- 비재무정보 카드 끝 --%>
+
+        </div>
+        <%-- 현재가, 비재무정보 row 끝 --%>
+        
         <%-- 그래프 row 시작 --%>
         <div class="row">
           <div class="col-lg-12 col-sm-12 col-xs-12">
@@ -213,381 +744,6 @@
           </div>
         </div>
         <%-- 그래프 row 끝 --%>
-        
-        <%-- 자세한 정보 row 시작 --%>
-        <div class="row stock-index-tab">
-          <div class="col-lg-12 col-sm-12 col-xs-12">
-            <div class="ui-block">
-              <div class="news-feed-form">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs stock-index-ul" role="tablist">
-                  <li class="nav-item" ><a class="nav-link active inline-items" data-toggle="tab"
-                    href="#rising-rate" role="tab" aria-expanded="true"> <span>상승률 상위</span>
-                  </a></li>
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
-                    href="#falling-rate" role="tab" aria-expanded="false"><span>하락률 상위</span>
-                  </a></li>
-        
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
-                    href="#foreigner" role="tab" aria-expanded="false"><span>외국인 순매수</span>
-                  </a></li>
-        
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
-                    href="#institution" role="tab" aria-expanded="false"><span>기관 순매수</span>
-                  </a></li>
-        
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
-                    href="#trading-amount" role="tab" aria-expanded="false"><span>거래량</span>
-                  </a></li>
-        
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
-                    href="#total-value" role="tab" aria-expanded="false"><span>시가총액</span>
-                  </a></li>
-                </ul>
-        
-                <!-- Tab panes -->
-                <div class="tab-content">
-                  <%-- rising-rate탭 시작 --%>
-                  <div class="tab-pane active" id="rising-rate" role="tabpanel" aria-expanded="true">
-                    <div class="ui-block" data-mh="pie-chart" style="border-top: none;">
-                      <div class="ui-block-title">
-                        <div class="h6 title">상승률 상위 5 종목</div>
-                        <a href="#" class="more"><i class="far fa-question-circle"></i></a>
-                      </div>
-            
-                      <div class="ui-block-content">
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Orange Gradient Progress</span>
-                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">62%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-primary" style="width: 62%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Violet Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="46" data-from="0"></span><span
-                              class="units">46%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-purple"
-                              style="width: 46%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Blue Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="79" data-from="0"></span><span
-                              class="units">79%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-blue"
-                              style="width: 79%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Aqua Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="34" data-from="0"></span><span
-                              class="units">34%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-breez"
-                              style="width: 34%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Yellow Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="95" data-from="0"></span><span
-                              class="units">95%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-yellow"
-                              style="width: 95%"></span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <%-- rising-rate탭 끝 --%>
-                  <%-- falling-rate탭 시작 --%>
-                  <div class="tab-pane" id="falling-rate" role="tabpanel" aria-expanded="true">
-                    <div class="ui-block" data-mh="pie-chart" style="border-top: none;">
-                      <div class="ui-block-title">
-                        <div class="h6 title">하락률 상위 5 종목</div>
-                        <a href="#" class="more"><svg class="olymp-three-dots-icon">
-                            <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
-                      </div>
-            
-                      <div class="ui-block-content">
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Orange Gradient Progress</span>
-                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">62%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-primary" style="width: 62%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Violet Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="46" data-from="0"></span><span
-                              class="units">46%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-purple"
-                              style="width: 46%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Blue Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="79" data-from="0"></span><span
-                              class="units">79%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-blue"
-                              style="width: 79%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Aqua Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="34" data-from="0"></span><span
-                              class="units">34%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-breez"
-                              style="width: 34%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Yellow Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="95" data-from="0"></span><span
-                              class="units">95%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-yellow"
-                              style="width: 95%"></span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <%-- falling-rate 끝 --%>
-                  <%-- foreigner 탭 시작 --%>
-                  <div class="tab-pane" id="foreigner" role="tabpanel" aria-expanded="true">
-                    <div class="ui-block">
-                    
-                      <div class="ui-block-title">
-                        <div class="h6 title">외국인 매수 상위 3 종목</div>
-                        <a href="#" class="more"><svg class="olymp-three-dots-icon">
-                            <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
-                      </div>
-                      
-                      <div class="row">
-                      
-                        <div class="col-xl-4 order-xl-1 col-lg-4 order-lg-1 col-md-4 order-md-1 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.68" data-startcolor="#38a9ff" data-endcolor="#317cb6">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                
-                            <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>68% of friends that visit your profile comment on your posts.</p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="col-xl-4 order-xl-2 col-lg-4 order-lg-2 col-md-4 order-md-2 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.50" data-startcolor="#38a9ff" data-endcolor="#317cb6">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                            <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>50% of friends that visit your profile comment on your posts.</p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="col-xl-4 order-xl-3 col-lg-4 order-lg-3 col-md-4 order-md-3 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.83" data-startcolor="#38a9ff" data-endcolor="#317cb6">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                            <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>83% of friends that visit your profile comment on your posts.</p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                      </div>
-                      <%-- row 끝 --%>
-                    </div>
-                  </div>
-                  <%-- foreigner 탭 끝 --%>
-                  
-                  <%-- institution 탭 시작 --%>
-                  <div class="tab-pane" id="institution" role="tabpanel" aria-expanded="true">
-                    <div class="ui-block">
-                    
-                      <div class="ui-block-title">
-                        <div class="h6 title">기관 매수 상위 3 종목</div>
-                        <a href="#" class="more"><svg class="olymp-three-dots-icon">
-                            <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
-                      </div>
-                      
-                      <div class="row">
-                      
-                        <div class="col-xl-4 order-xl-1 col-lg-4 order-lg-1 col-md-4 order-md-1 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.68" data-startcolor="#ffc109e0" data-endcolor="#ff8400">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                
-                            <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>68% of friends that visit your profile comment on your posts.</p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="col-xl-4 order-xl-2 col-lg-4 order-lg-2 col-md-4 order-md-2 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.50" data-startcolor="#ffc109e0" data-endcolor="#ff8400">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                            <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>50% of friends that visit your profile comment on your posts.</p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="col-xl-4 order-xl-3 col-lg-4 order-lg-3 col-md-4 order-md-3 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.83" data-startcolor="#ffc109e0" data-endcolor="#ff8400">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                            <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>83% of friends that visit your profile comment on your posts.</p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                      </div>
-                      <%-- row 끝 --%>
-                    </div>
-                  </div>
-                  <%-- institution 탭 끝 --%>
-                  
-                  <%-- trading-amount 탭 시작 --%>
-                  <div class="tab-pane" id="trading-amount" role="tabpanel" aria-expanded="true">
-                    <div class="row">
-                      <div class="col-lg-12 col-sm-12 col-xs-12">
-                        <div class="ui-block responsive-flex">
-                        
-                          <div class="ui-block-title">
-                            <div class="h6 title">상위 거래량 그래프</div>
-                            <select class="selectpicker form-control without-border" size="auto">
-                              <option value="LY">LAST YEAR (2016)</option>
-                              <option value="CUR">CURRENT YEAR (2017)</option>
-                            </select> <a href="#" class="more"><svg class="olymp-three-dots-icon">
-                                <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
-                          </div>
-                
-                          <div class="ui-block-content">
-                            <div class="chart-js chart-js-one-bar">
-                              <canvas id="one-bar-chart" width="1400" height="380"></canvas>
-                            </div>
-                          </div>
-                          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <%-- trading-amount 탭 끝 --%>
-                  
-                  <%-- total-value 탭 시작 --%>
-                  <div class="tab-pane" id="total-value" role="tabpanel" aria-expanded="true">
-                    <div class="row">
-                      <div class="col-lg-12 col-sm-12 col-xs-12">
-                        <div class="ui-block responsive-flex">
-                        
-                          <div class="ui-block-title">
-                            <div class="h6 title">상위 시가총액 그래프</div>
-                            <select class="selectpicker form-control without-border" size="auto">
-                              <option value="LY">LAST YEAR (2016)</option>
-                              <option value="CUR">CURRENT YEAR (2017)</option>
-                            </select> <a href="#" class="more"><svg class="olymp-three-dots-icon">
-                                <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
-                          </div>
-                
-                          <div class="ui-block-content">
-                            <div class="chart-js chart-js-one-bar">
-                              <canvas id="one-bar-chart" width="1400" height="380"></canvas>
-                            </div>
-                          </div>
-                          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <%-- total-value 탭 끝 --%>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <%-- 자세한 정보 row 끝 --%>
-        
         
         <%-- 뉴스 row 시작 --%>
         <div class="row stock-index-news">
