@@ -33,6 +33,7 @@ function textScroll(scroll_el_id) {
         this.objLi[i].style.position = 'absolute';
         this.objTop[i] = this.height*i;
         this.objLi[i].style.top = this.objTop[i]+"px";
+        this.objLi[i].style.right = 0;
     }
 }
 

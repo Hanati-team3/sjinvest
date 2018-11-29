@@ -30,7 +30,6 @@
       
       
       </div>
-      <!-- KOSPI 지수 start -->
 
     </div>
 
