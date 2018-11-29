@@ -21,36 +21,6 @@
     </a>
 
 
-<!-- 예겸이랑 상의해서 날린부분 -->
-<%--
-    <div class="nav nav-pills nav1 header-menu" style=" margin-left: 5%">
-      <div class="mCustomScrollbar">
-        <ul>
-          <li class="nav-item">
-            <a href="#" class="nav-link header-a-padding">관심종목</a>
-          </li>
-          <li class="nav-item dropdown" style="min-width: 120px;">
-            <a class="nav-link dropdown-toggle header-a-padding" data-hover="dropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" tabindex='1'>주문내역</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Profile Page</a>
-              <a class="dropdown-item" href="#">Newsfeed</a>
-              <a class="dropdown-item" href="#">Post Versions</a>
-            </div>
-          </li>
-          <li class="nav-item" style="min-width: 110px;">
-            <a href="#" class="nav-link header-a-padding">현재보유내역</a>
-          </li>
-
-          <li class="close-responsive-menu js-close-responsive-menu">
-            <svg class="olymp-close-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-close-icon"></use></svg>
-          </li>
-        </ul>
-        
-      </div>
-    </div>
---%>
-    
-
     <div class="control-block " style="padding: 10px 30px;">
     
       <%--로그인중인지 아닌지 판별 --%>
@@ -62,7 +32,9 @@
         </c:when>
         <%--로그인 중 --%>
         <c:otherwise>
+        
           <%-- 알림 시작 --%>
+          
           <%-- SNS 알림 시작 --%>
           <div class="control-icon more has-items">
             <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
@@ -70,7 +42,7 @@
     
             <div class="more-dropdown more-with-triangle triangle-top-center">
               <div class="ui-block-title ui-block-title-small">
-                <h6 class="title">FRIEND REQUESTS</h6>
+                <h6 class="title">SNS 알림</h6>
               </div>
     
               <div class="mCustomScrollbar" data-mcs-theme="dark">
@@ -139,7 +111,7 @@
     
             <div class="more-dropdown more-with-triangle triangle-top-center">
               <div class="ui-block-title ui-block-title-small">
-                <h6 class="title">Notifications</h6>
+                <h6 class="title">Stock 알림</h6>
               </div>
               <div class="mCustomScrollbar" data-mcs-theme="dark">
                 <ul class="notification-list">
@@ -249,7 +221,7 @@
                     <li>
                       <a href="29-YourAccount-AccountSettings.html">
                         <svg class="olymp-menu-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-menu-icon"></use></svg>
-                        <span>설정</span>
+                        <span>마이페이지</span>
                       </a>
                     </li>
                     <li>
@@ -325,9 +297,7 @@
 
       <div class="mCustomScrollbar" data-mcs-theme="dark">
         <div class="ui-block-title ui-block-title-small">
-          <h6 class="title">FRIEND REQUESTS</h6>
-          <a href="#">Find Friends</a>
-          <a href="#">Settings</a>
+          <h6 class="title">SNS 알림</h6>
         </div>
         <ul class="notification-list friend-requests">
           <li>
@@ -433,101 +403,12 @@
 
     </div>
 
-    <div class="tab-pane " id="chat" role="tabpanel">
-
-      <div class="mCustomScrollbar" data-mcs-theme="dark">
-        <div class="ui-block-title ui-block-title-small">
-          <h6 class="title">Chat / Messages</h6>
-          <a href="#">Mark all as read</a>
-          <a href="#">Settings</a>
-        </div>
-
-        <ul class="notification-list chat-message">
-          <li class="message-unread">
-            <div class="author-thumb">
-              <img src="<%=application.getContextPath()%>/resources/img/avatar59-sm.jpg" alt="author">
-            </div>
-            <div class="notification-event">
-              <a href="#" class="h6 notification-friend">Diana Jameson</a>
-              <span class="chat-message-item">Hi James! It’s Diana, I just wanted to let you know that we have to reschedule...</span>
-              <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">4 hours ago</time></span>
-            </div>
-                  <span class="notification-icon">
-                    <svg class="olymp-chat---messages-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-chat---messages-icon"></use></svg>
-                  </span>
-            <div class="more">
-              <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-            </div>
-          </li>
-
-          <li>
-            <div class="author-thumb">
-              <img src="<%=application.getContextPath()%>/resources/img/avatar60-sm.jpg" alt="author">
-            </div>
-            <div class="notification-event">
-              <a href="#" class="h6 notification-friend">Jake Parker</a>
-              <span class="chat-message-item">Great, I’ll see you tomorrow!.</span>
-              <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">4 hours ago</time></span>
-            </div>
-                  <span class="notification-icon">
-                    <svg class="olymp-chat---messages-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-chat---messages-icon"></use></svg>
-                  </span>
-
-            <div class="more">
-              <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-            </div>
-          </li>
-          <li>
-            <div class="author-thumb">
-              <img src="<%=application.getContextPath()%>/resources/img/avatar61-sm.jpg" alt="author">
-            </div>
-            <div class="notification-event">
-              <a href="#" class="h6 notification-friend">Elaine Dreyfuss</a>
-              <span class="chat-message-item">We’ll have to check that at the office and see if the client is on board with...</span>
-              <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at 9:56pm</time></span>
-            </div>
-                    <span class="notification-icon">
-                      <svg class="olymp-chat---messages-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-chat---messages-icon"></use></svg>
-                    </span>
-            <div class="more">
-              <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-            </div>
-          </li>
-
-          <li class="chat-group">
-            <div class="author-thumb">
-              <img src="<%=application.getContextPath()%>/resources/img/avatar11-sm.jpg" alt="author">
-              <img src="<%=application.getContextPath()%>/resources/img/avatar12-sm.jpg" alt="author">
-              <img src="<%=application.getContextPath()%>/resources/img/avatar13-sm.jpg" alt="author">
-              <img src="<%=application.getContextPath()%>/resources/img/avatar10-sm.jpg" alt="author">
-            </div>
-            <div class="notification-event">
-              <a href="#" class="h6 notification-friend">You, Faye, Ed &amp; Jet +3</a>
-              <span class="last-message-author">Ed:</span>
-              <span class="chat-message-item">Yeah! Seems fine by me!</span>
-              <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">March 16th at 10:23am</time></span>
-            </div>
-                    <span class="notification-icon">
-                      <svg class="olymp-chat---messages-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-chat---messages-icon"></use></svg>
-                    </span>
-            <div class="more">
-              <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-            </div>
-          </li>
-        </ul>
-
-        <a href="#" class="view-all bg-purple">View All Messages</a>
-      </div>
-
-    </div>
 
     <div class="tab-pane " id="notification" role="tabpanel">
 
       <div class="mCustomScrollbar" data-mcs-theme="dark">
         <div class="ui-block-title ui-block-title-small">
-          <h6 class="title">Notifications</h6>
-          <a href="#">Mark all as read</a>
-          <a href="#">Settings</a>
+          <h6 class="title">STOCK 알림</h6>
         </div>
 
         <ul class="notification-list">
@@ -567,63 +448,7 @@
             </div>
           </li>
 
-          <li class="with-comment-photo">
-            <div class="author-thumb">
-              <img src="<%=application.getContextPath()%>/resources/img/avatar64-sm.jpg" alt="author">
-            </div>
-            <div class="notification-event">
-              <div><a href="#" class="h6 notification-friend">Sarah Hetfield</a> commented on your <a href="#" class="notification-link">photo</a>.</div>
-              <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">Yesterday at 5:32am</time></span>
-            </div>
-                    <span class="notification-icon">
-                      <svg class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-                    </span>
 
-            <div class="comment-photo">
-              <img src="<%=application.getContextPath()%>/resources/img/comment-photo1.jpg" alt="photo">
-              <span>“She looks incredible in that outfit! We should see each...”</span>
-            </div>
-
-            <div class="more">
-              <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-              <svg class="olymp-little-delete"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-little-delete"></use></svg>
-            </div>
-          </li>
-
-          <li>
-            <div class="author-thumb">
-              <img src="<%=application.getContextPath()%>/resources/img/avatar65-sm.jpg" alt="author">
-            </div>
-            <div class="notification-event">
-              <div><a href="#" class="h6 notification-friend">Green Goo Rock</a> invited you to attend to his event Goo in <a href="#" class="notification-link">Gotham Bar</a>.</div>
-              <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">March 5th at 6:43pm</time></span>
-            </div>
-                    <span class="notification-icon">
-                      <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-                    </span>
-
-            <div class="more">
-              <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-              <svg class="olymp-little-delete"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-little-delete"></use></svg>
-            </div>
-          </li>
-
-          <li>
-            <div class="author-thumb">
-              <img src="<%=application.getContextPath()%>/resources/img/avatar66-sm.jpg" alt="author">
-            </div>
-            <div class="notification-event">
-              <div><a href="#" class="h6 notification-friend">James Summers</a> commented on your new <a href="#" class="notification-link">profile status</a>.</div>
-              <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">March 2nd at 8:29pm</time></span>
-            </div>
-            <span class="notification-icon">
-              <svg class="olymp-heart-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-heart-icon"></use></svg>
-            </span>
-            <div class="more">
-              <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-              <svg class="olymp-little-delete"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-little-delete"></use></svg>
-            </div>
-          </li>
         </ul>
 
         <a href="#" class="view-all bg-primary">View All Notifications</a>
