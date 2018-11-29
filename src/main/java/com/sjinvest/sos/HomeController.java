@@ -209,4 +209,11 @@ public class HomeController {
 		return "/stock/stock-trade-list";
 	}
 	
+	@RequestMapping(value = "/stock/asset-list", method = RequestMethod.GET)
+	public String assetList() {
+		logger.info("stock asset-list ");
+		
+		return "/stock/stock-asset-list";
+	}
+	
 }
