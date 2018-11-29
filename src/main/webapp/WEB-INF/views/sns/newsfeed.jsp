@@ -22,7 +22,7 @@
       <!-- KOSPI 지수 start -->
       <div class="col-xl-12 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12" style="text-align:right">
 
-      <h6>KOSPI <span style="color:red">+0.42%</span> &nbsp; &nbsp; KOSDAQ <span style="color:blue">-0.67%</span></h6>
+      <h6>KOSPI <span style="color:red">+0.42%</span> &nbsp; &nbsp; KOSDAQ <span style="color:blue">-0.12%</span></h6>
     
       </div>
       <!-- KOSPI 지수 start -->
