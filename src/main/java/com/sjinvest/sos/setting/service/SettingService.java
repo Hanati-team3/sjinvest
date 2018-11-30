@@ -4,7 +4,7 @@ import com.sjinvest.sos.setting.domain.Setting;
 
 
 public interface SettingService {
-
-	public boolean Create(Setting setting);
-
+	public boolean create(int userSeq);
+	public Setting read(int userSeq);
+	public boolean update(Setting setting);
 }

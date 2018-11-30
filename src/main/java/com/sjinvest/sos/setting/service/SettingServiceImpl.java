@@ -18,12 +18,23 @@ public class SettingServiceImpl implements SettingService {
 	private SettingMapper mapper;
 
 	@Override
-	public boolean Create(Setting setting) {
-		try {
-			mapper.create(2);
-		}catch(Exception e) {
+	public boolean create(int userSeq) {
+		try{
+			mapper.create(userSeq);
+		}catch (Exception e) {
 			return false;
 		}
 		return true;
 	}
+
+	@Override
+	public Setting read(int userSeq) {
+		return mapper.read(userSeq);
+	}
+
+	@Override
+	public boolean update(Setting setting) {
+		return (mapper.update(setting)==1);
+	}
+
 }

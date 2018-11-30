@@ -85,15 +85,15 @@ public class UserMapperTest {
 	public void testPlusMinus() throws SQLException {
 		log.info(userMapper);
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("userId", "suhyeon");
+		data.put("userSeq", 2);
 		data.put("userPoint", 50);
 		int result = userMapper.addUserPoint(data);
 		log.info(result);
-		log.info(userMapper.checkUserPoint("suhyeon"));
+		log.info(userMapper.checkUserPoint(2));
 		data.put("userMoney", 500000000);
 		result = userMapper.addUserMoney(data);
 		log.info(result);
-		log.info(userMapper.checkUserMoney("suhyeon"));
+		log.info(userMapper.checkUserMoney(2));
 	}
 	@Test
 	public void testUserSeqList() throws SQLException {

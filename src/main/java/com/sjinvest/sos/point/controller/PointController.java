@@ -23,7 +23,7 @@ public class PointController {
 	@PostMapping("/create")
 	public String create(Point point, RedirectAttributes rttr) {
 		log.info("register : "+ point);
-		service.Create(point);
+		service.create(point);
 		return "redirect:/point/list";
 	}
 }
