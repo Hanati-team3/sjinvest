@@ -25,9 +25,6 @@
   <!-- ... end Header -->
   <div class="header-spacer header-spacer-small"></div>
 
-
-  <!-- Widget Weather -->
-
   <div class="container">
     <%-- realtime row 시작 --%>
     <div class="row realtime">
@@ -833,11 +830,7 @@
     <%-- 사이드 포함 row 끝 --%>
   </div>
 
-  <!-- ... end Widget Weather -->
   
-  <!-- Window-popup Update Header Photo -->
-  <jsp:include page="stock-buy-modal.jsp"></jsp:include>
-  <!-- ... end Window-popup Update Header Photo -->
   <!-- Window-popup-CHAT for responsive min-width: 768px -->
   <jsp:include page="../popup/popup-chat.jsp"></jsp:include>
   <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
