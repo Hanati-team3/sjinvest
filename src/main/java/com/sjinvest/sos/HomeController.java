@@ -116,6 +116,13 @@ public class HomeController {
 		return "/sns/signup";
 	}
 	
+	@RequestMapping(value = "/sns/signup3", method = RequestMethod.GET)
+	public String signup3() {
+		logger.info("signup3.");
+		
+		return "/sns/signup3";
+	}
+	
 	@RequestMapping(value = "/sns/mypage_index", method = RequestMethod.GET)
 	public String mypage_index() {
 		logger.info("mypage_index.");
@@ -124,7 +131,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/sns/mypage_follow", method = RequestMethod.GET)
-	public @ResponseBody String mypage_follow() {
+	public String mypage_follow() {
 		logger.info("mypage_follow.");
 		
 		return "/sns/mypage_follow";

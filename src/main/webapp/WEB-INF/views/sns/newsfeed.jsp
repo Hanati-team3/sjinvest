@@ -21,13 +21,13 @@
   <div class="container">
     <div class="row">
       
-      <!-- KOSPI 지수 start -->
-      <div class="col-xl-12 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12" style="text-align:right">
-
-      <h6>KOSPI <span style="color:red">+0.42%</span> &nbsp; &nbsp; KOSDAQ <span style="color:blue">-0.12%</span></h6>
-    
+      <!-- realtime start -->
+      <div class="col-xl-12 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12" style="float:right">
+      <jsp:include page="../includes/realtime.jsp"></jsp:include>
       </div>
-      <!-- KOSPI 지수 start -->
+      <!-- ..realtime end -->
+      
+      </div>
 
     </div>
 
@@ -43,8 +43,7 @@
             <input class="form-control" type="text" placeholder="캐시/태그/업종/다른유저">
             <button style="background-color: #3f4257;">
               <svg class="olymp-magnifying-glass-icon">
-                <use
-                  xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
+                <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
             </button>
             <span class="material-input"></span>
           </div>
@@ -71,25 +70,20 @@
                   <textarea class="form-control" placeholder="주식정보를 공유하여 주세요..!"></textarea>
                 </div>
                 <div class="add-options-message">
-                  <a href="#" class="options-message"
-                    data-toggle="tooltip" data-placement="top"
-                    data-original-title="ADD PHOTOS"> <svg
-                      class="olymp-camera-icon" data-toggle="modal"
-                      data-target="#update-header-photo">
-                      <use
-                        xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-camera-icon"></use></svg>
-                  </a> <a href="#" class="options-message"
-                    data-toggle="tooltip" data-placement="top"
-                    data-original-title="TAG YOUR FRIENDS"> <svg
-                      class="olymp-computer-icon">
-                      <use
-                        xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-computer-icon"></use></svg>
-                  </a> <a href="#" class="options-message"
-                    data-toggle="tooltip" data-placement="top"
-                    data-original-title="ADD LOCATION"> <svg
-                      class="olymp-small-pin-icon">
-                      <use
-                        xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-small-pin-icon"></use></svg>
+                  
+                  <a href="#" class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="ADD PHOTOS"> 
+                    <svg class="olymp-camera-icon" data-toggle="modal" data-target="#update-header-photo">
+                    <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-camera-icon"></use></svg>
+                  </a> 
+                  
+                  <a href="#" class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="TAG YOUR FRIENDS"> 
+                    <svg class="olymp-computer-icon">
+                    <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-computer-icon"></use></svg>
+                  </a> 
+                  
+                  <a href="#" class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="ADD LOCATION"> 
+                     <svg class="olymp-small-pin-icon">
+                     <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-small-pin-icon"></use></svg>
                   </a>
 
                   <button class="btn btn-primary btn-md-2">글올리기</button>

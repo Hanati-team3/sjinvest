@@ -1,65 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
 
-	<title>login</title>
-    <jsp:include page="../includes/head.jsp"></jsp:include>
-    
-    
-<script type="text/javascript">
-
-/**  
- * 페이지 이동처리 방지를 위하여 시작시 실행
- */
-$(document).ready( function() {
-	$('#myform').submit(function (e) {
-		e.preventDefault();
-		loginCheck();
-	})
-});
-
-/** 
- * 로그인 처리를 위한 Ajax 통신
- */
-function loginCheck() {
-
-	var id = $('#id').val();
-	var pw = $('#pw').val();
-
-	$.ajax({
-		url : '/sos/sns/login',
-		type : 'post',
-		data : {
-			id : id,
-			pw : pw,
-			login : 'login'
-		},
-		success : function(data) {
-			if ($.trim(data) == "loginfail") {
-				$('#checkMsg').html(
-						"<p style='COLOR: red'>다시 로그인해주세요.</p>");
-			} else{
-				location.href="/sos/sns/newsfeed";				
-			}
-		},
-		error : function() {
-			alert("관리자에게 문의해주세요.");
-		}
-	});
-	
-} 
-
-</script>
-
-</head>
-
-<body class="overlay-enable modal-open">
 
 
 <!-- login page start -->
 
-<div class="modal fade show" id="login_modal" tabindex="-1" role="dialog" aria-hidden="true" style="display:block;">
+<div class="modal fade" id="login_modal">
 	<div class="modal-dialog ui-block window-popup fav-page-popup">
 		<a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
 			<svg class="olymp-close-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-close-icon"></use></svg>
@@ -122,11 +67,3 @@ function loginCheck() {
 <!-- ... login page end -->
 
 
-    <!-- javascript 추가항목 start -->
-    <jsp:include page="../includes/bottom.jsp"></jsp:include>
-    <!-- javascript 추가항목 start --> 
-
-
-
-</body>
-</html>
