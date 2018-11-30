@@ -17,4 +17,5 @@ public class Trading {
 	private String tradingTime;
 	private int tradingPrice;
 	private int tradingAmount;
+	private double tradingEarningsRatio;
 }

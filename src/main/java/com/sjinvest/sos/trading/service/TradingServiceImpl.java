@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sjinvest.sos.holding.domain.Holding;
+import com.sjinvest.sos.holding.mapper.HoldingMapper;
 import com.sjinvest.sos.trading.domain.Trading;
 import com.sjinvest.sos.trading.mapper.TradingMapper;
 import com.sjinvest.sos.user.mapper.UserMapper;
@@ -24,20 +26,39 @@ public class TradingServiceImpl implements TradingService {
 	private TradingMapper mapper;
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private HoldingMapper holdingMapper;
 
 	@Transactional
 	@Override
 	public boolean create(Trading trading) {
 		try {
-			mapper.create(trading);
 			Map<String, Object> data = new HashMap<String, Object>();
 			data.put("userSeq", trading.getUserSeq());
+			Holding holding = new Holding();
+			holding.setCompanyName(trading.getCompanyName());
+			holding.setCompanyNumber(trading.getCompanyNumber());
+			holding.setUserSeq(trading.getUserSeq());
 			if(trading.getTradingType()==1) {
 				data.put("userMoney", -(trading.getTradingAmount()*trading.getTradingPrice()));
+				holding.setHoldingAmount(trading.getTradingAmount());
+				holding.setHoldingTotalMoney(trading.getTradingAmount()*trading.getTradingPrice());
 			}else {
+				holding.setHoldingAmount(-trading.getTradingAmount());
+				holding.setHoldingTotalMoney(-(trading.getTradingAmount()*trading.getTradingPrice()));
 				data.put("userMoney", (trading.getTradingAmount()*trading.getTradingPrice()));
+				Holding existHolding = holdingMapper.checkByCompanyNumber(holding).get(0);
+				double perSharePrice = existHolding.getHoldingTotalMoney()/existHolding.getHoldingAmount();
+				double tradingEarningsRatio = (((trading.getTradingPrice()-perSharePrice)/perSharePrice)*100);
+				trading.setTradingEarningsRatio(tradingEarningsRatio);
 			}
 			userMapper.addUserMoney(data);
+			if(holdingMapper.checkByCompanyNumber(holding).size()>0) {
+				holdingMapper.modificationHolding(holding);
+			}else {
+				holdingMapper.create(holding);
+			}
+			mapper.create(trading);
 		}catch(Exception e) {
 			log.info(e);
 			return false;
