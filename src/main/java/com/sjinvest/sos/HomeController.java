@@ -75,13 +75,6 @@ public class HomeController {
 		return "temp/origin-newsfeed";
 	}
 
-	@RequestMapping(value = "/sns/login", method = RequestMethod.GET)
-	public String login() {
-		logger.info("login.");
-		
-		return "/sns/login";
-	}
-	
 	@RequestMapping(value = "/sns/naverLogin", method = RequestMethod.GET)
 	public String naverLogin() {
 		logger.info("naverLogin.");
@@ -108,13 +101,6 @@ public class HomeController {
 		logger.info("googleLoginCallback.");
 		
 		return "/sns/googleLoginCallback";	
-	}
-	
-	@RequestMapping(value = "/sns/signup", method = RequestMethod.GET)
-	public String signup() {
-		logger.info("signup.");
-		
-		return "/sns/signup";
 	}
 	
 	@RequestMapping(value = "/sns/signup3", method = RequestMethod.GET)
@@ -172,20 +158,7 @@ public class HomeController {
 		
 		return "/sns/user_profile";
 	}
-	
-	@RequestMapping(value = "/stock/stock-buy-modal", method = RequestMethod.GET)
-	public String stock_buy_modal() {
-		logger.info("stock-buy-modal");
-		
-		return "/stock/stock-buy-modal";
-	}
-	
-	@RequestMapping(value = "/stock/stock-sell-modal", method = RequestMethod.GET)
-	public String stock_sell_modal() {
-		logger.info("stock-sell-modal");
-		
-		return "/stock/stock-sell-modal";
-	}
+
 
 	
 	/**
@@ -220,11 +193,11 @@ public class HomeController {
 		return "/stock/stock-company";
 	}
 	
-	@RequestMapping(value = "/stock/interests", method = RequestMethod.GET)
+	@RequestMapping(value = "/stock/interest", method = RequestMethod.GET)
 	public String interests() {
-		logger.info("stock interests ");
+		logger.info("stock interest ");
 		
-		return "/stock/stock-interests";
+		return "/stock/stock-interest";
 	}
 	
 	@RequestMapping(value = "/stock/trade-list", method = RequestMethod.GET)
@@ -234,11 +207,11 @@ public class HomeController {
 		return "/stock/stock-trade-list";
 	}
 	
-	@RequestMapping(value = "/stock/asset-list", method = RequestMethod.GET)
+	@RequestMapping(value = "/stock/holding-list", method = RequestMethod.GET)
 	public String assetList() {
-		logger.info("stock asset-list ");
+		logger.info("stock holding-list ");
 		
-		return "/stock/stock-asset-list";
+		return "/stock/stock-holding-list";
 	}
 	
 }
