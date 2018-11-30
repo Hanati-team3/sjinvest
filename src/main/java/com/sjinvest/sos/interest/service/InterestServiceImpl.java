@@ -20,7 +20,7 @@ public class InterestServiceImpl implements InterestService {
 	@Override
 	public boolean Create(Interest interest) {
 		try {
-			mapper.create(interest);
+			mapper.add(interest);
 		}catch(Exception e) {
 			return false;
 		}

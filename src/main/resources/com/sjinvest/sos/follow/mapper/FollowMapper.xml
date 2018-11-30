@@ -9,5 +9,44 @@
 		<result column="follow_user_seq" property="followUserSeq" />
 	</resultMap>
 	<insert id="create" parameterType="Follow">
+	INSERT INTO follow 
+	            (
+	            user_seq, 
+	            follow_user_seq
+	            ) 
+	VALUES     (
+				#{userSeq}, 
+	            #{followUserSeq}
+	            )
 	</insert>
+	<!-- 팔로우 삭제 -->
+	<delete id="deleteFollow" parameterType="Follow">
+		DELETE FROM follow
+		WHERE
+		user_seq = #{userSeq}
+		AND
+		follow_user_seq = #{followUserSeq}
+	</delete>
+	<!-- 특정 유저 팔로우 삭제 -->
+	<delete id="deleteFollowByUser" parameterType="Follow">
+		DELETE FROM follow
+		WHERE
+		user_seq = #{userSeq}
+	</delete>
+	<!-- 특정 유저 팔로우 목록 -->
+	<select id="listByUserFollow" parameterType="Integer" resultType="Follow"
+		resultMap="followResultMap">
+		SELECT user_seq, 
+		       follow_user_seq
+		FROM   Follow 
+		WHERE  user_seq = #{value} 
+	</select>
+	<!-- 특정 유저 팔로워 목록 -->	
+	<select id="listByUserFollower" parameterType="Integer" resultType="Follow"
+		resultMap="followResultMap">
+		SELECT user_seq, 
+		       follow_user_seq
+		FROM   Follow 
+		WHERE  follow_user_seq = #{value} 
+	</select>
 </mapper>

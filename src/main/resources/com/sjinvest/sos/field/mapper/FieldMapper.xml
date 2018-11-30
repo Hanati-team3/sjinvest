@@ -9,6 +9,24 @@
 		<result column="field_name" property="fieldName" />
 		<result column="field_detail" property="fieldDetail" />
 	</resultMap>
-	<insert id="create" parameterType="Field">
-	</insert>
+	<select id="readByNumber" parameterType="Integer" resultType="Field" resultMap="fieldResultMap">
+	   SELECT field_number, 
+       field_name, 
+       field_detail 
+	   FROM   field 
+       WHERE  field_number = #{value} 
+	</select>
+	<select id="readByName" parameterType="String" resultType="Field" resultMap="fieldResultMap">
+	   SELECT field_number, 
+       field_name, 
+       field_detail 
+	   FROM   field 
+       WHERE  field_name = #{value} 
+	</select>
+	<select id="list" resultType="Field" resultMap="fieldResultMap">
+	   SELECT field_number, 
+       field_name, 
+       field_detail 
+	   FROM   field
+	</select>
 </mapper>

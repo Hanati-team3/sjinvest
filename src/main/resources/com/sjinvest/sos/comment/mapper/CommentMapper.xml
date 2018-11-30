@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-                        
+
 <!-- 네임스페이스(사용영역) 설정 -->
 <mapper namespace="com.sjinvest.sos.comment.mapper.CommentMapper">
 	<resultMap type="Comment" id="commentResultMap">
@@ -9,9 +9,67 @@
 		<result column="feed_seq" property="feedSeq" />
 		<result column="user_seq" property="userSeq" />
 		<result column="comment_regdate" property="commentRegdate" />
-		<result column="comment_update_date" property="commentUpdateDate" />
+		<result column="comment_update_date"
+			property="commentUpdateDate" />
 		<result column="comment_content" property="commentContent" />
 	</resultMap>
-	<insert id="create" parameterType="Comment">
+	<!-- 댓글 쓰기 -->
+	<insert id="write" parameterType="Comment">
+		INSERT INTO comments
+		(comment_seq,
+		feed_seq,
+		user_seq,
+		<if test="commentRegdate != null">
+			comment_regdate,
+		</if>
+		<if test="commentUpdateDate != null">
+			comment_update_date,
+		</if>
+		comment_content)
+		VALUES
+		(
+		comment_seq.nextval,
+		#{feedSeq},
+		#{userSeq},
+		<if test="commentRegdate != null">
+			#{commentRegdate},
+		</if>
+		<if test="commentUpdateDate != null">
+			#{commentUpdateDate},
+		</if>
+		#{commentContent}
+		)
 	</insert>
+	<!-- 피드별 댓글 가져오기 -->
+	<select id="listByFeed" parameterType="Integer" resultType="Comment"
+		resultMap="commentResultMap">
+		SELECT comment_seq, 
+		       feed_seq, 
+		       user_seq, 
+		       comment_regdate, 
+		       comment_update_date, 
+		       comment_content 
+		FROM   comments 
+		WHERE  feed_seq = #{value} 
+	</select>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="Comment">
+		UPDATE comments 
+		SET    comment_content = #{commentContent}, 
+		       comment_update_date = SYSDATE 
+		WHERE  comment_seq = #{commentSeq} 
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<update id="deleteComment" parameterType="Integer">
+		DELETE FROM comments 
+		WHERE  comment_seq = #{value}
+	</update>
+	
+	<!-- 특정 피드 댓글 삭제 -->
+	<update id="deleteCommentByFeed" parameterType="Integer">
+		DELETE FROM comments 
+		WHERE  feed_seq = #{value}
+	</update>
 </mapper>

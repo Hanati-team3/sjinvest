@@ -6,12 +6,69 @@
 <mapper namespace="com.sjinvest.sos.holding.mapper.HoldingMapper">
 	<resultMap type="Holding" id="holdingResultMap">
 		<result column="holding_seq" property="holdingSeq" />
-		<result column="company_seq" property="companySeq" />
+		<result column="company_number" property="companyNumber" />
 		<result column="company_name" property="companyName" />
 		<result column="user_seq" property="userSeq" />
 		<result column="holding_amount" property="holdingAmount" />
 		<result column="holding_total_money" property="holdingTotalMoney" />
 	</resultMap>
+	<!-- 보유주식 만들기 -->
 	<insert id="create" parameterType="Holding">
-	</insert>	
+		INSERT INTO holding 
+            (holding_seq, 
+             company_number, 
+             company_name, 
+             user_seq, 
+             holding_amount, 
+             holding_total_money) 
+		VALUES     
+			(holding_seq.NEXTVAL, 
+            #{companyNumber}, 
+            #{companyName}, 
+            #{userSeq}, 
+            #{holdingAmount}, 
+            #{holdingTotalMoney})
+	</insert>
+	<!-- 보유주식 삭제 -->
+	<delete id="deleteHolding" parameterType="Integer">
+		DELETE FROM holding
+		WHERE
+		holding_seq = #{value}
+	</delete>
+	<!-- 특정 유저 보유주식 삭제 -->
+	<delete id="deleteHoldingByUser" parameterType="Integer">
+		DELETE FROM holding
+		WHERE
+		user_seq = #{value}
+	</delete>
+	<!-- 특정 유저 보유 주식 목록 -->
+	<select id="listByUser" parameterType="Integer" resultType="Holding" resultMap="holdingResultMap">
+		SELECT holding_seq, 
+		       company_number, 
+		       company_name, 
+		       user_seq, 
+		       holding_amount, 
+		       holding_total_money 
+		FROM   holding 
+		WHERE  user_seq = #{value}
+	</select>
+	<!-- 유저 - 회사 주식 보유 여부 확인 -->
+	<select id="checkByCompanyNumber" parameterType="Holding" resultType="Holding" resultMap="holdingResultMap">
+		SELECT holding_seq, 
+		       company_number, 
+		       company_name, 
+		       user_seq, 
+		       holding_amount, 
+		       holding_total_money 
+		FROM   holding 
+		WHERE  user_seq = #{userSeq} 
+		       AND company_number = #{companyNumber} 
+	</select>
+	<!-- 존재하는 보유주식에 보유주식 가감하기 -->
+	<update id="modificationHolding" parameterType="Holding">
+		UPDATE holding 
+		SET    holding_amount = holding_amount + #{holdingAmount}, 
+		       holding_total_money = holding_total_money + #{holdingTotalMoney} 
+		WHERE  holding_seq = #{holdingSeq} 
+	</update>
 </mapper>

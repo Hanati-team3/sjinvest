@@ -23,7 +23,7 @@ public class UserController {
 	@PostMapping("/regist")
 	public String create(User user, RedirectAttributes rttr) {
 		log.info("register : "+ user);
-		service.Create(user);
+		service.regist(user);
 		return "redirect:/user/list";
 	}
 }

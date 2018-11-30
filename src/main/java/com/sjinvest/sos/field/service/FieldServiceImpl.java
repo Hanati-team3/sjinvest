@@ -1,5 +1,7 @@
 package com.sjinvest.sos.field.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +20,19 @@ public class FieldServiceImpl implements FieldService {
 	private FieldMapper mapper;
 
 	@Override
-	public boolean Create(Field field) {
-		try {
-			mapper.create(field);
-		}catch(Exception e) {
-			return false;
-		}
-		return true;
+	public Field readByNumber(int fieldNumber) {
+		return mapper.readByNumber(fieldNumber);
 	}
+
+	@Override
+	public Field readByName(String fieldName) {
+		return mapper.readByName(fieldName);
+	}
+
+	@Override
+	public List<Field> list() {
+		return mapper.list();
+	}
+
+
 }

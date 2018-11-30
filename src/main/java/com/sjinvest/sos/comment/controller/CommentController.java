@@ -24,7 +24,7 @@ public class CommentController {
 	@PostMapping("/writing")
 	public String writing(Comment comment, RedirectAttributes rttr) {
 		log.info("register : "+comment);
-		service.Create(comment);
+		service.Write(comment);
 		return "redirect:/comment/list";
 	}
 	

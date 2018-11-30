@@ -9,10 +9,10 @@ import lombok.Data;
 @Data
 @Alias(value = "Company")
 public class Company {
-	private int companyNumber;
+	private String companyNumber;
 	private String companyName;
 	private int fieldNumber;
 	private String fieldName;
 	private int companyTotalStock;
-	private int companyDetail;
+	private String companyDetail;
 }

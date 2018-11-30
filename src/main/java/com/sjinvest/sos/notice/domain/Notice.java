@@ -12,6 +12,7 @@ public class Notice {
 	private int noticeSeq;
 	private int userSeq;
 	private String noticeContent;
+	private String noticeLink;
 	private int noticeIsChecked;
 	private String noticeDate;
 	private int noticeType;

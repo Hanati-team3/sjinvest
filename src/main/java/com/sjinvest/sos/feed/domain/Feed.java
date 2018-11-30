@@ -16,6 +16,7 @@ public class Feed {
 	private String feedContent;
 	private int feedLikeCnt;
 	private int feedShareCnt;
+	private int feedReplyCnt;
 	private String feedPicture;
 	private int feedOriginalSeq;
 }

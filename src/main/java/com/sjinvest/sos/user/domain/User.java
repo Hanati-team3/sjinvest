@@ -17,7 +17,7 @@ public class User {
 	private int userPoint;
 	private String userDetail;
 	private String userPicture;
-	private Date userRegdate;
+	private String userRegdate;
 	private int userMoney;
 	private int userGender;
 	private String userBirth;

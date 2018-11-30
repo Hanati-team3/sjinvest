@@ -22,7 +22,6 @@ public class CompanyController {
 	@PostMapping("/regist")
 	public String regist(Company company, RedirectAttributes rttr) {
 		log.info("register : "+company);
-		service.Create(company);
 		return "redirect:/company/list";
 	}
 
