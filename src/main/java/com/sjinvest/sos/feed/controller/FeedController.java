@@ -23,7 +23,7 @@ public class FeedController {
 	@PostMapping("/writing")
 	public String writing(Feed feed, RedirectAttributes rttr) {
 		log.info("register : "+ feed);
-		service.Create(feed);
+		service.write(feed);
 		return "redirect:/feed/list";
 	}
 

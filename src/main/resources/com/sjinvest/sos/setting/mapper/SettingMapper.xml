@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="com.sjinvest.sos.setting.mapper.SettingMapper">
+	<resultMap type="Setting" id="settingResultMap">
+		<result column="user_seq" property="userSeq" />
+		<result column="set_feed_notice" property="setFeedNotice" />
+		<result column="set_trade_notice" property="setTradeNotice" />
+		<result column="set_privacy" property="setPrivacy" />
+		<result column="set_view" property="setView" />
+	</resultMap>
+	<!-- Setting 등록 -->
+	<insert id="create" parameterType="Integer">
+		INSERT INTO setting 
+            	(user_seq) 
+		VALUES  ( #{value} )
+	</insert>
+	<!-- 특정 유저 Setting 읽기-->
+	<select id="read" parameterType="Integer" resultType="Setting" resultMap="settingResultMap">
+		SELECT user_seq, 
+		       set_feed_notice, 
+		       set_trade_notice, 
+		       set_privacy, 
+		       set_view 
+		FROM   setting 
+		WHERE  user_seq = #{value}
+	</select>
+	<!-- 특정 유저 Setting 삭제 -->
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM setting 
+		WHERE  user_seq = #{value} 
+	</delete>
+	
+	<!--Setting 변경-->
+	<update id="update" parameterType="Setting">
+		UPDATE setting
+		<set>
+			<if test="setFeedNotice != 0">set_feed_notice = #{setFeedNotice},</if>
+			<if test="setTradeNotice != 0">set_trade_notice = #{setTradeNotice},</if>
+			<if test="setPrivacy != 0">set_privacy = #{setPrivacy},</if>
+			<if test="setView != 0">set_view = #{setView},</if>
+		</set>
+		WHERE user_seq = #{userSeq}
+	</update>
+</mapper>

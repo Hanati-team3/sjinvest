@@ -1,5 +1,7 @@
 package com.sjinvest.sos.follow.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +20,32 @@ public class FollowServiceImpl implements FollowService {
 	private FollowMapper mapper;
 
 	@Override
-	public boolean Create(Follow follow) {
+	public boolean create(Follow follow) {
 		try {
 			mapper.create(follow);
 		}catch(Exception e) {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public boolean deleteFollow(Follow follow) {
+		return (mapper.deleteFollow(follow)==1);
+	}
+
+	@Override
+	public boolean deleteFollowByUser(int userSeq) {
+		return (mapper.deleteFollowByUser(userSeq)>0);
+	}
+
+	@Override
+	public List<Follow> listByUserFollow(int userSeq) {
+		return mapper.listByUserFollow(userSeq);
+	}
+
+	@Override
+	public List<Follow> listByUserFollower(int userSeq) {
+		return mapper.listByUserFollower(userSeq);
 	}
 }

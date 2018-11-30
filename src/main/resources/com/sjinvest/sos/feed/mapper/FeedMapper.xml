@@ -15,6 +15,158 @@
 		<result column="feed_picture" property="feedPicture" />
 		<result column="feed_original_seq" property="feedOriginalSeq" />
 	</resultMap>
-	<insert id="create" parameterType="Feed">
+	<!-- 피드 쓰기 -->
+	<insert id="write" parameterType="Feed">
+		INSERT INTO feed
+		(feed_seq,
+		 user_seq,
+		<if test="feedRegdate != null">
+			feed_regdate,
+		</if>
+		<if test="feedUpdateDate != null">
+			feed_update_date,
+		</if>
+		<if test="feedLikeCnt != 0">
+			feed_like_count,
+		</if>
+		<if test="feedShareCnt != 0">
+			feed_share_count,
+		</if>
+		<if test="feedReplyCnt != 0">
+			feed_share_count,
+		</if>
+		<if test="feedPicture != null">
+			feed_picture,
+		</if>
+		<if test="feedOriginalSeq != 0">
+			feed_original_seq,
+		</if>
+		feed_content
+		)
+		VALUES
+		(
+		feed_seq.nextval,
+		#{userSeq},
+		<if test="feedRegdate != null">
+			#{feedRegdate},
+		</if>
+		<if test="feedUpdateDate != null">
+			#{feedUpdateDate},
+		</if>
+		<if test="feedLikeCnt != 0">
+			#{feedLikeCnt},
+		</if>
+		<if test="feedShareCnt != 0">
+			#{feedShareCnt},
+		</if>
+		<if test="feedReplyCnt != 0">
+			#{feedReplyCnt},
+		</if>
+		<if test="feedPicture != null">
+			#{feedPicture},
+		</if>
+		<if test="feedOriginalSeq != 0">
+			#{feedOriginalSeq},
+		</if>
+		#{feedContent}
+		)
 	</insert>
+	<!-- 피드 삭제 -->
+	<delete id="deleteFeed" parameterType="Integer">
+		DELETE FROM feed
+		WHERE
+		feed_seq = #{value}
+	</delete>
+	<!-- 피드 수정 -->
+	<update id="updateFeed" parameterType="Feed">
+		UPDATE feed
+		<set>
+	        <if test="feedUpdateDate != null">feed_update_date = #{feedUpdateDate},</if>
+	        <if test="feedContent != null">feed_content = #{feedContent},</if>
+	        <if test="feedLikeCnt != 0">feed_like_count = #{feedLikeCnt},</if>
+	        <if test="feedShareCnt != 0">feed_share_count = #{feedShareCnt},</if>
+	        <if test="feedReplyCnt != 0">user_reply_count = #{feedReplyCnt},</if>
+	        <if test="feedPicture != null">user_picture = #{feedPicture},</if>
+	        <if test="feedOriginalSeq != 0">feed_original_seq = #{feedOriginalSeq},</if>
+	    </set>
+	    WHERE feed_seq = #{feedSeq}
+	</update>
+	<!-- 피드 좋아요 증감 -->
+	<update id="increaseLike" parameterType="Feed">
+		UPDATE feed
+		SET feed_like_count = feed_like_count + #{feedLikeCnt}
+	    WHERE feed_seq = #{feedSeq}
+	</update>
+	<!-- 피드 댓글 증감 -->
+	<update id="increaseReply" parameterType="Feed">
+		UPDATE feed
+		SET feed_reply_count = feed_reply_count + #{feedReplyCnt}
+	    WHERE feed_seq = #{feedSeq}
+	</update>
+	<!-- 피드 공유 증감 -->
+	<update id="increaseShare" parameterType="Feed">
+		UPDATE feed
+		SET feed_share_count = feed_share_count + #{feedShareCnt}
+	    WHERE feed_seq = #{feedSeq}
+	</update>	
+	<!-- 피드 전체 리스트 -->
+	<select id="listAll" resultType="Feed" resultMap="feedResultMap">
+		SELECT feed_seq, 
+		       user_seq, 
+		       feed_regdate, 
+		       feed_content, 
+		       feed_like_count, 
+		       feed_update_date, 
+		       feed_reply_count feed_share_count, 
+		       feed_picture, 
+		       feed_original_seq 
+		FROM   feed
+	</select>
+	<!-- 피드 검색 및 페이징 처리 -->
+	<select id="listBySearchPage" resultType="Feed" resultMap="feedResultMap">
+		SELECT B.feed_seq, 
+		       B.user_seq, 
+		       B.feed_regdate, 
+		       B.feed_content, 
+		       B.feed_like_count, 
+		       B.feed_update_date, 
+		       B.feed_reply_count, 
+		       B.feed_share_count, 
+		       B.feed_picture, 
+		       B.feed_original_seq 
+		FROM  (SELECT /*+INDEX_DESC(A feed_seq)*/ ROWNUM AS rnum, 
+		                                          A.feed_seq, 
+		                                          A.user_seq, 
+		                                          A.feed_regdate, 
+		                                          A.feed_content, 
+		                                          A.feed_like_count, 
+		                                          A.feed_update_date, 
+		                                          A.feed_reply_count, 
+		                                          A.feed_share_count, 
+		                                          A.feed_picture, 
+		                                          A.feed_original_seq 
+		       FROM  (SELECT feed_seq, 
+		                     user_seq, 
+		                     feed_regdate, 
+		                     feed_content, 
+		                     feed_like_count, 
+		                     feed_update_date, 
+		                     feed_reply_count, 
+		                     feed_share_count, 
+		                     feed_picture, 
+		                     feed_original_seq 
+		              FROM   feed 
+		              ORDER  BY feed_seq DESC) A 
+		       WHERE  ROWNUM <![CDATA[<=]]> #{endNum}) B 
+		WHERE  B.rnum <![CDATA[>=]]> #{startNum} 
+		<if test="keywords != null">
+			AND
+			<foreach collection="keywords" item="keyword"  open="(" close=")" separator="or">
+            feed_content LIKE '%' ||  #{keyword} || '%'
+			</foreach>
+		</if>
+		<if test="userSeq != null">
+			AND user_seq = #{userSeq}
+		</if>
+	</select>
 </mapper>

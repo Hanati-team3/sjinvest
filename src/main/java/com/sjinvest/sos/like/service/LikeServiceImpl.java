@@ -20,7 +20,7 @@ public class LikeServiceImpl implements LikeService {
 	@Override
 	public boolean Create(Like like) {
 		try {
-			mapper.create(like);
+			mapper.add(like);
 		}catch(Exception e) {
 			return false;
 		}
