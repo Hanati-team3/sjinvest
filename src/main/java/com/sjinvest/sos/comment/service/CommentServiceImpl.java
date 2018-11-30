@@ -57,10 +57,12 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public boolean deleteComment(Comment comment) {
 		boolean result = (commentMapper.deleteComment(comment.getCommentSeq())==1);
-		Map<String, Integer> data = new HashMap<String, Integer>();
-		data.put("feedSeq", comment.getFeedSeq());
-		data.put("feedReplyCnt", -1);
-		feedMapper.increaseReply(data);
+		if(result) {
+			Map<String, Integer> data = new HashMap<String, Integer>();
+			data.put("feedSeq", comment.getFeedSeq());
+			data.put("feedReplyCnt", -1);
+			feedMapper.increaseReply(data);
+		}
 		return result;
 	}
 }

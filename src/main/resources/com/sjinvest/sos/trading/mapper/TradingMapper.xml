@@ -13,6 +13,7 @@
 		<result column="trading_time" property="tradingTime" />
 		<result column="trading_price" property="tradingPrice" />
 		<result column="trading_amount" property="tradingAmount" />
+		<result column="trading_earnings_ratio" property="tradingEarningsRatio" />
 	</resultMap>
 	<!-- 거래 등록 -->
 	<insert id="create" parameterType="Trading">
@@ -23,7 +24,9 @@
 		company_name,
 		trading_type,
 		trading_price,
-		trading_amount)
+		trading_amount,
+		trading_earnings_ratio
+		)
 		VALUES
 		(trading_seq.NEXTVAL,
 		#{userSeq},
@@ -31,7 +34,8 @@
 		#{companyName},
 		#{tradingType},
 		#{tradingPrice},
-		#{tradingAmount})
+		#{tradingAmount}
+		#{tradingEarningsRatio})
 	</insert>
 	<!-- 특정 유저 거래 목록 -->
 	<select id="listByUser" parameterType="map" resultType="Trading"
@@ -43,7 +47,8 @@
 		trading_type,
 		trading_time,
 		trading_price,
-		trading_amount
+		trading_amount,
+		trading_earnings_ratio
 		FROM trading
 		<where>
 			<if test="userSeq != null">

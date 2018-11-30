@@ -3,9 +3,10 @@
 <html lang="en">
 <head>
 
+<!-- 로그인 처리를 위한 ajax 통신 시도해보던 파일 -->
+
 	<title>login</title>
     <jsp:include page="../includes/head.jsp"></jsp:include>
-    
     
 <script type="text/javascript">
 

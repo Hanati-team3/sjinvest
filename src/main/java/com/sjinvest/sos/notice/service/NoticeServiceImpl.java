@@ -1,5 +1,7 @@
 package com.sjinvest.sos.notice.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +17,48 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class NoticeServiceImpl implements NoticeService {
 
-	@Setter(onMethod_ = @Autowired)
+	@Autowired
 	private NoticeMapper mapper;
 
 	@Override
-	public boolean Create(Notice notice) {
-		try {
+	public boolean create(Notice notice) {
+		try{
 			mapper.create(notice);
-		}catch(Exception e) {
+		}catch (Exception e) {
 			return false;
 		}
 		return true;
 	}
+
+	@Override
+	public boolean deleteNotice(int noticeSeq) {
+		return (mapper.deleteNotice(noticeSeq)==1);
+	}
+
+	@Override
+	public List<Notice> listByUser(int userSeq) {
+		return mapper.listByUser(userSeq);
+	}
+
+	@Override
+	public int notCheckedNoticeByUser(int userSeq) {
+		return mapper.notCheckedNoticeByUser(userSeq);
+	}
+
+	@Override
+	public boolean isReaded(int noticeSeq) {
+		return (mapper.isReaded(noticeSeq)==1);
+	}
+
+	@Override
+	public boolean isReadedAll() {
+		try{
+			mapper.isReadedAll();
+		}catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
+
 }

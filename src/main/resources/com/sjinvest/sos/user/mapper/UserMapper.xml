@@ -203,34 +203,34 @@
 			<if test="userBirth != null">user_birth = #{userBirth},</if>
 			<if test="userAuthority != null">user_authority = #{userAuthority},</if>
 		</set>
-		WHERE user_id = #{userId}
+		WHERE user_seq = #{userSeq}
 	</update>
 
 	<!--회원 포인트 가감-->
 	<update id="addUserPoint" parameterType="map">
 		UPDATE users
 		SET user_point = user_point + #{userPoint}
-	    WHERE user_id = #{userId}
+	    WHERE user_seq = #{userSeq}
 	</update>
 	
 	<!-- 회원 포인트 값 확인 -->
-	<select id="checkUserPoint" parameterType="String" resultType="Integer">
+	<select id="checkUserPoint" parameterType="Integer" resultType="Integer">
 		SELECT user_point 
 		FROM   users 
-		WHERE  user_id = #{userId}
+		WHERE  user_seq = #{value}
 	</select>
 
 	<!--회원 보유액 가감-->
 	<update id="addUserMoney" parameterType="map">
 		UPDATE users
 		SET user_money = user_money + #{userMoney}
-	    WHERE user_id = #{userId}
+	    WHERE user_seq = #{userSeq}
 	</update>
 	
 	<!-- 회원 포인트 값 확인 -->
-	<select id="checkUserMoney" parameterType="String" resultType="Integer">
+	<select id="checkUserMoney" parameterType="Integer" resultType="Integer">
 		SELECT user_money
 		FROM   users 
-		WHERE  user_id = #{userId}
+		WHERE  user_seq = #{value}
 	</select>
 </mapper>

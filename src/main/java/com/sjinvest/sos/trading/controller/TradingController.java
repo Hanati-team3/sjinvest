@@ -23,7 +23,7 @@ public class TradingController {
 	@PostMapping("/regist")
 	public String create(Trading trading, RedirectAttributes rttr) {
 		log.info("register : "+ trading);
-		service.Create(trading);
+		service.create(trading);
 		return "redirect:/trading/list";
 	}
 }

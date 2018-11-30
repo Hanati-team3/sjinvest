@@ -7,11 +7,12 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sjinvest.sos.comment.mapper.CommentMapper;
+import com.sjinvest.sos.company.domain.Company;
+import com.sjinvest.sos.company.mapper.CompanyMapper;
 import com.sjinvest.sos.feed.domain.Feed;
 import com.sjinvest.sos.feed.domain.SearchParam;
 import com.sjinvest.sos.feed.mapper.FeedMapper;
@@ -31,6 +32,9 @@ public class FeedServiceImpl implements FeedService {
 	private CommentMapper commentMapper;
 	@Inject
 	private LikeMapper likeMapper;
+	@Inject
+	private CompanyMapper companyMapper;
+	
 	
 	@Override
 	public boolean write(Feed feed) {
@@ -92,5 +96,45 @@ public class FeedServiceImpl implements FeedService {
 		return feedMapper.listBySearchPage(data);
 	}
 
+	@Override
+	public List<Feed> listBySearchPageByFieldNumber(SearchParam searchParam, int fieldNumber) {
+		Map<String, Object> data = new HashMap<String, Object>();
+		if(searchParam.getStartNum()!=0) {
+			data.put("startNum", searchParam.getStartNum());
+		}
+		if(searchParam.getEndNum()!=0) {
+			data.put("endNum", searchParam.getEndNum());
+		}
+		if(searchParam.getUserSeq()!=0) {
+			data.put("userSeq", searchParam.getUserSeq());
+		}
+		List<String> keywords = new ArrayList<String>();
+		List<Company> companyList = companyMapper.readByFieldNumber(fieldNumber);
+		for (Company company : companyList) {
+			keywords.add("$"+company.getCompanyName());
+		}
+		data.put("keywords", keywords);
+		return feedMapper.listBySearchPage(data);
+	}
 
+	@Override
+	public List<Feed> listBySearchPageByFieldName(SearchParam searchParam, String fieldName) {
+		Map<String, Object> data = new HashMap<String, Object>();
+		if(searchParam.getStartNum()!=0) {
+			data.put("startNum", searchParam.getStartNum());
+		}
+		if(searchParam.getEndNum()!=0) {
+			data.put("endNum", searchParam.getEndNum());
+		}
+		if(searchParam.getUserSeq()!=0) {
+			data.put("userSeq", searchParam.getUserSeq());
+		}
+		List<String> keywords = new ArrayList<String>();
+		List<Company> companyList = companyMapper.readByFieldName(fieldName);
+		for (Company company : companyList) {
+			keywords.add("$"+company.getCompanyName());
+		}
+		data.put("keywords", keywords);
+		return feedMapper.listBySearchPage(data);
+	}
 }

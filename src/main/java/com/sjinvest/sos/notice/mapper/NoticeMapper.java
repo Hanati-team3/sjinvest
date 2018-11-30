@@ -6,7 +6,7 @@ import com.sjinvest.sos.notice.domain.Notice;
 
 public interface NoticeMapper {
 	public void create(Notice notice);
-	public void deleteNotice(int noticeSeq);
+	public int deleteNotice(int noticeSeq);
 	public List<Notice> listByUser(int userSeq);
 	public int deleteNoticeByUser(int userSeq);
 	public int notCheckedNoticeByUser(int userSeq);
