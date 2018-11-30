@@ -5,151 +5,70 @@
 	</div>
 
 	<ol class="widget w-playlist">
-		<li>
-			<div class="playlist-thumb">
-				<img src="<%=application.getContextPath()%>/resources/img/playlist6.jpg" alt="thumb-composition">
-				<div class="overlay"></div>
-				<a href="#" class="play-icon">
-					<svg class="olymp-music-play-icon-big"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons-music.svg#olymp-music-play-icon-big"></use></svg>
-				</a>
-			</div>
+			<li class="inline-items js-chat-open">
 
-			<div class="composition">
-				<a href="#" class="composition-name">The Past Starts Slow...</a>
-				<a href="#" class="composition-author">System of a Revenge</a>
-			</div>
-
-			<div class="composition-time">
-				<time class="published" datetime="2017-03-24T18:18">3:22</time>
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-					<ul class="more-dropdown">
-						<li>
-							<a href="#">Add Song to Player</a>
-						</li>
-						<li>
-							<a href="#">Add Playlist to Player</a>
-						</li>
-					</ul>
+				<div class="author-thumb">
+					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar67-sm.jpg" class="avatar">
 				</div>
-			</div>
 
-		</li>
-
-		<li>
-			<div class="playlist-thumb">
-				<img src="<%=application.getContextPath()%>/resources/img/playlist7.jpg" alt="thumb-composition">
-				<div class="overlay"></div>
-				<a href="#" class="play-icon">
-					<svg class="olymp-music-play-icon-big"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons-music.svg#olymp-music-play-icon-big"></use></svg>
-				</a>
-			</div>
-
-			<div class="composition">
-				<a href="#" class="composition-name">The Pretender</a>
-				<a href="#" class="composition-author">Kung Fighters</a>
-			</div>
-
-			<div class="composition-time">
-				<time class="published" datetime="2017-03-24T18:18">5:48</time>
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-					<ul class="more-dropdown">
-						<li>
-							<a href="#">Add Song to Player</a>
-						</li>
-						<li>
-							<a href="#">Add Playlist to Player</a>
-						</li>
-					</ul>
+				<div class="author-status">
+					<a href="#" class="h6 author-name">Carol Summers</a>
+                    <div style="color:red;">+40.58%</div>
 				</div>
-			</div>
 
-		</li>
-		<li>
-			<div class="playlist-thumb">
-				<img src="<%=application.getContextPath()%>/resources/img/playlist8.jpg" alt="thumb-composition">
-				<div class="overlay"></div>
-				<a href="#" class="play-icon">
-					<svg class="olymp-music-play-icon-big"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons-music.svg#olymp-music-play-icon-big"></use></svg>
-				</a>
-			</div>
+			</li>
+      
+			<li class="inline-items js-chat-open">
 
-			<div class="composition">
-				<a href="#" class="composition-name">Blood Brothers</a>
-				<a href="#" class="composition-author">Iron Maid</a>
-			</div>
-
-			<div class="composition-time">
-				<time class="published" datetime="2017-03-24T18:18">3:06</time>
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-					<ul class="more-dropdown">
-						<li>
-							<a href="#">Add Song to Player</a>
-						</li>
-						<li>
-							<a href="#">Add Playlist to Player</a>
-						</li>
-					</ul>
+				<div class="author-thumb">
+					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar62-sm.jpg" class="avatar">
 				</div>
-			</div>
 
-		</li>
-		<li>
-			<div class="playlist-thumb">
-				<img src="<%=application.getContextPath()%>/resources/img/playlist9.jpg" alt="thumb-composition">
-				<div class="overlay"></div>
-				<a href="#" class="play-icon">
-					<svg class="olymp-music-play-icon-big"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons-music.svg#olymp-music-play-icon-big"></use></svg>
-				</a>
-			</div>
-
-			<div class="composition">
-				<a href="#" class="composition-name">Seven Nation Army</a>
-				<a href="#" class="composition-author">The Black Stripes</a>
-			</div>
-
-			<div class="composition-time">
-				<time class="published" datetime="2017-03-24T18:18">6:17</time>
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-					<ul class="more-dropdown">
-						<li>
-							<a href="#">Add Song to Player</a>
-						</li>
-						<li>
-							<a href="#">Add Playlist to Player</a>
-						</li>
-					</ul>
+				<div class="author-status">
+					<a href="#" class="h6 author-name">Mathilda Brinker</a>
+                    <div style="color:red">+20.12%</div>
 				</div>
-			</div>
 
-		</li>
-		<li>
-			<div class="playlist-thumb">
-				<img src="<%=application.getContextPath()%>/resources/img/playlist10.jpg" alt="thumb-composition">
-				<div class="overlay"></div>
-				<a href="#" class="play-icon">
-					<svg class="olymp-music-play-icon-big"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons-music.svg#olymp-music-play-icon-big"></use></svg>
-				</a>
-			</div>
+			</li>
 
-			<div class="composition">
-				<a href="#" class="composition-name">Killer Queen</a>
-				<a href="#" class="composition-author">Archiduke</a>
-			</div>
+			<li class="inline-items js-chat-open">
 
-			<div class="composition-time">
-				<time class="published" datetime="2017-03-24T18:18">5:40</time>
-				<div class="more"><svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-					<ul class="more-dropdown">
-						<li>
-							<a href="#">Add Song to Player</a>
-						</li>
-						<li>
-							<a href="#">Add Playlist to Player</a>
-						</li>
-					</ul>
+				<div class="author-thumb">
+					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar68-sm.jpg" class="avatar">
 				</div>
-			</div>
-		</li>
+
+				<div class="author-status">
+					<a href="#" class="h6 author-name">Carol Summers</a>
+                    <div style="color:red;">+18.34%</div>
+				</div>
+
+			</li>
+
+			<li class="inline-items js-chat-open">
+
+				<div class="author-thumb">
+					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar69-sm.jpg" class="avatar">
+				</div>
+
+				<div class="author-status">
+					<a href="#" class="h6 author-name">Michael Maximoff</a>
+                    <div style="color:red;">+13.11%</div>
+				</div>
+
+			</li>
+
+			<li class="inline-items js-chat-open">
+
+				<div class="author-thumb">
+					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar70-sm.jpg" class="avatar">
+				</div>
+
+				<div class="author-status">
+					<a href="#" class="h6 author-name">Rachel Howlett</a>
+                    <div style="color:red;">+8.12%</div>
+				</div>
+
+			</li>
 
 	</ol>
 </div>

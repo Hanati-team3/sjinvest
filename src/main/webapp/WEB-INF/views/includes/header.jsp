@@ -28,8 +28,8 @@
       <c:choose>
         <%--로그인 아님 --%>
         <c:when test="${param.loginId eq null}">
-          <a href="#" class="link-find-friend" data-toggle="modal" data-target="#login_modal">Login</a>
-          <a href="#" class="link-find-friend" data-toggle="modal" data-target="#signup_modal">Sign up</a>
+          <a href="#" class="link-find-friend header-a-padding" data-toggle="modal" data-target="#login_modal">Login</a>
+          <a href="#" class="link-find-friend header-a-padding" data-toggle="modal" data-target="#signup_modal">Sign up</a>
         </c:when>
         <%--로그인 중 --%>
         <c:otherwise>
