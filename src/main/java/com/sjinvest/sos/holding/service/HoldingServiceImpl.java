@@ -20,19 +20,6 @@ public class HoldingServiceImpl implements HoldingService {
 	private HoldingMapper mapper;
 
 	@Override
-	public boolean modification(Holding holding) {
-		try {
-			if(mapper.checkByCompanyNumber(holding).size()>0) {
-				mapper.modificationHolding(holding);
-			}else {
-				mapper.create(holding);
-			}
-		}catch (Exception e) {
-			return false;
-		}
-		return true;
-	}
-	@Override
 	public boolean deleteHolding(int holdingSeq) {
 		return (mapper.deleteHolding(holdingSeq)==1);
 	}

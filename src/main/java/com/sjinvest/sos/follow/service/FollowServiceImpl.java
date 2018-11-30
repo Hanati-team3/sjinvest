@@ -35,11 +35,6 @@ public class FollowServiceImpl implements FollowService {
 	}
 
 	@Override
-	public boolean deleteFollowByUser(int userSeq) {
-		return (mapper.deleteFollowByUser(userSeq)>0);
-	}
-
-	@Override
 	public List<Follow> listByUserFollow(int userSeq) {
 		return mapper.listByUserFollow(userSeq);
 	}

@@ -43,11 +43,11 @@ public class InterestServiceImpl implements InterestService {
 	}
 
 	@Override
-	public List<Interest> check(int userSeq, String companyNumber) {
+	public boolean check(int userSeq, String companyNumber) {
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("userSeq", userSeq);
 		data.put("companyNumber", companyNumber);
-		return mapper.check(data);
+		return (mapper.check(data).size()>0);
 	}
 
 
