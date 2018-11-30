@@ -82,5 +82,10 @@ public class TradingServiceImpl implements TradingService {
 		return mapper.listByUser(map);
 	}
 
+	@Override
+	public List<Map<String, Object>> earningRatio(int num) {
+		return mapper.earningRatio(num);
+	}
+
 	
 }

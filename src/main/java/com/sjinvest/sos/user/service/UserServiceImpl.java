@@ -119,4 +119,9 @@ public class UserServiceImpl implements UserService {
 	public List<User> readBySeqList(List<Integer> userSeqList) {
 		return userMapper.readBySeqList(userSeqList);
 	}
+
+	@Override
+	public List<User> pointTop(int num) {
+		return userMapper.pointTop(num);
+	}
 }

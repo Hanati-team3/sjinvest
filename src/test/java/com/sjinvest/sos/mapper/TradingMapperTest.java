@@ -35,7 +35,7 @@ public class TradingMapperTest {
 		trading.setCompanyName("아모레퍼시픽");
 		mapper.create(trading);
 	}
-	@Test
+//	@Test
 	public void testList() throws SQLException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userSeq", 2);
@@ -43,6 +43,10 @@ public class TradingMapperTest {
 		map.put("startDate", "2018-11-29");
 		map.put("endDate", "2018-11-30");
 		mapper.listByUser(map);
+	}
+	@Test
+	public void testTop() throws SQLException{
+		mapper.earningRatio(5);
 	}
 
 }

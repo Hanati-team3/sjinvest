@@ -233,4 +233,23 @@
 		FROM   users 
 		WHERE  user_seq = #{value}
 	</select>
+	<!-- 포인트 랭킹 top -->
+	<select id="pointTop" parameterType="Integer" resultType="User"
+		resultMap="userResultMap">
+		SELECT user_seq, 
+		       user_id, 
+		       user_nickname, 
+		       user_email, 
+		       user_password, 
+		       user_point, 
+		       user_picture, 
+		       user_detail, 
+		       user_regdate user_money, 
+		       user_gender, 
+		       user_birth, 
+		       user_authority 
+		FROM   users 
+		WHERE  rownum <![CDATA[<=]]> #{value} 
+		ORDER  BY user_point DESC 
+	</select>
 </mapper>

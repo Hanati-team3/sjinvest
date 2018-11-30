@@ -20,11 +20,15 @@ public class FeedController {
 
 	private FeedService service;
 	
-	@PostMapping("/writing")
+	@PostMapping("/writting")
 	public String writing(Feed feed, RedirectAttributes rttr) {
-		log.info("register : "+ feed);
-		service.write(feed);
-		return "redirect:/feed/list";
+		rttr.addAttribute("result", service.write(feed));
+		return "redirect:/sns/newsfeed";
 	}
-
+	
+//	@GetMapping("/list")
+//	public String writing(Feed feed, RedirectAttributes rttr) {
+//		service.write(feed);
+//		return "redirect:/feed/list";
+//	}
 }

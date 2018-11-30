@@ -47,6 +47,7 @@ public class CommonController{
 	public void logoutPOST(){
 		log.info("사용자 로그아웃 처리");
 	}
+	
 }
 
 

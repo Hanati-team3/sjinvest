@@ -49,4 +49,15 @@
 		FROM   Follow 
 		WHERE  follow_user_seq = #{value} 
 	</select>
+	<!-- 특정 유저 팔로우 top -->	
+	<select id="topFollow" parameterType="Integer" resultType="map">
+		SELECT counting.follow_user_seq user_seq, 
+		       counting.count_num       count_num 
+		FROM   (SELECT follow_user_seq, 
+		               Count(follow_user_seq) count_num 
+		        FROM   follow 
+		        GROUP  BY follow_user_seq) counting 
+		WHERE  ROWNUM <![CDATA[<=]]> #{value}
+		ORDER  BY counting.count_num DESC
+	</select>
 </mapper>
