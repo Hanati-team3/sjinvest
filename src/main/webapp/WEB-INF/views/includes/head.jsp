@@ -44,6 +44,27 @@
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/magnific-popup.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <style>
+
+.header--standard-dark .header-menu .header-a-padding{
+  padding: 20px 30px;
+}
+
+/* */
+
+.forums-table a {
+}
+
+.forums-table .fa, .far, .fas{
+  font-size: 15px;
+}
+
+.minus a {
+  color : blue;
+}
+.plus a {
+  color : #ff5e3a;
+}
+
 /*주식 index*/
 .stock-index-ul {
   text-align: center; 
@@ -56,11 +77,7 @@
 }
 
 .stock-index-ul li :hover {
-    color: #019591;
-}
-
-.header--standard-dark .header-menu .header-a-padding{
-  padding: 20px 30px;
+    color: #ff5e3a;
 }
 
 .stock-index-news .h6 {
@@ -89,7 +106,7 @@
 }
 .stock-my-interests .statistics-slide .company-stock {
     font-size: 40px;
-    color: #019591;
+    color: #ff5e3a;
 }
 
 .stock-index-trend .chart-js-pie-color {
@@ -312,12 +329,54 @@
 }
 
 
-/* */
-.minus a {
-  color : blue;
+
+/* 보유자산 */
+.stock-asset-main {
+  margin-top : 20px;
 }
-.plus a {
-  color : #ff5e3a;
+
+.stock-asset-main {
+  margin-top: 10px;
 }
+
+.stock-asset-main .forums-table .text{
+  font-size: 10px;
+}
+
+.stock-asset-mainn .forums-table th{
+  padding : 15px 5px;
+}
+.stock-asset-main .forums-table td{
+  padding : 15px 5px;
+}
+
+.stock-asset-main .forums-table .company-number{
+  width : 100px;
+}
+
+.stock-asset-main .forums-table tbody .company-name{
+  text-align: left;
+}
+
+.stock-asset-main .forums-table .stock-price{
+  width : 100px;
+}
+.stock-asset-main .forums-table .holding-amount{
+  width : 90px;
+}
+.stock-asset-main .forums-table .holding-total-money{
+  width : 100px;
+}
+.stock-asset-main .forums-table .profit-rate{
+  width : 100px;
+}
+.stock-asset-main .forums-table .holding-sell{
+  width : 100px;
+}
+
+
+
+
+
 </style>
 

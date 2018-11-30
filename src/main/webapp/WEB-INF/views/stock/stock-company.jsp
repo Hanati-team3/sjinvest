@@ -144,7 +144,8 @@
                 </div>
                 <%-- 구매 버튼 시작--%>
                 <div class="row">
-                  <a href="#" class="btn btn-primary btn-md-2">구매</a>
+                  <a class="btn btn-primary btn-md-2" data-toggle="modal"
+                      data-target="#edit-widget-pool">구매</a>
                 </div>
                 <%-- 구매 버튼 끝 --%>
               </article>
@@ -749,9 +750,7 @@
             <div class="ui-block">
               <div class="ui-block-title">
                 <h6 class="title">News</h6>
-                <a href="#" class="more"><svg
-                    class="olymp-three-dots-icon">
-                    <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
+                <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
     
               <ul class="notification-list">
@@ -826,8 +825,10 @@
   </div>
 
   <!-- ... end Widget Weather -->
-
-
+  
+  <!-- Window-popup Update Header Photo -->
+  <jsp:include page="stock-buy-modal.jsp"></jsp:include>
+  <!-- ... end Window-popup Update Header Photo -->
   <!-- Window-popup-CHAT for responsive min-width: 768px -->
   <jsp:include page="../popup/popup-chat.jsp"></jsp:include>
   <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
