@@ -144,7 +144,8 @@
                 </div>
                 <%-- 구매 버튼 시작--%>
                 <div class="row">
-                  <a href="#" class="btn btn-primary btn-md-2">구매</a>
+                  <a class="btn btn-primary btn-md-2" data-toggle="modal"
+                      data-target="#edit-widget-pool">구매</a>
                 </div>
                 <%-- 구매 버튼 끝 --%>
               </article>
@@ -824,8 +825,10 @@
   </div>
 
   <!-- ... end Widget Weather -->
-
-
+  
+  <!-- Window-popup Update Header Photo -->
+  <jsp:include page="stock-buy-modal.jsp"></jsp:include>
+  <!-- ... end Window-popup Update Header Photo -->
   <!-- Window-popup-CHAT for responsive min-width: 768px -->
   <jsp:include page="../popup/popup-chat.jsp"></jsp:include>
   <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
