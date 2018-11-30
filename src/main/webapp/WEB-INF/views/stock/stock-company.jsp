@@ -151,7 +151,7 @@
                 <%-- 구매 버튼 시작--%>
                 <div class="row">
                   <a class="btn btn-primary btn-md-2" data-toggle="modal"
-                      data-target="#edit-widget-pool">구매</a>
+                      data-target="#stock_buy_modal">구매</a>
                 </div>
                 <%-- 구매 버튼 끝 --%>
               </article>
@@ -834,6 +834,10 @@
   <!-- Window-popup-CHAT for responsive min-width: 768px -->
   <jsp:include page="../popup/popup-chat.jsp"></jsp:include>
   <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
+
+  <!-- 구매 modal start -->
+  <jsp:include page="../popup/stock-buy-modal.jsp"></jsp:include>
+  <!-- ... 구매 modal end -->
 
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
