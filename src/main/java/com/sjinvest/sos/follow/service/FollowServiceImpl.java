@@ -1,6 +1,7 @@
 package com.sjinvest.sos.follow.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,10 @@ public class FollowServiceImpl implements FollowService {
 	@Override
 	public List<Follow> listByUserFollower(int userSeq) {
 		return mapper.listByUserFollower(userSeq);
+	}
+
+	@Override
+	public List<Map<String, Object>> topFollow(int num) {
+		return mapper.topFollow(num);
 	}
 }

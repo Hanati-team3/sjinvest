@@ -26,4 +26,6 @@ public interface UserService {
 	public boolean resetMoney(int userSeq);
 	// 유저 번호 목록으로 유저 목록 가져오기
 	public List<User> readBySeqList(List<Integer> userSeqList);
+	// 포인트로 top 유저 목록 가져오기
+	public List<User> pointTop(int num);
 }

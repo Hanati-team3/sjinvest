@@ -10,4 +10,6 @@ public interface TradingService {
 	public boolean create(Trading trading);	
 	// 해당 유저 거래 목록 가져오기
 	public List<Trading> listByUser(int userSeq, int tradingType, String startDate, String endDate);
+	// 실현 수익률 top 5 유저 목록 및 수익률 가져오기 user_seq, earnings_ratio
+	public List<Map<String, Object>> earningRatio(int num);
 }

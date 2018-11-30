@@ -63,4 +63,23 @@
 		</where>
 		ORDER BY trading_time DESC
 	</select>
+	<!-- 수익률 top5 -->
+	<select id="earningRatio" resultType="map" parameterType="Integer">
+			SELECT c.user_seq       user_seq, 
+			       c.earnings_ratio earnings_ratio 
+			FROM   (SELECT each_value.user_seq, 
+			               ( each_value.a - each_value.b ) / each_value.b * 100 
+			               earnings_ratio 
+			        FROM   (SELECT user_seq, 
+			                       Sum(trading_price * trading_amount) a, 
+			                       Sum(( ( 100 / ( 100 + trading_earnings_ratio ) ) * 
+			                             trading_price 
+			                           ) * 
+			                           trading_amount)                 b 
+			                FROM   trading 
+			                WHERE  trading_type = 2 
+			                GROUP  BY user_seq) each_value) c 
+			WHERE  ROWNUM <![CDATA[<=]]> #{value} 
+			ORDER  BY earnings_ratio DESC
+	</select>
 </mapper>

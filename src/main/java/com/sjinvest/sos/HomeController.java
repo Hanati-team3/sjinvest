@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sjinvest.sos.feed.service.FeedService;
+
 import lombok.extern.log4j.Log4j;
 
 /**
@@ -23,7 +25,7 @@ import lombok.extern.log4j.Log4j;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+	private FeedService service;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -54,9 +56,8 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/sns/newsfeed", method = RequestMethod.GET)
-	public String newsfeed() {
-		logger.info("newsfeed.");
-		
+	public String newsfeed(Model model) {
+		model.addAttribute("feedList", service.listAll());
 		return "/sns/newsfeed";
 	}
 	

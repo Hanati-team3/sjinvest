@@ -20,4 +20,5 @@ public interface UserMapper {
 	public int addUserMoney(Map<String, Object> map);
 	public int checkUserMoney(int userSeq);
 	public List<User> readBySeqList(List<Integer> userSeqList);
+	public List<User> pointTop(int num);
 }
