@@ -26,9 +26,6 @@
       <jsp:include page="../includes/realtime.jsp"></jsp:include>
       </div>
       <!-- ..realtime end -->
-      
-      </div>
-
     </div>
 
     <div class="row">
@@ -540,6 +537,7 @@
       <!-- ... end Right Sidebar -->
     </div>
   </div>
+ 
 
 
   <!-- Window-popup Update Header Photo -->
