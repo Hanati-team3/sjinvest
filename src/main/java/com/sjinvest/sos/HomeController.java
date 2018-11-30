@@ -171,6 +171,20 @@ public class HomeController {
 		
 		return "/sns/user_profile";
 	}
+	
+	@RequestMapping(value = "/stock/stock-buy-modal", method = RequestMethod.GET)
+	public String stock_buy_modal() {
+		logger.info("stock-buy-modal");
+		
+		return "/stock/stock-buy-modal";
+	}
+	
+	@RequestMapping(value = "/stock/stock-sell-modal", method = RequestMethod.GET)
+	public String stock_sell_modal() {
+		logger.info("stock-sell-modal");
+		
+		return "/stock/stock-sell-modal";
+	}
 
 	
 	/**

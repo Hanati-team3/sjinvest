@@ -468,11 +468,11 @@
 
  
   <!-- login modal start-->
-  <jsp:include page="../sns/login.jsp"></jsp:include>
+  <jsp:include page="../popup/login.jsp"></jsp:include>
   <!-- ... end login modal -->
  
   <!-- signup modal start -->
-  <jsp:include page="../sns/signup.jsp"></jsp:include>
+  <jsp:include page="../popup/signup.jsp"></jsp:include>
   <!-- ... end signup modal -->
 
 

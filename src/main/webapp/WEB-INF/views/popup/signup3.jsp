@@ -3,6 +3,8 @@
 <html lang="en">
 <head>
 
+<!-- 자동완성 기능 시도해보던 파일 -->
+
 
 <script type="text/javascript" src="jquery/lib/jquery.js"></script>
 <script type="text/javascript" src="jquery/lib/jquery.bgiframe.min.js"></script>

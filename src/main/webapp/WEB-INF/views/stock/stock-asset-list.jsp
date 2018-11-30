@@ -221,7 +221,8 @@
                       </div>
                     </td>
                     <td class="holding-sell">
-                      <a href="#" class="h6 count"><i class="fas fa-minus-circle"></i></a>
+                      <a href="#" class="h6 count" data-toggle="modal" data-target="#stock_sell_modal">
+                      <i class="fas fa-minus-circle"></i></a>
                     </td>
                   </tr>
                   <tr>
@@ -253,7 +254,9 @@
                       </div>
                     </td>
                     <td class="holding-sell">
-                      <a href="#" class="h6 count"><i class="fas fa-minus-circle"></i></a>
+                      <a href="#" class="h6 count" data-toggle="modal" data-target="#stock_sell_modal">
+                      <i class="fas fa-minus-circle"></i></a>
+                      
                     </td>
                   </tr>
                   <tr>
@@ -285,7 +288,8 @@
                       </div>
                     </td>
                     <td class="holding-sell">
-                      <a href="#" class="h6 count"><i class="fas fa-minus-circle"></i></a>
+                      <a href="#" class="h6 count" data-toggle="modal" data-target="#stock_sell_modal">
+                      <i class="fas fa-minus-circle"></i></a>
                     </td>
                   </tr>
                   <tr>
@@ -372,6 +376,10 @@
   <!-- Window-popup-CHAT for responsive min-width: 768px -->
   <jsp:include page="../popup/popup-chat.jsp"></jsp:include>
   <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
+  
+  <!-- 판매 modal start -->
+  <jsp:include page="../popup/stock-sell-modal.jsp"></jsp:include>
+  <!-- ... 판매 modal end -->
 
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
