@@ -7,7 +7,6 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias(value = "Feed")
 public class SearchParam {
 	private int startNum;
 	private int endNum;
