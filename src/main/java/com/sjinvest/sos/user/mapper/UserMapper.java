@@ -1,8 +1,23 @@
 package com.sjinvest.sos.user.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.sjinvest.sos.user.domain.User;
 
 public interface UserMapper {
-	public String create(User user);
-	public User readByUserName(String userName);
+	public void create(User user);
+	public User readById(String userId);
+	public User readBySeq(int userSeq);
+	public String isExistId(String userId);
+	public String isExistNickname(String userNickname);
+	public User certify(Map<String, String> map);
+	public int deleteByUserId(String userId);
+	public int deleteByUserSeq(int userSeq);
+	public int updateUser(User user);
+	public int addUserPoint(Map<String, Object> map);
+	public int checkUserPoint(String userId);
+	public int addUserMoney(Map<String, Object> map);
+	public int checkUserMoney(String userId);
+	public List<User> readBySeqList(List<Integer> userSeqList);
 }

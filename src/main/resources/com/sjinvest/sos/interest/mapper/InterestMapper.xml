@@ -7,9 +7,52 @@
 	<resultMap type="Interest" id="interestResultMap">
 		<result column="interest_seq" property="interestSeq" />
 		<result column="user_seq" property="userSeq" />
-		<result column="company_seq" property="companySeq" />
+		<result column="company_number" property="companyNumber" />
 		<result column="company_name" property="companyName" />
 	</resultMap>
-	<insert id="create" parameterType="Interest">
-	</insert>	
+	<!-- 관심목록 추가 -->
+	<insert id="add" parameterType="Interest">
+		INSERT INTO interest 
+            (interest_seq, 
+             user_seq, 
+             company_number, 
+             company_name) 
+		VALUES
+		    (interest_seq.NEXTVAL, 
+             #{userSeq}, 
+             #{companyNumber}, 
+             #{companyName}) 
+	</insert>
+	<!-- 관심종목 삭제 -->
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM interest
+		WHERE
+		interest_seq = #{value}
+	</delete>
+	<!-- 특정 유저 관심 목록 -->
+	<select id="listByUser" parameterType="Integer" resultType="Interest" resultMap="interestResultMap">
+		SELECT interest_seq, 
+		       user_seq, 
+		       company_number, 
+		       company_name 
+		FROM   interest 
+		WHERE  user_seq = #{value}
+	</select>
+	
+	<!-- 특정 유저 관심종목 삭제 -->
+	<delete id="deleteByUser" parameterType="Integer">
+		DELETE FROM interest
+		WHERE
+		user_seq = #{value}
+	</delete>
+	<!-- 특정 유저-회사 관심 여부 확인 -->
+	<select id="check" parameterType="map" resultType="Interest" resultMap="interestResultMap">
+		SELECT interest_seq, 
+		       user_seq, 
+		       company_number, 
+		       company_name 
+		FROM   interest 
+		WHERE  user_seq = #{userSeq}
+			   AND company_number = #{companyNumber}
+	</select>
 </mapper>

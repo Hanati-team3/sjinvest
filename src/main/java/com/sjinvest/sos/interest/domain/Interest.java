@@ -11,6 +11,6 @@ import lombok.Data;
 public class Interest {
 	private int interestSeq;
 	private int userSeq;
-	private int companySeq;
+	private String companyNumber;
 	private String companyName;
 }

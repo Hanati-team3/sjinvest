@@ -8,10 +8,69 @@
 		<result column="point_seq" property="noticeSeq" />
 		<result column="user_seq" property="userSeq" />
 		<result column="notice_content" property="noticeContent" />
+		<result column="notice_link" property="noticeLink" />
 		<result column="notice_is_checked" property="noticeIsChecked" />
 		<result column="notice_date" property="noticeDate" />
 		<result column="notice_type" property="noticeType" />
 	</resultMap>
+	<!-- 알림 만들기 -->
 	<insert id="create" parameterType="Notice">
+		INSERT INTO notice 
+		            (notice_seq, 
+		             user_seq, 
+		             notice_content,
+		    	    <if test="noticeLink != null">
+			         notice_link,
+		            </if>
+		             notice_type) 
+		VALUES     ( notice_seq.NEXTVAL, 
+		             #{userSeq}, 
+		             #{noticeContent},
+		            <if test="noticeLink != null">
+			         #{noticeLink},
+		            </if> 
+		             #{noticeType})
 	</insert>
+	<!-- 알림 삭제 -->
+	<delete id="deleteNotice" parameterType="Integer">
+		DELETE FROM notice
+		WHERE
+		notice_seq = #{value}
+	</delete>
+	<!-- 특정 유저 알림 목록 -->
+	<select id="listByUser" parameterType="Integer" resultType="Notice" resultMap="noticeResultMap">
+		SELECT notice_seq, 
+		       user_seq, 
+		       notice_content, 
+		       notice_is_checked,
+		       notice_date,
+		       notice_type 
+		FROM   notice 
+		WHERE  user_seq = #{value}
+	</select>
+	<!-- 특정 유저 알림 삭제 -->
+	<delete id="deleteNoticeByUser" parameterType="Integer">
+		DELETE FROM notice
+		WHERE
+		user_seq = #{value}
+	</delete>
+	<!-- 특정 유저 미확인 알림 수 -->
+	<select id="notCheckedNoticeByUser" parameterType="Integer" resultType="Integer">
+		SELECT Count(notice_seq) 
+		FROM   notice 
+		WHERE  user_seq = #{value} 
+      	AND notice_is_checked = 0 
+	</select>
+	<!-- 특정 알림 읽음 처리 -->
+	<update id="isReaded" parameterType="Integer">
+		UPDATE notice 
+		SET    notice_is_checked = 1 
+		WHERE  notice_seq = #{value}
+	</update>
+	<!-- 모든 알림 읽음 처리 -->
+	<update id="isReadedAll">
+		UPDATE notice 
+		SET    notice_is_checked = 1 
+		WHERE  notice_is_checked = 0 
+	</update>
 </mapper>
