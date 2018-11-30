@@ -47,8 +47,8 @@
 
 /* 전체적용 */
 
-.header--standard-dark .header-menu .header-a-padding{
-  padding: 20px 30px;
+.header--standard-dark .header-a-padding{
+  padding: 10px 30px;
 }
 
 .forums-table a {
