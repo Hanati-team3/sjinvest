@@ -23,7 +23,7 @@ public class InterestController {
 	@PostMapping("/add")
 	public String add(Interest interest, RedirectAttributes rttr) {
 		log.info("register : "+ interest);
-		service.Create(interest);
+		service.add(interest);
 		return "redirect:/interest/list";
 	}
 }

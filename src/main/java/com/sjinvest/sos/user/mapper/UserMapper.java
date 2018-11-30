@@ -16,8 +16,8 @@ public interface UserMapper {
 	public int deleteByUserSeq(int userSeq);
 	public int updateUser(User user);
 	public int addUserPoint(Map<String, Object> map);
-	public int checkUserPoint(String userId);
+	public int checkUserPoint(int userSeq);
 	public int addUserMoney(Map<String, Object> map);
-	public int checkUserMoney(String userId);
+	public int checkUserMoney(int userSeq);
 	public List<User> readBySeqList(List<Integer> userSeqList);
 }

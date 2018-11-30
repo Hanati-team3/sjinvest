@@ -23,7 +23,7 @@ public class LikeController {
 	@PostMapping("/add")
 	public String add(Like like, RedirectAttributes rttr) {
 		log.info("register : "+ like);
-		service.Create(like);
+		service.add(like);
 		return "redirect:/interest/list";
 	}
 }
