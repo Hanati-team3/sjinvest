@@ -1,19 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-	<title>signup</title>
-    <jsp:include page="../includes/head.jsp"></jsp:include>
-
-</head>
-
-<body class="overlay-enable modal-open">
-
 
 <!-- signup page start -->
 
-<div class="modal fade show" id="fav-page-popup" style="display:block;">
+<div class="modal fade" id="signup_modal" >
 	<div class="modal-dialog ui-block window-popup fav-page-popup">
 		<a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
 			<svg class="olymp-close-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-close-icon"></use></svg>
@@ -70,10 +59,3 @@
 <!-- ... signup page end -->
 
 
-    <!-- javascript 추가항목 start -->
-    <jsp:include page="../includes/bottom.jsp"></jsp:include>
-    <!-- javascript 추가항목 start --> 
-
-
-</body>
-</html>

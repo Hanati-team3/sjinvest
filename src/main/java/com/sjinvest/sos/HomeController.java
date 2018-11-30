@@ -116,6 +116,13 @@ public class HomeController {
 		return "/sns/signup";
 	}
 	
+	@RequestMapping(value = "/sns/signup3", method = RequestMethod.GET)
+	public String signup3() {
+		logger.info("signup3.");
+		
+		return "/sns/signup3";
+	}
+	
 	@RequestMapping(value = "/sns/mypage_index", method = RequestMethod.GET)
 	public String mypage_index() {
 		logger.info("mypage_index.");
