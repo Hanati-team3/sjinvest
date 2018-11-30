@@ -45,11 +45,11 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <style>
 
+/* 전체적용 */
+
 .header--standard-dark .header-menu .header-a-padding{
   padding: 20px 30px;
 }
-
-/* */
 
 .forums-table a {
 }
@@ -63,6 +63,11 @@
 }
 .plus a {
   color : #ff5e3a;
+}
+
+/* 주식 전체 적용 */
+.stock .realtime{
+  margin-top: 10px;
 }
 
 /*주식 index*/
@@ -113,20 +118,12 @@
   margin-top: 60px; 
 }
 
-.stock-index-main {
-  margin-top : 20px;
-}
-
 .stock-index-main .h6{
   font-family: 'Nanum Myeongjo', sans-serif;
 }
 
 
 /*검색 목록*/
-.stock-search-main {
-  margin-top : 20px;
-}
-
 .stock-search-main .forums-table .text{
   font-size: 10px;
 }
@@ -163,10 +160,6 @@
 }
 
 /*회사 상세*/
-.stock-company-main {
-  margin-top : 20px;
-}
-
 .stock-company-main .statistics-slide .company-name {
     font-size: 40px;
     color: #515365;
@@ -243,10 +236,6 @@
 }
 
 /*관심종목*/
-.stock-interests-main {
-  margin-top : 20px;
-}
-
 .stock-interests-main .forums-table .text{
   font-size: 10px;
 }
@@ -284,10 +273,6 @@
 
 
 /* 거래목록 */
-.stock-trade-list-main {
-  margin-top : 20px;
-}
-
 .stock-trade-list-main .forums-table .text{
   font-size: 10px;
 }
@@ -331,14 +316,6 @@
 
 
 /* 보유자산 */
-.stock-asset-main {
-  margin-top : 20px;
-}
-
-.stock-asset-main {
-  margin-top: 10px;
-}
-
 .stock-asset-main .forums-table .text{
   font-size: 10px;
 }
