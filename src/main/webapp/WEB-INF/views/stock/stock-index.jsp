@@ -120,8 +120,8 @@
             </div>
           </div>
           <%-- Trend By Business Type 끝 --%>
-          <%-- My Interests 시작 --%>
-          <div class="col-xl-7 order-xl-2 col-lg-7 order-lg-2 col-md-7 order-md-2 col-sm-12 col-xs-12 stock-my-interests">
+          <%-- My interest 시작 --%>
+          <div class="col-xl-7 order-xl-2 col-lg-7 order-lg-2 col-md-7 order-md-2 col-sm-12 col-xs-12 stock-my-interest">
             <div class="ui-block" data-mh="pie-chart">
               <div class="ui-block-title">
                 <div class="h6 title">나의 관심 종목</div>
@@ -167,7 +167,7 @@
               </div>
             </div>
           </div>
-          <%-- My Interests 끝 --%>
+          <%-- My interest 끝 --%>
         </div>
         <%-- row 끝 --%>
         

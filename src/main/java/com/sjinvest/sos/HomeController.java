@@ -205,11 +205,11 @@ public class HomeController {
 		return "/stock/stock-company";
 	}
 	
-	@RequestMapping(value = "/stock/interests", method = RequestMethod.GET)
+	@RequestMapping(value = "/stock/interest", method = RequestMethod.GET)
 	public String interests() {
-		logger.info("stock interests ");
+		logger.info("stock interest ");
 		
-		return "/stock/stock-interests";
+		return "/stock/stock-interest";
 	}
 	
 	@RequestMapping(value = "/stock/trade-list", method = RequestMethod.GET)
@@ -219,11 +219,11 @@ public class HomeController {
 		return "/stock/stock-trade-list";
 	}
 	
-	@RequestMapping(value = "/stock/asset-list", method = RequestMethod.GET)
+	@RequestMapping(value = "/stock/holding-list", method = RequestMethod.GET)
 	public String assetList() {
-		logger.info("stock asset-list ");
+		logger.info("stock holding-list ");
 		
-		return "/stock/stock-asset-list";
+		return "/stock/stock-holding-list";
 	}
 	
 }

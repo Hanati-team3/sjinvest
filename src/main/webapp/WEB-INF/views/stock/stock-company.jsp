@@ -214,8 +214,8 @@
                           <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-star-icon"></use></svg>
                       </a>
                       <div class="stat">
-                        <div>PER </div>
-                        <div class="figure">19.41</div>
+                        <div>BPS </div>
+                        <div class="figure">80,654</div>
                       </div>
                     </td>
                     <td>
@@ -224,8 +224,8 @@
                           <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-chat---messages-icon"></use></svg>
                       </a>
                       <div class="stat">
-                        <div>PER </div>
-                        <div class="figure">19.41</div>
+                        <div>PBR </div>
+                        <div class="figure">0.62</div>
                       </div>
                     </td>
                   </tr>

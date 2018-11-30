@@ -74,7 +74,6 @@
 .stock-index-ul {
   text-align: center; 
   font-weight: bold; 
-  font-family: 'Nanum Myeongjo', sans-serif;
 }
 
 .stock-index-ul li {
@@ -86,7 +85,6 @@
 }
 
 .stock-index-news .h6 {
-  font-family: 'Nanum Myeongjo', sans-serif;
   min-width: 100px;
 }
 
@@ -103,13 +101,13 @@
   margin-top : 2px;
 }
 
-.stock-my-interests .statistics-slide .company-name {
+.stock-my-interest .statistics-slide .company-name {
     font-size: 20px;
     color: #515365;
     margin-bottom: 0px;
 
 }
-.stock-my-interests .statistics-slide .company-stock {
+.stock-my-interest .statistics-slide .company-stock {
     font-size: 40px;
     color: #ff5e3a;
 }
@@ -119,7 +117,6 @@
 }
 
 .stock-index-main .h6{
-  font-family: 'Nanum Myeongjo', sans-serif;
 }
 
 
@@ -236,38 +233,38 @@
 }
 
 /*관심종목*/
-.stock-interests-main .forums-table .text{
+.stock-interest-main .forums-table .text{
   font-size: 10px;
 }
 
-.stock-interests-main .forums-table th{
+.stock-interest-main .forums-table th{
   padding : 15px 5px;
 }
-.stock-interests-main .forums-table td{
+.stock-interest-main .forums-table td{
   padding : 15px 5px;
 }
 
-.stock-interests-main .forums-table .company-number{
+.stock-interest-main .forums-table .company-number{
   width : 100px;
 }
 
-.stock-interests-main .forums-table tbody .company-name{
+.stock-interest-main .forums-table tbody .company-name{
   text-align: left;
 }
 
-.stock-interests-main .forums-table .stock-price{
+.stock-interest-main .forums-table .stock-price{
   width : 100px;
 }
-.stock-interests-main .forums-table .trading-amount{
+.stock-interest-main .forums-table .trading-amount{
   width : 100px;
 }
-.stock-interests-main .forums-table .day-before{
+.stock-interest-main .forums-table .day-before{
   width : 100px;
 }
-.stock-interests-main .forums-table .day-before-rate{
+.stock-interest-main .forums-table .day-before-rate{
   width : 100px;
 }
-.stock-interests-main .forums-table .add-to-interest{
+.stock-interest-main .forums-table .add-to-interest{
   width : 100px;
 }
 
@@ -316,38 +313,38 @@
 
 
 /* 보유자산 */
-.stock-asset-main .forums-table .text{
+.stock-holding-main .forums-table .text{
   font-size: 10px;
 }
 
-.stock-asset-mainn .forums-table th{
+.stock-holding-mainn .forums-table th{
   padding : 15px 5px;
 }
-.stock-asset-main .forums-table td{
+.stock-holding-main .forums-table td{
   padding : 15px 5px;
 }
 
-.stock-asset-main .forums-table .company-number{
+.stock-holding-main .forums-table .company-number{
   width : 100px;
 }
 
-.stock-asset-main .forums-table tbody .company-name{
+.stock-holding-main .forums-table tbody .company-name{
   text-align: left;
 }
 
-.stock-asset-main .forums-table .stock-price{
+.stock-holding-main .forums-table .stock-price{
   width : 100px;
 }
-.stock-asset-main .forums-table .holding-amount{
+.stock-holding-main .forums-table .holding-amount{
   width : 90px;
 }
-.stock-asset-main .forums-table .holding-total-money{
+.stock-holding-main .forums-table .holding-total-money{
   width : 100px;
 }
-.stock-asset-main .forums-table .profit-rate{
+.stock-holding-main .forums-table .profit-rate{
   width : 100px;
 }
-.stock-asset-main .forums-table .holding-sell{
+.stock-holding-main .forums-table .holding-sell{
   width : 100px;
 }
 

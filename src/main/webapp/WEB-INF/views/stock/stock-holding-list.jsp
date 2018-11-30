@@ -39,7 +39,7 @@
     </div>
     <%-- realtime row 끝 --%>
     <%-- 사이드 포함 row 시작 --%>
-    <div class="row stock-asset-main">
+    <div class="row stock-holding-main">
       <!-- Left Sidebar -->
       <aside class="col-xl-3 order-xl-1 col-lg-3 order-lg-1 col-md-3 order-md-1 col-sm-12 col-xs-12">
         <%-- 내 정보 위젯 --%>
