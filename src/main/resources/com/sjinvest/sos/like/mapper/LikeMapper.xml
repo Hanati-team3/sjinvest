@@ -4,10 +4,52 @@
                         
 <!-- 네임스페이스(사용영역) 설정 -->
 <mapper namespace="com.sjinvest.sos.like.mapper.LikeMapper">
-	<resultMap type="Like" id="noticeResultMap">
+	<resultMap type="Like" id="likeResultMap">
 		<result column="user_seq" property="userSeq" />
 		<result column="feed_seq" property="feedSeq" />
 	</resultMap>
-	<insert id="create" parameterType="Like">
+	<!-- 좋아요 추가 -->
+	<insert id="add" parameterType="Like">
+		INSERT INTO likes 
+            (user_seq, 
+             feed_seq) 
+		VALUES
+			(#{userSeq}, 
+             #{feedSeq})
 	</insert>
+	<!-- 좋아요 삭제 -->
+	<delete id="delete" parameterType="Like">
+		DELETE FROM likes
+		WHERE
+		user_seq = #{userSeq}
+		AND
+		feed_seq = #{feedSeq}
+	</delete>
+	<!-- 특정 유저 좋아요 삭제 -->
+	<delete id="deleteByUser" parameterType="Integer">
+		DELETE FROM likes
+		WHERE
+		user_seq = #{value}
+	</delete>
+	<!-- 특정 피드 좋아요 삭제 -->
+	<delete id="deleteByFeed" parameterType="Integer">
+		DELETE FROM likes
+		WHERE
+		feed_seq = #{value}
+	</delete>
+	<!-- 특정 유저 좋아요 목록 -->
+	<select id="listByUser" parameterType="Integer" resultType="Like" resultMap="likeResultMap">
+		SELECT user_seq, 
+		       feed_seq 
+		FROM   likes 
+		WHERE  user_seq = #{value}
+	</select>
+	<!-- 특정 유저 - 피드 좋아요 체크 -->
+	<select id="check" parameterType="Like" resultType="Like" resultMap="likeResultMap">
+		SELECT user_seq, 
+		       feed_seq 
+		FROM   likes 
+		WHERE  user_seq = #{userSeq}
+		AND    feed_seq = #{feedSeq}
+	</select>	
 </mapper>

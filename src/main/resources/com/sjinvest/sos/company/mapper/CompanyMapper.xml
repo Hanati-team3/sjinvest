@@ -10,6 +10,75 @@
 		<result column="company_total_stock" property="companyTotalStock" />
 		<result column="company_detail" property="companyDetail" />
 	</resultMap>
-	<insert id="create" parameterType="Company">
-	</insert>
+	<!-- 번호로 회사 읽어오기 -->
+	<select id="readByNumber" parameterType="String" resultType="Company"
+		resultMap="companyResultMap">
+		SELECT company_number, 
+		       company_name, 
+		       field_number, 
+		       field_name, 
+		       company_total_stock, 
+		       company_detail 
+		FROM   company 
+		WHERE  company_number = #{value}
+	</select>
+	<!-- 이름으로 회사 읽어오기 -->
+	<select id="readByName" parameterType="String" resultType="Company"
+		resultMap="companyResultMap">
+		SELECT company_number, 
+		       company_name, 
+		       field_number, 
+		       field_name, 
+		       company_total_stock, 
+		       company_detail 
+		FROM   company 
+		WHERE  company_name = #{value}
+	</select>
+	<!-- 회사 전체 리스트 읽어오기 -->
+	<select id="list" resultType="Company"
+		resultMap="companyResultMap">
+		SELECT company_number, 
+		       company_name, 
+		       field_number, 
+		       field_name, 
+		       company_total_stock, 
+		       company_detail 
+		FROM   company
+	</select>
+	<!-- 특정 종목명으로 회사 목록 읽어오기 -->
+	<select id="readByFieldName" parameterType="String" resultType="Company"
+		resultMap="companyResultMap">
+		SELECT company_number, 
+		       company_name, 
+		       field_number, 
+		       field_name, 
+		       company_total_stock, 
+		       company_detail 
+		FROM   company 
+		WHERE  field_name = #{value}
+	</select>
+	<!-- 특정 종목번호으로 회사 목록 읽어오기 -->
+	<select id="readByFieldNumber" parameterType="Integer" resultType="Company"
+		resultMap="companyResultMap">
+		SELECT company_number, 
+		       company_name, 
+		       field_number, 
+		       field_name, 
+		       company_total_stock, 
+		       company_detail 
+		FROM   company 
+		WHERE  field_number = #{value}
+	</select>
+	<!-- 회사 검색하기 -->
+	<select id="search" parameterType="String" resultType="Company"
+		resultMap="companyResultMap">
+		SELECT company_number, 
+		       company_name, 
+		       field_number, 
+		       field_name, 
+		       company_total_stock, 
+		       company_detail 
+		FROM   company 
+		WHERE  company_name like '%' ||  #{value} || '%'
+	</select>
 </mapper>

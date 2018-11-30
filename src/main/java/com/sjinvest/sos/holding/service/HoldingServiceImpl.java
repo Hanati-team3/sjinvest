@@ -1,5 +1,7 @@
 package com.sjinvest.sos.holding.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +20,12 @@ public class HoldingServiceImpl implements HoldingService {
 	private HoldingMapper mapper;
 
 	@Override
-	public boolean Create(Holding holding) {
-		try {
-			mapper.create(holding);
-		}catch(Exception e) {
-			return false;
-		}
-		return true;
+	public boolean deleteHolding(int holdingSeq) {
+		return (mapper.deleteHolding(holdingSeq)==1);
 	}
+	@Override
+	public List<Holding> listByUser(int userSeq) {
+		return mapper.listByUser(userSeq);
+	}
+
 }

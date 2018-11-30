@@ -29,6 +29,15 @@
 <!-- Lightbox plugin script-->
 <script src="<%=application.getContextPath()%>/resources/js/jquery.magnific-popup.min.js"></script>
 
+<!-- Swiper / Sliders -->
+<script src="<%=application.getContextPath()%>/resources/js/swiper.jquery.min.js"></script>
+
+<!-- Chart JS Generate scripts-->
+<script src="<%=application.getContextPath()%>/resources/js/Chart.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/chartjs-plugin-deferred.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/circle-progress.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/run-chart.js"></script>
 
 <script src="<%=application.getContextPath()%>/resources/js/mediaelement-and-player.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/mediaelement-playlist-plugin.min.js"></script>

@@ -11,10 +11,11 @@ import lombok.Data;
 public class Trading {
 	private int tradingSeq;
 	private int userSeq;
-	private int companySeq;
+	private String companyNumber;
 	private String companyName;
 	private int tradingType;
 	private String tradingTime;
 	private int tradingPrice;
 	private int tradingAmount;
+	private double tradingEarningsRatio;
 }

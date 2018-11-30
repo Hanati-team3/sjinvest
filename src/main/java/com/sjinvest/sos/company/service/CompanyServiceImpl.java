@@ -1,5 +1,7 @@
 package com.sjinvest.sos.company.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +17,37 @@ import lombok.extern.log4j.Log4j;
 public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
-	private CompanyMapper mapper;
+	private CompanyMapper companyMapper;
 
 	@Override
-	public boolean Create(Company company) {
-		try {
-			mapper.create(company);
-		}catch(Exception e) {
-			return false;
-		}
-		return true;
+	public Company readByNumber(String companyNumber) {
+		return companyMapper.readByNumber(companyNumber);
 	}
+
+	@Override
+	public Company readByName(String companyName) {
+		return companyMapper.readByName(companyName);
+	}
+
+	@Override
+	public List<Company> list() {
+		return companyMapper.list();
+	}
+
+	@Override
+	public List<Company> readByFieldName(String fieldName) {
+		return companyMapper.readByFieldName(fieldName);
+	}
+
+	@Override
+	public List<Company> readByFieldNumber(int fieldNumber) {
+		return companyMapper.readByFieldNumber(fieldNumber);
+	}
+
+	@Override
+	public List<Company> search(String keyword) {
+		return companyMapper.search(keyword);
+	}
+
+
 }

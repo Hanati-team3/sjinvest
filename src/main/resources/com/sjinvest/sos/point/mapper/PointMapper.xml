@@ -11,6 +11,33 @@
 		<result column="point_amount" property="pointAmount" />
 		<result column="point_date" property="pointDate" />
 	</resultMap>
+	<!-- 포인트 만들기 -->
 	<insert id="create" parameterType="Point">
-	</insert>	
+		INSERT INTO point 
+            (point_seq, 
+             user_seq, 
+             point_content, 
+             point_amount) 
+		VALUES
+		    (point_seq.NEXTVAL, 
+             #{userSeq}, 
+             #{pointContent}, 
+             #{pointAmount}) 
+	</insert>
+	<!-- 특정 유저 포인트 내역 -->
+	<select id="listByUser" parameterType="Integer" resultType="Point" resultMap="pointResultMap">
+		SELECT point_seq, 
+		       user_seq, 
+		       point_content, 
+		       point_amount, 
+		       point_date 
+		FROM   point 
+		WHERE  user_seq = #{value}
+	</select>
+	<!-- 특정 유저 포인트 삭제 -->
+	<delete id="deleteByUser" parameterType="Integer">
+		DELETE FROM point
+		WHERE
+		user_seq = #{value}
+	</delete>
 </mapper>

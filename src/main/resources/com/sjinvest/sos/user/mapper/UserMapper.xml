@@ -19,6 +19,218 @@
 		<result column="user_birth" property="userBirth" />
 		<result column="user_authority" property="userAuthority" />
 	</resultMap>
+
+	<!-- 유저 등록 -->
 	<insert id="create" parameterType="User">
+		INSERT INTO users
+		(user_seq,
+		user_id,
+		user_password,
+		user_nickname,
+		user_email,
+		user_point,
+		user_money,
+		<if test="userRegdate != null">
+			user_regdate,
+		</if>
+		<if test="userPicture != null">
+			user_picture,
+		</if>
+		<if test="userDetail != null">
+			user_detail,
+		</if>
+		<if test="userGender != 0">
+			user_gender,
+		</if>
+		<if test="userBirth != null">
+			user_birth,
+		</if>
+		user_authority)
+		VALUES
+		(
+		user_seq.nextval,
+		#{userId},
+		#{userPw},
+		#{userNickname},
+		#{userEmail},
+		#{userPoint},
+		#{userMoney},
+		<if test="userRegdate != null">
+			#{userRegdate},
+		</if>
+		<if test="userPicture != null">
+			#{userPicture},
+		</if>
+		<if test="userDetail != null">
+			#{userDetail},
+		</if>
+		<if test="userGender != 0">
+			#{userGender},
+		</if>
+		<if test="userBirth != null">
+			#{userBirth},
+		</if>
+		#{userAuthority}
+		)
 	</insert>
+
+	<!-- 아이디로 유저 읽어오기 -->
+	<select id="readById" parameterType="String" resultType="User"
+		resultMap="userResultMap">
+		SELECT user_seq,
+		user_id,
+		user_nickname,
+		user_email,
+		user_password,
+		user_point,
+		user_picture,
+		user_detail,
+		to_char(user_regdate, 'YYYY-DD-MM'),
+		user_money,
+		user_gender,
+		user_birth,
+		user_authority
+		FROM users
+		WHERE user_id = #{value}
+	</select>
+
+	<!-- 시퀀스로 유저 읽어오기 -->
+	<select id="readBySeq" parameterType="Integer" resultType="User"
+		resultMap="userResultMap">
+		SELECT user_seq,
+		user_id,
+		user_nickname,
+		user_email,
+		user_password,
+		user_point,
+		user_picture,
+		user_detail,
+		to_char(user_regdate, 'YYYY-DD-MM'),
+		user_money,
+		user_gender,
+		user_birth,
+		user_authority
+		FROM users
+		WHERE user_seq = #{value}
+	</select>
+
+	<!-- 유저 시퀀스 리스트로 유저 읽어오기 -->
+	<select id="readBySeqList" parameterType="java.util.List" resultType="User"
+		resultMap="userResultMap">
+		SELECT user_seq,
+		user_id,
+		user_nickname,
+		user_email,
+		user_password,
+		user_point,
+		user_picture,
+		user_detail,
+		to_char(user_regdate, 'YYYY-DD-MM'),
+		user_money,
+		user_gender,
+		user_birth,
+		user_authority
+		FROM users
+		WHERE
+		<foreach collection="list" item="userSeq" separator="or">
+            user_seq = #{userSeq}
+		</foreach>
+	</select>
+	<!-- 아이디 중복 확인 -->
+	<select id="isExistId" parameterType="String"
+		resultType="String">
+		SELECT user_id
+		FROM users
+		WHERE user_id = #{value}
+	</select>
+
+	<!-- 닉네임 중복 확인 -->
+	<select id="isExistNickname" parameterType="String"
+		resultType="String">
+		SELECT user_nickname
+		FROM users
+		WHERE user_nickname = #{value}
+	</select>
+
+	<!-- 아이디 비번으로 회원 확인 -->
+	<select id="certify" parameterType="map" resultType="User"
+		resultMap="userResultMap">
+		SELECT user_seq,
+		user_id,
+		user_nickname,
+		user_email,
+		user_password,
+		user_point,
+		user_picture,
+		user_detail,
+		to_char(user_regdate, 'YYYY-DD-MM'),
+		user_money,
+		user_gender,
+		user_birth,
+		user_authority
+		FROM users
+		WHERE user_id = #{userId}
+		AND user_password = #{userPw}
+	</select>
+
+	<!-- 아이디로 회원 삭제 -->
+	<delete id="deleteByUserId" parameterType="String">
+		DELETE FROM users
+		WHERE
+		user_id = #{value}
+	</delete>
+
+	<!-- 시퀀스로 회원 삭제 -->
+	<delete id="deleteByUserSeq" parameterType="Integer">
+		DELETE FROM users
+		WHERE
+		user_seq = #{value}
+	</delete>
+	
+	<!-- 회원정보 수정 -->
+	<update id="updateUser" parameterType="User">
+		UPDATE users
+		<set>
+			<if test="userPw != null">user_password = #{userPw},</if>
+			<if test="userNickname != null">user_nickname = #{userNickname},</if>
+			<if test="userEmail != null">user_email = #{userEmail},</if>
+			<if test="userPoint != 0">user_point = #{userPoint},</if>
+			<if test="userDetail != null">user_detail = #{userDetail},</if>
+			<if test="userPicture != null">user_picture = #{userPicture},</if>
+			<if test="userRegdate != null">user_regdate = #{userRegdate},</if>
+			<if test="userMoney != 0">user_money = #{userMoney},</if>
+			<if test="userGender != 0">user_gender = #{userGender},</if>
+			<if test="userBirth != null">user_birth = #{userBirth},</if>
+			<if test="userAuthority != null">user_authority = #{userAuthority},</if>
+		</set>
+		WHERE user_seq = #{userSeq}
+	</update>
+
+	<!--회원 포인트 가감-->
+	<update id="addUserPoint" parameterType="map">
+		UPDATE users
+		SET user_point = user_point + #{userPoint}
+	    WHERE user_seq = #{userSeq}
+	</update>
+	
+	<!-- 회원 포인트 값 확인 -->
+	<select id="checkUserPoint" parameterType="Integer" resultType="Integer">
+		SELECT user_point 
+		FROM   users 
+		WHERE  user_seq = #{value}
+	</select>
+
+	<!--회원 보유액 가감-->
+	<update id="addUserMoney" parameterType="map">
+		UPDATE users
+		SET user_money = user_money + #{userMoney}
+	    WHERE user_seq = #{userSeq}
+	</update>
+	
+	<!-- 회원 포인트 값 확인 -->
+	<select id="checkUserMoney" parameterType="Integer" resultType="Integer">
+		SELECT user_money
+		FROM   users 
+		WHERE  user_seq = #{value}
+	</select>
 </mapper>

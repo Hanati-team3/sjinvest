@@ -23,7 +23,6 @@ public class FieldController {
 	@PostMapping("/regist")
 	public String regist(Field field, RedirectAttributes rttr) {
 		log.info("register : "+ field);
-		service.Create(field);
 		return "redirect:/field/list";
 	}
 

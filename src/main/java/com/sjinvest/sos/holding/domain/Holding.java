@@ -10,7 +10,7 @@ import lombok.Data;
 @Alias(value = "Holding")
 public class Holding {
 	private int holdingSeq;
-	private int companySeq;
+	private String companyNumber;
 	private String companyName;
 	private int userSeq;
 	private int holdingAmount;

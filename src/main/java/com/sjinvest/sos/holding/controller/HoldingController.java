@@ -23,7 +23,7 @@ public class HoldingController {
 	@PostMapping("/regist")
 	public String regist(Holding holding, RedirectAttributes rttr) {
 		log.info("register : "+ holding);
-		service.Create(holding);
+//		service.modification(holding);
 		return "redirect:/holding/list";
 	}
 }

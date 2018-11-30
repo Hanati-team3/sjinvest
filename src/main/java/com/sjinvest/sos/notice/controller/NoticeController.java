@@ -23,7 +23,7 @@ public class NoticeController {
 	@PostMapping("/add")
 	public String add(Notice notice, RedirectAttributes rttr) {
 		log.info("register : "+ notice);
-		service.Create(notice);
+		service.create(notice);
 		return "redirect:/notice/list";
 	}
 }

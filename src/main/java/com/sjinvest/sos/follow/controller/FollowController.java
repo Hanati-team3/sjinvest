@@ -23,7 +23,7 @@ public class FollowController {
 	@PostMapping("/regist")
 	public String regist(Follow follow, RedirectAttributes rttr) {
 		log.info("register : "+ follow);
-		service.Create(follow);
+		service.create(follow);
 		return "redirect:/follow/list";
 	}
 

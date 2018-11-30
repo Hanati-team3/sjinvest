@@ -20,9 +20,9 @@
 		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"/>
 		 -->
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"/> 
-		<property name="username" value="hr"/>
-		<property name="password" value="hr"/>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.0.134:1521:XE"/> 
+		<property name="username" value="SJ"/>
+		<property name="password" value="SJ"/>
 	</bean>
 	
 	<!--  Hikari(光) DataSource 설정 -->
@@ -47,6 +47,7 @@
 	<mybatis-spring:scan base-package="com.sjinvest.sos.trading.mapper"/>
 	<mybatis-spring:scan base-package="com.sjinvest.sos.user.mapper"/>
 	<mybatis-spring:scan base-package="com.sjinvest.sos.notice.mapper"/>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.setting.mapper"/>
 	
 	<!-- 트랜잭션 매니저 설정 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >

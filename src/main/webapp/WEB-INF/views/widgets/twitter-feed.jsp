@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <div class="ui-block">
 	<div class="ui-block-title">
-		<h6 class="title">My Investment</h6>
+        <a href="#"><h6>나의 주식정보</h6></a>
 	</div>
 
 	<ul class="widget w-twitter">
