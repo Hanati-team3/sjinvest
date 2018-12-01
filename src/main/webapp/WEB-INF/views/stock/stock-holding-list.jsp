@@ -4,6 +4,7 @@
 <head>
 <title>SOS - 모의투자 보유자산</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
+
 </head>
 
 <body class="stock">

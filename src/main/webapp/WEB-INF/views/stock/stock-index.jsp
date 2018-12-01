@@ -180,8 +180,10 @@
                 <!-- <div class="h6 title">KOSPI Line Graphic</div> -->
                 <div><h6 class="title">KOSPI Line Graphic</h6></div>
                 <select class="selectpicker form-control without-border" size="auto">
-                  <option value="LY">LAST YEAR (2016)</option>
-                  <option value="2">CURRENT YEAR (2017)</option>
+                  <option value="LY">1일</option>
+                  <option value="2">1개월</option>
+                  <option value="3">3개월</option>
+                  <option value="3">1년</option>
                 </select>
                 <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
@@ -195,32 +197,30 @@
               <hr>
               
               <div class="ui-block-content display-flex content-around">
-                <div class="chart-js chart-js-small-pie">
-                  <canvas id="pie-small-chart" width="90" height="90"></canvas>
-                </div>
-                <div class="points points-block">
-                  <span> <span class="statistics-point bg-breez"></span> Yearly Likes </span>
-                  <span> <span class="statistics-point bg-yellow"></span> Yearly Comments </span>
-                </div>
                 <div class="text-stat">
                   <div class="count-stat">2.758</div>
-                  <div class="title">Total Likes</div>
-                  <div class="sub-title">This Year</div>
+                  <div class="title">시가</div>
+                  <div class="sub-title">전일대비 등락률</div>
                 </div>
                 <div class="text-stat">
                   <div class="count-stat">5.420,7</div>
-                  <div class="title">Average Likes</div>
-                  <div class="sub-title">By Month</div>
+                  <div class="title">고가</div>
+                  <div class="sub-title">전일고가</div>
                 </div>
                 <div class="text-stat">
                   <div class="count-stat">42.973</div>
-                  <div class="title">Total Comments</div>
-                  <div class="sub-title">This Year</div>
+                  <div class="title">저가</div>
+                  <div class="sub-title">전일저가</div>
                 </div>
                 <div class="text-stat">
                   <div class="count-stat">3.581,1</div>
-                  <div class="title">Average Comments</div>
+                  <div class="title">전일지수</div>
                   <div class="sub-title">By Month</div>
+                </div>
+                <div class="text-stat">
+                  <div class="count-stat">3.581,1</div>
+                  <div class="title">거래량</div>
+                  <div class="sub-title">(천주)</div>
                 </div>
               </div>
               
