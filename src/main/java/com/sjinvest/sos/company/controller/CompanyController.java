@@ -1,6 +1,12 @@
 package com.sjinvest.sos.company.controller;
 
+import java.awt.PageAttributes.MediaType;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -23,6 +29,12 @@ public class CompanyController {
 	public String regist(Company company, RedirectAttributes rttr) {
 		log.info("register : "+company);
 		return "redirect:/company/list";
+	}
+	
+	@GetMapping("/list" )
+	public ResponseEntity<List<Company>> list() {
+		log.info("company list");
+		return new ResponseEntity<>(service.list(),HttpStatus.OK);
 	}
 
 }
