@@ -21,7 +21,7 @@ public class InterestController {
 	private InterestService service;
 	
 	@PostMapping("/add")
-	public String add(Interest interest, RedirectAttributes rttr) {
+	public String add(Interest interest) {
 		log.info("register : "+ interest);
 		service.add(interest);
 		return "redirect:/interest/list";
