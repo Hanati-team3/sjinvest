@@ -60,5 +60,9 @@ public class StockController {
 	}
 	
 	// 여기서부터 예겸이 작업 go
+	@GetMapping("/index")
+	public ResponseEntity index() {
+		return new ResponseEntity<>("", HttpStatus.OK);
+	}
 	
 }
