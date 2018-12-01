@@ -29,7 +29,7 @@ public class StockServiceImpl implements StockService {
 	public Stock getStockInfo(String companyNumber, String companyName) {
 		Random random = new Random();
 		Stock stock = new Stock();
-		stock.setStockCode("companyNumber");
+		stock.setStockCode(companyNumber);
 		stock.setPer((random.nextDouble()*160)-80);
 		stock.setBps(random.nextInt(10)*10000);
 		stock.setEps(random.nextInt(0100)*1000);
