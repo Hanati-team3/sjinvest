@@ -16,11 +16,9 @@ import com.sjinvest.sos.company.service.CompanyService;
 import com.sjinvest.sos.field.service.FieldService;
 import com.sjinvest.sos.holding.service.HoldingService;
 import com.sjinvest.sos.interest.service.InterestService;
-import com.sjinvest.sos.like.service.LikeService;
 import com.sjinvest.sos.notice.service.NoticeService;
 import com.sjinvest.sos.point.service.PointService;
 import com.sjinvest.sos.setting.service.SettingService;
-import com.sjinvest.sos.stock.dao.StockDao;
 import com.sjinvest.sos.stock.service.StockService;
 import com.sjinvest.sos.trading.service.TradingService;
 import com.sjinvest.sos.user.service.UserService;
@@ -49,6 +47,7 @@ public class StockController {
 
 	@GetMapping("/company/{companyNumber}")
 	public String writing(@PathVariable("companyNumber") String companyNumber, RedirectAttributes rttr) {
+		Company company = companyService.readByNumber(companyNumber);
 		
 		return "/stock/index";
 	}
