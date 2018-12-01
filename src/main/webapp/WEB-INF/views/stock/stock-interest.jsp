@@ -221,10 +221,9 @@
               <div class="ui-block-title">
                 <div><h6 class="title">차트 혼합 비교</h6></div>
                 <select class="selectpicker form-control without-border" size="auto">
-                  <option value="LY">기본</option>
+                  <option value="LY">주가</option>
                   <option value="2">거래량</option>
-                  <option value="2">시장지수</option>
-                  <option value="2">20일 이동 평균</option>
+                  <option value="2">전일대비</option>
                 </select>
                 <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
