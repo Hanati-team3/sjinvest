@@ -35,7 +35,6 @@ import lombok.extern.log4j.Log4j;
 public class StockController {
 
 	private StockService service;
-	private StockDao stockDao;
 	private CompanyService companyService;
 	private FieldService fieldService;
 	private HoldingService holdingService;
@@ -46,7 +45,8 @@ public class StockController {
 	private TradingService tradingService;
 	private UserService userService;
 	
-	// company, search, trade-list 남수현
+    // company, search, trade-list 남수현
+
 	@GetMapping("/company/{companyNumber}")
 	public String writing(@PathVariable("companyNumber") String companyNumber, RedirectAttributes rttr) {
 		
@@ -58,6 +58,7 @@ public class StockController {
 		List<Company> companyList= companyService.search(keyword);
 		return new ResponseEntity<>(companyList, HttpStatus.OK);
 	}
+	
 	
 	// 여기서부터 예겸이 작업 go
 	
