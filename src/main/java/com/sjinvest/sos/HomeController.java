@@ -57,7 +57,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/sns/newsfeed", method = RequestMethod.GET)
 	public String newsfeed(Model model) {
-		model.addAttribute("feedList", service.listAll());
+		//model.addAttribute("feedList", service.listAll());
 		return "/sns/newsfeed";
 	}
 	
@@ -75,6 +75,13 @@ public class HomeController {
 		return "temp/origin-newsfeed";
 	}
 
+	@RequestMapping(value = "/popup/login2", method = RequestMethod.GET)
+	public String login2() {
+		logger.info("login2.");
+		
+		return "/popup/login2";
+	}
+	
 	@RequestMapping(value = "/sns/naverLogin", method = RequestMethod.GET)
 	public String naverLogin() {
 		logger.info("naverLogin.");
@@ -87,20 +94,6 @@ public class HomeController {
 		logger.info("naverLoginCallback.");
 		
 		return "/sns/naverLoginCallback";
-	}
-	
-	@RequestMapping(value = "/sns/googleLogin", method = RequestMethod.GET)
-	public String googleLogin() {
-		logger.info("googleLogin.");
-		
-		return "/sns/googleLogin";	
-	}
-	
-	@RequestMapping(value = "/sns/googleLoginCallback", method = RequestMethod.GET)
-	public String googleLoginCallback() {
-		logger.info("googleLoginCallback.");
-		
-		return "/sns/googleLoginCallback";	
 	}
 	
 	@RequestMapping(value = "/sns/signup3", method = RequestMethod.GET)
@@ -117,10 +110,17 @@ public class HomeController {
 		return "/sns/mypage_index";
 	}
 	
+	@RequestMapping(value = "/sns/mypage_information", method = RequestMethod.GET)
+	public String mypage_information() {
+		logger.info("mypage_information.");
+		
+		return "/sns/mypage_information";
+	}
+	
 	@RequestMapping(value = "/sns/mypage_follow", method = RequestMethod.GET)
 	public String mypage_follow() {
 		logger.info("mypage_follow.");
-		
+
 		return "/sns/mypage_follow";
 	}
 	

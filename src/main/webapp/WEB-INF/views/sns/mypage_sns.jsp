@@ -1,36 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
 
-<title>MyPageSNS</title>
-<jsp:include page="../includes/head.jsp"></jsp:include>
-
-</head>
-<body>
+<!-- sns setting start -->
 
 
-  <!-- header start -->
-  <jsp:include page="../includes/header.jsp">
-    <jsp:param value="Yegyeom Yu" name="loginId" />
-  </jsp:include>
-  <!-- header end -->
-
-
-  <!-- mypage_profile start -->
-  <jsp:include page="../includes/mypage_profile.jsp"></jsp:include>
-  <!-- mypage_profile end -->
-
-
-  <div class="container">
-    <div class="row">
-
-
-        <!-- sns setting start -->
-
-
-		<div class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12">
-			<div class="ui-block">
+<!--  		<div class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"> -->			
+            <div class="ui-block">
 				<div class="ui-block-title">
 					<h6 class="title">SNS설정</h6>
 				</div>
@@ -69,6 +43,7 @@
 									<div class="togglebutton">
 										<label>
 											<input type="checkbox" checked="">
+                                            <span class="toggle"></span>
 										</label>
 									</div>
 								</div>
@@ -81,6 +56,7 @@
 									<div class="togglebutton">
 										<label>
 											<input type="checkbox" checked="">
+                                            <span class="toggle"></span>
 										</label>
 									</div>
 								</div>
@@ -93,6 +69,7 @@
 									<div class="togglebutton">
 										<label>
 											<input type="checkbox" checked="">
+                                            <span class="toggle"></span>
 										</label>
 									</div>
 								</div>
@@ -105,6 +82,7 @@
 									<div class="togglebutton">
 										<label>
 											<input type="checkbox" >
+                                            <span class="toggle"></span>
 										</label>
 									</div>
 								</div>
@@ -120,27 +98,10 @@
 					</form>
 				</div>
 			</div>
-		</div>
+<!-- 		</div> -->
 
 		
 
-        <!-- sns setting end -->
+<!-- sns setting end -->
 
 
-
-      <!-- mypage leftside start -->
-      <jsp:include page="../includes/mypage_leftside.jsp"></jsp:include>
-      <!-- mypage leftside end -->
-
-    </div>
-  </div>
-
-
-  <!-- javascript 추가항목 start -->
-  <jsp:include page="../includes/bottom.jsp"></jsp:include>
-  <!-- javascript 추가항목 start -->
-
-
-
-</body>
-</html>
