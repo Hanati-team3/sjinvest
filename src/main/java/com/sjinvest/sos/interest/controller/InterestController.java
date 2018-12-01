@@ -1,6 +1,8 @@
 package com.sjinvest.sos.interest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +23,16 @@ public class InterestController {
 	private InterestService service;
 	
 	@PostMapping("/add")
-	public String add(Interest interest) {
+	public ResponseEntity<String> add(Interest interest) {
 		log.info("register : "+ interest);
 		service.add(interest);
-		return "redirect:/interest/list";
+		return  new ResponseEntity<>("success",HttpStatus.OK);
+	}
+	
+	@PostMapping("delete")
+	public ResponseEntity<String> delete(Integer seq) {
+		log.info("delete : "+ seq);
+		service.delete(seq);
+		return new ResponseEntity<>("success",HttpStatus.OK);
 	}
 }
