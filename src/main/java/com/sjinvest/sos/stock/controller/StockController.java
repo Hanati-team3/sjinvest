@@ -27,9 +27,10 @@ public class StockController {
 	private StockService service;
 	private CompanyService companyService;
 	
+	// company, search, trade-list 남수현
 	@GetMapping("/company/{companyNumber}")
 	public String writing(@PathVariable("companyNumber") String companyNumber, RedirectAttributes rttr) {
-//		rttr.addAttribute("company", companyService.readByNumber(companyNumber));
+ //		rttr.addAttribute("company", companyService.readByNumber(companyNumber));
 		return "/stock/index";
 	}
 	
@@ -39,14 +40,6 @@ public class StockController {
 		return new ResponseEntity<>(companyList, HttpStatus.OK);
 	}
 	
-//	@GetMapping("/trade-list")
-//	public ResponseEntity<List<Company>> list(@RequestParam String keyword) {
-//		List<Company> companyList= companyService.search(keyword);
-//		return new ResponseEntity<>(companyList, HttpStatus.OK);
-//	}
-//	@GetMapping("/list")
-//	public String writing(Feed feed, RedirectAttributes rttr) {
-//		service.write(feed);
-//		return "redirect:/feed/list";
-//	}
+	// 여기서부터 예겸이 작업 go
+	
 }
