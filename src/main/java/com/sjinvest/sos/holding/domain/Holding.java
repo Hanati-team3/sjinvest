@@ -15,4 +15,5 @@ public class Holding {
 	private int userSeq;
 	private int holdingAmount;
 	private int holdingTotalMoney;
+	private double holdingRateOfReturn;
 }

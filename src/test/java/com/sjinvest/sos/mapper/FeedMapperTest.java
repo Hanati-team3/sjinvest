@@ -64,7 +64,7 @@ public class FeedMapperTest {
 		log.info(mapper);
 		log.info(mapper.listAll());
 	}	
-//	@Test
+	@Test
 	public void testListSearchingPaging() throws SQLException {
 		log.info(mapper);
 		Map<String, Object> data = new HashMap<String, Object>();
