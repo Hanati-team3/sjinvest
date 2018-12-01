@@ -15,7 +15,7 @@ import com.sjinvest.sos.stock.domain.TimeSeries;
 public class StockDao {
 	
 	private Random random = new Random();
-
+	// 회사 번호와 회사 이름으로 stock 정보 가져오기
 	public Stock getStockInfo(String companyNumber, String companyName) {
 		Stock stock = new Stock();
 		stock.setStockCode("companyNumber");
@@ -33,7 +33,8 @@ public class StockDao {
 		stock.setStockVolume(50000+random.nextInt(50000));
 		return stock;
 	}
-	public TimeSeries getTimeSeries(String companyNumber) {
+	// 회사 번호와 회사 이름으로 차트 정보 가져오기
+	public TimeSeries getTimeSeries(String companyNumber, String type) {
 		TimeSeries timeSeries= new TimeSeries();
 		List<String> label = new ArrayList<String>();
 		List<Double> data = new ArrayList<Double>();
@@ -45,6 +46,7 @@ public class StockDao {
 		timeSeries.setData(data);
 		return timeSeries;
 	}
+	// 회사 이름으로 뉴스 리스트 가져오기
 	public List<News> getNewsList(String companyName) {
 		List<News> newsList = new ArrayList<News>();
 		News news = new News();
@@ -60,6 +62,7 @@ public class StockDao {
 		newsList.add(news);
 		return newsList;
 	}
+	// 실시간 매매량 top10 주식 정보
 	public List<Stock> stockRealtime(){
 		List<Stock> stockList = new ArrayList<Stock>();
 		stockList.add(getStockInfo("000000","아모레퍼시픽"));
@@ -74,6 +77,7 @@ public class StockDao {
 		stockList.add(getStockInfo("222222","한국화장품제조"));
 		return stockList;
 	}
+	// 소유 종목 정보
 	public List<Holding> stockMyHoldingWidget(){
 		List<Holding> holdingList = new ArrayList<Holding>();
 		Holding holding = new Holding();
@@ -116,6 +120,7 @@ public class StockDao {
 		}
 		return holdingList;
 	}
+	// 업종별 거래량
 	public List<Map<String, Object>> stockFieldAmount(){
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 		Map<String, Object> data = new HashMap<String, Object>();
@@ -140,6 +145,7 @@ public class StockDao {
 		result.add(data5);
 		return result;
 	}
+	// 업종별 전일 대비
 	public List<Map<String, Object>> stockFieldDayBefore(){
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 		Map<String, Object> data = new HashMap<String, Object>();
@@ -168,5 +174,44 @@ public class StockDao {
 		data.put("dayBeforeRate", (random.nextDouble()*100)-50);
 		result.add(data5);
 		return result;
+	}
+	// 회사 번호 리스트로 회사 주식 정보 리스트 받기
+	public List<Stock> getStockList(List<String> companyNumberList){
+		List<Stock> stockList = new ArrayList<Stock>();
+		for(int i = 0; i < companyNumberList.size(); i++) {
+			stockList.add(getStockInfo("000000","아모레퍼시픽"));
+		}
+		return stockList;
+	}
+	// 회사 번호 리스트로 회사 시계열 정보 리스트 받기
+	public List<TimeSeries> getTimeSeriesList(List<String> companyNumberList, String type){
+		List<TimeSeries> timeSeriesList= new ArrayList<TimeSeries>();
+		for(int i = 0; i < companyNumberList.size(); i++) {
+			timeSeriesList.add(getTimeSeries("",""));
+		}
+		return timeSeriesList;
+	}
+	// 코스피 정보 받기
+	public Stock getStockKospiInfo() {
+		return getStockInfo("000000","Kospi");
+	}
+	// 코스피 시계열 받기
+	public TimeSeries getStockKospiTimeSeries() {
+		return getTimeSeries("000000", "Kospi");
+	}
+	// 주식 탑 5 or 3 type별로 받기(Rising, Falling, Foreing, Institution)
+	public List<Map<String, Object>> stockTop(String type){
+		List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+		for(int i = 0; i < 5; i++) {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("companyName", "아모레퍼시픽");
+			map.put("value",random.nextDouble()*100);
+			resultList.add(map);
+		}
+		return resultList;
+	}
+	// 전체 주식 뉴스 top5
+	public List<News> stockIndexNews(){
+		return getNewsList("");
 	}
 }
