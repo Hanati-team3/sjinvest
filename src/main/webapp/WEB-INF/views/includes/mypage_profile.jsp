@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=utf-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 프로필 사진, 배경 start -->
 
@@ -15,7 +14,7 @@
           <div class="profile-section">
           </div>
           <div class="top-header-author">
-            <a href="02-ProfilePage.html" class="author-thumb">
+            <a href="#" class="author-thumb">
               <img src="../resources/img/author-main1.jpg" alt="author">
             </a>
             <div class="author-content">

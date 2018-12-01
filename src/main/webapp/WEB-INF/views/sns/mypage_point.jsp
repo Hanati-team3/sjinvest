@@ -1,42 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
 
-<title>MyPagePoint</title>
-<jsp:include page="../includes/head.jsp"></jsp:include>
-<style type="text/css">
-.form-group.label-floating .bootstrap-select.btn-group .dropdown-toggle .filter-option{
-	top:0px;
-}
-.ui-block-content{
-	padding: 24px 23px 0px;
-}
-</style>
-</head>
-<body>
+<!-- mypage_point start -->
 
 
-  <!-- header start -->
-  <jsp:include page="../includes/header.jsp">
-    <jsp:param value="Yegyeom Yu" name="loginId" />
-  </jsp:include>
-  <!-- header end -->
-
-
-  <!-- mypage_profile start -->
-  <jsp:include page="../includes/mypage_profile.jsp"></jsp:include>
-  <!-- mypage_profile end -->
-
-
-  <div class="container">
-    <div class="row">
-
-
-    <!-- mypage_point start -->
-
-
-    <div class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12">
+<!--     <div class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"> -->
       <div class="ui-block">
         <div class="ui-block-title">
          	
@@ -98,27 +65,7 @@
           </li>
         </ul>
       </nav>
-    </div>
+<!--     </div> -->
 
+<!-- mypage_point end -->
 
-
-    <!-- mypage_point end -->
-
-
-
-      <!-- mypage leftside start -->
-      <jsp:include page="../includes/mypage_leftside.jsp"></jsp:include>
-      <!-- mypage leftside end -->
-
-    </div>
-  </div>
-
-
-  <!-- javascript 추가항목 start -->
-  <jsp:include page="../includes/bottom.jsp"></jsp:include>
-  <!-- javascript 추가항목 start -->
-
-
-
-</body>
-</html>
