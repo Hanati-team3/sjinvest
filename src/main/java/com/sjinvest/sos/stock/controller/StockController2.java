@@ -21,6 +21,7 @@ import com.sjinvest.sos.notice.service.NoticeService;
 import com.sjinvest.sos.point.service.PointService;
 import com.sjinvest.sos.setting.service.SettingService;
 import com.sjinvest.sos.stock.dao.StockDao;
+import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.service.StockService;
 import com.sjinvest.sos.trading.service.TradingService;
 import com.sjinvest.sos.user.service.UserService;
@@ -30,9 +31,9 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/stock/*")
+@RequestMapping("/stock2/*")
 @AllArgsConstructor
-public class StockController {
+public class StockController2 {
 
 	private StockService service;
 	private CompanyService companyService;
@@ -45,21 +46,16 @@ public class StockController {
 	private TradingService tradingService;
 	private UserService userService;
 	
-    // company, search, trade-list 남수현
+	@GetMapping("/realtime")
+	public ResponseEntity<List<Stock>> realtime() {
+		return new ResponseEntity<>(service.stockRealtime(),HttpStatus.OK);
+	}
+	
+	
+	
+	@GetMapping("/index")
+	public ResponseEntity index() {
+		return new ResponseEntity<>("", HttpStatus.OK);
+	}
 
-	@GetMapping("/company/{companyNumber}")
-	public String writing(@PathVariable("companyNumber") String companyNumber, RedirectAttributes rttr) {
-		
-		return "/stock/index";
-	}
-	
-	@GetMapping("/search")
-	public ResponseEntity<List<Company>> search(@RequestParam String keyword) {
-		List<Company> companyList= companyService.search(keyword);
-		return new ResponseEntity<>(companyList, HttpStatus.OK);
-	}
-	
-	
-	// 여기서부터 예겸이 작업 go
-	
 }
