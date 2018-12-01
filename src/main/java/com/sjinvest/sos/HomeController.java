@@ -179,13 +179,6 @@ public class HomeController {
 		return "/stock/stock-index";
 	}
 	
-	@RequestMapping(value = "/stock/search", method = RequestMethod.GET)
-	public String search() {
-		logger.info("stock search ");
-		
-		return "/stock/stock-search-result";
-	}
-	
 	@RequestMapping(value = "/stock/company", method = RequestMethod.GET)
 	public String company() {
 		logger.info("stock company ");

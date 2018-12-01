@@ -16,4 +16,7 @@ public class Stock {
 	private int stockHigh;
 	private int stockLow;
 	private double per;
+	private int eps;
+	private int bps;
+	private double pbr;
 }

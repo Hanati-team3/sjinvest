@@ -40,28 +40,70 @@
 	<!-- 특정 유저 거래 목록 -->
 	<select id="listByUser" parameterType="map" resultType="Trading"
 		resultMap="tradingResultMap">
-		SELECT trading_seq,
-		user_seq,
-		company_number,
-		company_name,
-		trading_type,
-		trading_time,
-		trading_price,
-		trading_amount,
-		trading_earnings_ratio
-		FROM trading
-		<where>
-			<if test="userSeq != null">
-				user_seq = #{userSeq}
-			</if>
-			<if test="tradingType != null">
-				AND trading_type = #{tradingType}
-			</if>
-			<if test="startDate != null and endDate != null">
-				AND trading_time <![CDATA[>=]]> #{startDate} AND trading_Time <![CDATA[<]]> #{endDate}
-			</if>
-		</where>
-		ORDER BY trading_time DESC
+		SELECT B.trading_seq, 
+	       B.user_seq, 
+	       B.company_number, 
+	       B.company_name, 
+	       B.trading_type, 
+	       B.trading_time, 
+	       B.trading_price, 
+	       B.trading_amount, 
+	       B.trading_earnings_ratio 
+		FROM  (SELECT /*+INDEX_DESC(A feed_seq)*/ ROWNUM AS rnum, 
+		                                          A.trading_seq, 
+		                                          A.user_seq, 
+		                                          A.company_number, 
+		                                          A.company_name, 
+		                                          A.trading_type, 
+		                                          A.trading_time, 
+		                                          A.trading_price, 
+		                                          A.trading_amount, 
+		                                          A.trading_earnings_ratio 
+		       FROM  (SELECT trading_seq, 
+		                     user_seq, 
+		                     company_number, 
+		                     company_name, 
+		                     trading_type, 
+		                     trading_time, 
+		                     trading_price, 
+		                     trading_amount, 
+		                     trading_earnings_ratio 
+		              FROM   trading 
+				<where>
+					<if test="userSeq != null">
+						user_seq = #{userSeq}
+					</if>
+					<if test="tradingType != null">
+						AND trading_type = #{tradingType}
+					</if>
+					<if test="startDate != null and endDate != null">
+						AND trading_time <![CDATA[>=]]> #{startDate} AND trading_Time <![CDATA[<]]> #{endDate}
+					</if>
+				</where>
+		       ORDER  BY trading_time DESC) A 
+		       	<if test="endNum != null">
+		       WHERE  ROWNUM <![CDATA[<=]]> #{endNum}
+				</if>
+		       ) B 
+		       	<if test="startNum != null">
+		       WHERE  B.rnum <![CDATA[>=]]> #{startNum}
+				</if>
+	</select>
+	<!-- 조건 별 특정 유저 거래 목록 수-->
+	<select id="countByUser" parameterType="map" resultType="Integer">
+			  SELECT COUNT(trading_seq) 
+		      FROM   trading 
+			  <where>
+				<if test="userSeq != null">
+					user_seq = #{userSeq}
+				</if>
+				<if test="tradingType != null">
+					AND trading_type = #{tradingType}
+				</if>
+				<if test="startDate != null and endDate != null">
+					AND trading_time <![CDATA[>=]]> #{startDate} AND trading_Time <![CDATA[<]]> #{endDate}
+				</if>
+			  </where>
 	</select>
 	<!-- 수익률 top5 -->
 	<select id="earningRatio" resultType="map" parameterType="Integer">

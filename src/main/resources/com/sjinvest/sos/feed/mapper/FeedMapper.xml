@@ -156,17 +156,18 @@
 		                     feed_picture, 
 		                     feed_original_seq 
 		              FROM   feed 
+		              WHERE 		
+		              <if test="keywords != null">
+					  <foreach collection="keywords" item="keyword"  open="(" close=")" separator="or">
+                      feed_content LIKE '%' ||  #{keyword} || '%'
+			          </foreach>
+					  AND
+		              </if>
+		              <if test="userSeq != null">
+		           	  user_seq = #{userSeq}
+		              </if>
 		              ORDER  BY feed_seq DESC) A 
 		       WHERE  ROWNUM <![CDATA[<=]]> #{endNum}) B 
 		WHERE  B.rnum <![CDATA[>=]]> #{startNum} 
-		<if test="keywords != null">
-			AND
-			<foreach collection="keywords" item="keyword"  open="(" close=")" separator="or">
-            feed_content LIKE '%' ||  #{keyword} || '%'
-			</foreach>
-		</if>
-		<if test="userSeq != null">
-			AND user_seq = #{userSeq}
-		</if>
 	</select>
 </mapper>

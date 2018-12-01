@@ -39,12 +39,25 @@ public class TradingMapperTest {
 	public void testList() throws SQLException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userSeq", 2);
-		map.put("tradingType", 2);
-		map.put("startDate", "2018-11-29");
+//		map.put("tradingType", 2);
+		map.put("startDate", "2018-11-28");
 		map.put("endDate", "2018-11-30");
+		map.put("startNum", 1);
+		map.put("endNum", 2);
 		mapper.listByUser(map);
 	}
 	@Test
+	public void testCount() throws SQLException {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userSeq", 2);
+//		map.put("tradingType", 2);
+		map.put("startDate", "2018-11-28");
+		map.put("endDate", "2018-11-30");
+		map.put("startNum", 1);
+		map.put("endNum", 2);
+		log.info(mapper.countByUser(map));
+	}
+//	@Test
 	public void testTop() throws SQLException{
 		mapper.earningRatio(5);
 	}

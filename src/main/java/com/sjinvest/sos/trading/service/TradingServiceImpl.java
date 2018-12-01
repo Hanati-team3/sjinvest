@@ -67,7 +67,7 @@ public class TradingServiceImpl implements TradingService {
 	}
 
 	@Override
-	public List<Trading> listByUser(int userSeq, int tradingType, String startDate, String endDate) {
+	public List<Trading> listByUser(int userSeq, int tradingType, String startDate, String endDate, int startNum, int endNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(userSeq != 0) {
 			map.put("userSeq", userSeq);
@@ -78,6 +78,10 @@ public class TradingServiceImpl implements TradingService {
 		if(startDate != null && endDate != null) {
 			map.put("startDate", startDate);
 			map.put("endDate", endDate);
+		}
+		if(startNum != 0 && endNum != 0) {
+			map.put("startNum", startNum);
+			map.put("endNum", endNum);
 		}
 		return mapper.listByUser(map);
 	}
