@@ -74,22 +74,21 @@ public class StockController2 {
 		// 회사 목록
 		model.addAttribute("companyNameList", companyService.list());
 		// 업종별 거래량 카드
-		model.addAttribute("fieldStock", service.stockFieldAmount());
+		model.addAttribute("fieldAmount", service.stockFieldAmount());
 		// 코스피 정보 카드
 		model.addAttribute("kospi", kospiMethod());
 		// 상승률 상위 5종목
-		model.addAttribute("topTap", service.stockTop("Rising"));
+		model.addAttribute("risingTop", service.stockTop("Rising"));
 		// 주식 전체 뉴스
 		model.addAttribute("news", service.stockIndexNews());
 		// 로그인중
 		if(userId != null) {
-			User user = userService.readById(userId);
 			// 내 보유주식 위젯
-			model.addAttribute("holdingWidget", holdingWidgetMethod(user));
+			model.addAttribute("holdingWidget", holdingWidgetMethod(userId));
 			// 유저 프로필 위젯
 			// 유저 랭킹 위젯
 			// 관심종목카드
-			model.addAttribute("interestCard", interestCardMethod(user));
+			model.addAttribute("interestCard", interestCardMethod(userId));
 		}
 		return "stock/stock-index";
 	}

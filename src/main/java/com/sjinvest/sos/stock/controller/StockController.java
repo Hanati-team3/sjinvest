@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,8 +24,8 @@ import com.sjinvest.sos.interest.service.InterestService;
 import com.sjinvest.sos.notice.service.NoticeService;
 import com.sjinvest.sos.point.service.PointService;
 import com.sjinvest.sos.setting.service.SettingService;
+import com.sjinvest.sos.stock.domain.AskingPrice;
 import com.sjinvest.sos.stock.domain.News;
-import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.service.StockService;
 import com.sjinvest.sos.trading.service.TradingService;
 import com.sjinvest.sos.user.service.UserService;
@@ -60,7 +61,7 @@ public class StockController {
 		return "stock/stock-company";
 	}
 	@ResponseBody
-	@GetMapping(value = "/company/getdata", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping(value = "/company/getdata", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String,Object>> getData(String companyNumber, String companyName) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		returnData.put("stockInfo", service.getStockInfo(companyNumber, companyName));
