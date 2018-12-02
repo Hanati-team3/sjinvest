@@ -7,7 +7,6 @@
 </head>
 
 <body class="stock">
-
   <%-- 우리한테 필요 없는 고정 양측 사이드바 --%>
   <!-- Fixed Sidebar Left -->
   <%-- <jsp:include page="includes/fixed-sidebar-left.jsp"></jsp:include> --%>
@@ -30,7 +29,7 @@
     <div class="row realtime">
       <!-- realtime start -->
       <div class="col-xl-12 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12" style="float:right">
-      <jsp:include page="../includes/realtime.jsp"></jsp:include>
+        <jsp:include page="../includes/realtime.jsp"></jsp:include>
       </div>
       <!-- ..realtime end -->
     </div>
@@ -80,33 +79,33 @@
                   <ul class="statistics-list-count">
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-purple"></span>화장품</span>
+                        <span> <span class="statistics-point bg-purple"></span>${fieldAmount[0].fieldName}</span>
                       </div>
-                      <div class="count-stat">8.247</div>
+                      <div class="count-stat">${fieldAmount[0].fieldAmount}</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-breez"></span>자동차</span>
+                        <span> <span class="statistics-point bg-breez"></span>${fieldAmount[1].fieldName}</span>
                       </div>
-                      <div class="count-stat">5.630</div>
+                      <div class="count-stat">${fieldAmount[1].fieldAmount}</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-primary"></span>은행</span>
+                        <span> <span class="statistics-point bg-primary"></span>${fieldAmount[2].fieldName}</span>
                       </div>
-                      <div class="count-stat">1.498</div>
+                      <div class="count-stat">${fieldAmount[2].fieldAmount}</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-yellow"></span>게임</span>
+                        <span> <span class="statistics-point bg-yellow"></span>${fieldAmount[3].fieldName}</span>
                       </div>
-                      <div class="count-stat">1.136</div>
+                      <div class="count-stat">${fieldAmount[3].fieldAmount}</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-blue"></span>방송과 엔터테이먼트</span>
+                        <span> <span class="statistics-point bg-blue"></span>${fieldAmount[4].fieldName}</span>
                       </div>
-                      <div class="count-stat">2.958</div>
+                      <div class="count-stat">${fieldAmount[4].fieldAmount}</div>
                     </li>
                   </ul>
   
@@ -133,9 +132,9 @@
                   <div class="swiper-wrapper">
                     <div class="swiper-slide">
                       <div class="statistics-slide">
-                        <div class="company-name" data-swiper-parallax="-500">하나금융지주</div>
-                        <div class="company-stock" data-swiper-parallax="-500">38,750</div>
-                        <span class="indicator negative"> 전일대비 + 800</span>
+                        <div class="company-name" data-swiper-parallax="-500">${interestCard.stockList[0].stockName}</div>
+                        <div class="company-stock" data-swiper-parallax="-500">${interestCard.stockList[0].stockPrice}</div>
+                        <span class="indicator negative"> 전일대비 ${interestCard.stockList[0].stockChange} ${interestCard.stockList[0].stockDiff}%</span>
     					<div class="chart-js chart-js-line-stacked">
     						<canvas id="line-stacked-chart" width="730" height="300"></canvas>
     					</div>
@@ -683,7 +682,6 @@
     </div>
     <%-- 사이드 포함 row 끝 --%>
   </div>
-
   <!-- ... end Widget Weather -->
 
 
@@ -694,6 +692,16 @@
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
   <!-- End Include js -->
-
+  <script>
+<%--   $.ajax({
+      type: "GET",
+      url: "<%=application.getContextPath()%>/stock2/index?userId=suhyeon",
+      dataType: "json",
+      success: function(data) {
+          console.log(data);
+      }
+  }); --%>
+  
+  </script>
 </body>
 </html>
