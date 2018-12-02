@@ -60,6 +60,12 @@ public class StockDao {
 		newsList.add(news);
 		newsList.add(news);
 		newsList.add(news);
+		News news2 = new News();
+		news2.setDate("2018-12-01");
+		news2.setHeadLine("뉴스 헤드라인입니다. 오늘 이 카페에는 사람이 많네요. 여기저기 크리스마스 분위기가 풍기는 예쁜 카페입니다. 많이 시끄럽지도 않아요");
+		news2.setLink("www.naver.com");
+		news2.setSource("남수현기자");
+		news2.setTitle("달라지는 거 확인합니다.");
 		return newsList;
 	}
 	// 실시간 매매량 top10 주식 정보

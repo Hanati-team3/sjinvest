@@ -7,6 +7,8 @@
 	<resultMap type="Company" id="companyResultMap">
 		<result column="company_number" property="companyNumber" />
 		<result column="company_name" property="companyName" />
+		<result column="field_number" property="fieldNumber" />
+		<result column="field_name" property="fieldName" />
 		<result column="company_total_stock" property="companyTotalStock" />
 		<result column="company_detail" property="companyDetail" />
 	</resultMap>
