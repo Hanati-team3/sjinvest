@@ -4,6 +4,23 @@
 <head>
 <title>SOS - 모의투자 회사 상세</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
+<script>
+$(document).ready(function () {
+    $.ajax({ 
+        type: "POST", 
+        url: "sos/stock/comapny/getdata", 
+        data: search, 
+        dataType: "json", 
+        success: function (data) { 
+         var modelAttributeValue = [[${coname}]]; 
+         alert(modelAttributeValue); }, 
+        error: function(){ 
+         alert('got error'); 
+        } 
+});
+</script>
 </head>
 
 <body class="stock">
@@ -24,7 +41,6 @@
   </jsp:include>
   <!-- ... end Header -->
   <div class="header-spacer header-spacer-small"></div>
-
   <div class="container">
     <%-- realtime row 시작 --%>
     <div class="row realtime">
@@ -76,7 +92,7 @@
                     <i class="fas fa-heart"></i>
                   </a>
                 </div>
-                <div class="company-name" >하나금융지주</div>
+                <div class="company-name" >${company.companyName}</div>
                 <div class="company-stock" >38,750</div>
                 <div class="row company-main-card-sub">
                   <div class="col-xl-3 order-xl-1 col-lg-6 order-lg-1 col-md-6 col-sm-6 col-xs-6">
@@ -173,7 +189,7 @@
               <div class="ui-block-content">
                 <div class="friend-count" style="text-align: center; position: relative;" >
                   <a href="#" class="friend-count-item">
-                    <div class="h6">은행</div>
+                    <div class="h6">${company.fieldName}</div>
                     <div class="title">업종</div>
                   </a> <a href="#" class="friend-count-item">
                     <div class="h6">코스피 50</div>
@@ -697,7 +713,7 @@
             
               <div class="ui-block-title">
                 <!-- <div class="h6 title">KOSPI Line Graphic</div> -->
-                <div><h6 class="title">하나금융지주 차트</h6></div>
+                <div><h6 class="title">${company.companyName} 차트</h6></div>
                 <select class="selectpicker form-control without-border" size="auto">
                   <option value="LY">기본</option>
                   <option value="2">거래량</option>
@@ -758,47 +774,21 @@
                 <h6 class="title">News</h6>
                 <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
-    
               <ul class="notification-list">
-                <li>
-                  <div class="author-thumb">
-                    <img src="<%=application.getContextPath()%>/resources/img/avatar1-sm.jpg" alt="author">
-                  </div>
-                  <div class="notification-event">
-                    <a href="#" class="h6 notification-friend">서울경제</a>
-                    오전 11:30 현재 코스피는 50:50으로 보합세, 매수강세 업종은 철강..
-                  </div>
-                  <span class="notification-icon">
-                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
-                  </span>
-                </li>
-    
-                <li class="un-read">
-                  <div class="author-thumb">
-                    <img src="<%=application.getContextPath()%>/resources/img/avatar2-sm.jpg" alt="author">
-                  </div>
-                  <div class="notification-event">
-                    <a href="#" class="h6 notification-friend">한국경제 </a>
-                    코스피, 외국인·기관 '팔자'에 약보합세…5G 기대 통신株 '강세'
-                  </div>
-                  <span class="notification-icon">
-                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
-                  </span>
-                </li>
-                
-                <li class="un-read">
-                  <div class="author-thumb">
-                    <img src="<%=application.getContextPath()%>/resources/img/avatar3-sm.jpg" alt="author">
-                  </div>
-                  <div class="notification-event">
-                    <a href="#" class="h6 notification-friend">IBK투자증권 </a>
-                    [Start with IBKS]KOSPI는 기관과 외국인의 순매수로 상승함
-                  </div>
-                  <span class="notification-icon">
-                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
-                  </span>
-                </li>
- 
+                <c:forEach var="eachNews" items="${news}" varStatus="status">
+                  <li>
+                    <div class="author-thumb">
+                      <img src="<%=application.getContextPath()%>/resources/img/avatar${status.index+1}-sm.jpg" alt="author">
+                    </div>
+                    <div class="notification-event">
+                      <a href="#" class="h6 notification-friend">${eachNews.source}</a>
+                      <a href="${eachNews.link}">${eachNews.title}</a>
+                    </div>
+                    <span class="notification-icon">
+                      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${eachNews.date}</time></span>
+                    </span>
+                  </li>
+                </c:forEach>
               </ul>
     
             </div>
