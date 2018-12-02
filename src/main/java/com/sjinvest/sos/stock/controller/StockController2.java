@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.sjinvest.sos.company.domain.Company;
 import com.sjinvest.sos.company.service.CompanyService;
 import com.sjinvest.sos.field.service.FieldService;
@@ -66,30 +68,59 @@ public class StockController2 {
 	
 	/** 주식 index 화면 요청*/
 	@GetMapping(value="/index", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public String index(String userId, Model model) {
+		Map<String, Object> map = new Hashtable<String, Object>();
+		// realtime
+		model.addAttribute("realtime", service.stockRealtime());
+		// 회사 목록
+		model.addAttribute("companyNameList", companyService.list());
+		// 업종별 거래량 카드
+		model.addAttribute("fieldAmount", service.stockFieldAmount());
+		// 코스피 정보 카드
+		model.addAttribute("kospi", kospiMethod());
+		// 상승률 상위 5종목
+		model.addAttribute("risingTop", service.stockTop("Rising"));
+		// 주식 전체 뉴스
+		model.addAttribute("news", service.stockIndexNews());
+		// 로그인중
+		if(userId != null) {
+			// 내 보유주식 위젯
+			model.addAttribute("holdingWidget", holdingWidgetMethod(userId));
+			// 유저 프로필 위젯
+			// 유저 랭킹 위젯
+			// 관심종목카드
+			model.addAttribute("interestCard", interestCardMethod(userId));
+		}
+		return "stock/stock-index";
+	}
+/*	*//** 주식 index 화면 요청*//*
+	@GetMapping(value="/index", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<Map<String, Object>> index(String userId) {
 		Map<String, Object> map = new Hashtable<String, Object>();
 		// realtime
 		map.put("realtime", service.stockRealtime());
-		// 내 보유주식 위젯
-		map.put("holdingWidget", holdingWidgetMethod(userId));
-		// 유저 프로필 위젯
-		// 유저 랭킹 위젯
 		// 회사 목록
 		map.put("companyNameList", companyService.list());
 		// 업종별 거래량 카드
 		map.put("fieldAmount", service.stockFieldAmount());
-		// 관심종목카드
-		map.put("interestCard", interestCardMethod(userId));
 		// 코스피 정보 카드
 		map.put("kospi", kospiMethod());
 		// 상승률 상위 5종목
 		map.put("risingTop", service.stockTop("Rising"));
 		// 주식 전체 뉴스
 		map.put("news", service.stockIndexNews());
-		
+		// 로그인중
+		if(userId != null) {
+			// 내 보유주식 위젯
+			map.put("holdingWidget", holdingWidgetMethod(userId));
+			// 유저 프로필 위젯
+			// 유저 랭킹 위젯
+			// 관심종목카드
+			map.put("interestCard", interestCardMethod(userId));
+		}
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
-	
+*/	
 	/** 내 보유주식 위젯 요청*/
 	@GetMapping(value="/holdingWidget", params= {"userId"}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<Map<String, Object>> holdingWidget(String userId) {
