@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sjinvest.sos.company.domain.Company;
@@ -19,6 +22,8 @@ import com.sjinvest.sos.interest.service.InterestService;
 import com.sjinvest.sos.notice.service.NoticeService;
 import com.sjinvest.sos.point.service.PointService;
 import com.sjinvest.sos.setting.service.SettingService;
+import com.sjinvest.sos.stock.domain.News;
+import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.service.StockService;
 import com.sjinvest.sos.trading.service.TradingService;
 import com.sjinvest.sos.user.service.UserService;
@@ -46,12 +51,18 @@ public class StockController {
     // company, search, trade-list 남수현
 
 	@GetMapping("/company/{companyNumber}")
-	public String writing(@PathVariable("companyNumber") String companyNumber, RedirectAttributes rttr) {
+	public String company(@PathVariable("companyNumber") String companyNumber, Model model) {
 		Company company = companyService.readByNumber(companyNumber);
-		
-		return "/stock/index";
+		List<News> news= service.getNewsList(company.getCompanyName()); 
+		model.addAttribute("company", company);
+		model.addAttribute("news", news);
+		return "stock/stock-company";
 	}
-	
+	@PostMapping("/company/getdata")
+	public @ResponseBody Stock writing(String companyNumber, String companyName) {
+		System.out.println("들어옴" + companyNumber +companyName);
+		return service.getStockInfo(companyNumber, companyName);
+	}	
 	@GetMapping("/search")
 	public ResponseEntity<List<Company>> search(@RequestParam String keyword) {
 		List<Company> companyList= companyService.search(keyword);
