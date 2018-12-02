@@ -60,10 +60,11 @@ public class StockController2 {
 		return new ResponseEntity<>(service.stockRealtime(),HttpStatus.OK);
 	}
 	
+	/** 주식 index 화면 요청*/
 	//userseq 1 넘어온다고 가정(원래는 GET일때는 비로그인)
 	@GetMapping(value="/index", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity index() {
-		Map map = new Hashtable();
+	public ResponseEntity<Map<String, Object>> index() {
+		Map<String, Object> map = new Hashtable<String, Object>();
 		List<Stock> realtime = service.stockRealtime();
 		
 		map.put("realtime", realtime);
@@ -72,16 +73,25 @@ public class StockController2 {
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	
-	//userseq 1 넘어온다고 가정(원래는 GET일때는 비로그인)
-	@GetMapping(value="/holdingWidget", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity holdingWidget(String id) {
-		return new ResponseEntity<>(holdingWidgetMethod(id), HttpStatus.OK);
+	/** 내 보유주식 위젯 요청*/
+	@GetMapping(value="/holdingWidget", params= {"userId"}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Map<String, Object>> holdingWidget(String userId) {
+		return new ResponseEntity<>(holdingWidgetMethod(userId), HttpStatus.OK);
 	}
 
-	private Map holdingWidgetMethod(String userId) {
-		Map holdingWidgetMap = new Hashtable();
+	/** 내 보유주식 위젯 메소드*/
+	private Map<String, Object> holdingWidgetMethod(String userId) {
+		Map<String, Object> holdingWidgetMap = new Hashtable<String, Object>();
 		User user = userService.readById(userId);
-		List<Holding> holdingList = holdingService.listByUser(user.getUserSeq());
+		List<Holding> holdingList = null;
+		/** 실제 구현시 필요한 코드
+		// holding 테이블에서 userSeq의 holding목록 가져오기
+		holdingList = holdingService.listByUser(user.getUserSeq());
+		// holdingList의 holding들에 대해 api연결하여 수익계산 필요
+		 * */
+
+		/** 테스트를 위해 임시 데이터 가져옴 */
+		holdingList = service.stockMyHoldingWidget();
 		int stockTotal = 0;
 		for (Holding holding : holdingList) {
 			stockTotal += holding.getHoldingTotalMoney();
@@ -91,5 +101,22 @@ public class StockController2 {
 		holdingWidgetMap.put("cashTotal", user.getUserMoney());
 		holdingWidgetMap.put("holdingList", holdingList);
 		return holdingWidgetMap;
+	}
+	
+	/** 업종별 거래량 */
+	@GetMapping(value="/stockFieldAmount", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<Map<String, Object>>> stockFieldAmount() {
+		List<Map<String, Object>> list = service.stockFieldAmount();
+		System.out.println(list);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	/** 관심종목카드 */
+	@GetMapping(value="/interestCard", params= {"userId"}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<Stock>> interestCard(String userId) {
+		User user = userService.readById(userId);
+		List<Stock> list = service.getStockList(null);
+		System.out.println(list);
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 }
