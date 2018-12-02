@@ -79,33 +79,33 @@
                   <ul class="statistics-list-count">
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-purple"></span>${fieldAmount[0].fieldName}</span>
+                        <span> <span class="statistics-point bg-purple"></span>${fieldStock[0].fieldName}</span>
                       </div>
-                      <div class="count-stat">${fieldAmount[0].fieldAmount}</div>
+                      <div class="count-stat">${fieldStock[0].fieldAmount}</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-breez"></span>${fieldAmount[1].fieldName}</span>
+                        <span> <span class="statistics-point bg-breez"></span>${fieldStock[1].fieldName}</span>
                       </div>
-                      <div class="count-stat">${fieldAmount[1].fieldAmount}</div>
+                      <div class="count-stat">${fieldStock[1].fieldAmount}</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-primary"></span>${fieldAmount[2].fieldName}</span>
+                        <span> <span class="statistics-point bg-primary"></span>${fieldStock[2].fieldName}</span>
                       </div>
-                      <div class="count-stat">${fieldAmount[2].fieldAmount}</div>
+                      <div class="count-stat">${fieldStock[2].fieldAmount}</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-yellow"></span>${fieldAmount[3].fieldName}</span>
+                        <span> <span class="statistics-point bg-yellow"></span>${fieldStock[3].fieldName}</span>
                       </div>
-                      <div class="count-stat">${fieldAmount[3].fieldAmount}</div>
+                      <div class="count-stat">${fieldStock[3].fieldAmount}</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-blue"></span>${fieldAmount[4].fieldName}</span>
+                        <span> <span class="statistics-point bg-blue"></span>${fieldStock[4].fieldName}</span>
                       </div>
-                      <div class="count-stat">${fieldAmount[4].fieldAmount}</div>
+                      <div class="count-stat">${fieldStock[4].fieldAmount}</div>
                     </li>
                   </ul>
   
@@ -692,16 +692,8 @@
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
   <!-- End Include js -->
-  <script>
-<%--   $.ajax({
-      type: "GET",
-      url: "<%=application.getContextPath()%>/stock2/index?userId=suhyeon",
-      dataType: "json",
-      success: function(data) {
-          console.log(data);
-      }
-  }); --%>
   
-  </script>
+  <%-- stock-index js --%>
+  <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index.js"></script>
 </body>
 </html>
