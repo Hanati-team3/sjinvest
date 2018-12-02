@@ -83,12 +83,13 @@ public class StockController2 {
 		model.addAttribute("news", service.stockIndexNews());
 		// 로그인중
 		if(userId != null) {
+			User user = userService.readById(userId);
 			// 내 보유주식 위젯
-			model.addAttribute("holdingWidget", holdingWidgetMethod(userId));
+			model.addAttribute("holdingWidget", holdingWidgetMethod(user));
 			// 유저 프로필 위젯
 			// 유저 랭킹 위젯
 			// 관심종목카드
-			model.addAttribute("interestCard", interestCardMethod(userId));
+			model.addAttribute("interestCard", interestCardMethod(user));
 		}
 		return "stock/stock-index";
 	}
