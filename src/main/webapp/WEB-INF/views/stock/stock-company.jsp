@@ -7,19 +7,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
 <script>
-$(document).ready(function () {
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+function getStockData(){
     $.ajax({ 
-        type: "POST", 
-        url: "sos/stock/comapny/getdata", 
-        data: search, 
-        dataType: "json", 
-        success: function (data) { 
-         var modelAttributeValue = [[${coname}]]; 
-         alert(modelAttributeValue); }, 
-        error: function(){ 
-         alert('got error'); 
-        } 
-});
+        type: "GET", 
+        url: "getdata", 
+        data: {"companyNumber" : "${company.companyNumber}", "companyName" : "${company.companyName}"}, 
+        success: function (data) {
+          $(".company-stock").text(numberWithCommas(data.stockInfo.stockPrice));
+          $("#highPrice").html(numberWithCommas(data.stockInfo.stockHigh)+"<span class='indicator positive'> 4.207</span>");
+          $("#lowPrice").html(numberWithCommas(data.stockInfo.stockLow)+"<span class='indicator positive'> 4.207</span>");
+          $("#stockVolume").html(numberWithCommas(data.stockInfo.stockVolume)+"<span class='indicator positive'> 4.207</span>");
+		  for(var i = 0; i < data.askingPrice.length; i++){
+			  
+		  };
+          setTimeout(getStockData, 2000);
+        }
+})	
+}
+$(document).ready(
+	getStockData
+);
 </script>
 </head>
 
@@ -93,7 +103,7 @@ $(document).ready(function () {
                   </a>
                 </div>
                 <div class="company-name" >${company.companyName}</div>
-                <div class="company-stock" >38,750</div>
+                <div class="company-stock" ></div>
                 <div class="row company-main-card-sub">
                   <div class="col-xl-3 order-xl-1 col-lg-6 order-lg-1 col-md-6 col-sm-6 col-xs-6">
                     <div class="ui-block">
@@ -103,9 +113,7 @@ $(document).ready(function () {
                             <div class="points">
                               <span> 오늘 상한가 </span>
                             </div>
-                            <div class="count-stat">
-                              28.432 <span class="indicator positive"> +
-                                4.207</span>
+                            <div class="count-stat" id="highPrice">
                             </div>
                           </li>
                         </ul>
@@ -119,10 +127,8 @@ $(document).ready(function () {
                           <li>
                             <div class="points">
                               <span> 오늘 하한가 </span>
+                              <div class="count-stat" id="lowPrice">
                             </div>
-                            <div class="count-stat">
-                              28.432 <span class="indicator positive"> +
-                                4.207</span>
                             </div>
                           </li>
                         </ul>
@@ -137,9 +143,7 @@ $(document).ready(function () {
                             <div class="points">
                               <span> 거래량 </span>
                             </div>
-                            <div class="count-stat">
-                              28.432 <span class="indicator positive"> +
-                                4.207</span>
+                            <div class="count-stat" id="stockVolume">
                             </div>
                           </li>
                         </ul>
@@ -154,7 +158,7 @@ $(document).ready(function () {
                             <div class="points">
                               <span> 종가 </span>
                             </div>
-                            <div class="count-stat">
+                            <div class="count-stat" id="closingPrice">
                               28.432 <span class="indicator positive"> +
                                 4.207</span>
                             </div>
@@ -333,11 +337,11 @@ $(document).ready(function () {
                           <a href="#" class="small">6</a>
                         </div>
                       </td>
-                      <td class="stock-price">
-                        <a href="#" class="h6 count">6,498</a>
-                      </td>
-                      <td class="trading-amount plus">
+                      <td class="trading-amount">
                         <a href="#" class="h6 count">39,000</a>
+                      </td>
+                      <td class="stock-price plus">
+                        <a href="#" class="h6 count">6,498</a>
                       </td>
                       <td class="day-before">
                         <div class="author-freshness plus">
