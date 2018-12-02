@@ -1,18 +1,19 @@
 package com.sjinvest.sos.stock.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sjinvest.sos.company.domain.Company;
 import com.sjinvest.sos.company.service.CompanyService;
@@ -58,10 +59,13 @@ public class StockController {
 		model.addAttribute("news", news);
 		return "stock/stock-company";
 	}
-	@PostMapping("/company/getdata")
-	public @ResponseBody Stock writing(String companyNumber, String companyName) {
-		System.out.println("들어옴" + companyNumber +companyName);
-		return service.getStockInfo(companyNumber, companyName);
+	@ResponseBody
+	@GetMapping(value = "/company/getdata", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> getData(String companyNumber, String companyName) {
+		Map<String, Object> returnData = new HashMap<String, Object>();
+		returnData.put("stockInfo", service.getStockInfo(companyNumber, companyName));
+		returnData.put("askingPrice", service.getAskingPrice(companyNumber));
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}	
 	@GetMapping("/search")
 	public ResponseEntity<List<Company>> search(@RequestParam String keyword) {

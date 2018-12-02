@@ -13,6 +13,7 @@ import com.sjinvest.sos.holding.domain.Holding;
 import com.sjinvest.sos.setting.domain.Setting;
 import com.sjinvest.sos.setting.mapper.SettingMapper;
 import com.sjinvest.sos.stock.dao.StockDao;
+import com.sjinvest.sos.stock.domain.AskingPrice;
 import com.sjinvest.sos.stock.domain.News;
 import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.domain.TimeSeries;
@@ -251,5 +252,28 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public List<News> stockIndexNews(){
 		return getNewsList("");
+	}
+	@Override
+	public List<AskingPrice> getAskingPrice(String companyNumber) {
+		Random random = new Random();
+		List<AskingPrice> result = new ArrayList<AskingPrice>();
+		int price = random.nextInt(10000)+50000;
+		for(int i = 0; i < 5; i++) {
+			AskingPrice askingPrice = new AskingPrice();
+			askingPrice.setType(0);
+			askingPrice.setQuantity(random.nextInt(1000));
+			askingPrice.setPrice(price);
+			price = price - random.nextInt(1000);
+			result.add(askingPrice);
+		}
+		for(int i = 0; i < 5; i++) {
+			AskingPrice askingPrice = new AskingPrice();
+			askingPrice.setType(1);
+			askingPrice.setQuantity(random.nextInt(1000));
+			askingPrice.setPrice(price);
+			price = price - random.nextInt(1000);
+			result.add(askingPrice);
+		}
+		return result;
 	}
 }

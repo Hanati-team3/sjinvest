@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.sjinvest.sos.holding.domain.Holding;
 import com.sjinvest.sos.setting.domain.Setting;
+import com.sjinvest.sos.stock.domain.AskingPrice;
 import com.sjinvest.sos.stock.domain.News;
 import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.domain.TimeSeries;
@@ -38,4 +39,6 @@ public interface StockService {
 	public List<Map<String, Object>> stockTop(String type);
 	// 전체 주식 뉴스 top5
 	public List<News> stockIndexNews();
+	// 회사 번호로 호가 받아오기
+	public List<AskingPrice> getAskingPrice(String companyNumber);
 }
