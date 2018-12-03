@@ -2,6 +2,8 @@ package com.sjinvest.sos.feed.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -26,9 +28,13 @@ public class FeedController {
 		return "redirect:/sns/newsfeed";
 	}
 	
-//	@GetMapping("/list")
-//	public String writing(Feed feed, RedirectAttributes rttr) {
-//		service.write(feed);
-//		return "redirect:/feed/list";
-//	}
+	@GetMapping("/list")
+	public void list(Model model) {
+		
+		log.info("list");
+		System.out.println("리스트임돠 "+ service.listAll());
+		
+		model.addAttribute("list", service.listAll());
+		
+	}
 }
