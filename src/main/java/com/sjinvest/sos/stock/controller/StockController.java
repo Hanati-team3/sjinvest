@@ -58,6 +58,7 @@ public class StockController {
 		List<News> news= service.getNewsList(company.getCompanyName()); 
 		model.addAttribute("company", company);
 		model.addAttribute("news", news);
+		model.addAttribute("chartData",service.getTimeSeries(companyNumber, ""));
 		return "stock/stock-company";
 	}
 	@ResponseBody

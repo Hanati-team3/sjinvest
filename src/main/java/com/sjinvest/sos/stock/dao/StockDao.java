@@ -42,8 +42,10 @@ public class StockDao {
 			label.add(i+"월");
 			data.add(random.nextInt(200)*1.1);
 		}
+		List<List<Double>> datas = new ArrayList<List<Double>>();
+		datas.add(data);
 		timeSeries.setLabel(label);
-		timeSeries.setData(data);
+		timeSeries.setData(datas);
 		return timeSeries;
 	}
 	// 회사 이름으로 뉴스 리스트 가져오기

@@ -412,7 +412,7 @@ var lineChart = document.getElementById("line-chart");
 if (lineChart !== null) {
     var ctx_lc = lineChart.getContext("2d");
     var data_lc = {
-        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        labels: ["1월", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         datasets: [
             {
                 label: " - Comments",
@@ -425,7 +425,7 @@ if (lineChart !== null) {
                 pointHoverRadius: 8,
                 fill: false,
                 lineTension:0,
-                data: [96,63,136,78,111,83,101,83,102,61,45,135]
+                data: [1,63,136,78,111,83,101,83,102,61,45,135]
             },
             {
                 label: " - Likes",
