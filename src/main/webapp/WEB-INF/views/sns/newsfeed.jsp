@@ -1,18 +1,21 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <title>Newsfeed</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
+
 </head>
 <body>
 
   <!-- Header -->
   <%-- 테스트 로그인 ID로 Yegyeom Yu 보냄 --%>
-  <jsp:include page="../includes/header.jsp">
+  <jsp:include page="../includes/header.jsp"/>
 
-    <jsp:param value="Yegyeom Yu" name="loginId" />
-  </jsp:include>
+          <%-- <jsp:param value="<%=loginId %>" name="userId" />
+  </jsp:include> --%>
 
   <!-- ... end Header -->
 
@@ -555,6 +558,80 @@
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
   <!-- End Include js -->
+  
+  
+
+
+<!-- ################################# 비동기통신을 위한 AJax 처리 #################################### -->  
+
+<script type="text/javascript">
+
+/**  
+ * 페이지 이동처리 방지를 위하여 시작시 실행
+ */
+$(document).ready( function() {
+  $('#myform').submit(function (e) {
+    e.preventDefault();
+    loginCheck();
+  })
+});
+
+/** 
+ * 로그인 처리를 위한 Ajax 통신
+ */
+function loginCheck() {
+
+  var userId = $('#loginId').val();
+  var userPw = $('#loginPw').val();
+
+  console.log("aaa"+userId);
+  console.log("bbb"+userPw);
+  
+  $.ajax({
+    url : '/sos/user/login',
+    type : 'post',
+    data : {
+      "userId" : userId,
+      "userPw" : userPw
+    },
+    success : function(data) {
+      if (data.message == "loginFail") {
+        $('#checkMsg').html(
+            "<p style='COLOR: red'>다시 로그인해주세요.</p>");
+      } else{
+    	
+    	/* 쿠키 */
+    	var userId = data.userId;
+    	
+    	alert(userId);
+    	
+        location.href="/sos/sns/newsfeed";        
+      }
+    },
+    error : function() {
+      alert("관리자에게 문의해주세요.");
+    }
+  });
+  
+} 
+
+function signup(){
+	
+	
+}
+
+
+
+</script>
+  
+  
 
 </body>
 </html>
+
+
+
+
+
+
+

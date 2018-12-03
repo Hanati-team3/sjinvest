@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" %>
-<%-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -25,15 +25,15 @@ $(document).ready( function() {
  */
 function loginCheck() {
 
-	var id = $('#id').val();
-	var pw = $('#pw').val();
+	var userId = $('#userId').val();
+	var userPw = $('#userPw').val();
 
 	$.ajax({
 		url : '/sos/sns/login',
 		type : 'post',
 		data : {
-			id : id,
-			pw : pw,
+			userId : userId,
+			userPw : userPw,
 			login : 'login'
 		},
 		success : function(data) {
@@ -57,53 +57,6 @@ function loginCheck() {
 
 
 </body>
-</html> --%>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html>
-<meta charset="UTF-8">
-<body>
-  <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
- 
-  <div id="Context">
-    test
-  </div>
- 
-  <script type="text/javascript">
- 
-    function ajaxTest(){
-      $.ajax({
-        type : "GET",
-        url : "test.jsp",
-        dataType : "text",
-        error : function() {
-          alert('통신실패!!');
-        },
-        success : function(data) {
-          $('#Context').html(data);
-        }
- 
-      });
-    }
- 
-    ajaxTest();
- 
-  </script>
-</body>
- 
 </html>
-
 
 
