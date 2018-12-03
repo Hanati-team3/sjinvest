@@ -41,7 +41,7 @@
 						  <a href="<%=application.getContextPath()%>/sns/signup" class="forgot">아직 회원이 아니신가요?</a>
 					    </div>
                     
-                        <button type="submit" class="btn btn-primary btn-lg full-width">로그인</button>
+                        <button type="submit" class="btn btn-primary btn-lg full-width" >로그인</button>
                         <!-- form으로 제출하기 때문에 클릭 사용 onclick="loginCheck()" -->
                         <div class="or"></div>
 
@@ -63,5 +63,4 @@
 
 
 <!-- ... login page end -->
-
 
