@@ -130,10 +130,10 @@
               <div class="ui-block-content">
                 <div class="swiper-container" data-slide="fade">
                   <div class="swiper-wrapper">
-                    <div class="swiper-slide">
+                     <div class="swiper-slide">
                       <div class="statistics-slide">
-                        <div class="company-name" data-swiper-parallax="-500">aa${interestCard.stockList[0].stockName}</div>
-                        <div class="company-stock" data-swiper-parallax="-500">${interestCard.stockList[0].stockPrice}</div>
+                        <div class="company-name" data-swiper-parallax="-500">${interestCard}</div>
+                        <div class="company-stock" data-swiper-parallax="-500">${interestCard.stockList[0]}</div>
                         <span class="indicator"> 전일대비 ${interestCard.stockList[0].stockChange} ${interestCard.stockList[0].stockDiff}%</span>
     					<div class="chart-js chart-js-line-stacked">
     						<canvas id="line-stacked-chart" width="730" height="300"></canvas>

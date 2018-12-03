@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -79,6 +80,37 @@ public class StockController2 {
 		// 코스피 정보 카드
 		model.addAttribute("kospi", kospiMethod());
 		// 상승률 상위 5종목
+		model.addAttribute("topTapJ", service.stockTop("Rising"));
+		// 주식 전체 뉴스
+		model.addAttribute("news", service.stockIndexNews());
+		// 로그인중
+		if(userId != null) {
+			User user = userService.readById(userId);
+			// 내 보유주식 위젯
+			model.addAttribute("holdingWidget", holdingWidgetMethod(holdingService.listByUser(user.getUserSeq()), user.getUserMoney()));
+			// 유저 프로필 위젯
+			// 유저 랭킹 위젯
+			// 관심종목카드
+			List<String> companyNameList = new ArrayList<>();
+			for (Interest interest : interestService.listByUser(user.getUserSeq())) {
+				companyNameList.add(interest.getCompanyName());
+			}
+			model.addAttribute("interestCard", interestCardMethod(companyNameList));
+		}
+		return "stock/stock-index";
+	}
+	/** 주식 index 화면 요청*/
+	@GetMapping(value="/index-temp", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public String indexTemp(String userId, Model model) {
+		// realtime
+		model.addAttribute("realtime", service.stockRealtime());
+		// 회사 목록
+		model.addAttribute("companyList", companyService.list());
+		// 업종별 거래량 카드
+		model.addAttribute("fieldStock", service.stockFieldAmount());
+		// 코스피 정보 카드
+		model.addAttribute("kospi", kospiMethod());
+		// 상승률 상위 5종목
 		model.addAttribute("topTapJ"
 				+ "", service.stockTop("Rising"));
 		// 주식 전체 뉴스
@@ -97,7 +129,7 @@ public class StockController2 {
 			}
 			model.addAttribute("interestCard", interestCardMethod(companyNameList));
 		}
-		return "stock/stock-index";
+		return "temp/stock-index-test";
 	}
 	
 	/** 주식 index 테스트 ajax */
@@ -137,35 +169,28 @@ public class StockController2 {
 	/** 주식 index Update 요청*/
 	//@ResponseBody
 	@PostMapping(value="/indexUpdate", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<Map<String, Object>> indexUpdate(IndexParams params) {
+	public ResponseEntity<Map<String, Object>> indexUpdate(@RequestBody IndexParams params) {
 		System.out.println("indexUpdate params : " + params);
-		System.out.println("1");
 		Map<String, Object> map = new Hashtable<String, Object>();
 		// realtime
 		map.put("realtime", service.stockRealtime());
 		// 업종별 거래량 or 전일대비
 		//map.put("fieldAmount", service.stockFieldStock(fieldOption));
 		map.put("fieldStock", service.stockFieldAmount());
-		System.out.println("2");
 		// 코스피 정보 카드(원래는 옵션 보내야함)
 		//map.put("kospi",  kospiMethod(kospiOption));
 		map.put("kospi", kospiMethod());
 		// top 보여주는 탭 정보
 		map.put("topTap", service.stockTop(params.getTabOption()));
 		// 로그인중
-		System.out.println("3");
 		if(params.getUserId() != null) {
-			System.out.println("4");
 			// 내 보유주식 위젯
 			map.put("holdingWidget", holdingWidgetMethod(params.getHoldingList(), params.getCashTotal()));
-			System.out.println("5");
 			// 유저 프로필 위젯
 			// 유저 랭킹 위젯
 			// 관심종목카드
 			map.put("interestCard", interestCardMethod(params.getInterestCompanyNameList()));
-			System.out.println("6");
 		}
-		System.out.println("7");
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	
@@ -201,19 +226,11 @@ public class StockController2 {
 	
 	/** 관심종목카드 메소드 */
 	private Map<String, Object> interestCardMethod(List<String> companyNameList) {
-		//임시 companyNameList
-		companyNameList = new ArrayList<>();
-		companyNameList.add("아모레퍼시픽");
-		companyNameList.add("LG생활건강");
 		Map<String, Object> interestCardMap = new Hashtable<String, Object>();
-		System.out.println("aa");
 		List<Stock> stockList = service.getStockList(companyNameList);
-		System.out.println("bb");
 		List<TimeSeries> timeSeriesList = service.getTimeSeriesList(companyNameList, "stock");
-		System.out.println("cc");
 		interestCardMap.put("stockList", stockList);
 		interestCardMap.put("chartList", timeSeriesList);
-		System.out.println("dd");
 		return interestCardMap;
 	}
 	
