@@ -29,6 +29,7 @@
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/theme-styles.css">
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/blocks.css">
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/fonts.css">
+<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/jquery-ui.min.css">
 
 
 <!-- Styles for plugins -->

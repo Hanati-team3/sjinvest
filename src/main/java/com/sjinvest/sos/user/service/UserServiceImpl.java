@@ -124,4 +124,8 @@ public class UserServiceImpl implements UserService {
 	public List<User> pointTop(int num) {
 		return userMapper.pointTop(num);
 	}
+	@Override
+	public List<String> findUser(String term) {
+		return userMapper.findUser(term);
+	}
 }

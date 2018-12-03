@@ -40,7 +40,7 @@
       <div class="ui-block">
         <form class="w-search" style="width: 100%;">
           <div class="form-group with-button is-empty">
-            <input class="form-control" type="text" placeholder="캐시/태그/업종/다른유저">
+            <input id="autocompleteText" class="form-control" type="text" placeholder="캐시/태그/업종/다른유저">
             <button style="background-color: #3f4257;">
               <svg class="olymp-magnifying-glass-icon">
                 <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
@@ -574,6 +574,30 @@ $(document).ready( function() {
     e.preventDefault();
     loginCheck();
   })
+  $(document).ready(function(){
+		$('#autocompleteText').autocomplete({
+	        source : function(request, response) {
+	            $.ajax({
+	                type : 'get',
+	                url : "<%=application.getContextPath()%>/sns/search",
+	                data : {
+	                    term : request.term
+	                },
+	                dataType: "json",
+	                success : function(data) {
+	                	response(
+                            $.map(data, function(item) {
+                                return {
+                                    label: item,
+                                   	value: item
+                                }
+                            })
+                        );
+	                }
+	            });
+	        }
+	    });
+	})
 });
 
 /** 

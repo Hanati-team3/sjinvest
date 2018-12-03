@@ -55,13 +55,13 @@ public class HomeController {
 		return "profile";
 	}
 	
-	@RequestMapping(value = "/sns/newsfeed", method = RequestMethod.GET)
-	public String newsfeed(Model model) {
-		logger.info("newsfeed.");
-		System.out.println("여기는 홈컨트롤러입니다.");
-		//model.addAttribute("feedList", service.listAll());
-		return "/sns/newsfeed";
-	}
+//	@RequestMapping(value = "/sns/newsfeed", method = RequestMethod.GET)
+//	public String newsfeed(Model model) {
+//		logger.info("newsfeed.");
+//		System.out.println("여기는 홈컨트롤러입니다.");
+//		//model.addAttribute("feedList", service.listAll());
+//		return "/sns/newsfeed";
+//	}
 	
 	@RequestMapping(value = "/widgets", method = RequestMethod.GET)
 	public String widgets() {
