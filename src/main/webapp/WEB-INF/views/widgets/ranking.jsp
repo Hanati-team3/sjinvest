@@ -12,7 +12,9 @@
 				</div>
 
 				<div class="author-status">
-					<a href="#" class="h6 author-name">Carol Summers</a>
+					<a href="#" class="h6 author-name" data-toggle="modal" data-target="#user_modal">
+                    Carol Summers
+                    </a>
                     <div style="color:red;">+40.58%</div>
 				</div>
 

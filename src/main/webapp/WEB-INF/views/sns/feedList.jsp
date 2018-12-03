@@ -2,6 +2,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active inline-items" data-toggle="tab" href="#home-1" role="tab" aria-expanded="true">
+
+                <span>전체</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link inline-items" data-toggle="tab" href="#profile-1" role="tab" aria-expanded="false">
+
+                <span>팔로워</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link inline-items" data-toggle="tab" href="#blog" role="tab" aria-expanded="false">
+
+                <span>내글만</span>
+              </a>
+            </li>
+          </ul>
+
 
 <%-- 피드 목록 시작--%>
 
@@ -16,7 +39,9 @@
             alt="author">
 
           <div class="author-date">
-            <a class="h6 post__author-name fn" href="#">윤형철</a>
+            <a href="#" class="h6 post__author-name fn" data-toggle="modal" data-target="#user_modal">
+            윤형철
+            </a>
             <div class="post__date">
               <time class="published" datetime="2004-07-24T18:18">
                 March 4 at 2:05pm </time>
@@ -136,7 +161,7 @@
 
                   <div class="author-date">
                     <a class="h6 post__author-name fn"
-                      href="02-ProfilePage.html">James Spiegel</a>
+                      href="02-ProfilePage.html" data-toggle="modal" data-target="#user_modal">James Spiegel</a>
                     <div class="post__date">
                       <time class="published"
                         datetime="2004-07-24T18:18"> 38 mins ago
@@ -170,7 +195,7 @@
 
                   <div class="author-date">
                     <a class="h6 post__author-name fn"
-                      href="02-ProfilePage.html">Tony Stark</a>
+                      href="02-ProfilePage.html" data-toggle="modal" data-target="#user_modal">Tony Stark</a>
                     <div class="post__date">
                       <time class="published"
                         datetime="2004-07-24T18:18"> 12 mins ago
