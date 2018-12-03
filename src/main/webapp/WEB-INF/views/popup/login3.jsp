@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 
+
+
 <!-- login page start -->
 
 <div class="modal fade" id="login_modal">
@@ -13,23 +15,23 @@
 		</div>
 
 		<div class="ui-block-content">
-			<form method="post" id="myform"> <!-- id="myform" -->
+			<form method="post" action="/sos/user/login">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="form-group label-floating">
 							<label class="control-label">아이디<sup>*</sup></label>
-							<input class="form-control" id="loginId" name="loginId" placeholder="" type="text" value="" required>
+							<input class="form-control" name="userId" placeholder="" type="text" value="" required>
 						</div>
 					</div>
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group label-floating">
                             <label class="control-label">비밀번호<sup>*</sup></label>
-                            <input class="form-control" id="loginPw" name="loginPw" placeholder="" type="password" value="" required>
+                            <input class="form-control" name="userPw" placeholder="" type="password" value="" required>
                         </div>
 
  <!-- 로그인 실패시 Ajax 통신 후 text영역 -->
- <div style="color: red; text-align: center; margin-top: 10px; margin-bottom: 10px" id="checkMsg"></div>
+ <div style="color: red; text-align: center; margin-top: 10px; margin-bottom: 10px" id="checkMsg">회원이 아닙니다.</div>
                     
 					    <div class="remember">
 						  <div class="checkbox">
@@ -41,8 +43,8 @@
 						  <a href="<%=application.getContextPath()%>/sns/signup" class="forgot">아직 회원이 아니신가요?</a>
 					    </div>
                     
-                        <button type="submit" class="btn btn-primary btn-lg full-width">로그인</button>
-                        <!-- form으로 제출하기 때문에 클릭 사용 onclick="loginCheck()" -->
+                        <button type="submit" class="btn btn-primary btn-lg full-width" onclick="loginCheck()">로그인</button>
+                        
                         <div class="or"></div>
 
                         

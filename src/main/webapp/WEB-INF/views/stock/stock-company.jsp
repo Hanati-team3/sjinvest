@@ -10,6 +10,61 @@
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+function runChart(){
+	var lineChart = document.getElementById("this-line-chart");
+	if (lineChart !== null) {
+	    var ctx_lc = lineChart.getContext("2d");
+	    var data_lc = {
+	        labels: ${chartData.label},
+	        datasets: [
+                <c:forEach var="eachData" items="${chartData.data}" varStatus="status">
+	            {
+	                label: " - Comments",
+	                borderColor: "#ffdc1b",
+	                borderWidth: 4,
+	                pointBorderColor: "#ffdc1b",
+	                pointBackgroundColor: "#fff",
+	                pointBorderWidth: 4,
+	                pointRadius: 6,
+	                pointHoverRadius: 8,
+	                fill: false,
+	                lineTension:0,
+	                data: ${eachData}
+	            },
+                </c:forEach>
+				]
+	    };
+	    var lineChartEl = new Chart(ctx_lc, {
+	        type: 'line',
+	        data: data_lc,
+	        options: {
+	            legend: {
+	                display: false
+	            },
+	            responsive: true,
+	            scales: {
+	                xAxes: [{
+	                    ticks: {
+	                        fontColor: '#888da8'
+	                    },
+	                    gridLines: {
+	                        color: "#f0f4f9"
+	                    }
+	                }],
+	                yAxes: [{
+	                    gridLines: {
+	                        color: "#f0f4f9"
+	                    },
+	                    ticks: {
+	                        beginAtZero:true,
+	                        fontColor: '#888da8'
+	                    }
+	                }]
+	            }
+	        }
+	    });
+	}
+}
 function getStockData(){
     $.ajax({ 
         type: "POST", 
@@ -40,6 +95,7 @@ function getStockData(){
 }
 $(document).ready(function(){
 	getStockData();
+	runChart();
 }
 );
 </script>
@@ -731,7 +787,7 @@ $(document).ready(function(){
     
               <div class="ui-block-content">
                 <div class="chart-js chart-js-line-chart">
-                  <canvas id="line-chart" width="1400" height="380"></canvas>
+                  <canvas id="this-line-chart" width="1400" height="380"></canvas>
                 </div>
               </div>
               

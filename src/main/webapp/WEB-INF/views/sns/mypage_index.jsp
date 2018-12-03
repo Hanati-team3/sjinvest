@@ -11,9 +11,9 @@
 
 
 <!-- header start -->
-<jsp:include page="../includes/header.jsp">
-  <jsp:param value="Yegyeom Yu" name="loginId"/>
-</jsp:include>
+<jsp:include page="../includes/header.jsp"/>
+  <%-- <jsp:param value="Yegyeom Yu" name="loginId"/>
+</jsp:include> --%>
 <!-- header end -->
 
 

@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class TimeSeries {
 	private List<String> label;
-	private List<Double> data;
+	private List<List<Double>> data;
 }

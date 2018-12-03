@@ -1,6 +1,27 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%-- 
+
+<%
+/* String userId = request.getParameter("userId"); */
+String userId = "임시아이디";
+System.out.println("꼭나와라"+ userId);
+
+// 쿠키를 생성한다. 이름:testCookie, 값 : Hello Cookie
+Cookie info = new Cookie("testCookie", "userId");
+
+// 쿠키의 유효기간을 365일로 설정한다.
+info.setMaxAge(24*60*60);      
+// 쿠키의 유효한 디렉토리를 "/" 로 설정한다.                           
+info.setPath("/");                                                   
+// 클라이언트 응답에 쿠키를 추가한다.
+response.addCookie(info);
+
+%> 
+--%>
+
+
 <!-- Header -->
 
 <header class="header--standard header--standard-dark" id="header--standard-2" style="width: 100%; left: 0px; padding: 0px 55px;">
@@ -22,11 +43,13 @@
 
 
     <div class="control-block " style="padding: 10px 30px;">
-    
+      
+      <%-- <c:set var="userId" value="임시아이디"/> --%>
+      
       <%--로그인중인지 아닌지 판별 --%>
       <c:choose>
         <%--로그인 아님 --%>
-        <c:when test="${param.loginId eq null}">
+        <c:when test="${userId eq null}">
           <a href="#" class="link-find-friend header-a-padding" data-toggle="modal" data-target="#login_modal">Login</a>
           <a href="#" class="link-find-friend header-a-padding" data-toggle="modal" data-target="#signup_modal">Sign up</a>
         </c:when>
@@ -225,7 +248,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="<%=application.getContextPath()%>/sns/newsfeed">
                         <svg class="olymp-logout-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-logout-icon"></use></svg>
                         <span>로그아웃</span>
                       </a>
@@ -239,7 +262,7 @@
             </div>
             <a href="/sos/sns/mypage_index" class="author-name fn">
               <div class="author-title">
-                ${param.loginId }
+                ${userId }
                 <svg class="olymp-dropdown-arrow-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
               </div>
               <span class="author-subtitle">SPACE COWBOY</span>
