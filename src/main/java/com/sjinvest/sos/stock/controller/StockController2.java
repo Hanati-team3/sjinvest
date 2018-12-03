@@ -74,11 +74,12 @@ public class StockController2 {
 		// 회사 목록
 		model.addAttribute("companyNameList", companyService.list());
 		// 업종별 거래량 카드
-		model.addAttribute("fieldAmount", service.stockFieldAmount());
+		model.addAttribute("fieldStock", service.stockFieldAmount());
 		// 코스피 정보 카드
 		model.addAttribute("kospi", kospiMethod());
 		// 상승률 상위 5종목
-		model.addAttribute("risingTop", service.stockTop("Rising"));
+		model.addAttribute("topTapJ"
+				+ "", service.stockTop("Rising"));
 		// 주식 전체 뉴스
 		model.addAttribute("news", service.stockIndexNews());
 		// 로그인중
