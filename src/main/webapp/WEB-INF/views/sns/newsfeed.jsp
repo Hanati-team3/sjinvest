@@ -48,7 +48,35 @@
             <span class="material-input"></span>
           </div>
         </form>
-      </div>
+      </div>      
+
+      
+      <!-- <div class="ui-block responsive-flex">
+        <div class="ui-block-title">
+          <div class="w-select">
+            <fieldset class="form-group">
+              <select class="selectpicker form-control" size="auto">
+                <option value="DA">전체</option>
+                <option value="NU">팔로워</option>
+                <option value="NU">내글만</option>
+              </select>
+            </fieldset>
+          </div>
+
+          <form class="w-search">
+            <div class="form-group with-button">
+              <input class="form-control" type="text" placeholder="캐시/태그/업종/다른유저">
+              <button>
+                <svg class="olymp-magnifying-glass-icon">
+                <use xlink:href="../resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div> -->
+      
+      
       <%-- 검색 끝 --%> 
       
       
@@ -145,15 +173,13 @@
   <jsp:include page="../popup/choose-from-my-photo.jsp"></jsp:include>
   <!-- ... end Window-popup Choose from my Photo -->
 
-  <!-- Window-popup-CHAT for responsive min-width: 768px -->
-  <jsp:include page="../popup/popup-chat.jsp"></jsp:include>
-  <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
-
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
   <!-- End Include js -->
   
-  
+  <!-- user modal start-->
+  <jsp:include page="../popup/user_profile.jsp"></jsp:include>
+  <!-- ... end user modal -->
 
 
 <!-- ################################# 비동기통신을 위한 AJax 처리 #################################### -->  
@@ -257,12 +283,20 @@ $.ajax({
 	           console.log(data.feedList[0].feedSeq);
 	           console.log(data.feedList[1].feedSeq);
 	           console.log(data.feedList[2].feedSeq);
+	           
+	           
+	           $(".h6 post__author-name fn").text(data.feedList[0].UserSeq);
+	           
+	           
 	      }
 	    },
 	    error : function() {
 	      alert("관리자에게 문의해주세요.");
 	    }
-	  });	
+	  });
+	  
+
+
 }
 </script>
   
