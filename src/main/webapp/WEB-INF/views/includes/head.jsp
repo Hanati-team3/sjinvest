@@ -109,7 +109,6 @@
 }
 .stock-my-interest .statistics-slide .company-stock {
     font-size: 40px;
-    color: #ff5e3a;
 }
 
 .stock-index-trend .chart-js-pie-color {
