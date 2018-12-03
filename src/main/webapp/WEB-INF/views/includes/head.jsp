@@ -29,6 +29,7 @@
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/theme-styles.css">
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/blocks.css">
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/fonts.css">
+<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/css/jquery-ui.min.css">
 
 
 <!-- Styles for plugins -->
@@ -58,10 +59,10 @@
   font-size: 15px;
 }
 
-.minus a {
+.minus {
   color : blue;
 }
-.plus a {
+.plus {
   color : #ff5e3a;
 }
 
@@ -109,7 +110,6 @@
 }
 .stock-my-interest .statistics-slide .company-stock {
     font-size: 40px;
-    color: #ff5e3a;
 }
 
 .stock-index-trend .chart-js-pie-color {

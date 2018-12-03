@@ -244,12 +244,20 @@
 		       user_point, 
 		       user_picture, 
 		       user_detail, 
-		       user_regdate user_money, 
+		       user_regdate,
+		       user_money, 
 		       user_gender, 
 		       user_birth, 
 		       user_authority 
 		FROM   users 
 		WHERE  rownum <![CDATA[<=]]> #{value} 
 		ORDER  BY user_point DESC 
+	</select>
+	<!-- 모든 유저 -->
+	<select id="findUser" parameterType="String" resultType="String">
+		SELECT user_nickname
+		FROM   users 
+		WHERE  user_nickname like '%' || #{value} || '%'
+		ORDER  BY user_nickname
 	</select>
 </mapper>

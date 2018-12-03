@@ -21,4 +21,5 @@ public interface UserMapper {
 	public int checkUserMoney(int userSeq);
 	public List<User> readBySeqList(List<Integer> userSeqList);
 	public List<User> pointTop(int num);
+	public List<String> findUser(String term);
 }

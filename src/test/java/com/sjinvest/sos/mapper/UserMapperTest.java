@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.mapper.UserMapper;
@@ -95,7 +96,7 @@ public class UserMapperTest {
 		log.info(result);
 		log.info(userMapper.checkUserMoney(2));
 	}
-	@Test
+//	@Test
 	public void testUserSeqList() throws SQLException {
 		log.info(userMapper);
 		List<Integer> userSeqList = new ArrayList<Integer>();
@@ -103,6 +104,14 @@ public class UserMapperTest {
 		userSeqList.add(6);
 		log.info(userMapper.readBySeqList(userSeqList));
 	}
+	
+	@Test
+	public void testAllUserList() throws SQLException {
+		log.info(userMapper);
+		List<String> userList = userMapper.findUser("");
+        log.info("size : " +  userList.size());
+	}
+	
 }
 
 
