@@ -53,11 +53,13 @@ public class StockServiceImpl implements StockService {
 		List<String> label = new ArrayList<String>();
 		List<Double> data = new ArrayList<Double>();
 		for(int i = 1; i < 13; i++) {
-			label.add(i+"월");
+			label.add("\""+i+"월"+"\"");
 			data.add(random.nextInt(200)*1.1);
 		}
+		List<List<Double>> datas = new ArrayList<List<Double>>();
+		datas.add(data);
 		timeSeries.setLabel(label);
-		timeSeries.setData(data);
+		timeSeries.setData(datas);
 		return timeSeries;
 	}
 	// 회사 이름으로 뉴스 리스트 가져오기
