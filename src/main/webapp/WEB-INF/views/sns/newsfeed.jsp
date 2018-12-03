@@ -99,422 +99,17 @@
       <%-- 글 작성 끝 --%> 
       
       
-      <%-- 피드 목록 시작--%>
-      <div id="newsfeed-items-grid">
-
-        <div class="ui-block">
-          <article class="hentry post video">
-
-            <div class="post__author author vcard inline-items">
-              <img
-                src="<%=application.getContextPath()%>/resources/img/avatar7-sm.jpg"
-                alt="author">
-
-              <div class="author-date">
-                <a class="h6 post__author-name fn" href="#">Marina
-                  Valentine</a> shared a <a href="#">link</a>
-                <div class="post__date">
-                  <time class="published" datetime="2004-07-24T18:18">
-                    March 4 at 2:05pm </time>
-                </div>
-              </div>
-
-              <div class="more">
-                <svg class="olymp-three-dots-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-                <ul class="more-dropdown">
-                  <li><a href="#">Edit Post</a></li>
-                  <li><a href="#">Delete Post</a></li>
-                  <li><a href="#">Turn Off Notifications</a></li>
-                  <li><a href="#">Select as Featured</a></li>
-                </ul>
-              </div>
-
-            </div>
-
-            <p>
-              Hey <a href="#">Cindi</a>, you should really check out
-              this new song by Iron Maid. The next time they come to the
-              city we should totally go!
-            </p>
-
-            <div class="post-video">
-              <div class="video-thumb">
-                <img
-                  src="<%=application.getContextPath()%>/resources/img/video-youtube1.jpg"
-                  alt="photo"> <a
-                  href="https://youtube.com/watch?v=excVFQ2TWig"
-                  class="play-video"> <svg class="olymp-play-icon">
-                    <use
-                      xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-play-icon"></use></svg>
-                </a>
-              </div>
-
-              <div class="video-content">
-                <a href="#" class="h4 title">Iron Maid - ChillGroves</a>
-                <p>Lorem ipsum dolor sit amet, consectetur ipisicing
-                  elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua...</p>
-                <a href="#" class="link-site">YOUTUBE.COM</a>
-              </div>
-            </div>
-
-            <div class="post-additional-info inline-items">
-
-              <a href="#" class="post-add-icon inline-items"> <svg
-                  class="olymp-heart-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-heart-icon"></use></svg>
-                <span>18</span>
-              </a>
-
-              <ul class="friends-harmonic">
-                <li><a href="#"> <img
-                    src="<%=application.getContextPath()%>/resources/img/friend-harmonic9.jpg"
-                    alt="friend">
-                </a></li>
-                <li><a href="#"> <img
-                    src="<%=application.getContextPath()%>/resources/img/friend-harmonic10.jpg"
-                    alt="friend">
-                </a></li>
-                <li><a href="#"> <img
-                    src="<%=application.getContextPath()%>/resources/img/friend-harmonic7.jpg"
-                    alt="friend">
-                </a></li>
-                <li><a href="#"> <img
-                    src="<%=application.getContextPath()%>/resources/img/friend-harmonic8.jpg"
-                    alt="friend">
-                </a></li>
-                <li><a href="#"> <img
-                    src="<%=application.getContextPath()%>/resources/img/friend-harmonic11.jpg"
-                    alt="friend">
-                </a></li>
-              </ul>
-
-              <div class="names-people-likes">
-                <a href="#">Jenny</a>, <a href="#">Robert</a> and <br>18
-                more liked this
-              </div>
-
-              <div class="comments-shared">
-                <a href="#" class="post-add-icon inline-items"> <svg
-                    class="olymp-speech-balloon-icon">
-                    <use
-                      xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
-
-                  <span>0</span>
-                </a> <a href="#" class="post-add-icon inline-items"> <svg
-                    class="olymp-share-icon">
-                    <use
-                      xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-share-icon"></use></svg>
-
-                  <span>16</span>
-                </a>
-              </div>
-
-
-            </div>
-
-            <div class="control-block-button post-control-button">
-
-              <a href="#" class="btn btn-control"> <svg
-                  class="olymp-like-post-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-like-post-icon"></use></svg>
-              </a> <a href="#" class="btn btn-control"> <svg
-                  class="olymp-comments-post-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-              </a> <a href="#" class="btn btn-control"> <svg
-                  class="olymp-share-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-share-icon"></use></svg>
-              </a>
-
-            </div>
-
-          </article>
-        </div>
-
-        <div class="ui-block">
-          <article class="hentry post">
-
-            <div class="post__author author vcard inline-items">
-              <img
-                src="<%=application.getContextPath()%>/resources/img/avatar10-sm.jpg"
-                alt="author">
-
-              <div class="author-date">
-                <a class="h6 post__author-name fn" href="#">Elaine
-                  Dreyfuss</a>
-                <div class="post__date">
-                  <time class="published" datetime="2004-07-24T18:18">
-                    9 hours ago </time>
-                </div>
-              </div>
-
-              <div class="more">
-                <svg class="olymp-three-dots-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-                <ul class="more-dropdown">
-                  <li><a href="#">Edit Post</a></li>
-                  <li><a href="#">Delete Post</a></li>
-                  <li><a href="#">Turn Off Notifications</a></li>
-                  <li><a href="#">Select as Featured</a></li>
-                </ul>
-              </div>
-
-            </div>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing
-              elit, sed do eiusmod tempo incididunt ut labore et dolore
-              magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris consequat.</p>
-
-            <div class="post-additional-info inline-items">
-
-              <a href="#" class="post-add-icon inline-items"> <svg
-                  class="olymp-heart-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-heart-icon"></use></svg>
-                <span>24</span>
-              </a>
-
-              <ul class="friends-harmonic">
-                <li><a href="#"> <img
-                    src="<%=application.getContextPath()%>/resources/img/friend-harmonic7.jpg"
-                    alt="friend">
-                </a></li>
-                <li><a href="#"> <img
-                    src="<%=application.getContextPath()%>/resources/img/friend-harmonic8.jpg"
-                    alt="friend">
-                </a></li>
-                <li><a href="#"> <img
-                    src="<%=application.getContextPath()%>/resources/img/friend-harmonic9.jpg"
-                    alt="friend">
-                </a></li>
-                <li><a href="#"> <img
-                    src="<%=application.getContextPath()%>/resources/img/friend-harmonic10.jpg"
-                    alt="friend">
-                </a></li>
-                <li><a href="#"> <img
-                    src="<%=application.getContextPath()%>/resources/img/friend-harmonic11.jpg"
-                    alt="friend">
-                </a></li>
-              </ul>
-
-              <div class="names-people-likes">
-                <a href="#">You</a>, <a href="#">Elaine</a> and <br>22
-                more liked this
-              </div>
-
-
-              <div class="comments-shared">
-                <a href="#" class="post-add-icon inline-items"> <svg
-                    class="olymp-speech-balloon-icon">
-                    <use
-                      xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
-                  <span>17</span>
-                </a> <a href="#" class="post-add-icon inline-items"> <svg
-                    class="olymp-share-icon">
-                    <use
-                      xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-share-icon"></use></svg>
-                  <span>24</span>
-                </a>
-              </div>
-
-
-            </div>
-
-            <div class="control-block-button post-control-button">
-
-              <a href="#" class="btn btn-control"> <svg
-                  class="olymp-like-post-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-like-post-icon"></use></svg>
-              </a> <a href="#" class="btn btn-control"> <svg
-                  class="olymp-comments-post-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-              </a> <a href="#" class="btn btn-control"> <svg
-                  class="olymp-share-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-share-icon"></use></svg>
-              </a>
-
-            </div>
-
-          </article>
-
-          <ul class="comments-list">
-            <li>
-              <div class="post__author author vcard inline-items">
-                <img
-                  src="<%=application.getContextPath()%>/resources/img/author-page.jpg"
-                  alt="author">
-
-                <div class="author-date">
-                  <a class="h6 post__author-name fn"
-                    href="02-ProfilePage.html">James Spiegel</a>
-                  <div class="post__date">
-                    <time class="published" datetime="2004-07-24T18:18">
-                      38 mins ago </time>
-                  </div>
-                </div>
-
-                <a href="#" class="more"><svg
-                    class="olymp-three-dots-icon">
-                    <use
-                      xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
-
-              </div>
-
-              <p>Sed ut perspiciatis unde omnis iste natus error sit
-                voluptatem accusantium der doloremque laudantium.</p> <a
-              href="#" class="post-add-icon inline-items"> <svg
-                  class="olymp-heart-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-heart-icon"></use></svg>
-                <span>3</span>
-            </a> <a href="#" class="reply">Reply</a>
-            </li>
-
-          </ul>
-
-          <a href="#" class="more-comments">View more comments <span>+</span></a>
-
-          <form class="comment-form inline-items">
-
-            <div class="post__author author vcard inline-items">
-              <img
-                src="<%=application.getContextPath()%>/resources/img/author-page.jpg"
-                alt="author">
-
-              <div class="form-group with-icon-right ">
-                <textarea class="form-control" placeholder=""></textarea>
-                <div class="add-options-message">
-                  <a href="#" class="options-message"
-                    data-toggle="modal"
-                    data-target="#update-header-photo"> <svg
-                      class="olymp-camera-icon">
-                      <use
-                        xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-camera-icon"></use></svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-          </form>
-
-        </div>
-
-
-        <div class="ui-block">
-          <article class="hentry post has-post-thumbnail">
-
-            <div class="post__author author vcard inline-items">
-              <img
-                src="<%=application.getContextPath()%>/resources/img/avatar3-sm.jpg"
-                alt="author">
-
-              <div class="author-date">
-                <a class="h6 post__author-name fn" href="#">Sarah
-                  Hetfield</a>
-                <div class="post__date">
-                  <time class="published" datetime="2004-07-24T18:18">
-                    March 2 at 9:06am </time>
-                </div>
-              </div>
-
-              <div class="more">
-                <svg class="olymp-three-dots-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-                <ul class="more-dropdown">
-                  <li><a href="#">Edit Post</a></li>
-                  <li><a href="#">Delete Post</a></li>
-                  <li><a href="#">Turn Off Notifications</a></li>
-                  <li><a href="#">Select as Featured</a></li>
-                </ul>
-              </div>
-
-            </div>
-
-            <p>Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum. Sed
-              ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque.</p>
-
-            <div class="post-additional-info inline-items">
-
-              <a href="#" class="post-add-icon inline-items"> <svg
-                  class="olymp-heart-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-heart-icon"></use></svg>
-                <span>0 Likes</span>
-              </a>
-
-              <div class="comments-shared">
-                <a href="#" class="post-add-icon inline-items"> <svg
-                    class="olymp-speech-balloon-icon">
-                    <use
-                      xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
-                  <span>0 Comments</span>
-                </a> <a href="#" class="post-add-icon inline-items"> <svg
-                    class="olymp-share-icon">
-                    <use
-                      xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-share-icon"></use></svg>
-                  <span>2 Shares</span>
-                </a>
-              </div>
-
-
-            </div>
-
-            <div class="control-block-button post-control-button">
-
-              <a href="#" class="btn btn-control"> <svg
-                  class="olymp-like-post-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-like-post-icon"></use></svg>
-              </a> <a href="#" class="btn btn-control"> <svg
-                  class="olymp-comments-post-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-              </a> <a href="#" class="btn btn-control"> <svg
-                  class="olymp-share-icon">
-                  <use
-                    xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-share-icon"></use></svg>
-              </a>
-
-            </div>
-
-          </article>
-        </div>
-        
-      </div>
-      <%-- 피드 목록 끝 --%> 
+      <%-- feed list start --%>
+      <jsp:include page="feedList.jsp"></jsp:include>
+      <%-- ... feed list end --%>      
       
-      
-      <%-- 더보기 버튼 --%> 
-      <a id="load-more-button" href="#" class="btn btn-control btn-more" data-load-link="items-to-load.html" data-container="newsfeed-items-grid">
-        <svg class="olymp-three-dots-icon">
-          <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon">
-          </use>
-        </svg>
-      </a>
       
       </main>
 
       <!-- ... end Main Content -->
 
       <!-- Left Sidebar -->
-      <aside
-        class="col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-xs-12">
+      <aside class="col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-xs-12">
         <%-- 내 정보 위젯 --%>
         <jsp:include page="../widgets/profile-info.jsp"></jsp:include>
         <%-- 내 주식정보 위젯 --%>
@@ -527,7 +122,6 @@
       <!-- Right Sidebar -->
       <aside class="col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-xs-12">
         <%-- 관심 종목 위젯--%>
-        
         <jsp:include page="../widgets/activity-feed.jsp"></jsp:include>
         <%-- 팔로잉, 팔로워 --%>
         <jsp:include page="../widgets/follow.jsp"></jsp:include>
@@ -570,10 +164,14 @@
  * 페이지 이동처리 방지를 위하여 시작시 실행
  */
 $(document).ready( function() {
-  $('#myform').submit(function (e) {
+
+	getFeedList();	
+	
+   $('#myform').submit(function (e) {
     e.preventDefault();
     loginCheck();
-  })
+  }) 
+
 });
 
 /** 
@@ -615,13 +213,34 @@ function loginCheck() {
   
 } 
 
+/** 
+ * 회원가입 처리를 위한 Ajax 통신
+ */
 function signup(){
 	
 	
 }
 
-
-
+/** 
+ * newsfeed의 list 목록 Ajax 통신
+ */
+function getFeedList(){
+$.ajax({
+	    url : '/sos/feed/list',
+	    type : 'get',
+	    success : function(data) {
+	      if (data.feedList != null) {
+	           console.log(data.feedList);
+	           console.log(data.feedList[0].feedSeq);
+	           console.log(data.feedList[1].feedSeq);
+	           console.log(data.feedList[2].feedSeq);
+	      }
+	    },
+	    error : function() {
+	      alert("관리자에게 문의해주세요.");
+	    }
+	  });	
+}
 </script>
   
   
