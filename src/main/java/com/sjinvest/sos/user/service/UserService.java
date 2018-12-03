@@ -28,4 +28,6 @@ public interface UserService {
 	public List<User> readBySeqList(List<Integer> userSeqList);
 	// 포인트로 top 유저 목록 가져오기
 	public List<User> pointTop(int num);
+	// 유저 검색
+	public List<String> findUser(String term);
 }

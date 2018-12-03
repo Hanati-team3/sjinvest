@@ -2,6 +2,7 @@
 
 <!-- jQuery first, then Other JS. -->
 <script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/jquery-ui.min.js"></script>
 
 <!-- Js effects for material design. + Tooltips -->
 <script src="<%=application.getContextPath()%>/resources/js/material.min.js"></script>
