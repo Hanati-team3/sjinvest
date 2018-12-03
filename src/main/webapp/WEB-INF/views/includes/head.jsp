@@ -58,10 +58,10 @@
   font-size: 15px;
 }
 
-.minus a {
+.minus {
   color : blue;
 }
-.plus a {
+.plus {
   color : #ff5e3a;
 }
 
