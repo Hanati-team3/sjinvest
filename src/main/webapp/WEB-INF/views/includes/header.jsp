@@ -1,25 +1,27 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- 
-
 <%
-/* String userId = request.getParameter("userId"); */
-String userId = "임시아이디";
-System.out.println("꼭나와라"+ userId);
+	Cookie[] cookies = request.getCookies();
+	String userId = null;
 
-// 쿠키를 생성한다. 이름:testCookie, 값 : Hello Cookie
-Cookie info = new Cookie("testCookie", "userId");
+	if (cookies != null) {
+		for (int i = 0; i < cookies.length; i++) {
 
-// 쿠키의 유효기간을 365일로 설정한다.
-info.setMaxAge(24*60*60);      
-// 쿠키의 유효한 디렉토리를 "/" 로 설정한다.                           
-info.setPath("/");                                                   
-// 클라이언트 응답에 쿠키를 추가한다.
-response.addCookie(info);
+			Cookie c = cookies[i];
 
-%> 
---%>
+			String name = c.getName(); // 쿠키 이름 가져오기
+			String value = c.getValue(); // 쿠키 값 가져오기
+      
+            if(name.equals("userIdC")){
+              userId = value;
+            }
+		}
+	}
+    //System.out.println("쿠키 최종userId = "+ userId);
+    
+    request.setAttribute("userId", userId);
+%>
 
 
 <!-- Header -->
@@ -248,7 +250,7 @@ response.addCookie(info);
                       </a>
                     </li>
                     <li>
-                      <a href="<%=application.getContextPath()%>/sns/newsfeed">
+                      <a href="/sos/user/logout">
                         <svg class="olymp-logout-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-logout-icon"></use></svg>
                         <span>로그아웃</span>
                       </a>

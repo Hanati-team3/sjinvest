@@ -18,8 +18,8 @@
               <img src="../resources/img/author-main1.jpg" alt="author">
             </a>
             <div class="author-content">
-              <a href="02-ProfilePage.html" class="h4 author-name">onchul92</a>
-              <div class="country">onchul92@naver.com</div>
+              <a href="02-ProfilePage.html" class="h4 author-name">${user.userId }</a>
+              <div class="country">${user.userEmail }</div>
             </div>
           </div>
         </div>

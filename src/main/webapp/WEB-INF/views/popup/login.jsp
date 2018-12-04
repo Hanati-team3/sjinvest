@@ -13,8 +13,8 @@
 			<h6 class="title">회원로그인</h6>
 		</div>
 
-		<div class="ui-block-content">
-			<form method="post" id="myform"> <!-- id="myform" -->
+		<div class="ui-block-content" id="loginForm">
+			<form method="post"> <!-- id="myform" -->
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="form-group label-floating">
@@ -39,7 +39,7 @@
 							 아이디 저장
 							 </label>
 					   	  </div>
-						  <a href="#" class="forgot" data-toggle="modal" data-target="#sign_modal">아직 회원이 아니신가요?</a>
+						  <!-- <a href="#" class="forgot" data-toggle="modal" data-target="#sign_modal">아직 회원이 아니신가요?</a> -->
 					    </div>
                     
                         <button type="submit" class="btn btn-primary btn-lg full-width" >로그인</button>
@@ -47,12 +47,10 @@
                         <div class="or"></div>
 
                         
-                        <!-- 네이버, 구글 로그인 start -->
+                        <!-- 네이버, 다음 로그인 start -->
                         <a href="#" class="btn btn-lg bg-facebook full-width btn-icon-left"><i class="fa fa-facebook" aria-hidden="true"></i>login with facebook</a>
                         <a href="#" class="btn btn-lg bg-twitter full-width btn-icon-left"><i class="fa fa-twitter" aria-hidden="true"></i>login with twitter</a>
-
-                        <%-- <jsp:include page="naverLogin.jsp"></jsp:include> --%>
-                        <!-- 네이버, 구글 로그인 end -->                        
+                        <!-- 네이버, 다음 로그인 end -->                        
 
                     </div>
                 </div>
