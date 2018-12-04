@@ -4,6 +4,8 @@
 <head>
 <title>SOS - 모의투자 거래내역</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
 </head>
 
 <body class="stock">
@@ -86,86 +88,61 @@
                     <th class="profit-rate">수익률</th>
                   </tr>
                 </thead>
-    
                 <tbody>
-                  <tr>
+                 <c:forEach var="eachTrading" items="${tradingList}" varStatus="status">
+                   <tr>
                     <td class="trade-date">
                       <div class="forum-item">
                         <time class="entry-date updated"
-                          datetime="2018-11-29T18:18">2018-11-29</time>
+                          datetime="2018-11-29T18:18">${eachTrading.tradingTime}</time>
                       </div>
                     </td>
                     <td class="trade-type">
                       <div class="forum-item">
-                        <a href="#" class="h6 count">BUY</a>
+                      <c:choose>
+                          <c:when test="${eachTrading.tradingType eq 1}">
+                              <a href="#" class="h6 count">SELL</a>
+                          </c:when>
+                          <c:otherwise>
+                              <a href="#" class="h6 count">BUY</a>
+                          </c:otherwise>
+                      </c:choose>
                       </div>
                     </td>
                     <td class="company-number">
                       <div class="forum-item">
-                        <a href="#" class="h6 count">086790</a>
+                        <a href="company/${eachTrading.companyNumber}" class="h6 count">${eachTrading.companyNumber}</a>
                       </div>
                     </td>
                     <td class="company-name">
                       <div class="author-freshness">
-                        <a href="#" class="h6 title">하나금융지주</a>
-                        <time class="entry-date updated"
-                          datetime="2017-06-24T18:18">은행</time>
-                      </div>
+                        <a href="company/${eachTrading.companyNumber}" class="h6 title">${eachTrading.companyName}</a>
+                       </div>
                     </td>
-                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
+                    <td class="stock-price"><a href="#" class="h6 count">${eachTrading.tradingPrice}</a>
                     </td>
                     <td class="stock-amount">
-                      <a href="#" class="h6 count">10</a>
+                      <a href="#" class="h6 count">${eachTrading.tradingAmount}</a>
                     </td>
                     <td class="trade-amount">
-                      <a href="#" class="h6 count">387,500</a>
+                      <a href="#" class="h6 count">${eachTrading.tradingPrice * eachTrading.tradingAmount}</a>
                     </td>
                     <td class="profit-rate">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6 title"></a>
+                    <c:if test="${eachTrading.tradingType eq 1}">
+                      <c:choose>
+                          <c:when test="${eachTrading.tradingEarningsRatio lt 0}">
+                              <div class="author-freshness minus">
+                          </c:when>
+                          <c:otherwise>
+                              <div class="author-freshness plus">
+                          </c:otherwise>
+                      </c:choose>
+                        <a href="#" class="h6 title">${eachTrading.tradingEarningsRatio}</a>
                       </div>
+                    </c:if>
                     </td>
                   </tr>
-                  <tr>
-                    <td class="trade-date">
-                      <div class="forum-item">
-                        <time class="entry-date updated"
-                          datetime="2018-11-29T18:18">2018-11-29</time>
-                      </div>
-                    </td>
-                    <td class="trade-type">
-                      <div class="forum-item">
-                        <a href="#" class="h6 count">SELL</a>
-                      </div>
-                    </td>
-                    <td class="company-number">
-                      <div class="forum-item">
-                        <a href="#" class="h6 count">086790</a>
-                      </div>
-                    </td>
-                    <td class="company-name">
-                      <div class="author-freshness">
-                        <a href="#" class="h6 title">하나금융지주</a>
-                        <time class="entry-date updated"
-                          datetime="2017-06-24T18:18">은행</time>
-                      </div>
-                    </td>
-                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
-                    </td>
-                    <td class="stock-amount">
-                      <a href="#" class="h6 count">10</a>
-                    </td>
-                    <td class="trade-amount">
-                      <a href="#" class="h6 count">387,500</a>
-                    </td>
-                    <td class="profit-rate">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6 title">1.58%</a>
-                      </div>
-                    </td>
-                  </tr>
-                  
-    
+                  </c:forEach>
                 </tbody>
               </table>
             </div>

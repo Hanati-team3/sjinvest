@@ -7,19 +7,91 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
 <script>
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function getInterest(){
+	$('.bg-interest').click(function (e) {
+		e.preventDefault();
+		if($("#fa-heart").hasClass("fas")===true){
+			$.ajax({ 
+		        type: "POST", 
+		        url: "addInterest", 
+		        data: {"userSeq" : 2, "companyNumber" : "${company.companyNumber}", "companyName" : "${company.companyName}", "type" : "add"}, 
+		        success: function (data) {
+		        	$('.fa-heart').removeClass('fas');
+		        	$('.fa-heart').addClass('far');
+		        }
+		    })			
+		}else{
+			$.ajax({ 
+		        type: "POST", 
+		        url: "addInterest", 
+		        data: {"userSeq" : 2, "companyNumber" : "${company.companyNumber}", "companyName" : "${company.companyName}", "type" : "remove"}, 
+		        success: function (data) {
+		        	$('.fa-heart').removeClass('far');
+		        	$('.fa-heart').addClass('fas');
+		        }
+		    })			
+		}
+	});
 }
+
+function getChangeOption(){
+	$("#chart-option").change(function() {
+	    $.ajax({ 
+	        type: "POST", 
+	        url: "getchartdata", 
+	        data: {"companyNumber" : "${company.companyNumber}", "type" : $(this).children("option:selected").text()}, 
+	        success: function (data) {
+        	    
+	        	config.data.datasets.splice(0, 1);
+	        	lineChartEl.update();
+	        	
+	        	var data_lc = {
+	        	        labels: data.label,
+	        	        datasets: [
+	                        <c:forEach items="data.data" varStatus="status">
+	                        {
+	        	                label: " - value",
+	        	                borderColor: "#ffdc1b",
+	        	                borderWidth: 4,
+	        	                pointBorderColor: "#ffdc1b",
+	        	                pointBackgroundColor: "#fff",
+	        	                pointBorderWidth: 4,
+	        	                pointRadius: 6,
+	        	                pointHoverRadius: 8,
+	        	                fill: false,
+	        	                lineTension:0,
+	        	                data: data.data[${status.index}]
+	        	            },
+	                        </c:forEach>
+	        				]
+	        	    };
+	        	
+	        	config.data = data_lc;
+	        	lineChartEl.update();
+	        	
+        	    var index = 0;
+				data.label.forEach(function(element){
+					data.label[index] = element.replace(/\"/gi,"");
+					index = index +1;
+				});
+
+	        }
+	})
+	});
+}
+
 function runChart(){
 	var lineChart = document.getElementById("this-line-chart");
+	
 	if (lineChart !== null) {
 	    var ctx_lc = lineChart.getContext("2d");
+	    
 	    var data_lc = {
 	        labels: ${chartData.label},
 	        datasets: [
                 <c:forEach var="eachData" items="${chartData.data}" varStatus="status">
 	            {
-	                label: " - Comments",
+	                label: " - value",
 	                borderColor: "#ffdc1b",
 	                borderWidth: 4,
 	                pointBorderColor: "#ffdc1b",
@@ -34,42 +106,46 @@ function runChart(){
                 </c:forEach>
 				]
 	    };
-	    var lineChartEl = new Chart(ctx_lc, {
-	        type: 'line',
-	        data: data_lc,
-	        options: {
-	            legend: {
-	                display: false
-	            },
-	            responsive: true,
-	            scales: {
-	                xAxes: [{
-	                    ticks: {
-	                        fontColor: '#888da8'
-	                    },
-	                    gridLines: {
-	                        color: "#f0f4f9"
-	                    }
-	                }],
-	                yAxes: [{
-	                    gridLines: {
-	                        color: "#f0f4f9"
-	                    },
-	                    ticks: {
-	                        beginAtZero:true,
-	                        fontColor: '#888da8'
-	                    }
-	                }]
-	            }
-	        }
-	    });
+	    
+	    
+	    config = {
+		        type: 'line',
+		        data: data_lc,
+		        options: {
+		            legend: {
+		                display: false
+		            },
+		            responsive: true,
+		            scales: {
+		                xAxes: [{
+		                    ticks: {
+		                        fontColor: '#888da8'
+		                    },
+		                    gridLines: {
+		                        color: "#f0f4f9"
+		                    }
+		                }],
+		                yAxes: [{
+		                    gridLines: {
+		                        color: "#f0f4f9"
+		                    },
+		                    ticks: {
+		                        beginAtZero:true,
+		                        fontColor: '#888da8'
+		                    }
+		                }]
+		            }
+		        }
+		    };
+	    
+	    lineChartEl = new Chart(ctx_lc, config);
 	}
 }
 function getStockData(){
     $.ajax({ 
         type: "POST", 
         url: "getdata", 
-        data: {"companyNumber" : "${company.companyNumber}", "companyName" : "${company.companyName}"}, 
+        data: {}, 
         success: function (data) {
           var d = new Date();
           var hour = d.getHours();
@@ -96,6 +172,8 @@ function getStockData(){
 $(document).ready(function(){
 	getStockData();
 	runChart();
+	getChangeOption();
+	getInterest();
 }
 );
 </script>
@@ -776,7 +854,7 @@ $(document).ready(function(){
               <div class="ui-block-title">
                 <!-- <div class="h6 title">KOSPI Line Graphic</div> -->
                 <div><h6 class="title">${company.companyName} 차트</h6></div>
-                <select class="selectpicker form-control without-border" size="auto">
+                <select id="chart-option" class="selectpicker form-control without-border" size="auto">
                   <option value="LY">기본</option>
                   <option value="2">거래량</option>
                   <option value="2">시장지수</option>

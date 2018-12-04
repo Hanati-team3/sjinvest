@@ -195,13 +195,6 @@ public class HomeController {
 		return "/stock/stock-interest";
 	}
 	
-	@RequestMapping(value = "/stock/trade-list", method = RequestMethod.GET)
-	public String tradeList() {
-		logger.info("stock trade-list ");
-		
-		return "/stock/stock-trade-list";
-	}
-	
 	@RequestMapping(value = "/stock/holding-list", method = RequestMethod.GET)
 	public String assetList() {
 		logger.info("stock holding-list ");
