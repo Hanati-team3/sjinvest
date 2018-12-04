@@ -220,12 +220,14 @@ public class StockServiceImpl implements StockService {
 	}
 	// 회사 번호 리스트로 회사 시계열 정보 리스트 받기
 	@Override
-	public List<TimeSeries> getTimeSeriesList(List<String> companyNumberList, String type){
-		List<TimeSeries> timeSeriesList= new ArrayList<TimeSeries>();
+	public TimeSeries getTimeSeriesListByOne(List<String> companyNumberList, String type){
+		TimeSeries timeSeries = new TimeSeries();
 		for(int i = 0; i < companyNumberList.size(); i++) {
-			timeSeriesList.add(getTimeSeries("",""));
+			List<List<Double>> existDatas = timeSeries.getData();
+			existDatas.add(getTimeSeries(companyNumberList.get(i), type).getData().get(1));
+			timeSeries.setData(existDatas);
 		}
-		return timeSeriesList;
+		return timeSeries;
 	}
 	// 코스피 정보 받기
 	@Override
@@ -277,5 +279,13 @@ public class StockServiceImpl implements StockService {
 			result.add(askingPrice);
 		}
 		return result;
+	}
+	@Override
+	public List<TimeSeries> getTimeSeriesList(List<String> companyNumberList, String type) {
+		List<TimeSeries> timeSeriesList = new ArrayList<TimeSeries>();
+		for(int i = 0; i < companyNumberList.size(); i++) {
+			timeSeriesList.add(getTimeSeries(companyNumberList.get(i), type));
+		}
+		return timeSeriesList;
 	}
 }

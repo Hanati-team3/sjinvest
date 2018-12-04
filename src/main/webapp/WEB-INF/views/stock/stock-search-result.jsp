@@ -4,10 +4,41 @@
 <head>
 <title>SOS - 모의투자 검색 결과</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
+<script>
+var companyNumberList = new Array;
+<c:forEach var="company" items="${companyList}" varStatus="status">
+	companyNumberList.push("${company.companyNumber}");
+</c:forEach>
+
+function getStockData(){
+    $.ajax({ 
+        type: "POST", 
+        url: "getStocklist", 
+        traditional : true,
+		data: {'companyNumberList' : companyNumberList},
+        success: function (data) {
+          window.test=data;
+		  var trList = $(".search-result tbody tr");
+          for(var i = 0; i < trList.length; i++){
+        	 	trList.eq(i).find(".stock-price a").text(numberWithCommas(data[i].stockPrice));
+        	 	trList.eq(i).find(".trading-amount a").text(numberWithCommas(data[i].stockVolume));
+        	 	trList.eq(i).find(".day-before div a").text(numberWithCommas(data[i].stockChange));
+        	 	trList.eq(i).find(".day-before-rate div a").text(numberWithCommas(data[i].stockDiff.toFixed(2))+"%");
+          };
+          setTimeout(getStockData, 1000);
+        }
+})	
+}
+$(document).ready(function(){
+	getStockData();
+});
+</script>
+
 </head>
 
 <body class="stock">
-
   <%-- 우리한테 필요 없는 고정 양측 사이드바 --%>
   <!-- Fixed Sidebar Left -->
   <%-- <jsp:include page="includes/fixed-sidebar-left.jsp"></jsp:include> --%>
@@ -55,9 +86,9 @@
 
         <%-- 검색 시작 --%>
         <div class="ui-block">
-          <form class="w-search" style="width: 100%;">
+          <form class="w-search" style="width: 100%;" action="/sos/stock/search" method="get">
             <div class="form-group with-button is-empty">
-              <input class="form-control" type="text" placeholder="회사명/업종 검색...">
+              <input class="form-control" type="text" name="keyword" placeholder="회사명/업종 검색...">
               <button style="background-color: #3f4257;">
                 <svg class="olymp-magnifying-glass-icon">
                   <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
@@ -73,7 +104,7 @@
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
     
             <div class="ui-block">
-              <table class="forums-table">
+              <table class="forums-table search-result">
                 <thead>
                   <tr>
                     <th class="company-number">종목번호</th>
@@ -87,72 +118,40 @@
                 </thead>
     
                 <tbody>
-                  <tr>
-                    <td class="company-number">
-                      <div class="forum-item">
-                        <a href="#" class="h6 count">086790</a>
-                      </div>
-                    </td>
-                    <td class="company-name">
-                      <div class="author-freshness">
-                        <a href="#" class="h6 title">하나금융지주</a>
-                        <time class="entry-date updated"
-                          datetime="2017-06-24T18:18">은행</time>
-                      </div>
-                    </td>
-                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
-                    </td>
-                    <td class="trading-amount">
-                      <a href="#" class="h6 count">1,024,522</a>
-                    </td>
-                    <td class="day-before">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6 title">+ 800</a>
-                      </div>
-                    </td>
-                    <td class="day-before-rate">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6 title">+ 1.90 %</a>
-                      </div>
-                    </td>
-                    <td class="add-to-interest">
-                        <a href="#" class="more"><i class="fas fa-heart"></i></a>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <td class="company-number">
-                      <div class="forum-item">
-                        <a href="#" class="h6 count">039130</a>
-                      </div>
-                    </td>
-                    <td class="company-name">
-                      <div class="author-freshness">
-                        <a href="#" class="h6 title">하나투어</a>
-                        <time class="entry-date updated"
-                          datetime="2017-06-24T18:18">은행</time>
-                      </div>
-                    </td>
-                    <td class="stock-price"><a href="#" class="h6 count">69,800</a>
-                    </td>
-                    <td class="trading-amount">
-                      <a href="#" class="h6 count">166,143</a>
-                    </td>
-                    <td class="day-before">
-                      <div class="author-freshness minus">
-                        <a href="#" class="h6 title">- 1000</a>
-                      </div>
-                    </td>
-                    <td class="day-before-rate">
-                      <div class="author-freshness  minus">
-                        <a href="#" class="h6 title">- 1.41 %</a>
-                      </div>
-                    </td>
-                    <td class="add-to-interest">
-                        <a href="#" class="more"><i class="far fa-heart"></i></a>
-                    </td>
-                  </tr>
-    
+                <c:forEach var="eachCompany" items="${companyList}" varStatus="status">
+                    <tr>
+                      <td class="company-number">
+                        <div class="forum-item">
+                          <a href="company/${eachCompany.companyNumber}" class="h6 count">${eachCompany.companyNumber}</a>
+                        </div>
+                      </td>
+                      <td class="company-name">
+                        <div class="author-freshness">
+                          <a href="company/${eachCompany.companyNumber}" class="h6 title">${eachCompany.companyName}</a>
+                          <time class="entry-date updated"
+                            datetime="2017-06-24T18:18">${eachCompany.fieldName}</time>
+                        </div>
+                      </td>
+                      <td class="stock-price"><a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="trading-amount">
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness minus">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                      <td class="day-before-rate">
+                        <div class="author-freshness  minus">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                      <td class="add-to-interest">
+                          <a href="#" class="more"><i class="far fa-heart"></i></a>
+                      </td>
+                    </tr>
+                  </c:forEach>    
 <%--                   <tr>
                     <td class="forum">
                       <div class="forum-item">
