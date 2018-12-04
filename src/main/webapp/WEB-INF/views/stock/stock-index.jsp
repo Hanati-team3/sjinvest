@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -214,7 +215,7 @@
                     href="#falling-rate" role="tab" aria-expanded="false"><span>하락률 상위</span>
                   </a></li>
         
-                  <li class="nav-item" ><a class="nav-link active inline-items" data-toggle="tab" 
+                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
                     href="#foreigner" role="tab" aria-expanded="false"><span>외국인 순매수</span>
                   </a></li>
         
@@ -222,11 +223,11 @@
                     href="#institution" role="tab" aria-expanded="false"><span>기관 순매수</span>
                   </a></li>
         
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
+                  <li class="nav-item" ><a class="nav-link  inline-items" data-toggle="tab" 
                     href="#trading-amount" role="tab" aria-expanded="false"><span>거래량</span>
                   </a></li>
         
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
+                  <li class="nav-item" ><a class="nav-link active inline-items" data-toggle="tab" 
                     href="#total-value" role="tab" aria-expanded="false"><span>시가총액</span>
                   </a></li>
                 </ul>
@@ -389,7 +390,7 @@
                   </div>
                   <%-- falling-rate 끝 --%>
                   <%-- foreigner 탭 시작 --%>
-                  <div class="tab-pane active"  id="foreigner" role="tabpanel" aria-expanded="true">
+                  <div class="tab-pane"  id="foreigner" role="tabpanel" aria-expanded="true">
                     <div class="ui-block">
                     
                       <div class="ui-block-title">
@@ -403,7 +404,7 @@
                         <div class="col-xl-4 order-xl-1 col-lg-4 order-lg-1 col-md-4 order-md-1 col-sm-12 col-xs-12">
                           <div class="ui-block-content">
                             <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-startcolor="#38a9ff" data-endcolor="#317cb6">
+                              <div class="pie-chart" data-value="0.68" data-startcolor="#38a9ff" data-endcolor="#317cb6">
                                 <div class="content"> <span>%</span> </div>
                               </div>
                             </div>
@@ -423,8 +424,8 @@
                               </div>
                             </div>
                             <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>50% of friends that visit your profile comment on your posts.</p>
+                              <h6>..</h6>
+                              <p>..</p>
                             </div>
                           </div>
                         </div>
@@ -437,8 +438,8 @@
                               </div>
                             </div>
                             <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>83% of friends that visit your profile comment on your posts.</p>
+                              <h6>..</h6>
+                              <p>..</p>
                             </div>
                           </div>
                         </div>
@@ -470,8 +471,8 @@
                             </div>
                 
                             <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>68% of friends that visit your profile comment on your posts.</p>
+                              <h6>..</h6>
+                              <p>..</p>
                             </div>
                           </div>
                         </div>
@@ -484,8 +485,8 @@
                               </div>
                             </div>
                             <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>50% of friends that visit your profile comment on your posts.</p>
+                              <h6>..</h6>
+                              <p>..</p>
                             </div>
                           </div>
                         </div>
@@ -498,8 +499,8 @@
                               </div>
                             </div>
                             <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>83% of friends that visit your profile comment on your posts.</p>
+                              <h6>..</h6>
+                              <p>..</p>
                             </div>
                           </div>
                         </div>
@@ -511,23 +512,20 @@
                   <%-- institution 탭 끝 --%>
                   
                   <%-- trading-amount 탭 시작 --%>
-                  <div class="tab-pane" id="trading-amount" role="tabpanel" aria-expanded="true">
+                  <div class="tab-pane " id="trading-amount" role="tabpanel" aria-expanded="true">
                     <div class="row">
                       <div class="col-lg-12 col-sm-12 col-xs-12">
                         <div class="ui-block responsive-flex">
                         
                           <div class="ui-block-title">
                             <div class="h6 title">상위 거래량 그래프</div>
-                            <select class="selectpicker form-control without-border" size="auto">
-                              <option value="LY">LAST YEAR (2016)</option>
-                              <option value="CUR">CURRENT YEAR (2017)</option>
-                            </select> <a href="#" class="more"><svg class="olymp-three-dots-icon">
+                            <a href="#" class="more"><svg class="olymp-three-dots-icon">
                                 <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                           </div>
                 
                           <div class="ui-block-content">
                             <div class="chart-js chart-js-one-bar">
-                              <canvas id="one-bar-chart" width="1400" height="380"></canvas>
+                              <canvas id="trading-amount-chart" width="1400" height="380"></canvas>
                             </div>
                           </div>
                           
@@ -538,23 +536,20 @@
                   <%-- trading-amount 탭 끝 --%>
                   
                   <%-- total-value 탭 시작 --%>
-                  <div class="tab-pane" id="total-value" role="tabpanel" aria-expanded="true">
+                  <div class="tab-pane active" id="total-value" role="tabpanel" aria-expanded="true">
                     <div class="row">
                       <div class="col-lg-12 col-sm-12 col-xs-12">
                         <div class="ui-block responsive-flex">
                         
                           <div class="ui-block-title">
                             <div class="h6 title">상위 시가총액 그래프</div>
-                            <select class="selectpicker form-control without-border" size="auto">
-                              <option value="LY">LAST YEAR (2016)</option>
-                              <option value="CUR">CURRENT YEAR (2017)</option>
-                            </select> <a href="#" class="more"><svg class="olymp-three-dots-icon">
+                            <a href="#" class="more"><svg class="olymp-three-dots-icon">
                                 <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                           </div>
                 
                           <div class="ui-block-content">
                             <div class="chart-js chart-js-one-bar">
-                              <canvas id="one-bar-chart" width="1400" height="380"></canvas>
+                              <canvas id="total-money-chart" width="1400" height="380"></canvas>
                             </div>
                           </div>
                           
@@ -579,51 +574,26 @@
                 <h6 class="title">News</h6>
                 <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
-    
+              
               <ul class="notification-list">
+                <c:forEach var="item" items="${news}" varStatus="status">
                 <li>
                   <div class="author-thumb">
-                    <img src="<%=application.getContextPath()%>/resources/img/avatar1-sm.jpg" alt="author">
+                    <img src="<%=application.getContextPath()%>/resources/img/avatar${status.index+1}-sm.jpg" alt="author">
                   </div>
                   <div class="notification-event">
-                    <a href="#" class="h6 notification-friend">서울경제</a>
-                    오전 11:30 현재 코스피는 50:50으로 보합세, 매수강세 업종은 철강..
+                    <a href=# class="h6 notification-friend">${item.source}</a>
+                    <a href="http://${item.link}" class="news-title" >${item.title}</a>
                   </div>
                   <span class="notification-icon">
-                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
+                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
                   </span>
                 </li>
-    
-                <li class="un-read">
-                  <div class="author-thumb">
-                    <img src="<%=application.getContextPath()%>/resources/img/avatar2-sm.jpg" alt="author">
-                  </div>
-                  <div class="notification-event">
-                    <a href="#" class="h6 notification-friend">한국경제 </a>
-                    코스피, 외국인·기관 '팔자'에 약보합세…5G 기대 통신株 '강세'
-                  </div>
-                  <span class="notification-icon">
-                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
-                  </span>
-                </li>
-                
-                <li class="un-read">
-                  <div class="author-thumb">
-                    <img src="<%=application.getContextPath()%>/resources/img/avatar3-sm.jpg" alt="author">
-                  </div>
-                  <div class="notification-event">
-                    <a href="#" class="h6 notification-friend">IBK투자증권 </a>
-                    [Start with IBKS]KOSPI는 기관과 외국인의 순매수로 상승함
-                  </div>
-                  <span class="notification-icon">
-                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
-                  </span>
-                </li>
- 
+                </c:forEach>
               </ul>
     
             </div>
-            <nav aria-label="Page navigation example">
+            <!-- <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
                 <li class="page-item disabled"><a class="page-link"
                   href="#" tabindex="-1">Previous</a></li>
@@ -640,7 +610,7 @@
                 <li class="page-item"><a class="page-link" href="#">Next</a>
                 </li>
               </ul>
-            </nav>
+            </nav> -->
           </div>
         </div>
         <%-- 뉴스 row 끝 --%>
