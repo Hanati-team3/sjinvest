@@ -309,6 +309,66 @@ function runPiChart() {
     });
 }
 
+/** Top20 차트 함수 */
+function runKospiChart(kospiTimeSeries) {
+	var lineChart = document.getElementById("kospi-line-chart");
+	removeLabelQuotes(kospiTimeSeries);
+	/*
+	 *  Yearly Line Graphic
+	 * 26-Statistics.html
+	 */
+	if (lineChart !== null) {
+	    var ctx_lc = lineChart.getContext("2d");
+	    var data_lc = {
+	        labels: kospiTimeSeries.label,
+	        datasets: [
+	            {
+	                label: " - Comments",
+	                borderColor: "#ffdc1b",
+	                borderWidth: 4,
+	                pointBorderColor: "#ffdc1b",
+	                pointBackgroundColor: "#fff",
+	                pointBorderWidth: 4,
+	                pointRadius: 6,
+	                pointHoverRadius: 8,
+	                fill: false,
+	                lineTension:0,
+	                data: kospiTimeSeries.data.pop()
+	            }]
+	    };
+
+	    var lineChartEl = new Chart(ctx_lc, {
+	        type: 'line',
+	        data: data_lc,
+	        options: {
+	            legend: {
+	                display: false
+	            },
+	            responsive: true,
+	            scales: {
+	                xAxes: [{
+	                    ticks: {
+	                        fontColor: '#888da8'
+	                    },
+	                    gridLines: {
+	                        color: "#f0f4f9"
+	                    }
+	                }],
+	                yAxes: [{
+	                    gridLines: {
+	                        color: "#f0f4f9"
+	                    },
+	                    ticks: {
+	                        beginAtZero:true,
+	                        fontColor: '#888da8'
+	                    }
+	                }]
+	            }
+	        }
+	    });
+	}
+}
+
 /** initSwiper 설정 함수 */
 /*
 function myInitSwiper() {

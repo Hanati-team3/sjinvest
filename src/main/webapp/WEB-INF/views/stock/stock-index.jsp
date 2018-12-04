@@ -403,7 +403,7 @@
                         <div class="col-xl-4 order-xl-1 col-lg-4 order-lg-1 col-md-4 order-md-1 col-sm-12 col-xs-12">
                           <div class="ui-block-content">
                             <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-startcolor="#38a9ff" data-endcolor="#317cb6">
+                              <div class="pie-chart" data-value="0.68" data-startcolor="#38a9ff" data-endcolor="#317cb6">
                                 <div class="content"> <span>%</span> </div>
                               </div>
                             </div>
@@ -423,8 +423,8 @@
                               </div>
                             </div>
                             <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>50% of friends that visit your profile comment on your posts.</p>
+                              <h6>..</h6>
+                              <p>..</p>
                             </div>
                           </div>
                         </div>
@@ -437,8 +437,8 @@
                               </div>
                             </div>
                             <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>83% of friends that visit your profile comment on your posts.</p>
+                              <h6>..</h6>
+                              <p>..</p>
                             </div>
                           </div>
                         </div>
@@ -470,8 +470,8 @@
                             </div>
                 
                             <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>68% of friends that visit your profile comment on your posts.</p>
+                              <h6>..</h6>
+                              <p>..</p>
                             </div>
                           </div>
                         </div>
@@ -484,8 +484,8 @@
                               </div>
                             </div>
                             <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>50% of friends that visit your profile comment on your posts.</p>
+                              <h6>..</h6>
+                              <p>..</p>
                             </div>
                           </div>
                         </div>
