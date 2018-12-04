@@ -692,8 +692,8 @@
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
   <!-- End Include js -->
-  
   <%-- stock-index js --%>
   <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index.js"></script>
+  
 </body>
 </html>
