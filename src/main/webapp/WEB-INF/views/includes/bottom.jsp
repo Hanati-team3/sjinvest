@@ -2,6 +2,7 @@
 
 <!-- jQuery first, then Other JS. -->
 <script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/jquery-ui.min.js"></script>
 
 <!-- Js effects for material design. + Tooltips -->
 <script src="<%=application.getContextPath()%>/resources/js/material.min.js"></script>
@@ -40,3 +41,6 @@
 
 <script src="<%=application.getContextPath()%>/resources/js/mediaelement-and-player.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/mediaelement-playlist-plugin.min.js"></script>
+
+<!-- my scripts -->
+<script src="<%=application.getContextPath()%>/resources/js/stock-common/stock-common.js"></script>

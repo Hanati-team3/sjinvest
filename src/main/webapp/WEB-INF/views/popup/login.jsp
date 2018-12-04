@@ -5,7 +5,8 @@
 <div class="modal fade" id="login_modal">
 	<div class="modal-dialog ui-block window-popup fav-page-popup">
 		<a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
-			<svg class="olymp-close-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-close-icon"></use></svg>
+		    <svg class="olymp-close-icon">
+           <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-close-icon"></use></svg>
 		</a>
 
 		<div class="ui-block-title">
@@ -38,10 +39,10 @@
 							 아이디 저장
 							 </label>
 					   	  </div>
-						  <a href="<%=application.getContextPath()%>/sns/signup" class="forgot">아직 회원이 아니신가요?</a>
+						  <a href="#" class="forgot" data-toggle="modal" data-target="#sign_modal">아직 회원이 아니신가요?</a>
 					    </div>
                     
-                        <button type="submit" class="btn btn-primary btn-lg full-width">로그인</button>
+                        <button type="submit" class="btn btn-primary btn-lg full-width" >로그인</button>
                         <!-- form으로 제출하기 때문에 클릭 사용 onclick="loginCheck()" -->
                         <div class="or"></div>
 
@@ -64,4 +65,8 @@
 
 <!-- ... login page end -->
 
+
+  <!-- signup modal start -->
+  <jsp:include page="../popup/signup.jsp"></jsp:include>
+  <!-- ... end signup modal -->
 

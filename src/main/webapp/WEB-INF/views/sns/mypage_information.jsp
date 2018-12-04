@@ -58,6 +58,7 @@
                   </select>
                 </div>
 
+
                 <div class="form-group label-floating is-empty">
                   <label class="control-label">비밀번호확인<sup>*</sup></label>
                   <input class="form-control" placeholder="" type="password">
@@ -86,6 +87,33 @@
       </div>
 <!--     </div> -->
        
-<!-- 개인정보 수정 end -->
+       
+       
 
+<!-- Js effects for material design. + Tooltips -->
+<script src="<%=application.getContextPath()%>/resources/js/material.min.js"></script>
 
+<!-- Helper scripts (Tabs, Equal height, Scrollbar, etc) -->
+<script src="<%=application.getContextPath()%>/resources/js/theme-plugins.js"></script>
+
+<!-- Init functions -->
+<script src="<%=application.getContextPath()%>/resources/js/main.js"></script>
+
+<!-- Load more news AJAX script -->
+<script src="<%=application.getContextPath()%>/resources/js/ajax-pagination.js"></script>
+
+<!-- Select / Sorting script -->
+<script src="<%=application.getContextPath()%>/resources/js/selectize.min.js"></script>
+
+<!-- Datepicker input field script-->
+<script src="<%=application.getContextPath()%>/resources/js/moment.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/daterangepicker.min.js"></script>
+
+<!-- Widget with events script-->
+<script src="<%=application.getContextPath()%>/resources/js/simplecalendar.js"></script>
+
+<!-- Lightbox plugin script-->
+<script src="<%=application.getContextPath()%>/resources/js/jquery.magnific-popup.min.js"></script>
+
+<!-- Swiper / Sliders -->
+<script src="<%=application.getContextPath()%>/resources/js/swiper.jquery.min.js"></script>

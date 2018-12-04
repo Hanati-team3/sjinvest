@@ -10,5 +10,6 @@ public interface CompanyMapper {
 	public List<Company> list();	
 	public List<Company> readByFieldName(String fieldName);	
 	public List<Company> readByFieldNumber(int fieldNumber);	
-	public List<Company> search(String keyword);	
+	public List<Company> search(String keyword);
+	public List<String> findCompany(String term);
 }

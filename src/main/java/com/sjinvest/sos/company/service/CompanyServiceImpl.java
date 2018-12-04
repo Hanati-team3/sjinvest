@@ -48,6 +48,8 @@ public class CompanyServiceImpl implements CompanyService {
 	public List<Company> search(String keyword) {
 		return companyMapper.search(keyword);
 	}
-
-
+	@Override
+	public List<String> findCompany(String term){
+		return companyMapper.findCompany(term);
+	}
 }

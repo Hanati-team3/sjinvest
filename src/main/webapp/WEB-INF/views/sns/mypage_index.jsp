@@ -49,10 +49,9 @@
 </div>
 
 
-    <!-- javascript 추가항목 start -->
-    <jsp:include page="../includes/bottom.jsp"></jsp:include>
-    <!-- javascript 추가항목 start --> 
-
+  <!-- Include js -->
+  <jsp:include page="../includes/bottom.jsp"></jsp:include>
+  <!-- End Include js -->
 
     
 <script type="text/javascript">
@@ -109,7 +108,6 @@ $(document).ready(function(){
   })
 
   $('#information').on('click', function(e) {
-    e.stopPropagation();
     e.currentTarget.onclick = function() {
       /* console.log('fff'); */
       $('#new_tag').remove();
