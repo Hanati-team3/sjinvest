@@ -99,6 +99,84 @@ public class StockController2 {
 		}
 		return "stock/stock-index";
 	}
+	
+	/** 주식 index Update 요청*/
+	//@ResponseBody
+	@PostMapping(value="/indexUpdate", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Map<String, Object>> indexUpdate(@RequestBody IndexParams params) {
+		System.out.println("indexUpdate params : " + params);
+		Map<String, Object> map = new Hashtable<String, Object>();
+		// realtime
+		map.put("realtime", service.stockRealtime());
+		// 업종별 거래량 or 전일대비
+		//map.put("fieldAmount", service.stockFieldStock(fieldOption));
+		map.put("fieldStock", service.stockFieldAmount());
+		// 코스피 정보 카드(원래는 옵션 보내야함)x
+		//map.put("kospi",  kospiMethod(kospiOption));
+		map.put("kospi", kospiMethod());
+		// top 보여주는 탭 정보
+		map.put("topTap", service.stockTop(params.getTabOption()));
+		// 로그인중
+		if(params.getUserId() != null) {
+			// 내 보유주식 위젯
+			map.put("holdingWidget", holdingWidgetMethod(params.getHoldingList(), params.getCashTotal()));
+			// 유저 프로필 위젯
+			// 유저 랭킹 위젯
+			// 관심종목카드
+			map.put("interestCard", interestCardMethod(params.getInterestCompanyNameList()));
+		}
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	
+	/** 상위종목 tab Update 요청*/
+	//@ResponseBody
+	@PostMapping(value="/index/tab/{type}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<Map<String, Object>>> tabUpdate(@PathVariable("type")int type) {
+		System.out.println("tabUpdate type : " + type);
+		return new ResponseEntity<>(service.stockTop(type+""), HttpStatus.OK);
+	}
+	
+	/** 코스피 정보 메소드 */
+	private Map<String, Object> kospiMethod() {
+		Map<String, Object> kospiMap = new Hashtable<String, Object>();
+		Stock kospiStock = service.getStockKospiInfo();
+		TimeSeries kospiTimeSeries = service.getStockKospiTimeSeries();
+		kospiMap.put("kospiStock", kospiStock);
+		kospiMap.put("kospiTimeSeries", kospiTimeSeries);
+		return kospiMap;
+	}
+	
+	/** 내 보유주식 위젯 메소드*/
+	private Map<String, Object> holdingWidgetMethod(List<Holding> holdingList, int cashTotal) {
+		Map<String, Object> holdingWidgetMap = new Hashtable<String, Object>();
+
+		// holdingList의 holding들 수익률, 수익금액, 보유금액 다시 계산해달라고 요청
+		// holdingList = service.stockMyHoldingWidget(holdingList);	
+		/** 테스트를 위해 임시 데이터 가져옴 */
+		holdingList = service.stockMyHoldingWidget();
+		int stockTotal = 0;
+		for (Holding holding : holdingList) {
+			stockTotal += holding.getHoldingTotalMoney();
+		}
+		
+		holdingWidgetMap.put("total", cashTotal + stockTotal);
+		holdingWidgetMap.put("stockTotal", stockTotal);
+		holdingWidgetMap.put("cashTotal", cashTotal);
+		holdingWidgetMap.put("holdingList", holdingList);
+		return holdingWidgetMap;
+	}
+	
+	/** 관심종목카드 메소드 */
+	private Map<String, Object> interestCardMethod(List<String> companyNameList) {
+		Map<String, Object> interestCardMap = new Hashtable<String, Object>();
+		List<Stock> stockList = service.getStockList(companyNameList);
+		List<TimeSeries> timeSeriesList = service.getTimeSeriesList(companyNameList, "stock");
+		interestCardMap.put("stockList", stockList);
+		interestCardMap.put("chartList", timeSeriesList);
+		return interestCardMap;
+	}
+	
+	///////////////////////////////////테스트용 메소드
 	/** 주식 index 화면 요청*/
 	@GetMapping(value="/index-temp", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String indexTemp(String userId, Model model) {
@@ -165,77 +243,6 @@ public class StockController2 {
 		}
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
-	
-	/** 주식 index Update 요청*/
-	//@ResponseBody
-	@PostMapping(value="/indexUpdate", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<Map<String, Object>> indexUpdate(@RequestBody IndexParams params) {
-		System.out.println("indexUpdate params : " + params);
-		Map<String, Object> map = new Hashtable<String, Object>();
-		// realtime
-		map.put("realtime", service.stockRealtime());
-		// 업종별 거래량 or 전일대비
-		//map.put("fieldAmount", service.stockFieldStock(fieldOption));
-		map.put("fieldStock", service.stockFieldAmount());
-		// 코스피 정보 카드(원래는 옵션 보내야함)
-		//map.put("kospi",  kospiMethod(kospiOption));
-		map.put("kospi", kospiMethod());
-		// top 보여주는 탭 정보
-		map.put("topTap", service.stockTop(params.getTabOption()));
-		// 로그인중
-		if(params.getUserId() != null) {
-			// 내 보유주식 위젯
-			map.put("holdingWidget", holdingWidgetMethod(params.getHoldingList(), params.getCashTotal()));
-			// 유저 프로필 위젯
-			// 유저 랭킹 위젯
-			// 관심종목카드
-			map.put("interestCard", interestCardMethod(params.getInterestCompanyNameList()));
-		}
-		return new ResponseEntity<>(map, HttpStatus.OK);
-	}
-	
-	/** 코스피 정보 메소드 */
-	private Map<String, Object> kospiMethod() {
-		Map<String, Object> kospiMap = new Hashtable<String, Object>();
-		Stock kospiStock = service.getStockKospiInfo();
-		TimeSeries kospiTimeSeries = service.getStockKospiTimeSeries();
-		kospiMap.put("kospiStock", kospiStock);
-		kospiMap.put("kospiTimeSeries", kospiTimeSeries);
-		return kospiMap;
-	}
-	
-	/** 내 보유주식 위젯 메소드*/
-	private Map<String, Object> holdingWidgetMethod(List<Holding> holdingList, int cashTotal) {
-		Map<String, Object> holdingWidgetMap = new Hashtable<String, Object>();
-
-		// holdingList의 holding들 수익률, 수익금액, 보유금액 다시 계산해달라고 요청
-		// holdingList = service.stockMyHoldingWidget(holdingList);	
-		/** 테스트를 위해 임시 데이터 가져옴 */
-		holdingList = service.stockMyHoldingWidget();
-		int stockTotal = 0;
-		for (Holding holding : holdingList) {
-			stockTotal += holding.getHoldingTotalMoney();
-		}
-		
-		holdingWidgetMap.put("total", cashTotal + stockTotal);
-		holdingWidgetMap.put("stockTotal", stockTotal);
-		holdingWidgetMap.put("cashTotal", cashTotal);
-		holdingWidgetMap.put("holdingList", holdingList);
-		return holdingWidgetMap;
-	}
-	
-	/** 관심종목카드 메소드 */
-	private Map<String, Object> interestCardMethod(List<String> companyNameList) {
-		Map<String, Object> interestCardMap = new Hashtable<String, Object>();
-		List<Stock> stockList = service.getStockList(companyNameList);
-		List<TimeSeries> timeSeriesList = service.getTimeSeriesList(companyNameList, "stock");
-		interestCardMap.put("stockList", stockList);
-		interestCardMap.put("chartList", timeSeriesList);
-		return interestCardMap;
-	}
-	
-	
-
 /*	
    //** 내 보유주식 위젯 요청*//*
 	@GetMapping(value="/holdingWidget", params= {"userId"}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})

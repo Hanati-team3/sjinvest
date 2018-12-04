@@ -45,7 +45,10 @@ function indexUpdate() {
 			window.stock = stockData;
 			setFieldCard(stockData.fieldStock);
 			setInterestCard(stockData.interestCard);
-			 //setTimeout(indexUpdate, 2000);
+			setKospiCard(stockData.kospi);
+			setTopTab(stockData.topTap);
+
+//			setTimeout(indexUpdate, 2000);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n" + "message:"
@@ -54,16 +57,16 @@ function indexUpdate() {
 	})
 }
 
+/** 업종별 정보 카드 데이터 설정 */
 function setFieldCard(fieldStock) {
-	console.log("fieldStock : " + fieldStock);
 	$(".stock-index-trend li").each(function(index, item){
 		$(item).find(".fieldName").text(fieldStock[index].fieldName);
-		$(item).find(".count-stat").text(numberWithCommas((fieldStock[index].fieldAmount)))
+		$(item).find(".count-stat").text(fieldStock[index].fieldAmount.toLocaleString())
 	});
 }
 
+/** 관심종목 카드 데이터 설정 */
 function setInterestCard(interestCard) {
-	console.log("interestMap : " + interestCard);
 	var slideCard = $(".stock-my-interest .swiper-wrapper");
 	slideCard.html("");
 	
@@ -77,7 +80,7 @@ function setInterestCard(interestCard) {
 							"<canvas name=\"line-stacked-chart\" width=\"730\" height=\"300\"></canvas>" +
 						"</div>");
 		$(nameDiv).text(interestCard.stockList[i].stockName);
-		$(stockDiv).text(numberWithCommas((interestCard.stockList[i].stockPrice)));
+		$(stockDiv).text(interestCard.stockList[i].stockPrice.toLocaleString());
 		$(dayBeforeSpan).text("전일대비 " + interestCard.stockList[i].stockChange +" "+ interestCard.stockList[i].stockDiff.toFixed(2)+"%");
 		if(interestCard.stockList[i].stockDiff > 0) {
 			$(stockDiv).removeClass('minus').addClass('plus');
@@ -87,9 +90,7 @@ function setInterestCard(interestCard) {
 			$(stockDiv).removeClass('plus').addClass('minus');
 			$(dayBeforeSpan).removeClass('plus').addClass('minus');
 		}
-		console.log("name"+ interestCard.stockList[i].stockName);
-		console.log("stockPrice"+ interestCard.stockList[i].stockPrice);
-		console.log("stockChange"+ interestCard.stockList[i].stockChange);
+
 		$(statisticsSlide).append(nameDiv);
 		$(statisticsSlide).append(stockDiv);
 		$(statisticsSlide).append(dayBeforeSpan);
@@ -99,27 +100,18 @@ function setInterestCard(interestCard) {
 	}
 	runInterestChart(interestCard.chartList);
 	CRUMINA.initSwiper();
-	
-//	$.getScript('../resources/js/main.js');
-//	$.getScript('../resources/js/ajax-pagination.js');
-//	$.getScript('../resources/js/swiper.jquery.min.js');
-//	$.getScript('../resources/js/run-chart.js');
+	//myInitSwiper();
 }
 
 /** 관심종목 차트 */
 function runInterestChart(chartList) {
-	console.log(chartList);
 	var lineStackedCharts = document.getElementsByName("line-stacked-chart");
-	window.charts = lineStackedCharts;
-	console.log("length : " +lineStackedCharts.length);
 	for (var i = 0; i < lineStackedCharts.length; i++) {
 		var lineStackedChart = lineStackedCharts[i];
 		var eachChart = chartList.pop();
-		console.log("aa");
-		window.aa = eachChart;
+		removeLabelQuotes(eachChart);
 		/*
 		 *  Lines Graphic
-		 * 14-FavouritePage-Statistics.html
 		 */
 		if (lineStackedChart !== null) {
 		    var ctx_ls = lineStackedChart.getContext("2d");
@@ -127,7 +119,7 @@ function runInterestChart(chartList) {
 		        labels: eachChart.label,
 		        datasets: [
 		            {
-		                label: " - Won",
+		                label: " 원 ",
 		                backgroundColor: "rgba(57,169,255,0.35)",
 		                borderColor: "#38a9ff",
 		                borderWidth: 4,
@@ -172,8 +164,153 @@ function runInterestChart(chartList) {
 		}
 	}
 }
+/** 코스피 카드 설정 함수 */
+function setKospiCard(kospi) {
+	var statList = $(".stock-kospi-card .text-stat").find('.count-stat');
+	$(statList[0]).text(kospi.kospiStock.stockPrice.toLocaleString());
+	$(statList[1]).text(kospi.kospiStock.stockHigh.toLocaleString());
+	$(statList[2]).text(kospi.kospiStock.stockLow.toLocaleString());
+	$(statList[3]).text(kospi.kospiStock.stockChange.toLocaleString());
+	$(statList[4]).text(kospi.kospiStock.stockVolume.toLocaleString());
+	runKospiChart(kospi.kospiTimeSeries);
+}
+
+/** 코스피 차트 설정 함수 */
+function runKospiChart(kospiTimeSeries) {
+	var lineChart = document.getElementById("kospi-line-chart");
+	removeLabelQuotes(kospiTimeSeries);
+	/*
+	 *  Yearly Line Graphic
+	 * 26-Statistics.html
+	 */
+	if (lineChart !== null) {
+	    var ctx_lc = lineChart.getContext("2d");
+	    var data_lc = {
+	        labels: kospiTimeSeries.label,
+	        datasets: [
+	            {
+	                label: " - Comments",
+	                borderColor: "#ffdc1b",
+	                borderWidth: 4,
+	                pointBorderColor: "#ffdc1b",
+	                pointBackgroundColor: "#fff",
+	                pointBorderWidth: 4,
+	                pointRadius: 6,
+	                pointHoverRadius: 8,
+	                fill: false,
+	                lineTension:0,
+	                data: kospiTimeSeries.data.pop()
+	            }]
+	    };
+
+	    var lineChartEl = new Chart(ctx_lc, {
+	        type: 'line',
+	        data: data_lc,
+	        options: {
+	            legend: {
+	                display: false
+	            },
+	            responsive: true,
+	            scales: {
+	                xAxes: [{
+	                    ticks: {
+	                        fontColor: '#888da8'
+	                    },
+	                    gridLines: {
+	                        color: "#f0f4f9"
+	                    }
+	                }],
+	                yAxes: [{
+	                    gridLines: {
+	                        color: "#f0f4f9"
+	                    },
+	                    ticks: {
+	                        beginAtZero:true,
+	                        fontColor: '#888da8'
+	                    }
+	                }]
+	            }
+	        }
+	    });
+	}
+}
+
+/** 상위 종목 카드 설정 함수 */
+function setTopTab(topTab) {
+	window.tabbbb=topTab;
+	console.log(topTab[0]);
+	var activeTab = $(".stock-top-tab .tab-content").find('.active');
+	console.log($(activeTab).attr('id'));
+	// 활성화된 탭 검사
+	switch($(activeTab).attr('id')) {
+	//상승률 상위 5
+	case 'rising-rate' :
+	// 하락률 상위 5
+	case 'falling-rate' :
+		var itemList = $(activeTab).find('.skills-item');
+		for(var i = 0; i < 5; i++) {
+			$(itemList[i]).find('.skills-item-title').text(topTab[i].companyName);
+			$(itemList[i]).find('.units').text(topTab[i].value.toFixed(2)+"%");
+			$(itemList[i]).find('.skills-item-meter-active').css("width",topTab[i].value.toFixed(2)+"%");
+		}
+		break;
+	// 외국인 순매수 3
+	case 'foreigner' :
+	// 기관 순매수 3
+	case 'institution' :
+		var itemList = $(activeTab).find('.ui-block-content');
+		for(var i = 0; i < 3; i++) {
+			var figure = topTab[i].value / 100;
+			$(itemList[i]).find('.pie-chart').attr('data-value', figure);
+			$(itemList[i]).find('h6').text(topTab[i].companyName);
+			$(itemList[i]).find('p').text(topTab[i].value.toFixed(2)+"%");
+		}
+		runPiChart();
+		break;
+	// 거래량 20
+	case 'trading-amount' :
+		console.log('5');
+		break;
+	// 시가총액 20
+	case 'total-value' :
+		console.log('6');
+		break;
+	}
+}
+
+/** 순매수 차트*/
+function runPiChart() {
+    var $pie_chart = $('.pie-chart');
+    $pie_chart.appear({ force_process: true });
+    $pie_chart.on('appear', function () {
+        var current_cart = $(this);
+        if (!current_cart.data('inited')) {
+            var startColor = current_cart.data('startcolor');
+            var endColor = current_cart.data('endcolor');
+            var counter = current_cart.data('value') * 100;
+
+            current_cart.circleProgress({
+                thickness: 16,
+                size: 360,
+                startAngle: -Math.PI / 4 * 2,
+                emptyFill: '#ebecf1',
+                lineCap: 'round',
+                fill: {
+                    gradient: [endColor, startColor],
+                    gradientAngle: Math.PI / 4
+                }
+            }).on('circle-animation-progress', function (event, progress) {
+                current_cart.find('.content').html(parseInt(counter * progress, 10) + '<span>%</span>'
+                )
+
+            });
+            current_cart.data('inited', true);
+        }
+    });
+}
 
 /** initSwiper 설정 함수 */
+/*
 function myInitSwiper() {
 	var swipers = {};
 	var initIterator = 0;
@@ -279,9 +416,4 @@ function myInitSwiper() {
 
         return false;
     });
-};
-
-
-function numberWithCommas(x) {
-	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+};*/

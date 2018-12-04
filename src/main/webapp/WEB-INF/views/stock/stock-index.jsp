@@ -130,34 +130,6 @@
               <div class="ui-block-content">
                 <div class="swiper-container" data-slide="fade">
                   <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="company-name" data-swiper-parallax="-500">aa${interestCard.stockList[0].stockName}</div>
-                        <div class="company-stock" data-swiper-parallax="-500">${interestCard.stockList[0].stockPrice}</div>
-                        <span class="indicator"> 전일대비 ${interestCard.stockList[0].stockChange} ${interestCard.stockList[0].stockDiff}%</span>
-    					<div class="chart-js chart-js-line-stacked">
-    						<canvas id="line-stacked-chart" width="730" height="300"></canvas>
-    					</div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="count-stat" data-swiper-parallax="-500">358</div>
-                        <div class="title" data-swiper-parallax="-100">
-                          <span class="c-primary">Olympus</span> Posts Rank
-                        </div>
-                        <div class="sub-title" data-swiper-parallax="-100">The Olympus Rank measures the quantity of comments, likes and posts.</div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="count-stat" data-swiper-parallax="-500">711</div>
-                        <div class="title" data-swiper-parallax="-100">
-                          <span class="c-primary">Olympus</span> Posts Rank
-                        </div>
-                        <div class="sub-title" data-swiper-parallax="-100">The Olympus Rank measures the quantity of comments, likes and posts.</div>
-                      </div>
-                    </div>
                   </div>
   
                   <!-- If we need pagination -->
@@ -172,7 +144,7 @@
         
         <%-- 그래프 row 시작 --%>
         <div class="row">
-          <div class="col-lg-12 col-sm-12 col-xs-12">
+          <div class="col-lg-12 col-sm-12 col-xs-12 stock-kospi-card">
             <div class="ui-block responsive-flex">
             
               <div class="ui-block-title">
@@ -189,7 +161,7 @@
     
               <div class="ui-block-content">
                 <div class="chart-js chart-js-line-chart">
-                  <canvas id="line-chart" width="1400" height="380"></canvas>
+                  <canvas id="kospi-line-chart" width="1400" height="380"></canvas>
                 </div>
               </div>
               
@@ -197,27 +169,27 @@
               
               <div class="ui-block-content display-flex content-around">
                 <div class="text-stat">
-                  <div class="count-stat">2.758</div>
+                  <div class="count-stat"></div>
                   <div class="title">시가</div>
+                  <div class="sub-title">현재주가</div>
+                </div>
+                <div class="text-stat">
+                  <div class="count-stat"></div>
+                  <div class="title">고가</div>
+                  <div class="sub-title">오늘고가</div>
+                </div>
+                <div class="text-stat">
+                  <div class="count-stat"></div>
+                  <div class="title">저가</div>
+                  <div class="sub-title">오늘저가</div>
+                </div>
+                <div class="text-stat">
+                  <div class="count-stat"></div>
+                  <div class="title">전일지수</div>
                   <div class="sub-title">전일대비 등락률</div>
                 </div>
                 <div class="text-stat">
-                  <div class="count-stat">5.420,7</div>
-                  <div class="title">고가</div>
-                  <div class="sub-title">전일고가</div>
-                </div>
-                <div class="text-stat">
-                  <div class="count-stat">42.973</div>
-                  <div class="title">저가</div>
-                  <div class="sub-title">전일저가</div>
-                </div>
-                <div class="text-stat">
-                  <div class="count-stat">3.581,1</div>
-                  <div class="title">전일지수</div>
-                  <div class="sub-title">By Month</div>
-                </div>
-                <div class="text-stat">
-                  <div class="count-stat">3.581,1</div>
+                  <div class="count-stat"></div>
                   <div class="title">거래량</div>
                   <div class="sub-title">(천주)</div>
                 </div>
@@ -230,19 +202,19 @@
         
         <%-- 자세한 정보 row 시작 --%>
         <div class="row stock-index-tab">
-          <div class="col-lg-12 col-sm-12 col-xs-12">
+          <div class="col-lg-12 col-sm-12 col-xs-12 stock-top-tab">
             <div class="ui-block">
               <div class="news-feed-form">
                 <!-- Nav tabs -->
-                <ul class="nav nav-tabs stock-index-ul" role="tablist">
-                  <li class="nav-item" ><a class="nav-link active inline-items" data-toggle="tab"
+                <ul class="nav nav-tabs stock-index-ul" role="tablist" >
+                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab"
                     href="#rising-rate" role="tab" aria-expanded="true"> <span>상승률 상위</span>
                   </a></li>
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
+                  <li class="nav-item" ><a class="nav-link  inline-items" data-toggle="tab" 
                     href="#falling-rate" role="tab" aria-expanded="false"><span>하락률 상위</span>
                   </a></li>
         
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
+                  <li class="nav-item" ><a class="nav-link active inline-items" data-toggle="tab" 
                     href="#foreigner" role="tab" aria-expanded="false"><span>외국인 순매수</span>
                   </a></li>
         
@@ -262,7 +234,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                   <%-- rising-rate탭 시작 --%>
-                  <div class="tab-pane active" id="rising-rate" role="tabpanel" aria-expanded="true">
+                  <div class="tab-pane " id="rising-rate" role="tabpanel" aria-expanded="true">
                     <div class="ui-block" data-mh="pie-chart" style="border-top: none;">
                       <div class="ui-block-title">
                         <div class="h6 title">상승률 상위 5 종목</div>
@@ -272,68 +244,64 @@
                       <div class="ui-block-content">
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Orange Gradient Progress</span>
+                            <span class="skills-item-title"></span>
                             <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">62%</span></span>
+                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units"></span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-primary" style="width: 62%"></span>
+                            <span class="skills-item-meter-active bg-primary"></span>
                           </div>
                         </div>
             
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Violet Progress</span> <span
+                            <span class="skills-item-title"></span> <span
                               class="skills-item-count"><span
                               class="count-animate" data-speed="1000"
                               data-refresh-interval="50" data-to="46" data-from="0"></span><span
-                              class="units">46%</span></span>
+                              class="units"></span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-purple"
-                              style="width: 46%"></span>
+                            <span class="skills-item-meter-active bg-purple"></span>
                           </div>
                         </div>
             
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Blue Progress</span> <span
+                            <span class="skills-item-title"></span> <span
                               class="skills-item-count"><span
                               class="count-animate" data-speed="1000"
                               data-refresh-interval="50" data-to="79" data-from="0"></span><span
-                              class="units">79%</span></span>
+                              class="units"></span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-blue"
-                              style="width: 79%"></span>
+                            <span class="skills-item-meter-active bg-blue"></span>
                           </div>
                         </div>
             
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Aqua Progress</span> <span
+                            <span class="skills-item-title"></span> <span
                               class="skills-item-count"><span
                               class="count-animate" data-speed="1000"
                               data-refresh-interval="50" data-to="34" data-from="0"></span><span
-                              class="units">34%</span></span>
+                              class="units"></span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-breez"
-                              style="width: 34%"></span>
+                            <span class="skills-item-meter-active bg-breez"></span>
                           </div>
                         </div>
             
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Yellow Progress</span> <span
+                            <span class="skills-item-title"></span> <span
                               class="skills-item-count"><span
                               class="count-animate" data-speed="1000"
                               data-refresh-interval="50" data-to="95" data-from="0"></span><span
-                              class="units">95%</span></span>
+                              class="units"></span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-yellow"
-                              style="width: 95%"></span>
+                            <span class="skills-item-meter-active bg-yellow"></span>
                           </div>
                         </div>
                       </div>
@@ -352,68 +320,68 @@
                       <div class="ui-block-content">
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Orange Gradient Progress</span>
+                            <span class="skills-item-title"> </span>
                             <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">62%</span></span>
+                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units"> </span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-primary" style="width: 62%"></span>
+                            <span class="skills-item-meter-active bg-primary" ></span>
                           </div>
                         </div>
             
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Violet Progress</span> <span
+                            <span class="skills-item-title"> </span> <span
                               class="skills-item-count"><span
                               class="count-animate" data-speed="1000"
                               data-refresh-interval="50" data-to="46" data-from="0"></span><span
-                              class="units">46%</span></span>
+                              class="units"> </span></span>
                           </div>
                           <div class="skills-item-meter">
                             <span class="skills-item-meter-active bg-purple"
-                              style="width: 46%"></span>
+                               ></span>
                           </div>
                         </div>
             
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Blue Progress</span> <span
+                            <span class="skills-item-title"> </span> <span
                               class="skills-item-count"><span
                               class="count-animate" data-speed="1000"
                               data-refresh-interval="50" data-to="79" data-from="0"></span><span
-                              class="units">79%</span></span>
+                              class="units"> </span></span>
                           </div>
                           <div class="skills-item-meter">
                             <span class="skills-item-meter-active bg-blue"
-                              style="width: 79%"></span>
+                               ></span>
                           </div>
                         </div>
             
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Aqua Progress</span> <span
+                            <span class="skills-item-title"></span> <span
                               class="skills-item-count"><span
                               class="count-animate" data-speed="1000"
                               data-refresh-interval="50" data-to="34" data-from="0"></span><span
-                              class="units">34%</span></span>
+                              class="units"></span></span>
                           </div>
                           <div class="skills-item-meter">
                             <span class="skills-item-meter-active bg-breez"
-                              style="width: 34%"></span>
+                              ></span>
                           </div>
                         </div>
             
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Yellow Progress</span> <span
+                            <span class="skills-item-title"></span> <span
                               class="skills-item-count"><span
                               class="count-animate" data-speed="1000"
                               data-refresh-interval="50" data-to="95" data-from="0"></span><span
-                              class="units">95%</span></span>
+                              class="units"></span></span>
                           </div>
                           <div class="skills-item-meter">
                             <span class="skills-item-meter-active bg-yellow"
-                              style="width: 95%"></span>
+                              ></span>
                           </div>
                         </div>
                       </div>
@@ -421,7 +389,7 @@
                   </div>
                   <%-- falling-rate 끝 --%>
                   <%-- foreigner 탭 시작 --%>
-                  <div class="tab-pane" id="foreigner" role="tabpanel" aria-expanded="true">
+                  <div class="tab-pane active"  id="foreigner" role="tabpanel" aria-expanded="true">
                     <div class="ui-block">
                     
                       <div class="ui-block-title">
@@ -435,14 +403,14 @@
                         <div class="col-xl-4 order-xl-1 col-lg-4 order-lg-1 col-md-4 order-md-1 col-sm-12 col-xs-12">
                           <div class="ui-block-content">
                             <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.68" data-startcolor="#38a9ff" data-endcolor="#317cb6">
+                              <div class="pie-chart" data-startcolor="#38a9ff" data-endcolor="#317cb6">
                                 <div class="content"> <span>%</span> </div>
                               </div>
                             </div>
                 
                             <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>68% of friends that visit your profile comment on your posts.</p>
+                              <h6>..</h6>
+                              <p>..</p>
                             </div>
                           </div>
                         </div>
