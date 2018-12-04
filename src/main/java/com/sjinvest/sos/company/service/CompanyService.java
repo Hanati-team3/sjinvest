@@ -17,4 +17,6 @@ public interface CompanyService {
 	public List<Company> readByFieldNumber(int fieldNumber);
 	// 회사 검색
 	public List<Company> search(String keyword);
+	// 자동완성 기능 - 회사 검색
+	public List<String> findCompany(String term);
 }

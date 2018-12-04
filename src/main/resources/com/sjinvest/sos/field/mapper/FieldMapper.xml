@@ -29,4 +29,9 @@
        field_detail 
 	   FROM   field
 	</select>
+	<select id="findField" resultType="String">
+	   SELECT CONCAT('@', field_name) field_name
+	   FROM   field
+	   WHERE  field_name like '%' || #{value} || '%' and ROWNUM <![CDATA[<=]]> 10
+	</select>
 </mapper>

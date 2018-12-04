@@ -257,7 +257,7 @@
 	<select id="findUser" parameterType="String" resultType="String">
 		SELECT user_nickname
 		FROM   users 
-		WHERE  user_nickname like '%' || #{value} || '%'
+		WHERE  user_nickname like '%' || #{value} || '%' and ROWNUM <![CDATA[<=]]> 10
 		ORDER  BY user_nickname
 	</select>
 </mapper>

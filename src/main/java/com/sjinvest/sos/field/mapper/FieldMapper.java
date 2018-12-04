@@ -8,4 +8,5 @@ public interface FieldMapper {
 	public Field readByNumber(int fieldNumber);	
 	public Field readByName(String fieldName);	
 	public List<Field> list();	
+	public List<String> findField(String term);
 }
