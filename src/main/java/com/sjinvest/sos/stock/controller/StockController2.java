@@ -177,7 +177,7 @@ public class StockController2 {
 		// 업종별 거래량 or 전일대비
 		//map.put("fieldAmount", service.stockFieldStock(fieldOption));
 		map.put("fieldStock", service.stockFieldAmount());
-		// 코스피 정보 카드(원래는 옵션 보내야함)
+		// 코스피 정보 카드(원래는 옵션 보내야함)x
 		//map.put("kospi",  kospiMethod(kospiOption));
 		map.put("kospi", kospiMethod());
 		// top 보여주는 탭 정보
