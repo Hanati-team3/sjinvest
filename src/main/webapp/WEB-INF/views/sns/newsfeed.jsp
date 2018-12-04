@@ -36,6 +36,7 @@
       <!-- Main Content -->
 
       <main class="col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12">
+      
       <%-- 검색 시작 --%>
       <div class="ui-block">
         <form class="w-search" style="width: 100%;">
@@ -49,82 +50,12 @@
           </div>
         </form>
       </div>      
-
-      
-      <!-- <div class="ui-block responsive-flex">
-        <div class="ui-block-title">
-          <div class="w-select">
-            <fieldset class="form-group">
-              <select class="selectpicker form-control" size="auto">
-                <option value="DA">전체</option>
-                <option value="NU">팔로워</option>
-                <option value="NU">내글만</option>
-              </select>
-            </fieldset>
-          </div>
-
-          <form class="w-search">
-            <div class="form-group with-button">
-              <input class="form-control" type="text" placeholder="캐시/태그/업종/다른유저">
-              <button>
-                <svg class="olymp-magnifying-glass-icon">
-                <use xlink:href="../resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
-              </button>
-            </div>
-          </form>
-
-        </div>
-      </div> -->
-      
-      
       <%-- 검색 끝 --%> 
       
       
-      <%-- 글 작성 시작 --%>
-      <div class="ui-block">
-        <div class="news-feed-form">
-
-          <!-- Tab panes -->
-          <div class="tab-content">
-            <div class="tab-pane active" id="home-1" role="tabpanel"
-              aria-expanded="true">
-              <form>
-                <div class="author-thumb">
-                  <img
-                    src="<%=application.getContextPath()%>/resources/img/author-page.jpg" alt="author">
-                </div>
-                <div
-                  class="form-group with-icon label-floating is-empty">
-                  <textarea class="form-control" placeholder="주식정보를 공유하여 주세요..!"></textarea>
-                </div>
-                <div class="add-options-message">
-                  
-                  <a href="#" class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="ADD PHOTOS"> 
-                    <svg class="olymp-camera-icon" data-toggle="modal" data-target="#update-header-photo">
-                    <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-camera-icon"></use></svg>
-                  </a> 
-                  
-                  <a href="#" class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="TAG YOUR FRIENDS"> 
-                    <svg class="olymp-computer-icon">
-                    <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-computer-icon"></use></svg>
-                  </a> 
-                  
-                  <a href="#" class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="ADD LOCATION"> 
-                     <svg class="olymp-small-pin-icon">
-                     <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-small-pin-icon"></use></svg>
-                  </a>
-
-                  <button class="btn btn-primary btn-md-2">글올리기</button>
-
-                </div>
-
-              </form>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <%-- 글 작성 끝 --%> 
+      <%-- 글 작성 start --%>
+      <jsp:include page="feedWrite.jsp"></jsp:include>      
+      <%-- 글 작성 end --%> 
       
       
       <%-- feed list start --%>
@@ -244,8 +175,8 @@ function loginCheck() {
   var userId = $('#loginId').val();
   var userPw = $('#loginPw').val();
 
-  console.log("aaa"+userId);
-  console.log("bbb"+userPw);
+  console.log("받아온userId: "+userId);
+  console.log("받아온userPw: "+userPw);
   
   $.ajax({
     url : '/sos/user/login',
@@ -255,17 +186,14 @@ function loginCheck() {
       "userPw" : userPw
     },
     success : function(data) {
+      // 로그인 실패
       if (data.message == "loginFail") {
         $('#checkMsg').html(
             "<p style='COLOR: red'>다시 로그인해주세요.</p>");
-      } else{
-    	
-    	/* 쿠키 */
-    	var userId = data.userId;
-    	
-    	alert(userId);
-    	
-        location.href="/sos/sns/newsfeed";        
+      } 
+      // 로그인 성공
+      else{
+    	console.log(data.userId);
       }
     },
     error : function() {
@@ -293,14 +221,6 @@ $.ajax({
 	    success : function(data) {
 	      if (data.feedList != null) {
 	           console.log(data.feedList);
-	           console.log(data.feedList[0].feedSeq);
-	           console.log(data.feedList[1].feedSeq);
-	           console.log(data.feedList[2].feedSeq);
-	           
-	           
-	           $(".h6 post__author-name fn").text(data.feedList[0].UserSeq);
-	           
-	           
 	      }
 	    },
 	    error : function() {
@@ -311,6 +231,8 @@ $.ajax({
 
 
 }
+
+
 </script>
   
   

@@ -28,10 +28,13 @@ public class FeedController {
 
 	private FeedService service;
 	
-	@PostMapping("/write")
+	@PostMapping(value = "/write")
 	public String write(Feed feed, RedirectAttributes rttr) {
-		rttr.addAttribute("result", service.write(feed));
-		return "sns/newsfeed";
+		
+		service.write(feed);
+		System.out.println("아직 유저때문에 !!! "+service.write(feed));
+		
+		return "redirect:/sns/newsfeed";
 	}
 	
 	@ResponseBody
@@ -43,15 +46,13 @@ public class FeedController {
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
 	
-	@ResponseBody
-	@GetMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> delete(@ModelAttribute("feedSeq") int feedSeq) {
-		Map<String, Object> returnData = new HashMap<String, Object>();
+	@GetMapping(value = "/delete")
+	public String delete(int feedSeq, RedirectAttributes rttr) {
 		
-		System.out.println("삭제들어오냐?");
-		returnData.put("feedDelete", service.deleteFeed(feedSeq));
-		return new ResponseEntity<>(returnData,HttpStatus.OK);
+		service.deleteFeed(feedSeq);
+		System.out.println("아직 유저때문에 !!! "+service.deleteFeed(feedSeq));
+		
+		return "redirect:/sns/newsfeed";
 	}
-	
 	
 }
