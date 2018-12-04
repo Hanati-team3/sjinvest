@@ -5,7 +5,7 @@
 	</div>
 
 	<ol class="widget w-playlist">
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar67-sm.jpg" class="avatar">
@@ -20,53 +20,53 @@
 
 			</li>
       
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar62-sm.jpg" class="avatar">
 				</div>
 
 				<div class="author-status">
-					<a href="#" class="h6 author-name">Mathilda Brinker</a>
+					<a href="#" class="h6 author-name" data-toggle="modal" data-target="#user_modal">Mathilda Brinker</a>
                     <div style="color:red">+20.12%</div>
 				</div>
 
 			</li>
 
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar68-sm.jpg" class="avatar">
 				</div>
 
 				<div class="author-status">
-					<a href="#" class="h6 author-name">Carol Summers</a>
+					<a href="#" class="h6 author-name" data-toggle="modal" data-target="#user_modal">Carol Summers</a>
                     <div style="color:red;">+18.34%</div>
 				</div>
 
 			</li>
 
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar69-sm.jpg" class="avatar">
 				</div>
 
 				<div class="author-status">
-					<a href="#" class="h6 author-name">Michael Maximoff</a>
+					<a href="#" class="h6 author-name" data-toggle="modal" data-target="#user_modal">Michael Maximoff</a>
                     <div style="color:red;">+13.11%</div>
 				</div>
 
 			</li>
 
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar70-sm.jpg" class="avatar">
 				</div>
 
 				<div class="author-status">
-					<a href="#" class="h6 author-name">Rachel Howlett</a>
+					<a href="#" class="h6 author-name" data-toggle="modal" data-target="#user_modal">Rachel Howlett</a>
                     <div style="color:red;">+8.12%</div>
 				</div>
 

@@ -2,29 +2,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-          <!-- Nav tabs -->
+          <!-- Nav tabs start -->
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
               <a class="nav-link active inline-items" data-toggle="tab" href="#home-1" role="tab" aria-expanded="true">
 
-                <span>전체</span>
+                <span>All</span>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link inline-items" data-toggle="tab" href="#profile-1" role="tab" aria-expanded="false">
 
-                <span>팔로워</span>
+                <span>Follower</span>
               </a>
             </li>
 
             <li class="nav-item">
               <a class="nav-link inline-items" data-toggle="tab" href="#blog" role="tab" aria-expanded="false">
 
-                <span>내글만</span>
+                <span>My</span>
               </a>
             </li>
           </ul>
-
+          <!-- ...Nav tabs end -->      
 
 <%-- 피드 목록 시작--%>
 
