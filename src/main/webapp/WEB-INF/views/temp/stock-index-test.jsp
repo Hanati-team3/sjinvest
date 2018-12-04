@@ -130,11 +130,11 @@
               <div class="ui-block-content">
                 <div class="swiper-container" data-slide="fade">
                   <div class="swiper-wrapper">
-                    <div class="swiper-slide">
+                     <div class="swiper-slide">
                       <div class="statistics-slide">
-                        <div class="company-name" data-swiper-parallax="-500">aa${interestCard.stockList[0].stockName}</div>
-                        <div class="company-stock" data-swiper-parallax="-500">${interestCard.stockList[0].stockPrice}</div>
-                        <span class="indicator"> 전일대비 ${interestCard.stockList[0].stockChange} ${interestCard.stockList[0].stockDiff}%</span>
+                        <div class="company-name" data-swiper-parallax="-500">가짜회사</div>
+                        <div class="company-stock" data-swiper-parallax="-500">50000</div>
+                        <span class="indicator"> 전일대비 5000 5%</span>
     					<div class="chart-js chart-js-line-stacked">
     						<canvas id="line-stacked-chart" width="730" height="300"></canvas>
     					</div>
@@ -689,11 +689,11 @@
   <jsp:include page="../popup/popup-chat.jsp"></jsp:include>
   <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
 
+  
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
   <!-- End Include js -->
-  
   <%-- stock-index js --%>
-  <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index.js"></script>
+  <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index2.js"></script>
 </body>
 </html>
