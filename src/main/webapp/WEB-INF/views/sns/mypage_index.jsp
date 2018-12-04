@@ -59,16 +59,16 @@
  * mypage 페이지 이동없이 전환 각 function
  */
 function information(){
-
+	console.log("${user.userId}");
 	$.ajax({
 	
 		url : '/sos/user/information',
 		type : 'post',
 		data : {
-			"userId" : "tester01"
+			"userId" : "${user.userId}"
 		},
 		success: function(data){
-			
+
 			console.log(data.user);
 		},
 	    error : function() {
@@ -83,13 +83,13 @@ function information(){
 }
 
 function follow(){
-	
+	console.log("${user.userSeq}");
 	$.ajax({
 		
 		url : '/sos/follow/followList',
 		type : 'get',
 		data : {
-			"userSeq" : 2
+			"userSeq" : "${user.userSeq}"
 		},
 		success: function(data){
 			
@@ -107,13 +107,13 @@ function follow(){
 }
 
 function follower(){
-	
+	console.log("${user.userSeq}");
 	$.ajax({
 		
 		url : '/sos/follow/followerList',
 		type : 'get',
 		data : {
-			"userSeq" : 2
+			"userSeq" : "${user.userSeq}"
 		},
 		success: function(data){
 			
@@ -131,13 +131,13 @@ function follower(){
 }
 
 function point(){
-	
+	console.log("${user.userSeq}");
 	$.ajax({
 		
 		url : '/sos/point/list',
 		type : 'get',
 		data : {
-			"userSeq" : 2
+			"userSeq" : "${user.userSeq}"
 		},
 		success: function(data){
 			
@@ -155,13 +155,13 @@ function point(){
 }
 
 function setting_sns(){
-	
+	console.log("${user.userSeq}");	
 	$.ajax({
 		
 		url : '/sos/setting/read',
 		type : 'get',
 		data : {
-			"userSeq" : 2
+			"userSeq" : "${user.userSeq}"
 		},
 		success: function(data){
 			

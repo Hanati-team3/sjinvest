@@ -55,14 +55,6 @@ public class HomeController {
 		return "profile";
 	}
 	
-//	@RequestMapping(value = "/sns/newsfeed", method = RequestMethod.GET)
-//	public String newsfeed(Model model) {
-//		logger.info("newsfeed.");
-//		System.out.println("여기는 홈컨트롤러입니다.");
-//		//model.addAttribute("feedList", service.listAll());
-//		return "/sns/newsfeed";
-//	}
-	
 	@RequestMapping(value = "/widgets", method = RequestMethod.GET)
 	public String widgets() {
 		logger.info("widgets.");
@@ -75,41 +67,6 @@ public class HomeController {
 		logger.info("tempnews.");
 		
 		return "temp/origin-newsfeed";
-	}
-
-	@RequestMapping(value = "/popup/login2", method = RequestMethod.GET)
-	public String login2() {
-		logger.info("login2.");
-		
-		return "/popup/login2";
-	}
-	
-	@RequestMapping(value = "/sns/naverLogin", method = RequestMethod.GET)
-	public String naverLogin() {
-		logger.info("naverLogin.");
-		
-		return "/sns/naverLogin";
-	}
-	
-	@RequestMapping(value = "/sns/naverLoginCallback", method = RequestMethod.GET)
-	public String naverLoginCallback() {
-		logger.info("naverLoginCallback.");
-		
-		return "/sns/naverLoginCallback";
-	}
-	
-	@RequestMapping(value = "/sns/signup3", method = RequestMethod.GET)
-	public String signup3() {
-		logger.info("signup3.");
-		
-		return "/sns/signup3";
-	}
-	
-	@RequestMapping(value = "/sns/mypage_index", method = RequestMethod.GET)
-	public String mypage_index() {
-		logger.info("mypage_index.");
-		
-		return "/sns/mypage_index";
 	}
 	
 	@RequestMapping(value = "/sns/mypage_information", method = RequestMethod.GET)

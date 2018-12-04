@@ -120,10 +120,11 @@ $(document).ready( function() {
 
 	getFeedList();	
 	
-   $('#myform').submit(function (e) {
+    $('#loginForm').submit(function (e) {
     e.preventDefault();
     loginCheck();
-  })
+  	})
+  	
   	/* 페이지 이동처리 방지를 위하여 시작시 실행 */
 	$('#autocompleteText').autocomplete({
         source : function(request, response) {
@@ -192,8 +193,10 @@ function loginCheck() {
             "<p style='COLOR: red'>다시 로그인해주세요.</p>");
       } 
       // 로그인 성공
-      else{
-    	console.log(data.userId);
+      else if(data.user != null){
+    	//console.log(data.user);
+    	//console.log("여기나와야하는데????");
+    	location.href="/sos/sns/newsfeed";
       }
     },
     error : function() {
@@ -227,8 +230,6 @@ $.ajax({
 	      alert("관리자에게 문의해주세요.");
 	    }
 	  });
-	  
-
 
 }
 
