@@ -76,13 +76,11 @@ public class UserController {
 	@PostMapping("/update")	
 	public String update(User user, RedirectAttributes rttr) {
 		
-	log.info("regist : "+ user);
+		log.info("regist : "+ user);
+		boolean result = service.updateUser(user);
+		System.out.println("정보수정결과: "+ result);
 		
-	boolean result = service.updateUser(user);
-
-	System.out.println("정보수정결과: "+ result);
-		
-	return "redirect:/sns/mypage_index";
+		return "redirect:/sns/mypage_index";
 	}
 	
 	@ResponseBody

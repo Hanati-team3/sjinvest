@@ -37,16 +37,7 @@ public class SettingController {
 
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
-	
-	/*@GetMapping("/update")
-		Company company = companyService.readByNumber(companyNumber);
-		List<News> news= service.getNewsList(company.getCompanyName()); 
-		model.addAttribute("company", company);
-		model.addAttribute("news", news);
-		return "stock/stock-company";
-	}*/
-	
-	
+
 	@GetMapping("/update")	
 	public String update(Setting setting, RedirectAttributes rttr) {
 		
