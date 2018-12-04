@@ -31,6 +31,8 @@ public interface StockService {
 	public List<Stock> getStockList(List<String> companyNumberList);
 	// 회사 번호 리스트로 회사 시계열 정보 리스트 받기
 	public List<TimeSeries> getTimeSeriesList(List<String> companyNumberList, String type);
+	// 회사 번호 리스트로 회사 시계열 정보 리스트 받기
+	public TimeSeries getTimeSeriesListByOne(List<String> companyNumberList, String type);
 	// 코스피 정보 받기
 	public Stock getStockKospiInfo();
 	// 코스피 시계열 받기

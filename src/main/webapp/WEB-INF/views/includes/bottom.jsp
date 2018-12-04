@@ -41,3 +41,6 @@
 
 <script src="<%=application.getContextPath()%>/resources/js/mediaelement-and-player.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/mediaelement-playlist-plugin.min.js"></script>
+
+<!-- my scripts -->
+<script src="<%=application.getContextPath()%>/resources/js/stock-common/stock-common.js"></script>

@@ -1,11 +1,17 @@
 package com.sjinvest.sos.feed.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sjinvest.sos.feed.domain.Feed;
@@ -22,19 +28,30 @@ public class FeedController {
 
 	private FeedService service;
 	
-	@PostMapping("/writting")
-	public String writing(Feed feed, RedirectAttributes rttr) {
+	@PostMapping("/write")
+	public String write(Feed feed, RedirectAttributes rttr) {
 		rttr.addAttribute("result", service.write(feed));
-		return "redirect:/sns/newsfeed";
+		return "sns/newsfeed";
 	}
 	
-	@GetMapping("/list")
-	public void list(Model model) {
+	@ResponseBody
+	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> list() {
+		Map<String, Object> returnData = new HashMap<String, Object>();
 		
-		log.info("list");
-		System.out.println("리스트임돠 "+ service.listAll());
-		
-		model.addAttribute("list", service.listAll());
-		
+		returnData.put("feedList", service.listAll());
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
+	
+	@ResponseBody
+	@GetMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> delete(@ModelAttribute("feedSeq") int feedSeq) {
+		Map<String, Object> returnData = new HashMap<String, Object>();
+		
+		System.out.println("삭제들어오냐?");
+		returnData.put("feedDelete", service.deleteFeed(feedSeq));
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
+	}
+	
+	
 }
