@@ -43,8 +43,7 @@ function getChangeOption(){
 	        success: function (data) {
         	    
 	        	config.data.datasets.splice(0, 1);
-	        	lineChartEl.update();
-	        	
+				removeLabelQuotes(data);
 	        	var data_lc = {
 	        	        labels: data.label,
 	        	        datasets: [
@@ -69,12 +68,6 @@ function getChangeOption(){
 	        	config.data = data_lc;
 	        	lineChartEl.update();
 	        	
-        	    var index = 0;
-				data.label.forEach(function(element){
-					data.label[index] = element.replace(/\"/gi,"");
-					index = index +1;
-				});
-
 	        }
 	})
 	});
