@@ -47,8 +47,7 @@ function indexUpdate() {
 			setInterestCard(stockData.interestCard);
 			setKospiCard(stockData.kospi);
 			setTopTab(stockData.topTap);
-
-//			setTimeout(indexUpdate, 2000);
+			//setTimeout(indexUpdate, 2000);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n" + "message:"
@@ -269,11 +268,11 @@ function setTopTab(topTab) {
 		break;
 	// 거래량 20
 	case 'trading-amount' :
-		console.log('5');
+		runOneBarChart(topTab, 'trading-amount-chart');
 		break;
 	// 시가총액 20
 	case 'total-value' :
-		console.log('6');
+		runOneBarChart(topTab, 'total-money-chart');
 		break;
 	}
 }
@@ -310,51 +309,53 @@ function runPiChart() {
 }
 
 /** Top20 차트 함수 */
-function runKospiChart(kospiTimeSeries) {
-	var lineChart = document.getElementById("kospi-line-chart");
-	removeLabelQuotes(kospiTimeSeries);
-	/*
-	 *  Yearly Line Graphic
-	 * 26-Statistics.html
-	 */
-	if (lineChart !== null) {
-	    var ctx_lc = lineChart.getContext("2d");
-	    var data_lc = {
-	        labels: kospiTimeSeries.label,
+function runOneBarChart(topTab, id) {
+	var nameList = [];
+	var dataList = [];
+	for(var i = 0; i < topTab.length; i++) {
+		nameList.push(topTab[i].companyName);
+		dataList.push(topTab[i].value);
+	}
+	var oneBarChart = document.getElementById(id);
+	if (oneBarChart !== null) {
+	    var ctx_ob = oneBarChart.getContext("2d");
+	    var data_ob = {
+	        labels: nameList,
 	        datasets: [
 	            {
-	                label: " - Comments",
-	                borderColor: "#ffdc1b",
-	                borderWidth: 4,
-	                pointBorderColor: "#ffdc1b",
-	                pointBackgroundColor: "#fff",
-	                pointBorderWidth: 4,
-	                pointRadius: 6,
-	                pointHoverRadius: 8,
-	                fill: false,
-	                lineTension:0,
-	                data: kospiTimeSeries.data.pop()
+	                backgroundColor: "#38a9ff",
+	                data: dataList
 	            }]
 	    };
 
-	    var lineChartEl = new Chart(ctx_lc, {
-	        type: 'line',
-	        data: data_lc,
+	    var oneBarEl = new Chart(ctx_ob, {
+	        type: 'bar',
+	        data: data_ob,
+
 	        options: {
+	            deferred: {           // enabled by default
+	                delay: 200        // delay of 500 ms after the canvas is considered inside the viewport
+	            },
+	            tooltips: {
+	                enabled:true
+	            },
 	            legend: {
 	                display: false
 	            },
 	            responsive: true,
 	            scales: {
 	                xAxes: [{
+	                    stacked: true,
+	                    barPercentage:0.6,
+	                    gridLines: {
+	                        display: false
+	                    },
 	                    ticks: {
 	                        fontColor: '#888da8'
-	                    },
-	                    gridLines: {
-	                        color: "#f0f4f9"
 	                    }
 	                }],
 	                yAxes: [{
+	                    stacked: true,
 	                    gridLines: {
 	                        color: "#f0f4f9"
 	                    },

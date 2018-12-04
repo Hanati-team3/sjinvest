@@ -93,6 +93,10 @@
   padding: 15px 25px;
 }
 
+.stock-index-news .notification-list li .news-title{
+    color: #515365;
+}
+
 .stock-index-tab .tab-content .ui-block {
   border : none;
 }
