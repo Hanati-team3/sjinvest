@@ -206,28 +206,28 @@
             <div class="ui-block">
               <div class="news-feed-form">
                 <!-- Nav tabs -->
-                <ul class="nav nav-tabs stock-index-ul" role="tablist">
+                <ul class="nav nav-tabs stock-index-ul" role="tablist" >
                   <li class="nav-item" ><a class="nav-link active inline-items" data-toggle="tab"
-                    href="#rising-rate" role="tab" aria-expanded="true"> <span id="nav-span-rising">상승률 상위</span>
+                    href="#rising-rate" role="tab" aria-expanded="true"> <span>상승률 상위</span>
                   </a></li>
                   <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
-                    href="#falling-rate" role="tab" aria-expanded="false"><span id="nav-span-falling">하락률 상위</span>
-                  </a></li>
-        
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
-                    href="#foreigner" role="tab" aria-expanded="false"><span id="nav-span-foreigner">외국인 순매수</span>
+                    href="#falling-rate" role="tab" aria-expanded="false"><span>하락률 상위</span>
                   </a></li>
         
                   <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
-                    href="#institution" role="tab" aria-expanded="false"><span id="nav-span-institution">기관 순매수</span>
+                    href="#foreigner" role="tab" aria-expanded="false"><span>외국인 순매수</span>
                   </a></li>
         
                   <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
-                    href="#trading-amount" role="tab" aria-expanded="false"><span id="nav-span-trading">거래량</span>
+                    href="#institution" role="tab" aria-expanded="false"><span>기관 순매수</span>
                   </a></li>
         
                   <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
-                    href="#total-value" role="tab" aria-expanded="false"><span id="nav-span-total">시가총액</span>
+                    href="#trading-amount" role="tab" aria-expanded="false"><span>거래량</span>
+                  </a></li>
+        
+                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
+                    href="#total-value" role="tab" aria-expanded="false"><span>시가총액</span>
                   </a></li>
                 </ul>
         
@@ -244,68 +244,64 @@
                       <div class="ui-block-content">
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Orange Gradient Progress</span>
+                            <span class="skills-item-title"></span>
                             <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">62%</span></span>
+                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units"></span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-primary" style="width: 62%"></span>
+                            <span class="skills-item-meter-active bg-primary"></span>
                           </div>
                         </div>
             
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Violet Progress</span> <span
+                            <span class="skills-item-title"></span> <span
                               class="skills-item-count"><span
                               class="count-animate" data-speed="1000"
                               data-refresh-interval="50" data-to="46" data-from="0"></span><span
-                              class="units">46%</span></span>
+                              class="units"></span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-purple"
-                              style="width: 46%"></span>
+                            <span class="skills-item-meter-active bg-purple"></span>
                           </div>
                         </div>
             
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Blue Progress</span> <span
+                            <span class="skills-item-title"></span> <span
                               class="skills-item-count"><span
                               class="count-animate" data-speed="1000"
                               data-refresh-interval="50" data-to="79" data-from="0"></span><span
-                              class="units">79%</span></span>
+                              class="units"></span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-blue"
-                              style="width: 79%"></span>
+                            <span class="skills-item-meter-active bg-blue"></span>
                           </div>
                         </div>
             
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Aqua Progress</span> <span
+                            <span class="skills-item-title"></span> <span
                               class="skills-item-count"><span
                               class="count-animate" data-speed="1000"
                               data-refresh-interval="50" data-to="34" data-from="0"></span><span
-                              class="units">34%</span></span>
+                              class="units"></span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-breez"
-                              style="width: 34%"></span>
+                            <span class="skills-item-meter-active bg-breez"></span>
                           </div>
                         </div>
             
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title">Yellow Progress</span> <span
+                            <span class="skills-item-title"></span> <span
                               class="skills-item-count"><span
                               class="count-animate" data-speed="1000"
                               data-refresh-interval="50" data-to="95" data-from="0"></span><span
-                              class="units">95%</span></span>
+                              class="units"></span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-yellow"
-                              style="width: 95%"></span>
+                            <span class="skills-item-meter-active bg-yellow"></span>
                           </div>
                         </div>
                       </div>

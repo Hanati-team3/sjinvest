@@ -46,7 +46,7 @@ function indexUpdate() {
 			setFieldCard(stockData.fieldStock);
 			setInterestCard(stockData.interestCard);
 			setKospiCard(stockData.kospi);
-			setTopTab(stockData.toptab);
+			setTopTab(stockData.topTap);
 
 //			setTimeout(indexUpdate, 2000);
 		},
@@ -237,40 +237,40 @@ function runKospiChart(kospiTimeSeries) {
 
 /** 상위 종목 카드 설정 함수 */
 function setTopTab(topTab) {
-	var activeTab = $(".stock-top-tab .stock-index-ul").find('.active').find('span');
+	window.tabbbb=topTab;
+	console.log(topTab[0]);
+	var activeTab = $(".stock-top-tab .tab-content").find('.active');
+	console.log($(activeTab).attr('id'));
 	// 활성화된 탭 검사
 	switch($(activeTab).attr('id')) {
 	//상승률 상위 5
-	case 'nav-span-rising' :
-		console.log('1');
-		break;
+	case 'rising-rate' :
 	// 하락률 상위 5
-	case 'nav-span-falling' :
-		console.log('2');
+	case 'falling-rate' :
+		var itemList = $(activeTab).find('.skills-item');
+		for(var i = 0; i < topTab.length; i++) {
+			$(itemList[i]).find('.skills-item-title').text(topTab[i].companyName);
+			$(itemList[i]).find('.units').text(topTab[i].value.toFixed(2)+"%");
+			$(itemList[i]).find('.skills-item-meter-active').css("width",topTab[i].value.toFixed(2)+"%");
+		}
 		break;
 	// 외국인 순매수 3
-	case 'nav-span-foreigner' :
+	case 'foreigner' :
 		console.log('3');
 		break;
 	// 기관 순매수 5
-	case 'nav-span-institution' :
+	case 'institution' :
 		console.log('4');
 		break;
 	// 거래량 20
-	case 'nav-span-trading' :
+	case 'trading-amount' :
 		console.log('5');
 		break;
 	// 시가총액 20
-	case 'nav-span-total' :
+	case 'total-value' :
 		console.log('6');
 		break;
 	}
-//	$(tabList[0]).text(kospi.kospiStock.stockPrice.toLocaleString());
-//	$(tabList[1]).text(kospi.kospiStock.stockHigh.toLocaleString());
-//	$(tabList[2]).text(kospi.kospiStock.stockLow.toLocaleString());
-//	$(tabList[3]).text(kospi.kospiStock.stockChange.toLocaleString());
-//	$(tabList[4]).text(kospi.kospiStock.stockVolume.toLocaleString());
-//	$(tabList[4]).text(kospi.kospiStock.stockVolume.toLocaleString());
 }
 
 /** initSwiper 설정 함수 */
