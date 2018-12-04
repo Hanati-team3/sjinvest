@@ -9,7 +9,7 @@
 					<h6 class="title">SNS설정</h6>
 				</div>
 				<div class="ui-block-content">
-					<form>
+					<form action=/sos/setting/update>
 						<div class="row">
 
                             <!-- 
@@ -42,7 +42,7 @@
 
 									<div class="togglebutton">
 										<label>
-											<input type="checkbox" checked="">
+											<input type="checkbox" checked="" name="setFeedNotice">
                                             <span class="toggle"></span>
 										</label>
 									</div>
@@ -55,7 +55,7 @@
 
 									<div class="togglebutton">
 										<label>
-											<input type="checkbox" checked="">
+											<input type="checkbox" checked="" name="setTradeNotice">
                                             <span class="toggle"></span>
 										</label>
 									</div>
@@ -68,7 +68,7 @@
 
 									<div class="togglebutton">
 										<label>
-											<input type="checkbox" checked="">
+											<input type="checkbox" checked="" name="setPrivacy">
                                             <span class="toggle"></span>
 										</label>
 									</div>
@@ -81,7 +81,7 @@
 
 									<div class="togglebutton">
 										<label>
-											<input type="checkbox" >
+											<input type="checkbox" name="setView">
                                             <span class="toggle"></span>
 										</label>
 									</div>
@@ -89,10 +89,10 @@
 							</div>
 
 							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-								<button class="btn btn-secondary btn-lg full-width">되돌리기</button>
+								<button type="reset" class="btn btn-secondary btn-lg full-width">되돌리기</button>
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-								<button class="btn btn-primary btn-lg full-width">저장하기</button>
+								<button type="submit" class="btn btn-primary btn-lg full-width">저장하기</button>
 							</div>
 						</div>
 					</form>

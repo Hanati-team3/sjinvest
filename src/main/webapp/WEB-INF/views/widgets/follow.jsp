@@ -10,77 +10,67 @@
 		</div>
 
 		<ul class="chat-users">
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar67-sm.jpg" class="avatar">
-					<span class="icon-status online"></span>
 				</div>
 
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Carol Summers</a>
-					<span class="status">ONLINE</span>
 				</div>
 
 
 			</li>
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar62-sm.jpg" class="avatar">
-					<span class="icon-status online"></span>
 				</div>
 
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Mathilda Brinker</a>
-					<span class="status">AT WORK!</span>
 				</div>
 
 			</li>
 
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar68-sm.jpg" class="avatar">
-					<span class="icon-status online"></span>
 				</div>
 
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Carol Summers</a>
-					<span class="status">ONLINE</span>
 				</div>
 
 
 			</li>
 
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar69-sm.jpg" class="avatar">
-					<span class="icon-status away"></span>
 				</div>
 
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Michael Maximoff</a>
-					<span class="status">AWAY</span>
 				</div>
 
 
 			</li>
 
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar70-sm.jpg" class="avatar">
-					<span class="icon-status disconected"></span>
 				</div>
 
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Rachel Howlett</a>
-					<span class="status">OFFLINE</span>
 				</div>
 
 
@@ -92,69 +82,59 @@
 		</div>
 
 		<ul class="chat-users">
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar71-sm.jpg" class="avatar">
-					<span class="icon-status online"></span>
 				</div>
 
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Bruce Peterson</a>
-					<span class="status">ONLINE</span>
 				</div>
 
 
 			</li>
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar72-sm.jpg" class="avatar">
-					<span class="icon-status away"></span>
 				</div>
 
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Chris Greyson</a>
-					<span class="status">AWAY</span>
 				</div>
 
 			</li>
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar63-sm.jpg" class="avatar">
-					<span class="icon-status status-invisible"></span>
 				</div>
 
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Nicholas Grisom</a>
-					<span class="status">INVISIBLE</span>
 				</div>
         
 			</li>
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar72-sm.jpg" class="avatar">
-					<span class="icon-status away"></span>
 				</div>
 
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Chris Greyson</a>
-					<span class="status">AWAY</span>
 				</div>
 
 			</li>
-			<li class="inline-items js-chat-open">
+			<li class="inline-items">
 
 				<div class="author-thumb">
 					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar71-sm.jpg" class="avatar">
-					<span class="icon-status online"></span>
 				</div>
 
 				<div class="author-status">
 					<a href="#" class="h6 author-name">Bruce Peterson</a>
-					<span class="status">ONLINE</span>
 				</div>
 
 
@@ -164,3 +144,5 @@
 	</div>
 
  </div>
+ 
+ 

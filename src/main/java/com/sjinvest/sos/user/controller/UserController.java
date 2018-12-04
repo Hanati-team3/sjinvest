@@ -71,11 +71,32 @@ public class UserController {
 			return new ResponseEntity<>(returnData,HttpStatus.OK);
 		}
 		
-		
-		
-		
 	}
 	
+	@PostMapping("/update")	
+	public String update(User user, RedirectAttributes rttr) {
+		
+	log.info("regist : "+ user);
+		
+	boolean result = service.updateUser(user);
+
+	System.out.println("정보수정결과: "+ result);
+		
+	return "redirect:/sns/mypage_index";
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/information", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> userInformation(String userId) {
+		Map<String, Object> returnData = new HashMap<String, Object>();
+		System.out.println("유저들어오는지 확인: "+userId);
+		returnData.put("user", service.readById(userId));
+
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
+	}
+	
+	
+
 	/*
 	// model and view로 
 	@GetMapping("/company/{companyNumber}")

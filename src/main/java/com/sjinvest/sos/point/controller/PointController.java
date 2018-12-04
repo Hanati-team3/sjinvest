@@ -1,9 +1,15 @@
 package com.sjinvest.sos.point.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sjinvest.sos.point.domain.Point;
@@ -20,10 +26,13 @@ public class PointController {
 
 	private PointService service;
 	
-	@PostMapping("/create")
-	public String create(Point point, RedirectAttributes rttr) {
-		log.info("register : "+ point);
-		service.create(point);
-		return "redirect:/point/list";
+	@ResponseBody
+	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> pointList(int userSeq) {
+		Map<String, Object> returnData = new HashMap<String, Object>();
+		System.out.println("포인트 유저번호: "+userSeq);
+		returnData.put("pointList", service.listByUser(userSeq));
+
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
 }

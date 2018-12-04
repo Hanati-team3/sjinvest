@@ -24,7 +24,7 @@
                   <div class="birthday-date">February 4th, 1992</div>
                 </div>
                 <a href="20-CalendarAndEvents-MonthlyCalendar.html"
-                  class="btn btn-sm bg-blue">보기</a>
+                  class="btn btn-sm bg-blue" data-toggle="modal" data-target="#user_modal">보기</a>
               </div>
             </div>
           </div>
@@ -41,7 +41,7 @@
                   <div class="birthday-date">February 7th, 1988</div>
                 </div>
                 <a href="20-CalendarAndEvents-MonthlyCalendar.html"
-                  class="btn btn-sm bg-blue">보기</a>
+                  class="btn btn-sm bg-blue" data-toggle="modal" data-target="#user_modal">보기</a>
               </div>
             </div>
           </div>
@@ -58,7 +58,7 @@
                   <div class="birthday-date">February 12th, 1980</div>
                 </div>
                 <a href="20-CalendarAndEvents-MonthlyCalendar.html"
-                  class="btn btn-sm bg-blue">보기</a>
+                  class="btn btn-sm bg-blue" data-toggle="modal" data-target="#user_modal">보기</a>
               </div>
             </div>
           </div>
@@ -75,7 +75,7 @@
                   <div class="birthday-date">February 18th, 1986</div>
                 </div>
                 <a href="20-CalendarAndEvents-MonthlyCalendar.html"
-                  class="btn btn-sm bg-blue">보기</a>
+                  class="btn btn-sm bg-blue" data-toggle="modal" data-target="#user_modal">보기</a>
               </div>
             </div>
           </div>
@@ -87,3 +87,7 @@
 
 <!-- follow2 항목 end -->
 
+
+  <!-- user modal start-->
+  <jsp:include page="../popup/user_profile.jsp"></jsp:include>
+  <!-- ... end user modal -->

@@ -28,6 +28,7 @@
 <div class="container">
   <div class="row" id="rowChange">
   
+
  
   <!-- 
   
@@ -44,79 +45,145 @@
     <jsp:include page="../includes/mypage_leftside.jsp"></jsp:include>
     <!-- mypage leftside end -->
     
-    
   </div>
 </div>
 
-
-  <!-- Include js -->
+  <!-- start bottom js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
-  <!-- End Include js -->
+  <!-- end bottom js -->
 
     
 <script type="text/javascript">
 
 /**
- * mypage 페이지 이동없이 전환 by jQuery
+ * mypage 페이지 이동없이 전환 각 function
  */
+function information(){
 
-$(document).ready(function(){
+	$.ajax({
 	
-  $('#follow').on('click', function(e) {
-    e.stopPropagation();
-    e.currentTarget.onclick = function() {
-      $('#new_tag').remove();
-      var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_follow");
-      $("#rowChange").append(review);
-    };
-  })
+		url : '/sos/user/information',
+		type : 'post',
+		data : {
+			"userId" : "tester01"
+		},
+		success: function(data){
+			
+			console.log(data.user);
+		},
+	    error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+	
+	$('#new_tag').remove();
+	var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_information");
+    $("#rowChange").append(review);
+}
 
-  $('#follower').on('click', function(e) {
-    e.stopPropagation();
-    e.currentTarget.onclick = function() {
-      $('#new_tag').remove();
-      var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_follow2");
-      $("#rowChange").append(review);
-    };
-  })
-  
-  $('#point').on('click', function(e) {
-    e.stopPropagation();
-    e.currentTarget.onclick = function() {
-      $('#new_tag').remove();
-      var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_point");
-      $("#rowChange").append(review);
-    };
-  })
-  
-  $('#setting_sns').on('click', function(e) {
-    e.stopPropagation();
-    e.currentTarget.onclick = function() {
-      $('#new_tag').remove();
-      var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_sns");
-      $("#rowChange").append(review);
-    };
-  })
-  
-  $('#setting_stock').on('click', function(e) {
-    e.stopPropagation();
-    e.currentTarget.onclick = function() {
-      $('#new_tag').remove();
-      var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_stock");
-      $("#rowChange").append(review);
-    };
-  })
+function follow(){
+	
+	$.ajax({
+		
+		url : '/sos/follow/followList',
+		type : 'get',
+		data : {
+			"userSeq" : 2
+		},
+		success: function(data){
+			
+			console.log(data.followList);
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+	
+	$('#new_tag').remove();
+    var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_follow");
+    $("#rowChange").append(review);
+}
 
-  $('#information').on('click', function(e) {
-    e.currentTarget.onclick = function() {
-      /* console.log('fff'); */
-      $('#new_tag').remove();
-      var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_information");
-      $("#rowChange").append(review);
-    };
-  })
-});
+function follower(){
+	
+	$.ajax({
+		
+		url : '/sos/follow/followerList',
+		type : 'get',
+		data : {
+			"userSeq" : 2
+		},
+		success: function(data){
+			
+			console.log(data.followerList);
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+	
+	$('#new_tag').remove();
+    var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_follow2");
+    $("#rowChange").append(review);
+}
 
+function point(){
+	
+	$.ajax({
+		
+		url : '/sos/point/list',
+		type : 'get',
+		data : {
+			"userSeq" : 2
+		},
+		success: function(data){
+			
+			console.log(data.pointList);
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+	
+	$('#new_tag').remove();
+    var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_point");
+    $("#rowChange").append(review);
+}
+
+function setting_sns(){
+	
+	$.ajax({
+		
+		url : '/sos/setting/read',
+		type : 'get',
+		data : {
+			"userSeq" : 2
+		},
+		success: function(data){
+			
+			console.log(data.snsSetting);
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+	
+	$('#new_tag').remove();
+    var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_sns");
+    $("#rowChange").append(review);
+}
+
+function setting_stock(){
+	
+    $('#new_tag').remove();
+    var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_stock");
+    $("#rowChange").append(review);
+}
 
 </script>
 

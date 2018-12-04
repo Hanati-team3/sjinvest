@@ -19,7 +19,7 @@
               <span class="chat-message-item">Mutual Friend: Sarah Hetfield</span>
             </div>
             <span class="notification-icon">
-              <a href="#" class="accept-request">
+              <a href="/sos/follow/delete" class="accept-request">
                 <span class="icon-minus">
                   <svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
                 </span>

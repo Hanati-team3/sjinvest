@@ -9,7 +9,7 @@
           <font size=1 style="text-align:right">필수항목(*)</font>
         </div> 
         <div class="ui-block-content">
-          <form>
+          <form action=/sos/user/update method="post">
             <div class="row">
 
               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
