@@ -248,7 +248,7 @@ function setTopTab(topTab) {
 	// 하락률 상위 5
 	case 'falling-rate' :
 		var itemList = $(activeTab).find('.skills-item');
-		for(var i = 0; i < topTab.length; i++) {
+		for(var i = 0; i < 5; i++) {
 			$(itemList[i]).find('.skills-item-title').text(topTab[i].companyName);
 			$(itemList[i]).find('.units').text(topTab[i].value.toFixed(2)+"%");
 			$(itemList[i]).find('.skills-item-meter-active').css("width",topTab[i].value.toFixed(2)+"%");
@@ -256,11 +256,16 @@ function setTopTab(topTab) {
 		break;
 	// 외국인 순매수 3
 	case 'foreigner' :
-		console.log('3');
-		break;
-	// 기관 순매수 5
+	// 기관 순매수 3
 	case 'institution' :
-		console.log('4');
+		var itemList = $(activeTab).find('.ui-block-content');
+		for(var i = 0; i < 3; i++) {
+			var figure = topTab[i].value / 100;
+			$(itemList[i]).find('.pie-chart').attr('data-value', figure);
+			$(itemList[i]).find('h6').text(topTab[i].companyName);
+			$(itemList[i]).find('p').text(topTab[i].value.toFixed(2)+"%");
+		}
+		runPiChart();
 		break;
 	// 거래량 20
 	case 'trading-amount' :
@@ -271,6 +276,37 @@ function setTopTab(topTab) {
 		console.log('6');
 		break;
 	}
+}
+
+/** 순매수 차트*/
+function runPiChart() {
+    var $pie_chart = $('.pie-chart');
+    $pie_chart.appear({ force_process: true });
+    $pie_chart.on('appear', function () {
+        var current_cart = $(this);
+        if (!current_cart.data('inited')) {
+            var startColor = current_cart.data('startcolor');
+            var endColor = current_cart.data('endcolor');
+            var counter = current_cart.data('value') * 100;
+
+            current_cart.circleProgress({
+                thickness: 16,
+                size: 360,
+                startAngle: -Math.PI / 4 * 2,
+                emptyFill: '#ebecf1',
+                lineCap: 'round',
+                fill: {
+                    gradient: [endColor, startColor],
+                    gradientAngle: Math.PI / 4
+                }
+            }).on('circle-animation-progress', function (event, progress) {
+                current_cart.find('.content').html(parseInt(counter * progress, 10) + '<span>%</span>'
+                )
+
+            });
+            current_cart.data('inited', true);
+        }
+    });
 }
 
 /** initSwiper 설정 함수 */
