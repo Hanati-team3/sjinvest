@@ -583,7 +583,7 @@
                   </div>
                   <div class="notification-event">
                     <a href=# class="h6 notification-friend">${item.source}</a>
-                    <a href="${item.link}" class="news-title" >${item.title}</a>
+                    <a href="http://${item.link}" class="news-title" >${item.title}</a>
                   </div>
                   <span class="notification-icon">
                     <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
