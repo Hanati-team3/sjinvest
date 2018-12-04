@@ -11,4 +11,6 @@ public interface FieldService {
 	public Field readByName(String fieldName);
 	// 업종 전체 리스트 가져오기
 	public List<Field> list();
+	// 업종 검색 (자동완성을 위한)
+	public List<String> findField(String term);
 }

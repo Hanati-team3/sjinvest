@@ -83,4 +83,10 @@
 		FROM   company 
 		WHERE  company_name like '%' ||  #{value} || '%'
 	</select>
+	<!-- 자동완성기능 위한 회사 검색 -->
+	<select id="findCompany" parameterType="String" resultType="String">
+		SELECT CONCAT('$', company_name) company_name	       
+		FROM   company 
+		WHERE  company_name like '%' ||  #{value} || '%' and ROWNUM <![CDATA[<=]]> 10
+	</select>
 </mapper>

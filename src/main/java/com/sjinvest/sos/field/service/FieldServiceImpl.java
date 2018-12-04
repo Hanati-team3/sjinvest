@@ -33,6 +33,9 @@ public class FieldServiceImpl implements FieldService {
 	public List<Field> list() {
 		return mapper.list();
 	}
-
+	@Override
+	public List<String> findField(String term){
+		return mapper.findField(term);
+	}
 
 }

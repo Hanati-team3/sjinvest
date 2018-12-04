@@ -41,7 +41,7 @@
         <form class="w-search" style="width: 100%;">
           <div class="form-group with-button is-empty">
             <input id="autocompleteText" class="form-control" type="text" placeholder="캐시/태그/업종/다른유저">
-            <button style="background-color: #3f4257;">
+            <button id="searchYours" style="background-color: #3f4257;">
               <svg class="olymp-magnifying-glass-icon">
                 <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
             </button>
@@ -185,10 +185,6 @@
 <!-- ################################# 비동기통신을 위한 AJax 처리 #################################### -->  
 
 <script type="text/javascript">
-
-/**  
- * 페이지 이동처리 방지를 위하여 시작시 실행
- */
 $(document).ready( function() {
 
 	getFeedList();	
@@ -197,30 +193,47 @@ $(document).ready( function() {
     e.preventDefault();
     loginCheck();
   })
-  $(document).ready(function(){
-		$('#autocompleteText').autocomplete({
-	        source : function(request, response) {
-	            $.ajax({
-	                type : 'get',
-	                url : "<%=application.getContextPath()%>/sns/search",
-	                data : {
-	                    term : request.term
-	                },
-	                dataType: "json",
-	                success : function(data) {
-	                	response(
-                            $.map(data, function(item) {
-                                return {
-                                    label: item,
-                                   	value: item
-                                }
-                            })
-                        );
-	                }
-	            });
-	        }
-	    });
-	})
+  	/* 페이지 이동처리 방지를 위하여 시작시 실행 */
+	$('#autocompleteText').autocomplete({
+        source : function(request, response) {
+            $.ajax({
+                type : 'get',
+                url : "<%=application.getContextPath()%>/sns/searchAuto",
+                data : {
+                    term : request.term
+                },
+                dataType: "json",
+                success : function(data) {
+                	response(
+                           $.map(data, function(item) {
+                               return {
+                                   label: item,
+                                   value: item
+                               }
+                           })
+                       );
+                }
+            });
+        }
+    });
+  /* Feed 검색 */
+  $(function(){
+	  $('#searchYours').on('click', function () {
+		  	console.log('너의 값: '+$("#autocompleteText").val())
+	        $.ajax({
+	        	type : 'post',
+	            url: '<%=application.getContextPath()%>/sns/searchAuto',
+	            data: {
+	                text: $("#autocompleteText").val()
+	            },
+	            dataType : 'json',
+	            success : function(data) {
+                	console.log(data);
+                }
+	        });
+		});
+  });
+	
 });
 
 /** 
