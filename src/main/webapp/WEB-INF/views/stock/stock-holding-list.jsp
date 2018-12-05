@@ -258,7 +258,6 @@
 		var holdingList = "${holdingWidget.holdingList}";
 		var cashTotal = "${holdingWidget.cashTotal}";
 		console.log(holdingList);
-		console.log(cashTotal);
 		holdingListUpdate(holdingList);
 	});
 
@@ -296,6 +295,7 @@
 				window.stock = stockData;
 				setRateCard(stockData);
 				setHoldingTable(stockData.holdingList);
+				setChartCard(stockData.holdingList);
 				//setTimeout(indexUpdate, 2000);
 			},
 			error : function(request, status, error) {
@@ -322,17 +322,37 @@
 	/** 홀딩 테이블 세팅 */
 	function setHoldingTable(holdingList) {
 		$("table tr").each(function(index, item){
-			if(index == holdingList.length) {
+			console.log("length" + holdingList.length);
+			if(index < holdingList.length) {
 				//원래는  return 하지 말고 밑에있는 행 지워야함. ㄱㅊ
-				return;
+    			console.log("each" + holdingList[index]);
+    			$(item).find(".company-number a").text(holdingList[index].companyNumber);
+    			$(item).find(".company-name a").text(holdingList[index].companyName);
+    			$(item).find(".stock-price a").text(holdingList[index].stockPrice);
+    			$(item).find(".holding-amount a").text(holdingList[index].holdingAmount);
+    			$(item).find(".holding-total-money a").text(holdingList[index].holdingTotalMoney );
+    			$(item).find(".profit-rate a").text(holdingList[index].holdingRateOfReturn.toFixed(2));
 			}
-			console.log("each" + holdingList[index]);
-			$(item).find(".company-number a").text(holdingList[index].companyNumber);
-			$(item).find(".company-name a").text(holdingList[index].companyName);
-			$(item).find(".stock-price a").text(holdingList[index].stockPrice);
-			$(item).find(".holding-amount a").text(holdingList[index].holdingAmount);
-			$(item).find(".holding-total-money a").text(holdingList[index].holdingTotalMoney );
-			$(item).find(".profit-rate a").text(holdingList[index].holdingRateOfReturn.toFixed(2));
+			else {
+				//지우기
+			}
+		});
+	}
+	
+	/** 차트 세팅 */
+	function setChartCard(holdingList) {
+		// 모든 슬라이드에 대해
+		$(".swiper-slide").each(function(index, item){
+			if(index < holdingList.length) {
+				//원래는  return 하지 말고 밑에있는 행 지워야함. ㄱㅊ
+    			console.log("each" + holdingList[index]);
+    			var figure = (holdingList[index].holdingRateOfReturn / 100).toFixed(2);
+    			console.log(figure);
+    			$(item).find(".pie-chart").attr('data-value', figure);
+			}
+			else {
+				//지우기
+			}
 		});
 	}
 	
