@@ -106,6 +106,7 @@ public class StockController {
 	@RequestMapping(value="/search" , method = {RequestMethod.GET, RequestMethod.POST})
 	public String search(String keyword, Model model) {
 		model.addAttribute("companyList", companyService.search(keyword));
+		model.addAttribute("","");
 		return "stock/stock-search-result";
 	}
 	@RequestMapping(value="/trade-list" , method = {RequestMethod.GET, RequestMethod.POST})
