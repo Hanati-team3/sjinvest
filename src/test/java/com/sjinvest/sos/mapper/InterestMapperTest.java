@@ -34,7 +34,6 @@ public class InterestMapperTest {
 	}
 //	@Test
 	public void testDelete() throws SQLException {
-		mapper.delete(4);
 	}
 	
 //	@Test

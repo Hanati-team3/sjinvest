@@ -1,17 +1,19 @@
 package com.sjinvest.sos.stock.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sjinvest.sos.holding.domain.Holding;
-import com.sjinvest.sos.setting.domain.Setting;
-import com.sjinvest.sos.setting.mapper.SettingMapper;
 import com.sjinvest.sos.stock.dao.StockDao;
 import com.sjinvest.sos.stock.domain.AskingPrice;
 import com.sjinvest.sos.stock.domain.News;
@@ -25,16 +27,12 @@ import lombok.extern.log4j.Log4j;
 @Service
 @AllArgsConstructor
 public class StockServiceImpl implements StockService {
-
 	@Override
 	public Stock getStockInfo(String companyNumber, String companyName) {
 		Random random = new Random();
 		Stock stock = new Stock();
 		stock.setStockCode(companyNumber);
 		stock.setPer((random.nextDouble()*160)-80);
-		stock.setBps(random.nextInt(10)*10000);
-		stock.setEps(random.nextInt(0100)*1000);
-		stock.setPbr((random.nextDouble()*60)-30);
 		stock.setStockChange(random.nextInt(1000000));
 		stock.setStockDiff((random.nextDouble()*200)-100);
 		int stockPrice = 40000+random.nextInt(20000)-10000;
@@ -287,5 +285,87 @@ public class StockServiceImpl implements StockService {
 			timeSeriesList.add(getTimeSeries(companyNumberList.get(i), type));
 		}
 		return timeSeriesList;
+	}
+	@Override
+	public Map<String, Object> getCompanyData(String companyNumber, int type) {
+		StockDao stockDao = new StockDao();
+		String[] date = getDate(type);
+		return stockDao.getStockTotal(companyNumber, date[0], date[1], type);
+	}
+	//index에 필요한 값 전달.
+	@Override
+	public Map<String, Object> getForIndex(List<Holding> holdingList, List<String> interestCompanyNumberList, String userId, int type, int rank) {
+		StockDao stockDao = new StockDao();
+		String[] date = getDate(type);
+		List<String> holdingCompanyNumberList = new ArrayList<String>();
+		for (Holding holding : holdingList) {
+			holdingCompanyNumberList.add(holding.getCompanyNumber());
+		}
+		List<String> companyNumberList = union(holdingCompanyNumberList, interestCompanyNumberList);
+		Map<String, Object> result = stockDao.forIndex(companyNumberList, date[0], date[1], type, rank);
+		List<Stock> stockList = (List<Stock>) result.get("stockList");
+		result.remove("stockList");
+		int stockTotal = 0;
+		for (Holding holding : holdingList) {
+			int holdingPrice = searchPrice(holding.getCompanyNumber(), stockList);
+			holding.setRealTimePrice(holdingPrice);
+			holding.setHoldingReturn((holdingPrice*holding.getHoldingAmount())-holding.getHoldingTotalMoney());
+			holding.setHoldingRateOfReturn(holding.getHoldingReturn()/holding.getHoldingTotalMoney());
+			stockTotal = stockTotal + (holdingPrice*holding.getHoldingAmount());
+		}
+		Map<String, Object> holdingWidgetMap = new Hashtable<String, Object>();
+		holdingWidgetMap.put("holdingList", holdingList);
+		holdingWidgetMap.put("stockTotal", stockTotal);
+		result.put("holdingWidget", holdingWidgetMap);
+		Map<String, Integer> interestPriceMap = new HashMap<String, Integer>();
+		for(String interestCompanyNumber : interestCompanyNumberList) {
+			interestPriceMap.put(interestCompanyNumber, searchPrice(interestCompanyNumber, stockList));
+		}
+		result.put("interestPriceMap", interestPriceMap);
+		return result;
+	}
+	public String[] getDate(int type) {
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+		String endDate = date.format(calendar.getTime());
+		String startDate = "";
+		switch (type) {
+		case 1:
+			startDate = date.format(calendar.getTime());
+			break;
+		case 2:
+			calendar.add(Calendar.MONTH,-1);
+			startDate = date.format(calendar.getTime());
+			calendar.add(Calendar.MONTH,1);
+			break;
+		case 3:
+			calendar.add(Calendar.MONTH, -3);
+			startDate = date.format(calendar.getTime());
+			calendar.add(Calendar.MONTH, 3);
+			break;
+		default:
+			calendar.add(Calendar.YEAR, -1);
+			startDate = date.format(calendar.getTime());
+			calendar.add(Calendar.YEAR, 1);
+			break;
+		}
+		String[] returnValue = new String[2];
+		returnValue[0] = startDate;
+		returnValue[1] = endDate;
+		return returnValue;
+	}
+	public List<String> union(List<String> list1, List<String> list2){
+	    Set<String> set = new HashSet<String>();
+	    set.addAll(list1);
+	    set.addAll(list2);
+	    return new ArrayList<String>(set);
+	}
+	public int searchPrice(String companyNumber, List<Stock> stockList) {
+		for(Stock stock : stockList) {
+			if(stock.getStockCode().equals(companyNumber)) {
+				return stock.getStockPrice();
+			}
+		}
+		return 0;
 	}
 }

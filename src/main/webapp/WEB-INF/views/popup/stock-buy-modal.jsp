@@ -15,28 +15,28 @@
       <div class="ui-block-content">
 
         <div class="form-group label-floating is-empty">
-          <label class="control-label">가격</label> 
-          <input class="form-control" placeholder="" value="" type="text">
+          <label class="label">가격</label> 
+          <input class="form-control" id="price" placeholder="" value="" type="text" readonly="readonly">
         </div>
 
         <div class="form-group label-floating is-empty">
-          <label class="control-label">수량</label> 
-          <input class="form-control" placeholder="" value="" type="text">
+          <label class="label">수량</label> 
+          <input class="form-control" id="amount" placeholder="" value="" type="number" min="0">
         </div>
 
         <div class="form-group label-floating is-empty">
-          <label class="control-label">예상 구매액</label> 
-          <input class="form-control" placeholder="" value="" type="text">
+          <label class="label">예상 구매액</label> 
+          <input class="form-control" id="totalPrice" placeholder="" value="" type="text" readonly="readonly">
         </div>
 
         <div class="form-group label-floating is-empty">
-          <label class="control-label">매수 후 잔액</label> 
-          <input class="form-control" placeholder="" value="" type="text">
+          <label class="label">매수 후 잔액</label> 
+          <input class="form-control" id="balance" placeholder="" value="${user.userMoney}" type="text" readonly="readonly">
         </div>
 
 
 
-        <button class="btn btn-primary btn-lg full-width">구매</button>
+        <button class="btn btn-primary btn-lg full-width" id=purchase-button>구매</button>
 
       </div>
 
