@@ -62,9 +62,13 @@ public class StockController {
 	public String company(@PathVariable("companyNumber") String companyNumber, Model model) {
 		Company company = companyService.readByNumber(companyNumber);
 		List<News> news= service.getNewsList(company.getCompanyName()); 
+		User user = userService.readById("suhyeon");
+//		service.getCompanyData(companyNumber, 2);
 		model.addAttribute("company", company);
 		model.addAttribute("news", news);
+		model.addAttribute("isInterest",interestService.check(2, companyNumber));
 		model.addAttribute("chartData",service.getTimeSeries(companyNumber, ""));
+		model.addAttribute("user", user);
 		return "stock/stock-company";
 	}
 	@ResponseBody
@@ -73,7 +77,9 @@ public class StockController {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		returnData.put("stockInfo", service.getStockInfo(companyNumber, companyName));
 		returnData.put("askingPrice", service.getAskingPrice(companyNumber));
-		return new ResponseEntity<>(returnData,HttpStatus.OK);
+		return new ResponseEntity<>(service.getCompanyData(companyNumber, 1),HttpStatus.OK);
+//		return new ResponseEntity<>(returnData,HttpStatus.OK);
+
 	}	
 	@ResponseBody
 	@PostMapping(value = "/company/getchartdata", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -108,6 +114,46 @@ public class StockController {
 		model.addAttribute("tradingList", tradingService.listByUser(user.getUserSeq(), 0, null, null, 0, 0));
 		return "stock/stock-trade-list";
 	}
+	@ResponseBody
+	@PostMapping(value = "/company/addInterest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String, Object>> addInterest(int userSeq, String companyNumber, String companyName) {
+		Interest interest = new Interest();
+		interest.setCompanyName(companyName);
+		interest.setCompanyNumber(companyNumber);
+		interest.setUserSeq(userSeq);
+		boolean result = interestService.add(interest);
+		Map<String, Object> returnValue = new HashMap<String, Object>();
+		returnValue.put("message", ""+result);
+		return new ResponseEntity<>(returnValue, HttpStatus.OK);
+	}
+	@ResponseBody
+	@PostMapping(value = "/company/removeInterest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String, Object>> removeInterest(int userSeq, String companyNumber, String companyName) {
+		Interest interest = new Interest();
+		interest.setCompanyName(companyName);
+		interest.setCompanyNumber(companyNumber);
+		interest.setUserSeq(userSeq);
+		boolean result = interestService.delete(interest);
+		Map<String, Object> returnValue = new HashMap<String, Object>();
+		returnValue.put("message", ""+result);
+		return new ResponseEntity<>(returnValue, HttpStatus.OK);
+	}
+	@ResponseBody
+	@PostMapping(value = "/company/purchase", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String, Object>> purchase(int userSeq, String companyNumber, String companyName, int tradingAmount, int tradingPrice) {
+		Trading trading = new Trading();
+		trading.setCompanyName(companyName);
+		trading.setCompanyNumber(companyNumber);
+		trading.setTradingAmount(tradingAmount);
+		trading.setTradingPrice(tradingPrice);
+		trading.setTradingType(1);
+		trading.setUserSeq(userSeq);
+		boolean result = tradingService.create(trading);
+		Map<String, Object> returnValue = new HashMap<String, Object>();
+		returnValue.put("message", ""+result);
+		return new ResponseEntity<>(returnValue, HttpStatus.OK);
+	}
+	
 	// 여기서부터 예겸이 작업 go
 	
 }
