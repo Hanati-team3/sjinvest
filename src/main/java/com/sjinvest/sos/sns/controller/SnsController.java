@@ -42,7 +42,7 @@ public class SnsController {
 	@GetMapping(value = "/sns/newsfeed")
 	public String newsfeed(Model model, HttpServletRequest request) {
 		logger.info("newsfeed.");
-		System.out.println("뉴스피드 메인 컨트롤러입니다.");
+		System.out.println("newsfeed 메인 컨트롤러입니다.");
 
 		
 		
@@ -72,7 +72,7 @@ public class SnsController {
 	@GetMapping(value = "/sns/mypage_index")
 	public String mypageIndex(Model model, HttpServletRequest request) {
 		logger.info("mypageIndex.");
-		System.out.println("마이페이지 메인 컨트롤러입니다.");
+		System.out.println("mypage 메인 컨트롤러입니다.");
 
 		
 		

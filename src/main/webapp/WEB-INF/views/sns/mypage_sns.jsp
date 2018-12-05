@@ -42,7 +42,7 @@
 
 									<div class="togglebutton">
 										<label>
-											<input type="checkbox" checked="" name="setFeedNotice">
+											<input type="checkbox" checked=null name="setFeedNotice" id="setFeedNotice">
                                             <span class="toggle"></span>
 										</label>
 									</div>
@@ -55,7 +55,7 @@
 
 									<div class="togglebutton">
 										<label>
-											<input type="checkbox" checked="" name="setTradeNotice">
+											<input type="checkbox" checked="" name="setTradeNotice" id="setTradeNotice">
                                             <span class="toggle"></span>
 										</label>
 									</div>
@@ -68,7 +68,7 @@
 
 									<div class="togglebutton">
 										<label>
-											<input type="checkbox" checked="" name="setPrivacy">
+											<input type="checkbox" checked="" name="setPrivacy" id="setPrivacy">
                                             <span class="toggle"></span>
 										</label>
 									</div>
@@ -81,7 +81,7 @@
 
 									<div class="togglebutton">
 										<label>
-											<input type="checkbox" name="setView">
+											<input type="checkbox" checked="" name="setView" id="setView"> 
                                             <span class="toggle"></span>
 										</label>
 									</div>

@@ -56,7 +56,7 @@
 <script type="text/javascript">
 
 /**
- * mypage 페이지 이동없이 전환 각 function
+ * mypage 페이지 이동없이 전환, mypage_leftside
  */
 function information(){
 	console.log("${user.userId}");
@@ -70,6 +70,13 @@ function information(){
 		success: function(data){
 
 			console.log(data.user);
+			$('#id').attr("value","${user.userId}");
+			$('#nickName').attr("value","${user.userNickname}");
+			$('#email').attr("value","${user.userEmail}");
+			$('#birth').attr("value","${user.userBirth}");
+			$('#detail').replaceWith('<textarea class="form-control" placeholder="" id="detail">${user.userDetail}</textarea>');
+			
+			
 		},
 	    error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -165,7 +172,41 @@ function setting_sns(){
 		},
 		success: function(data){
 			
-			console.log(data.snsSetting);
+			console.log("aaa"+data.setFeedNotice);
+			console.log("bbb"+data.setTradeNotice);
+			console.log("ccc"+data.setPrivacy);
+			console.log("ddd"+data.setView);
+			
+			if(data.setFeedNotice == "ON"){
+				
+			}else{
+				
+			}
+			
+			if(data.setTradeNotice == "ON"){
+				
+			}else{
+				
+			}
+			
+			if(data.setPrivacy == "ON"){
+				
+			}else{
+				
+				
+			}
+			
+			if(data.setView == "ON"){
+				
+				
+			}
+			
+			
+			$('#setFeedNotice').attr("checked", "${setFeedNotice}");
+			$('#setTradeNotice').attr("checked", "${setTradeNotice}");
+			$('#setPrivacy').attr("checked", "${setPrivacy}");
+			$('#setView').attr("checked", "${setView}");
+			
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");

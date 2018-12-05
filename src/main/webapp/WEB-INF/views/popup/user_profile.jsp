@@ -23,8 +23,8 @@
 
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <input class="form-control" placeholder="쩌리" type="text" style="text-align:center">
-                <textarea class="form-control" placeholder="">
+                <input class="form-control" placeholder="쩌리" type="text" style="text-align:center; background: white" readonly>
+                <textarea class="form-control" placeholder="" style="background: white" readonly>
                 안녕하세요! 주식에 관심이 많은 학생입니다.
                 모의투자를 통해서 많이 배우고 싶어요!
                 관심있는 분은 팔로우해서 주식정보 나누어요!
