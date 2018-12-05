@@ -16,7 +16,6 @@
             </div>
             <div class="notification-event">
               <a href="#" class="h6 notification-friend">Tamara Romanoff</a>
-              <span class="chat-message-item">Mutual Friend: Sarah Hetfield</span>
             </div>
             <span class="notification-icon">
               <a href="/sos/follow/delete" class="accept-request">
@@ -34,7 +33,6 @@
             </div>
             <div class="notification-event">
               <a href="#" class="h6 notification-friend">Tony Stevens</a>
-              <span class="chat-message-item">4 Friends in Common</span>
             </div>
             <span class="notification-icon">
               <a href="#" class="accept-request">
@@ -52,7 +50,6 @@
             </div>
             <div class="notification-event">
               <a href="#" class="h6 notification-friend">Mary Jane Stark</a>
-              <span class="chat-message-item">just became friends. Write on</span>
             </div>
             <span class="notification-icon">
               <a href="#" class="accept-request">

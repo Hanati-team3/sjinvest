@@ -101,7 +101,7 @@ public class UserController {
 	
 	@PostMapping("/update")	
 	public String update(User user, RedirectAttributes rttr) {
-		
+		System.out.println("수정넘오!!!");
 		log.info("regist : "+ user);
 		boolean result = service.updateUser(user);
 		System.out.println("정보수정결과: "+ result);
