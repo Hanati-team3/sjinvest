@@ -334,4 +334,28 @@ public class StockController2 {
 		
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
+	
+	/** 주식 holding 리스트 화면 요청*/
+	@GetMapping(value="/holding/list", params= {"userId"}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public String holding(Model model, String userId) {
+		// realtime
+		model.addAttribute("realtime", service.stockRealtime());
+		// 회사 목록
+		model.addAttribute("companyList", companyService.list());
+		User user = userService.readById(userId);
+		// 내 보유주식 위젯
+		model.addAttribute("holdingWidget", holdingWidgetMethod(holdingService.listByUser(user.getUserSeq()), user.getUserMoney()));
+		// 유저 프로필 위젯
+		// 유저 랭킹 위젯
+		return "stock/stock-holding-list";
+	}
+	
+	
+	/** 주식 index Update 요청*/
+	//@ResponseBody
+	@PostMapping(value="/holding/update", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Map<String, Object>> holdingUpdate(ArrayList<Holding> holdingList, Integer cashTotal) {
+		System.out.println("holdingUpdate params : " + holdingList + ", " + cashTotal);
+		return new ResponseEntity<>(holdingWidgetMethod(holdingList, cashTotal), HttpStatus.OK);
+	}
 }

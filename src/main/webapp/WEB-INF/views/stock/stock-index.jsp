@@ -208,7 +208,7 @@
               <div class="news-feed-form">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs stock-index-ul" role="tablist" >
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab"
+                  <li class="nav-item" ><a class="nav-link active inline-items" data-toggle="tab"
                     href="#rising-rate" role="tab" aria-expanded="true"> <span>상승률 상위</span>
                   </a></li>
                   <li class="nav-item" ><a class="nav-link  inline-items" data-toggle="tab" 
@@ -227,7 +227,7 @@
                     href="#trading-amount" role="tab" aria-expanded="false"><span>거래량</span>
                   </a></li>
         
-                  <li class="nav-item" ><a class="nav-link active inline-items" data-toggle="tab" 
+                  <li class="nav-item" ><a class="nav-link  inline-items" data-toggle="tab" 
                     href="#total-value" role="tab" aria-expanded="false"><span>시가총액</span>
                   </a></li>
                 </ul>
@@ -235,7 +235,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                   <%-- rising-rate탭 시작 --%>
-                  <div class="tab-pane " id="rising-rate" role="tabpanel" aria-expanded="true">
+                  <div class="tab-pane active " id="rising-rate" role="tabpanel" aria-expanded="true">
                     <div class="ui-block" data-mh="pie-chart" style="border-top: none;">
                       <div class="ui-block-title">
                         <div class="h6 title">상승률 상위 5 종목</div>
@@ -536,7 +536,7 @@
                   <%-- trading-amount 탭 끝 --%>
                   
                   <%-- total-value 탭 시작 --%>
-                  <div class="tab-pane active" id="total-value" role="tabpanel" aria-expanded="true">
+                  <div class="tab-pane" id="total-value" role="tabpanel" aria-expanded="true">
                     <div class="row">
                       <div class="col-lg-12 col-sm-12 col-xs-12">
                         <div class="ui-block responsive-flex">
@@ -583,7 +583,7 @@
                   </div>
                   <div class="notification-event">
                     <a href=# class="h6 notification-friend">${item.source}</a>
-                    <a href="http://${item.link}" class="news-title" >${item.title}</a>
+                    <a href="http://${item.link}" target="_blank" class="news-title" >${item.title}</a>
                   </div>
                   <span class="notification-icon">
                     <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>

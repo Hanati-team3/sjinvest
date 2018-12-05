@@ -1,8 +1,16 @@
 $(document).ready(function() {
-	indexUpdate();
+	//탭 클릭시 요청 발생
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		  var target = $(e.target).attr("href") // activated tab
+		  console.log('탭요청 : ' + target);
+	});
+	var indexParam = 1;
+
+	indexUpdate(indexParam);
+	
 });
 
-function indexUpdate() {
+function indexUpdate(indexParam) {
 	$.ajax({
 		type : "POST",
 		url : "indexUpdate",
@@ -15,24 +23,24 @@ function indexUpdate() {
 			"tabOption" : "Rising",
 			"holdingList" : [
 			{
-                "holdingSeq": 6,
-                "companyNumber": "090430",
-                "companyName": "아모레퍼시픽",
-                "userSeq": 2,
-                "holdingAmount": 701,
-                "holdingTotalMoney": 39404,
-                "holdingRateOfReturn": 47.7836290535892
-            },
-            {
-                "holdingSeq": 7,
-                "companyNumber": "051900",
-                "companyName": "LG생활건강",
-                "userSeq": 2,
-                "holdingAmount": 25,
-                "holdingTotalMoney": 25233,
-                "holdingRateOfReturn": 28.487200112530125
-            }
-            ],
+	            "holdingSeq": 6,
+	            "companyNumber": "090430",
+	            "companyName": "아모레퍼시픽",
+	            "userSeq": 2,
+	            "holdingAmount": 701,
+	            "holdingTotalMoney": 39404,
+	            "holdingRateOfReturn": 47.7836290535892
+	        },
+	        {
+	            "holdingSeq": 7,
+	            "companyNumber": "051900",
+	            "companyName": "LG생활건강",
+	            "userSeq": 2,
+	            "holdingAmount": 25,
+	            "holdingTotalMoney": 25233,
+	            "holdingRateOfReturn": 28.487200112530125
+	        }
+	        ],
 			"cashTotal" : "500000",
 			"interestCompanyNameList" : [		        
 				"LG생활건강",
@@ -80,7 +88,7 @@ function setInterestCard(interestCard) {
 						"</div>");
 		$(nameDiv).text(interestCard.stockList[i].stockName);
 		$(stockDiv).text(interestCard.stockList[i].stockPrice.toLocaleString());
-		$(dayBeforeSpan).text("전일대비 " + interestCard.stockList[i].stockChange +" "+ interestCard.stockList[i].stockDiff.toFixed(2)+"%");
+		$(dayBeforeSpan).text("전일대비   " + interestCard.stockList[i].stockChange +"   "+ interestCard.stockList[i].stockDiff.toFixed(2)+"%");
 		if(interestCard.stockList[i].stockDiff > 0) {
 			$(stockDiv).removeClass('minus').addClass('plus');
 			$(dayBeforeSpan).removeClass('minus').addClass('plus');
@@ -237,9 +245,7 @@ function runKospiChart(kospiTimeSeries) {
 /** 상위 종목 카드 설정 함수 */
 function setTopTab(topTab) {
 	window.tabbbb=topTab;
-	console.log(topTab[0]);
 	var activeTab = $(".stock-top-tab .tab-content").find('.active');
-	console.log($(activeTab).attr('id'));
 	// 활성화된 탭 검사
 	switch($(activeTab).attr('id')) {
 	//상승률 상위 5
@@ -264,7 +270,7 @@ function setTopTab(topTab) {
 			$(itemList[i]).find('h6').text(topTab[i].companyName);
 			$(itemList[i]).find('p').text(topTab[i].value.toFixed(2)+"%");
 		}
-		runPiChart();
+		runPiChart($(activeTab).attr('id'));
 		break;
 	// 거래량 20
 	case 'trading-amount' :
@@ -278,36 +284,74 @@ function setTopTab(topTab) {
 }
 
 /** 순매수 차트*/
-function runPiChart() {
-    var $pie_chart = $('.pie-chart');
-    $pie_chart.appear({ force_process: true });
-    $pie_chart.on('appear', function () {
-        var current_cart = $(this);
-        if (!current_cart.data('inited')) {
-            var startColor = current_cart.data('startcolor');
-            var endColor = current_cart.data('endcolor');
-            var counter = current_cart.data('value') * 100;
+function runPiChart(id) {
+    var $pie_chartList = $('#' + id + ' .pie-chart');
+    window.piList = $pie_chartList;
+	for (var i = 0; i < $pie_chartList.length; i++) {
+		var $pie_chart = $pie_chartList.slice(i,i);
+		window.pi=$pie_chart;
+		console.log('aa');
+	    $pie_chart.appear();
+	    $pie_chart.on('appear', function () {
+	    	console.log('bb');
+	        var current_cart = $pie_chart;
+	        //if (!current_cart.data('inited')) {
+	            var startColor = current_cart.data('startcolor');
+	            var endColor = current_cart.data('endcolor');
+	            var counter = current_cart.data('value') * 100;
 
-            current_cart.circleProgress({
-                thickness: 16,
-                size: 360,
-                startAngle: -Math.PI / 4 * 2,
-                emptyFill: '#ebecf1',
-                lineCap: 'round',
-                fill: {
-                    gradient: [endColor, startColor],
-                    gradientAngle: Math.PI / 4
-                }
-            }).on('circle-animation-progress', function (event, progress) {
-                current_cart.find('.content').html(parseInt(counter * progress, 10) + '<span>%</span>'
-                )
+	            current_cart.circleProgress({
+	                thickness: 16,
+	                size: 360,
+	                startAngle: -Math.PI / 4 * 2,
+	                emptyFill: '#ebecf1',
+	                lineCap: 'round',
+	                fill: {
+	                    gradient: [endColor, startColor],
+	                    gradientAngle: Math.PI / 4
+	                }
+	            }).on('circle-animation-progress', function (event, progress) {
+	                current_cart.find('.content').html(parseInt(counter * progress, 10) + '<span>%</span>'
+	                )
 
-            });
-            current_cart.data('inited', true);
-        }
-    });
+	            });
+	            current_cart.data('inited', false);
+	        //}
+	    });
+	}
+
 }
-
+/** 순매수 차트*//*
+function runPiChart() {
+	var $pie_chart = $('.pie-chart');
+	$pie_chart.appear({ force_process: true });
+	$pie_chart.on('appear', function () {
+		var current_cart = $(this);
+		if (!current_cart.data('inited')) {
+			var startColor = current_cart.data('startcolor');
+			var endColor = current_cart.data('endcolor');
+			var counter = current_cart.data('value') * 100;
+			
+			current_cart.circleProgress({
+				thickness: 16,
+				size: 360,
+				startAngle: -Math.PI / 4 * 2,
+				emptyFill: '#ebecf1',
+				lineCap: 'round',
+				fill: {
+					gradient: [endColor, startColor],
+					gradientAngle: Math.PI / 4
+				}
+			}).on('circle-animation-progress', function (event, progress) {
+				current_cart.find('.content').html(parseInt(counter * progress, 10) + '<span>%</span>'
+				)
+				
+			});
+			current_cart.data('inited', true);
+		}
+	});
+}
+*/
 /** Top20 차트 함수 */
 function runOneBarChart(topTab, id) {
 	var nameList = [];

@@ -332,6 +332,7 @@ if (pieColorChart !== null) {
         var $pie_chart = $('.pie-chart');
         $pie_chart.appear({ force_process: true });
         $pie_chart.on('appear', function () {
+        	console.log('cc0000000000000');
             var current_cart = $(this);
             if (!current_cart.data('inited')) {
                 var startColor = current_cart.data('startcolor');
