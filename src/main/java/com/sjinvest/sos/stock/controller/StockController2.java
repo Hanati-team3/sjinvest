@@ -33,7 +33,8 @@ import com.sjinvest.sos.notice.service.NoticeService;
 import com.sjinvest.sos.point.service.PointService;
 import com.sjinvest.sos.setting.service.SettingService;
 import com.sjinvest.sos.stock.dao.StockDao;
-import com.sjinvest.sos.stock.domain.IndexParams;
+import com.sjinvest.sos.stock.params.HoldingListParams;
+import com.sjinvest.sos.stock.params.IndexParams;
 import com.sjinvest.sos.stock.domain.News;
 import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.domain.TimeSeries;
@@ -354,8 +355,8 @@ public class StockController2 {
 	/** 주식 index Update 요청*/
 	//@ResponseBody
 	@PostMapping(value="/holding/update", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<Map<String, Object>> holdingUpdate(ArrayList<Holding> holdingList, Integer cashTotal) {
-		System.out.println("holdingUpdate params : " + holdingList + ", " + cashTotal);
-		return new ResponseEntity<>(holdingWidgetMethod(holdingList, cashTotal), HttpStatus.OK);
+	public ResponseEntity<Map<String, Object>> holdingUpdate(@RequestBody HoldingListParams params) {
+		System.out.println("holdingUpdate params : " + params);
+		return new ResponseEntity<>(holdingWidgetMethod(params.getHoldingList(), params.getCashTotal()), HttpStatus.OK);
 	}
 }

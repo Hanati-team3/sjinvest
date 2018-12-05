@@ -522,3 +522,9 @@ function myInitSwiper() {
         return false;
     });
 };*/
+$("table tr").each(function(index, item){
+	$(item).find(".company-number a").text(holdingList[index].companyNumber);
+	$(item).find(".count-stat").text(holdingList[index].fieldAmount.toLocaleString())
+});
+
+

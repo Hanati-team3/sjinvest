@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,10 +70,6 @@
           </form>
         </div>
         <%-- 검색 시작 --%>
-<h6>${holdingWidget }</h6>
-<h6>${holdingWidget.stockTotal }</h6>
-<h6>${holdingWidget.total }</h6>
-<h6>${holdingWidget.cashTotal }</h6>
 
         <%-- 자산 및 수익률 row 시작 --%>
         <div class="row">
@@ -91,22 +88,26 @@
                       <div class="points">
                         <span>
                           <span class="statistics-point bg-purple"></span>
-                          주식 73.56%
+                          <span class="rate">
+                            주식
+                            %
+                          </span>
                         </span>
                       </div>
                       <div class="count-stat">
-                        <fmt:formatNumber value="${holdingWidget.stockTotal }" pattern="#,###" />
                       </div>
                     </li>
                     <li>
                       <div class="points">
                         <span>
                           <span class="statistics-point bg-breez"></span>
-                          현금 26.44%
+                          <span class="rate">
+                            현금 
+                            %
+                          </span>
                         </span>
                       </div>
                       <div class="count-stat">
-                        <fmt:formatNumber value="${holdingWidget.cashTotal }" pattern="#,###" />
                       </div>
                     </li>
                   </ul>
@@ -114,7 +115,6 @@
                   <div class="chart-js chart-js-pie-color">
                     <canvas id="pie-color-chart" width="180" height="180"></canvas>
                     <div class="general-statistics">
-                      <fmt:formatNumber value="${holdingWidget.total }" pattern="#,###" />
                       <span>자산총액</span>
                     </div>
                   </div>
@@ -133,46 +133,30 @@
               <div class="ui-block-content">
                 <div class="swiper-container" data-slide="fade">
                   <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="circle-progress circle-pie-chart">
-                          <div class="pie-chart" data-value="0.038"
-                            data-startcolor="#38a9ff" data-endcolor="#317cb6">
-                            <div class="content">
-                              <span>%</span>
+                    <c:forEach var="eachHolding" items="${holdingWidget.holdingList}" varStatus="status">
+                      <div class="swiper-slide">
+                        <div class="statistics-slide">
+                          <div class="circle-progress circle-pie-chart">
+                            <div class="pie-chart" data-value="${eachHolding.holdingRateOfReturn / 100}"
+                              data-startcolor="#38a9ff" data-endcolor="#317cb6">
+                              <div class="content">
+                                <span>%</span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-            
-                        <div class="chart-text">
-                          <h6>하나금융지주</h6>
-                          <p>3.8% of friends that visit your profile comment on
-                            your posts.</p>
+              
+                          <div class="chart-text">
+                            <h6>${eachHolding.companyName}</h6>
+                            <p>
+                              <fmt:formatNumber value="${eachHolding.holdingTotalMoney}" pattern="#,###" />
+                              원을 투자하여 
+                              <fmt:formatNumber value="${eachHolding.holdingRateOfReturn}" pattern="##.#" />%
+                              의 수익을 얻었습니다.
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="count-stat" data-swiper-parallax="-500">358</div>
-                        <div class="title" data-swiper-parallax="-100">
-                          <span class="c-primary">Olympus</span> Posts Rank
-                        </div>
-                        <div class="sub-title" data-swiper-parallax="-100">The
-                          Olympus Rank measures the quantity of comments,
-                          likes and posts.</div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="count-stat" data-swiper-parallax="-500">711</div>
-                        <div class="title" data-swiper-parallax="-100">
-                          <span class="c-primary">Olympus</span> Posts Rank
-                        </div>
-                        <div class="sub-title" data-swiper-parallax="-100">The
-                          Olympus Rank measures the quantity of comments,
-                          likes and posts.</div>
-                      </div>
-                    </div>
+                  </c:forEach>
                   </div>
     
                   <!-- If we need pagination -->
@@ -202,170 +186,43 @@
                 </thead>
     
                 <tbody>
-                  <tr>
-                    <td class="company-number">
-                      <div class="forum-item">
-                        <a href="#" class="h6 count">086790</a>
-                      </div>
-                    </td>
-                    <td class="company-name">
-                      <div class="author-freshness">
-                        <a href="#" class="h6 title">하나금융지주</a>
-                        <time class="entry-date updated"
-                          datetime="2017-06-24T18:18">은행</time>
-                      </div>
-                    </td>
-                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
-                    </td>
-                    <td class="holding-amount">
-                      <a href="#" class="h6 count">100</a>
-                    </td>
-                    <td class="holding-total-money">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6">3,875,000</a>
-                      </div>
-                    </td>
-                    <td class="profit-rate">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6 plus">+ 1.90 %</a>
-                      </div>
-                    </td>
-                    <td class="holding-sell">
-                      <a href="#" class="h6 count" data-toggle="modal" data-target="#stock_sell_modal">
-                      <i class="fas fa-minus-circle"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="company-number">
-                      <div class="forum-item">
-                        <a href="#" class="h6 count">086790</a>
-                      </div>
-                    </td>
-                    <td class="company-name">
-                      <div class="author-freshness">
-                        <a href="#" class="h6 title">하나금융지주</a>
-                        <time class="entry-date updated"
-                          datetime="2017-06-24T18:18">은행</time>
-                      </div>
-                    </td>
-                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
-                    </td>
-                    <td class="holding-amount">
-                      <a href="#" class="h6 count">100</a>
-                    </td>
-                    <td class="holding-total-money">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6">3,875,000</a>
-                      </div>
-                    </td>
-                    <td class="profit-rate">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6 plus">+ 1.90 %</a>
-                      </div>
-                    </td>
-                    <td class="holding-sell">
-                      <a href="#" class="h6 count" data-toggle="modal" data-target="#stock_sell_modal">
-                      <i class="fas fa-minus-circle"></i></a>
-                      
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="company-number">
-                      <div class="forum-item">
-                        <a href="#" class="h6 count">086790</a>
-                      </div>
-                    </td>
-                    <td class="company-name">
-                      <div class="author-freshness">
-                        <a href="#" class="h6 title">하나금융지주</a>
-                        <time class="entry-date updated"
-                          datetime="2017-06-24T18:18">은행</time>
-                      </div>
-                    </td>
-                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
-                    </td>
-                    <td class="holding-amount">
-                      <a href="#" class="h6 count">100</a>
-                    </td>
-                    <td class="holding-total-money">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6">3,875,000</a>
-                      </div>
-                    </td>
-                    <td class="profit-rate">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6 plus">+ 1.90 %</a>
-                      </div>
-                    </td>
-                    <td class="holding-sell">
-                      <a href="#" class="h6 count" data-toggle="modal" data-target="#stock_sell_modal">
-                      <i class="fas fa-minus-circle"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="company-number">
-                      <div class="forum-item">
-                        <a href="#" class="h6 count">086790</a>
-                      </div>
-                    </td>
-                    <td class="company-name">
-                      <div class="author-freshness">
-                        <a href="#" class="h6 title">하나금융지주</a>
-                        <time class="entry-date updated"
-                          datetime="2017-06-24T18:18">은행</time>
-                      </div>
-                    </td>
-                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
-                    </td>
-                    <td class="holding-amount">
-                      <a href="#" class="h6 count">100</a>
-                    </td>
-                    <td class="holding-total-money">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6">3,875,000</a>
-                      </div>
-                    </td>
-                    <td class="profit-rate">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6 plus">+ 1.90 %</a>
-                      </div>
-                    </td>
-                    <td class="holding-sell">
-                      <a href="#" class="h6 count"><i class="fas fa-minus-circle"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="company-number">
-                      <div class="forum-item">
-                        <a href="#" class="h6 count">086790</a>
-                      </div>
-                    </td>
-                    <td class="company-name">
-                      <div class="author-freshness">
-                        <a href="#" class="h6 title">하나금융지주</a>
-                        <time class="entry-date updated"
-                          datetime="2017-06-24T18:18">은행</time>
-                      </div>
-                    </td>
-                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
-                    </td>
-                    <td class="holding-amount">
-                      <a href="#" class="h6 count">100</a>
-                    </td>
-                    <td class="holding-total-money">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6">3,875,000</a>
-                      </div>
-                    </td>
-                    <td class="profit-rate">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6 plus">+ 1.90 %</a>
-                      </div>
-                    </td>
-                    <td class="holding-sell">
-                      <a href="#" class="h6 count"><i class="fas fa-minus-circle"></i></a>
-                    </td>
-                  </tr>
+                  <c:forEach var="eachHolding" items="${holdingWidget.holdingList}" varStatus="status">
+                    <tr>
+                      <td class="company-number">
+                        <div class="forum-item">
+                          <a href="#" class="h6 count">${eachHolding.companyNumber}</a>
+                        </div>
+                      </td>
+                      <td class="company-name">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title">${eachHolding.companyName}</a>
+                          <time class="entry-date updated"
+                            datetime="2017-06-24T18:18">은행</time>
+                        </div>
+                      </td>
+                      <td class="stock-price"><a href="#" class="h6 count">88888</a>
+                      </td>
+                      <td class="holding-amount">
+                        <a href="#" class="h6 count">${eachHolding.holdingAmount}</a>
+                      </td>
+                      <td class="holding-total-money">
+                        <div class="author-freshness plus">
+                          <a href="#" class="h6">
+                            <fmt:formatNumber value="${eachHolding.holdingTotalMoney}" pattern="#,###" />
+                          </a>
+                        </div>
+                      </td>
+                      <td class="profit-rate">
+                        <div class="author-freshness plus">
+                          <a href="#" class="h6 plus"><fmt:formatNumber value="${eachHolding.holdingRateOfReturn}" pattern="##.#" />%</a>
+                        </div>
+                      </td>
+                      <td class="holding-sell">
+                        <a href="#" class="h6 count" data-toggle="modal" data-target="#stock_sell_modal">
+                        <i class="fas fa-minus-circle"></i></a>
+                      </td>
+                    </tr>
+                  </c:forEach>    
                 </tbody>
               </table>
             </div>
@@ -394,6 +251,93 @@
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
   <!-- End Include js -->
+  
+  <%-- stock-holding-list js --%>
+  <script>
+	$(document).ready(function() {
+		var holdingList = "${holdingWidget.holdingList}";
+		var cashTotal = "${holdingWidget.cashTotal}";
+		console.log(holdingList);
+		console.log(cashTotal);
+		holdingListUpdate(holdingList);
+	});
+
+	function holdingListUpdate(holdingList, cashTotal) {
+		$.ajax({
+			type : "POST",
+			url : "update",
+			dataType : "json",
+			contentType: "application/json; charset=utf-8",
+			data : JSON.stringify({
+				"holdingList" : [
+				{
+		            "holdingSeq": 6,
+		            "companyNumber": "090430",
+		            "companyName": "아모레퍼시픽",
+		            "userSeq": 2,
+		            "holdingAmount": 701,
+		            "holdingTotalMoney": 39404,
+		            "holdingRateOfReturn": 47.7836290535892
+		        },
+		        {
+		            "holdingSeq": 7,
+		            "companyNumber": "051900",
+		            "companyName": "LG생활건강",
+		            "userSeq": 2,
+		            "holdingAmount": 25,
+		            "holdingTotalMoney": 25233,
+		            "holdingRateOfReturn": 28.487200112530125
+		        }
+		        ],
+				"cashTotal" : "500000",
+			}),
+			success : function(stockData) {
+				console.log(stockData);
+				window.stock = stockData;
+				setRateCard(stockData);
+				setHoldingTable(stockData.holdingList);
+				//setTimeout(indexUpdate, 2000);
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		})
+	}
+	
+	/** 자산 비율 카드 세팅 */
+	function setRateCard(holdingData) {
+		console.log("total : " + holdingData.stockTotal.toLocaleString());
+		var liList = $(".chart-with-statistic li");
+		// 주식
+		$(liList[0]).find(".rate").text("주식 " +(holdingData.stockTotal / holdingData.total * 100).toFixed(2)+ "%");
+		$(liList[0]).find(".count-stat").text(holdingData.stockTotal.toLocaleString());
+		// 현금
+		$(liList[1]).find(".rate").text("현금 " +(holdingData.cashTotal / holdingData.total * 100).toFixed(2)+ "%");
+		$(liList[1]).find(".count-stat").text(holdingData.cashTotal.toLocaleString());
+		// 자산총액
+		$('.general-statistics').html(holdingData.stockTotal.toLocaleString() + "<span>자산총액</span>");
+	}
+	
+	/** 홀딩 테이블 세팅 */
+	function setHoldingTable(holdingList) {
+		$("table tr").each(function(index, item){
+			if(index == holdingList.length) {
+				//원래는  return 하지 말고 밑에있는 행 지워야함. ㄱㅊ
+				return;
+			}
+			console.log("each" + holdingList[index]);
+			$(item).find(".company-number a").text(holdingList[index].companyNumber);
+			$(item).find(".company-name a").text(holdingList[index].companyName);
+			$(item).find(".stock-price a").text(holdingList[index].stockPrice);
+			$(item).find(".holding-amount a").text(holdingList[index].holdingAmount);
+			$(item).find(".holding-total-money a").text(holdingList[index].holdingTotalMoney );
+			$(item).find(".profit-rate a").text(holdingList[index].holdingRateOfReturn.toFixed(2));
+		});
+	}
+	
+	</script>
+
 
 </body>
 </html>
