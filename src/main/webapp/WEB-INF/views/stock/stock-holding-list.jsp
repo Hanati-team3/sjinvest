@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,6 +69,10 @@
           </form>
         </div>
         <%-- 검색 시작 --%>
+<h6>${holdingWidget }</h6>
+<h6>${holdingWidget.stockTotal }</h6>
+<h6>${holdingWidget.total }</h6>
+<h6>${holdingWidget.cashTotal }</h6>
 
         <%-- 자산 및 수익률 row 시작 --%>
         <div class="row">
@@ -89,7 +94,9 @@
                           주식 73.56%
                         </span>
                       </div>
-                      <div class="count-stat">7,470,000</div>
+                      <div class="count-stat">
+                        <fmt:formatNumber value="${holdingWidget.stockTotal }" pattern="#,###" />
+                      </div>
                     </li>
                     <li>
                       <div class="points">
@@ -98,14 +105,16 @@
                           현금 26.44%
                         </span>
                       </div>
-                      <div class="count-stat">2,684,659</div>
+                      <div class="count-stat">
+                        <fmt:formatNumber value="${holdingWidget.cashTotal }" pattern="#,###" />
+                      </div>
                     </li>
                   </ul>
     
                   <div class="chart-js chart-js-pie-color">
                     <canvas id="pie-color-chart" width="180" height="180"></canvas>
                     <div class="general-statistics">
-                      10,154,659
+                      <fmt:formatNumber value="${holdingWidget.total }" pattern="#,###" />
                       <span>자산총액</span>
                     </div>
                   </div>

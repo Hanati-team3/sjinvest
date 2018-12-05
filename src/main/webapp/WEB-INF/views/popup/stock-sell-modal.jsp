@@ -5,7 +5,7 @@
     <div class="modal-dialog ui-block window-popup create-event">
       <a href="#" class="close icon-close" data-dismiss="modal"
         aria-label="Close"> <svg class="olymp-close-icon">
-          <use xlink:href="../resources/icons/icons.svg#olymp-close-icon"></use></svg>
+          <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-close-icon"></use></svg>
       </a>
 
       <div class="ui-block-title">
