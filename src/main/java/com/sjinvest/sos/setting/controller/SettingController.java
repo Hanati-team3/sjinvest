@@ -33,7 +33,31 @@ public class SettingController {
 	public ResponseEntity<Map<String,Object>> read(int userSeq) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		System.out.println("sns setting 유저번호: "+userSeq);
-		returnData.put("snsSetting", service.read(userSeq));
+		
+		String setFeedNotice = null;
+		String setTradeNotice = null;
+		String setPrivacy = null;
+		String setView = null;
+		
+		System.out.println("어떤 타입일까??"+service.read(userSeq).getSetFeedNotice());
+		
+		if(service.read(userSeq).getSetFeedNotice() == 1) {
+			setFeedNotice = "ON";
+		}
+		if(service.read(userSeq).getSetTradeNotice() == 1) {
+			setTradeNotice = "ON";
+		}
+		if(service.read(userSeq).getSetPrivacy() == 1) {
+			setPrivacy = "ON";
+		}
+		if(service.read(userSeq).getSetView() == 1) {
+			setView = "ON";
+		}
+		
+		returnData.put("setFeedNotice", setFeedNotice);
+		returnData.put("setTradeNotice", setTradeNotice);
+		returnData.put("setPrivacy", setPrivacy);
+		returnData.put("setView", setView);
 
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}

@@ -15,22 +15,22 @@
               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group label-floating">
                   <label class="control-label">아이디<sup>*</sup></label>
-                  <input class="form-control" placeholder="" type="text" value="James">
+                  <input class="form-control" placeholder="" type="text" value="onchul92" id="id" required>
                 </div>
 
                 <div class="form-group label-floating">
                   <label class="control-label">닉네임<sup>*</sup></label>
-                  <input class="form-control" placeholder="" type="text" value="쩌리">
+                  <input class="form-control" placeholder="" type="text" value="쩌리" id="nickName" required>
                 </div>
                 
                 <div class="form-group label-floating">
                   <label class="control-label">이메일<sup>*</sup></label>
-                  <input class="form-control" placeholder="" type="email" value="hana@kosta.co.kr">
+                  <input class="form-control" placeholder="" type="email" value="hana@kosta.co.kr" id="email" required>
                 </div>
 
                 <div class="form-group label-floating is-empty">
                   <label class="control-label">비밀번호<sup>*</sup></label>
-                  <input class="form-control" placeholder="" type="password">
+                  <input class="form-control" placeholder="" type="password" required>
                 </div>
 
               </div>
@@ -39,12 +39,12 @@
               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group label-floating">
                   <label class="control-label">휴대폰번호</label>
-                  <input placeholder="e.g.010-0000-0000" type="text" value="">
+                  <input placeholder="e.g.010-0000-0000" type="text" value="" id="phoneNum">
                 </div>
                 
                 <div class="form-group date-time-picker label-floating">
                   <label class="control-label">생년월일</label>
-                  <input name="datetimepicker" value="10/24/1984" />
+                  <input name="datetimepicker" value="10/24/1984" id="birth" />
                   <span class="input-group-addon">
                     <svg class="olymp-month-calendar-icon icon"><use xlink:href="../resources/icons/icons.svg#olymp-month-calendar-icon"></use></svg>
                   </span>
@@ -61,7 +61,7 @@
 
                 <div class="form-group label-floating is-empty">
                   <label class="control-label">비밀번호확인<sup>*</sup></label>
-                  <input class="form-control" placeholder="" type="password">
+                  <input class="form-control" placeholder="" type="password" required>
                 </div>
 
               </div>
@@ -70,7 +70,7 @@
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                <div class="form-group label-floating">
                   <label class="control-label">자기소개</label>
-                  <textarea class="form-control" placeholder=""></textarea>
+                  <textarea class="form-control" placeholder="" id="detail"></textarea>
                 </div>
               </div>
 
