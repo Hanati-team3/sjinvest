@@ -18,5 +18,5 @@ public class IndexParams {
 	private String tabOption;
 	private List<Holding> holdingList;
 	private Integer cashTotal;
-	private List<String> interestCompanyNameList;
+	private List<String> interestCompanyNumberList;
 }

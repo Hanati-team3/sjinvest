@@ -92,11 +92,11 @@ public class StockController2 {
 			// 유저 프로필 위젯
 			// 유저 랭킹 위젯
 			// 관심종목카드
-			List<String> companyNameList = new ArrayList<>();
+			List<String> companyNumberList = new ArrayList<>();
 			for (Interest interest : interestService.listByUser(user.getUserSeq())) {
-				companyNameList.add(interest.getCompanyName());
+				companyNumberList.add(interest.getCompanyNumber());
 			}
-			model.addAttribute("interestCard", interestCardMethod(companyNameList));
+			model.addAttribute("interestCard", interestCardMethod(companyNumberList));
 		}
 		return "stock/stock-index";
 	}
@@ -106,7 +106,7 @@ public class StockController2 {
 	@PostMapping(value="/indexUpdate", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<Map<String, Object>> indexUpdate(@RequestBody IndexParams params) {
 		System.out.println("indexUpdate params : " + params);
-		Map<String, Object> map = new Hashtable<String, Object>();
+/*		Map<String, Object> map = new Hashtable<String, Object>();
 		// realtime
 		map.put("realtime", service.stockRealtime());
 		// 업종별 거래량 or 전일대비
@@ -125,8 +125,10 @@ public class StockController2 {
 			// 유저 랭킹 위젯
 			// 관심종목카드
 			map.put("interestCard", interestCardMethod(params.getInterestCompanyNameList()));
-		}
-		return new ResponseEntity<>(map, HttpStatus.OK);
+		}*/
+		return new ResponseEntity<>(service.getForIndex(
+				params.getHoldingList(), params.getInterestCompanyNumberList(),
+				params.getUserId(), ), HttpStatus.OK);
 	}
 	
 	/** 상위종목 tab Update 요청*/

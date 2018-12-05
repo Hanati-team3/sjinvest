@@ -42,10 +42,9 @@ function indexUpdate(indexParam) {
 	        }
 	        ],
 			"cashTotal" : "500000",
-			"interestCompanyNameList" : [		        
-				"LG생활건강",
-		        "아모레퍼시픽",
-		        "토니모리"
+			"interestCompanyNumberList" : [		        
+				"051900",
+		        "214420"
 	        ]
 		}),
 		success : function(stockData) {
