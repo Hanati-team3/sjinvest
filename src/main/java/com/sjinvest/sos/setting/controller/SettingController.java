@@ -39,8 +39,6 @@ public class SettingController {
 		String setPrivacy = null;
 		String setView = null;
 		
-		System.out.println("어떤 타입일까??"+service.read(userSeq).getSetFeedNotice());
-		
 		if(service.read(userSeq).getSetFeedNotice() == 1) {
 			setFeedNotice = "ON";
 		}
@@ -62,13 +60,47 @@ public class SettingController {
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
 
+	// call stack size 오류.. 
 	@GetMapping("/update")	
-	public String update(Setting setting, RedirectAttributes rttr) {
+	public String update(String setFeedNotice, String setTradeNotice, String setPrivacy, String setView, int userSeq, Setting setting) {
 		
-		log.info("setting : "+ setting);
-		boolean result = service.update(setting);
-		System.out.println("정보수정결과: "+ result);
+		log.info("setting.");
+		
+		System.out.println("sns setting 유저번호?????: "+userSeq);
+		
+		int setFeedNotice2 = 2;
+		int setTradeNotice2 = 2;
+		int setPrivacy2 = 2;
+		int setView2 = 2;
+		
+		
+		if(setFeedNotice == "ON") {
+			setFeedNotice2 = 1;
+		}
+		
+		if(setTradeNotice == "ON") {
+			setTradeNotice2 = 1;
+		}
+		
+		if(setPrivacy == "ON") {
+			setPrivacy2 = 1;
+		}
+		
+		if(setView == "ON") {
+			setView2 = 1;
+		}
+		
+		setting.setSetFeedNotice(setFeedNotice2);
+		setting.setSetFeedNotice(setTradeNotice2);
+		setting.setSetFeedNotice(setPrivacy2);
+		setting.setSetFeedNotice(setView2);
+		
+		service.update(setting);
+		System.out.println("result qqqq"+ service.update(setting));
 		
 		return "redirect:/sns/mypage_index";
 	}
+	
+
+	
 }
