@@ -34,7 +34,7 @@
 		#{companyName},
 		#{tradingType},
 		#{tradingPrice},
-		#{tradingAmount}
+		#{tradingAmount},
 		#{tradingEarningsRatio})
 	</insert>
 	<!-- 특정 유저 거래 목록 -->

@@ -11,12 +11,25 @@ public class Stock {
 	private String stockName;
 	private int stockPrice;
 	private int stockChange;
+	private String fieldName;
 	private double stockDiff;
 	private int stockVolume;
 	private int stockHigh;
 	private int stockLow;
+	private int stockVolumeBefore;
 	private double per;
-	private int eps;
-	private int bps;
-	private double pbr;
+	private int total;
+	private int stockClosingPrice;
+	private int listing;
+	private String listdate;
+	private int fwdvl;
+	private int ftradmdcha;
+	private double ftradmddiff;
+	private int fwsvl;
+	private int ftradmscha;
+	private double ftradmsdiff;
+	private int bfsales;
+	private int bfnetincome;
+	private double salert;
+	private double netrt;
 }

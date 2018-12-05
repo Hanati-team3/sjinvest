@@ -12,8 +12,11 @@ public class Holding {
 	private int holdingSeq;
 	private String companyNumber;
 	private String companyName;
+	private String fieldName;
 	private int userSeq;
 	private int holdingAmount;
 	private int holdingTotalMoney;
 	private double holdingRateOfReturn;
+	private int holdingReturn;
+	private int realTimePrice;
 }

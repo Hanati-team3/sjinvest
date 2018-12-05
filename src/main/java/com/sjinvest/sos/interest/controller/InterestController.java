@@ -30,9 +30,9 @@ public class InterestController {
 	}
 	
 	@PostMapping("delete")
-	public ResponseEntity<String> delete(Integer seq) {
-		log.info("delete : "+ seq);
-		service.delete(seq);
+	public ResponseEntity<String> delete(Interest interest) {
+		log.info("delete : "+ interest);
+		service.delete(interest);
 		return new ResponseEntity<>("success",HttpStatus.OK);
 	}
 }
