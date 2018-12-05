@@ -1,4 +1,4 @@
-package com.sjinvest.sos.stock.domain;
+package com.sjinvest.sos.stock.params;
 
 import java.util.List;
 
