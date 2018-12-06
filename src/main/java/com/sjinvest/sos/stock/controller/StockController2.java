@@ -80,18 +80,11 @@ public class StockController2 {
 		if(userId != null) {
 			user = userService.readById(userId);
 			holdingList = holdingService.listByUser(user.getUserSeq());
-			// 내 보유주식 위젯
-//			model.addAttribute("holdingWidget", holdingWidgetMethod(holdingService.listByUser(user.getUserSeq()), user.getUserMoney()));
-			// 유저 프로필 위젯
-			// 유저 랭킹 위젯
-			// 관심종목카드
 			for (Interest interest : interestService.listByUser(user.getUserSeq())) {
 				interestCompanyNumberList.add(interest.getCompanyNumber());
 //				TimeSeries interestTimeSeries = service.getTimeSeries(interestCompanyNumberList, 1);
 			}
-//			model.addAttribute("interestCard", interestCardMethod(interestCompanyNumberList));
 		}
-		/*
 		System.out.println(2);
 		Map<String, Object> map = service.getForIndex(holdingList, interestCompanyNumberList, 1, 6);
 		System.out.println(3);
@@ -117,24 +110,10 @@ public class StockController2 {
 			holdingWidgetMap.put("total", user.getUserMoney() + (Integer)holdingWidgetMap.get("stockTotal"));
 			model.addAttribute("holdingWidget", holdingWidgetMap);
 		}
-		System.out.println(map);*/
-		Map<String, Object> holdingWidgetMap = new HashMap<>();
-		holdingWidgetMap.put("chasTotal", "500000000");
-		holdingWidgetMap.put("stockTotal", "1938000");
-		holdingWidgetMap.put("total", "501938000");
-		holdingWidgetMap.put("holdingList", holdingList);
-		for (Holding holding : holdingList) {
-			holding.setHoldingRateOfReturn(0);
-		}
-		model.addAttribute("holdingWidget", holdingWidgetMap);
-		List<Stock> interestList = new ArrayList<>();
-		Stock tempStock = new Stock();
-		tempStock.setStockCode("000000");
-		interestList.add(tempStock);
-		interestList.add(tempStock);
-		interestList.add(tempStock);
-		interestList.add(tempStock);
-		model.addAttribute("interestList", interestList);
+		// 유저 프로필 위젯
+		// 유저 랭킹 위젯
+		// 관심종목카드
+		System.out.println(map);
 		return "stock/stock-index";
 	}
 	

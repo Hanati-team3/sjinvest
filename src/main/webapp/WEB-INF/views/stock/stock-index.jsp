@@ -652,10 +652,13 @@
 		};
 		runKospiChart(kospiTimeSeries);
 		var indexParam = setIndexParam();
-		console.log(indexParam);
+		console.log("document Ready : " + indexParam);
+		window.aa = indexParam;
+		console.log("${kospi}");
+		console.log("${holdingWidget}");
+		console.log("${interestList}");
 		indexUpdate(indexParam);
 		//runInterestChart(chartList);
-		//indexUpdate(indexParam);
 	});
 	function setIndexParam() {
 		var indexParam = {};
@@ -709,36 +712,6 @@
 		<c:forEach var="eachInterest" items="${interestList}" varStatus="status">
 		indexParam.interestCompanyNumberList.push("${eachInterest.stockCode}");
     	</c:forEach>
-/* 		indexParam = {
-				"userId" : "suhyeon",
-				//"fieldOption" : "1",
-				"kospiOption" : "1",
-				"holdingList" : [
-				{
-		            "holdingSeq": 6,
-		            "companyNumber": "090430",
-		            "companyName": "아모레퍼시픽",
-		            "userSeq": 2,
-		            "holdingAmount": 701,
-		            "holdingTotalMoney": 39404,
-		            "holdingRateOfReturn": 47.7836290535892
-		        },
-		        {
-		            "holdingSeq": 7,
-		            "companyNumber": "051900",
-		            "companyName": "LG생활건강",
-		            "userSeq": 2,
-		            "holdingAmount": 25,
-		            "holdingTotalMoney": 25233,
-		            "holdingRateOfReturn": 28.487200112530125
-		        }
-		        ],
-				//"cashTotal" : "500000",
-				"interestCompanyNumberList" : [		        
-					"051900",
-			        "214420"
-		        ]
-		} */
 		return indexParam;
 	}
   </script>
