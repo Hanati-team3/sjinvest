@@ -8,7 +8,7 @@
 </head>
 
 <body class="stock">
-<h6>${interestCard }</h6>
+<h6>${interestList }</h6>
   <%-- 우리한테 필요 없는 고정 양측 사이드바 --%>
   <!-- Fixed Sidebar Left -->
   <%-- <jsp:include page="includes/fixed-sidebar-left.jsp"></jsp:include> --%>
