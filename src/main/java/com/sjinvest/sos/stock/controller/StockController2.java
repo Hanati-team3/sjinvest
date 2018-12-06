@@ -75,7 +75,6 @@ public class StockController2 {
 		List<Holding> holdingList = new ArrayList<>();
 		List<String> interestCompanyNumberList = new ArrayList<>();
 		User user = null;
-		
 		// 로그인중
 		if(userId != null) {
 			user = userService.readById(userId);
@@ -87,10 +86,13 @@ public class StockController2 {
 			// 관심종목카드
 			for (Interest interest : interestService.listByUser(user.getUserSeq())) {
 				interestCompanyNumberList.add(interest.getCompanyNumber());
+//				TimeSeries interestTimeSeries = service.getTimeSeries(interestCompanyNumberList, 1);
 			}
 //			model.addAttribute("interestCard", interestCardMethod(interestCompanyNumberList));
 		}
+		System.out.println(2);
 		Map<String, Object> map = service.getForIndex(holdingList, interestCompanyNumberList, 1, 6);
+		System.out.println(3);
 		// realtime
 		model.addAttribute("realTime", map.get("realTime"));
 		// 회사 목록
