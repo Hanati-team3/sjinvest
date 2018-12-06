@@ -38,14 +38,11 @@ public class LoginCheckFilter implements Filter {
 			for (Cookie cookie : cookies) {
 				if(cookie.getName().equals("userIdC")) {
 					isLogin = true;
-					request.setAttribute("userIdC", cookie.getValue());
+					request.setAttribute("userId", cookie.getValue());
 					log.info(cookie.getValue());
 					break;
 				}
 			}
-			request.setAttribute("userIdC", null);
-		}else {
-			request.setAttribute("userIdC", null);
 		}
 		chain.doFilter(request, response);
 //		else {

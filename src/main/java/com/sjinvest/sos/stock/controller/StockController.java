@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -61,12 +60,11 @@ public class StockController {
     // company, search, trade-list 남수현
 
 	@GetMapping("/company/{companyNumber}")
-	public String company(@PathVariable("companyNumber") String companyNumber, Model model, HttpServletRequest request) {
-		System.out.println(request.getAttribute("userIdC"));
+	public String company(@PathVariable("companyNumber") String companyNumber, Model model, @RequestAttribute(name="userIdC") Object userId) {
+		System.out.println(userId);
 		Company company = companyService.readByNumber(companyNumber);
 		List<News> news= service.getNewsList(company.getCompanyName()); 
 		User user = userService.readById("suhyeon");
-//		service.getCompanyData(companyNumber, 2);
 		model.addAttribute("company", company);
 		model.addAttribute("news", news);
 		model.addAttribute("isInterest",interestService.check(2, companyNumber));
