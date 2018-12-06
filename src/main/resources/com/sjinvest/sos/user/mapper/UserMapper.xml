@@ -81,7 +81,6 @@
 		user_id,
 		user_nickname,
 		user_email,
-		user_password,
 		user_point,
 		user_picture,
 		user_detail,
@@ -101,7 +100,6 @@
 		user_id,
 		user_nickname,
 		user_email,
-		user_password,
 		user_point,
 		user_picture,
 		user_detail,
@@ -121,7 +119,6 @@
 		user_id,
 		user_nickname,
 		user_email,
-		user_password,
 		user_point,
 		user_picture,
 		user_detail,
@@ -240,7 +237,6 @@
 		       user_id, 
 		       user_nickname, 
 		       user_email, 
-		       user_password, 
 		       user_point, 
 		       user_picture, 
 		       user_detail, 
@@ -259,5 +255,11 @@
 		FROM   users 
 		WHERE  user_nickname like '%' || #{value} || '%' and ROWNUM <![CDATA[<=]]> 10
 		ORDER  BY user_nickname
+	</select>
+	<!-- 검색된 유저 정보 -->
+	<select id="searchUser" parameterType="String" resultType="Integer">
+		SELECT user_seq
+		FROM   users 
+		WHERE  user_nickname = #{value}
 	</select>
 </mapper>

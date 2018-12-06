@@ -90,7 +90,7 @@ public class FeedServiceImpl implements FeedService {
 		if(searchParam.getUserSeq()!=0) {
 			data.put("userSeq", searchParam.getUserSeq());
 		}
-		if(searchParam.getKeywords().size()>0) {
+		if(searchParam.getKeywords() != null &&searchParam.getKeywords().size()>0) {
 			data.put("keywords", searchParam.getKeywords());
 		}
 		return feedMapper.listBySearchPage(data);
