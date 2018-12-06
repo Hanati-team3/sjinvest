@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.sjinvest.sos.holding.domain.Holding;
 import com.sjinvest.sos.stock.dao.StockDao;
+import com.sjinvest.sos.stock.dao.StockNewsCrawler;
 import com.sjinvest.sos.stock.domain.AskingPrice;
 import com.sjinvest.sos.stock.domain.News;
 import com.sjinvest.sos.stock.domain.Stock;
@@ -253,7 +254,9 @@ public class StockServiceImpl implements StockService {
 	// 전체 주식 뉴스 top5
 	@Override
 	public List<News> stockIndexNews(){
-		return getNewsList("");
+		StockNewsCrawler crawler = new StockNewsCrawler();
+		List<News> newsList = crawler.getTotalNews().subList(0, 5);
+		return newsList;
 	}
 	@Override
 	public List<AskingPrice> getAskingPrice(String companyNumber) {
