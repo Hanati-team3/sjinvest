@@ -76,7 +76,7 @@ public class StockController2 {
 		List<String> interestCompanyNumberList = new ArrayList<>();
 		User user = null;
 		// 로그인중
-/*		if(userId != null) {
+		if(userId != null) {
 			user = userService.readById(userId);
 			holdingList = holdingService.listByUser(user.getUserSeq());
 			// 내 보유주식 위젯
@@ -115,7 +115,7 @@ public class StockController2 {
 			holdingWidgetMap.put("total", user.getUserMoney() + (Integer)holdingWidgetMap.get("stockTotal"));
 			model.addAttribute("holdingWidget", holdingWidgetMap);
 		}
-		System.out.println(map);*/
+		System.out.println(map);
 		return "stock/stock-index";
 	}
 	

@@ -388,6 +388,11 @@ public class StockServiceImpl implements StockService {
 		StockDao stockDao = new StockDao();
 		return stockDao.forSearch(companyNumberList);
 	}
+	@Override
+	public TimeSeries getChartData(List<String> companyNumberList, int type, int ktype) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 //	@Override
 //	public Map<String, Object> getChartData(List<String> companyNumberList, int type, int kind) {
 //		
