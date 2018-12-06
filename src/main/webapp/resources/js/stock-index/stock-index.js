@@ -50,10 +50,10 @@ function indexUpdate(indexParam) {
 		success : function(stockData) {
 			console.log(stockData);
 			window.stock = stockData;
-			setFieldCard(stockData.fieldStock);
+/*			setFieldCard(stockData.fieldStock);
 			setInterestCard(stockData.interestCard);
 			setKospiCard(stockData.kospi);
-			setTopTab(stockData.topTap);
+			setTopTab(stockData.topTap);*/
 			//setTimeout(indexUpdate, 2000);
 		},
 		error : function(request, status, error) {

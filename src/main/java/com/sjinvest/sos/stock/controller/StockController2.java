@@ -72,32 +72,48 @@ public class StockController2 {
 	/** 주식 index 화면 요청*/
 	@GetMapping(value="/index", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String index(String userId, Model model) {
-		// realtime
-		model.addAttribute("realtime", service.stockRealtime());
-		// 회사 목록
-		model.addAttribute("companyList", companyService.list());
-		// 업종별 거래량 카드
-		model.addAttribute("fieldStock", service.stockFieldAmount());
-		// 코스피 정보 카드
-		model.addAttribute("kospi", kospiMethod());
-		// 상승률 상위 5종목
-		model.addAttribute("topTab", service.stockTop("Rising"));
-		// 주식 전체 뉴스
-		model.addAttribute("news", service.stockIndexNews());
+		List<Holding> holdingList = new ArrayList<>();
+		List<String> interestCompanyNumberList = new ArrayList<>();
+		User user = null;
+		
 		// 로그인중
 		if(userId != null) {
-			User user = userService.readById(userId);
+			user = userService.readById(userId);
+			holdingList = holdingService.listByUser(user.getUserSeq());
 			// 내 보유주식 위젯
-			model.addAttribute("holdingWidget", holdingWidgetMethod(holdingService.listByUser(user.getUserSeq()), user.getUserMoney()));
+//			model.addAttribute("holdingWidget", holdingWidgetMethod(holdingService.listByUser(user.getUserSeq()), user.getUserMoney()));
 			// 유저 프로필 위젯
 			// 유저 랭킹 위젯
 			// 관심종목카드
-			List<String> companyNumberList = new ArrayList<>();
 			for (Interest interest : interestService.listByUser(user.getUserSeq())) {
-				companyNumberList.add(interest.getCompanyNumber());
+				interestCompanyNumberList.add(interest.getCompanyNumber());
 			}
-			model.addAttribute("interestCard", interestCardMethod(companyNumberList));
+//			model.addAttribute("interestCard", interestCardMethod(interestCompanyNumberList));
 		}
+		Map<String, Object> map = service.getForIndex(holdingList, interestCompanyNumberList, 1, 6);
+		// realtime
+		model.addAttribute("realTime", map.get("realTime"));
+		// 회사 목록
+		model.addAttribute("companyList", companyService.list());
+		// 업종별 거래량 카드
+		model.addAttribute("fieldStock", service.stockFieldAmount());	// field될 때 수정(지금은 더미값)
+		// 코스피 정보 카드
+		model.addAttribute("kospi", map.get("kospi"));
+		// 상승률 상위 5종목
+		model.addAttribute("topTab", map.get("topTab"));
+		// 주식 전체 뉴스
+		model.addAttribute("news", service.stockIndexNews());
+
+		if(user != null) {
+			// 관심종목 정보
+			model.addAttribute("interestCard", map.get("interestMap"));
+			// 내 보유주식 위젯
+			Map<String, Object> holdingWidgetMap = (Map<String, Object>) map.get("holdingWidget");
+			holdingWidgetMap.put("chasTotal", user.getUserMoney());
+			holdingWidgetMap.put("total", user.getUserMoney() + (Integer)holdingWidgetMap.get("stockTotal"));
+			model.addAttribute("holdingWidget", holdingWidgetMap);
+		}
+		System.out.println(map);
 		return "stock/stock-index";
 	}
 	
