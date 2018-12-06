@@ -638,6 +638,18 @@
 			var target = $(e.target).attr("href") // activated tab
 			console.log('탭요청 : ' + target);
 		});
+		runKospiChart(getKospiFromRequest(kospiTimeSeries));
+		//runInterestChart(chartList);
+		var indexParam = setIndexParam();
+		console.log("document Ready : " + indexParam);
+		window.aa = indexParam;
+		console.log("${kospi}");
+		console.log("${holdingWidget}");
+		console.log("${interestList}");
+		indexUpdate(indexParam);
+	});
+	
+	function getKospiFromRequest() {
 		var kospiChartLabel = [];
 		var kospiChartData = [];
 		<c:forEach var="eachLabel" items="${kospi.kospiTimeSeries.label}" varStatus="status">
@@ -650,16 +662,8 @@
 			label : kospiChartLabel,
 			data : kospiChartData
 		};
-		runKospiChart(kospiTimeSeries);
-		var indexParam = setIndexParam();
-		console.log("document Ready : " + indexParam);
-		window.aa = indexParam;
-		console.log("${kospi}");
-		console.log("${holdingWidget}");
-		console.log("${interestList}");
-		indexUpdate(indexParam);
-		//runInterestChart(chartList);
-	});
+		return kospiTimeSeries;
+	}
 	function setIndexParam() {
 		var indexParam = {};
 		// 유저 아이디 설정

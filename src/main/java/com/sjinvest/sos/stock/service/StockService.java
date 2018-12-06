@@ -43,7 +43,7 @@ public interface StockService {
 
 	///////////////////////////////////////////////////////// 아래부터 진짜
 	// 주식 인덱스 페이지 정보 받기
-	public Map<String, Object> getForIndex(List<Holding> holdingList, List<String> companyNumberList, int type, int rank);
+	public Map<String, Object> getForIndex(List<Holding> holdingList, List<String> companyNumberList, int rank);
 	public Map<String, Object> getCompanyData(String companyNumber, int type);
 	public Map<String, Object> getForSearchResult(List<String> companyNumberList);
 	public TimeSeries getChartData(List<String> companyNumberList, int type, int kind);
