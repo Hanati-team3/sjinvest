@@ -8,6 +8,7 @@
 </head>
 
 <body class="stock">
+<h6>${interestCard }</h6>
   <%-- 우리한테 필요 없는 고정 양측 사이드바 --%>
   <!-- Fixed Sidebar Left -->
   <%-- <jsp:include page="includes/fixed-sidebar-left.jsp"></jsp:include> --%>
@@ -133,8 +134,8 @@
                   <div class="swiper-wrapper">
                   </div>
   
-                  <!-- If we need pagination -->
-                  <div class="swiper-pagination pagination-blue"></div>
+<!--                   If we need pagination -->
+                  <!-- <div class="swiper-pagination pagination-blue"></div> -->
                 </div>
               </div>
             </div>
