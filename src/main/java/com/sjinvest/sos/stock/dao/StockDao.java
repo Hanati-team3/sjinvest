@@ -262,6 +262,25 @@ public class StockDao {
 		return result;
 
 	}
+	public Map<String, Object> forSearch(List<String> companyNumberList){
+		Map<String, Object> result = new HashMap<String, Object>();
+		String apiURL = "http://54.180.117.83:8000/stock?";
+		String urlString = apiURL + "code="+convertListToString(companyNumberList);
+		try {
+			URL url = new URL(urlString);
+			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            InputStream in = urlConnection.getInputStream();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonMap = mapper.readTree(in);
+            result.put("realTime", convertStockMiniList(jsonMap, "realTime"));
+            result.put("stockList", convertStockList(jsonMap,"OwnStock"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+
+	}
 	public static void main(String[] args) {
 		StockDao stockDao = new StockDao();
 		List<String> companyList = new ArrayList<String>();

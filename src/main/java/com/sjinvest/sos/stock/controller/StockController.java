@@ -67,11 +67,13 @@ public class StockController {
 		String userId = (String)request.getAttribute("userId");
 		if(userId != null) {
 			User user = userService.readById(userId);
-			model.addAttribute("user", user);
+			model.addAttribute("userSeq", user.getUserSeq());
+			model.addAttribute("isInterest",interestService.check(user.getUserSeq(), companyNumber));
+		}else {
+			model.addAttribute("isInterest",false);
 		}
 		model.addAttribute("company", company);
 		model.addAttribute("news", news);
-		model.addAttribute("isInterest",interestService.check(2, companyNumber));
 		model.addAttribute("chartData",service.getTimeSeries(companyNumber, ""));
 		return "stock/stock-company";
 	}
@@ -96,22 +98,14 @@ public class StockController {
 		ArrayList<String> companyList = new ArrayList<String>(Arrays.asList(companyNumberList));
 		return new ResponseEntity<>(service.getStockList(companyList),HttpStatus.OK);
 	}
-	@ResponseBody
-	@PostMapping(value = "/company/modifyInterest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Boolean> modifyInterest(int userSeq, String companyNumber, String companyName) {
-		Interest interest = new Interest();
-		interest.setCompanyName(companyName);
-		interest.setCompanyNumber(companyNumber);
-		interest.setUserSeq(userSeq);
-		System.out.println(interest);
-		boolean result = interestService.add(interest);
-		return new ResponseEntity<>(result, HttpStatus.OK);
-	}
 	@RequestMapping(value="/search" , method = {RequestMethod.GET, RequestMethod.POST})
-	public String search(String keyword, Model model) {
-		String userId;
+	public String search(String keyword, Model model, HttpServletRequest request) {
+		String userId = (String)request.getAttribute("userId");
+		if(userId != null) {
+			User user = userService.readById(userId);
+			model.addAttribute("interestList",interestService.listByUser(user.getUserSeq()));
+		}
 		model.addAttribute("companyList", companyService.search(keyword));
-//		model.addAttribute("interestLIst",interestService.listByUser(userSeq));
 		return "stock/stock-search-result";
 	}
 	@RequestMapping(value="/trade-list" , method = {RequestMethod.GET, RequestMethod.POST})
@@ -122,11 +116,12 @@ public class StockController {
 	}
 	@ResponseBody
 	@PostMapping(value = "/company/addInterest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String, Object>> addInterest(int userSeq, String companyNumber, String companyName) {
+	public ResponseEntity<Map<String, Object>> addInterest(String companyNumber, String companyName, HttpServletRequest request) {
+		User user = userService.readById((String)request.getAttribute("userId"));
 		Interest interest = new Interest();
 		interest.setCompanyName(companyName);
 		interest.setCompanyNumber(companyNumber);
-		interest.setUserSeq(userSeq);
+		interest.setUserSeq(user.getUserSeq());
 		boolean result = interestService.add(interest);
 		Map<String, Object> returnValue = new HashMap<String, Object>();
 		returnValue.put("message", ""+result);
@@ -134,11 +129,12 @@ public class StockController {
 	}
 	@ResponseBody
 	@PostMapping(value = "/company/removeInterest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String, Object>> removeInterest(int userSeq, String companyNumber, String companyName) {
+	public ResponseEntity<Map<String, Object>> removeInterest(String companyNumber, String companyName, HttpServletRequest request) {
+		User user = userService.readById((String)request.getAttribute("userId"));
 		Interest interest = new Interest();
 		interest.setCompanyName(companyName);
 		interest.setCompanyNumber(companyNumber);
-		interest.setUserSeq(userSeq);
+		interest.setUserSeq(user.getUserSeq());
 		boolean result = interestService.delete(interest);
 		Map<String, Object> returnValue = new HashMap<String, Object>();
 		returnValue.put("message", ""+result);

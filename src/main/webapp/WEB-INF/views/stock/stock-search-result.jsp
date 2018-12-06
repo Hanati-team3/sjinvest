@@ -13,7 +13,7 @@ var companyNumberList = new Array;
 </c:forEach>
 
 function getStockData(){
-    $.ajax({ 
+	$.ajax({ 
         type: "POST", 
         url: "getStocklist", 
         traditional : true,
@@ -31,8 +31,38 @@ function getStockData(){
         }
 })	
 }
+function addInterest(){
+		$('.add-interest').click(function (e) {
+			e.preventDefault();
+			<c:if test="${not empty userId}">
+    			var thisTag = $(this);
+    			if($(this).find("i").hasClass("far")===true){
+    				$.ajax({ 
+    			        type: "post", 
+    			        url: "company/addInterest", 
+    			        data: {"companyNumber" : $(this).closest("tr").find(".company-number a").text(), "companyName" : $(this).closest("tr").find(".company-name a").text()}, 
+    			        success: function (data) {
+    			        	thisTag.find("i").removeClass('far');
+    			        	thisTag.find("i").addClass('fas');
+    			        }
+    			    })			
+    			}else{
+    				$.ajax({ 
+    			        type: "post", 
+    			        url: "company/removeInterest", 
+    			        data: {"companyNumber" : $(this).closest("tr").find(".company-number a").text(), "companyName" : $(this).closest("tr").find(".company-name a").text()}, 
+    			        success: function (data) {
+    			        	thisTag.find("i").removeClass('fas');
+    			        	thisTag.find("i").addClass('far');
+    			        }
+    			    })			
+    			}
+			</c:if>
+		});		
+}
 $(document).ready(function(){
 	getStockData();
+	addInterest();
 });
 </script>
 
@@ -148,7 +178,20 @@ $(document).ready(function(){
                         </div>
                       </td>
                       <td class="add-to-interest">
-                          <a href="#" class="more"><i class="far fa-heart"></i></a>
+                          <a href="#" class="more add-interest">
+                          <c:set var="loop_flag" value="false" />
+                          <c:forEach var="interest" items="${interestList}">
+                             <c:if test="${not loop_flag}">
+                                  <c:if test="${interest.companyNumber eq eachCompany.companyNumber}">
+                                      <i class="fas fa-heart"></i>
+                                      <c:set var="loop_flag" value="true" />
+                                  </c:if>
+                             </c:if>
+                          </c:forEach>
+                          <c:if test="${not loop_flag}">
+                              <i class="far fa-heart"></i>
+                          </c:if>
+                       </a>
                       </td>
                     </tr>
                   </c:forEach>    
