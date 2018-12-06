@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sjinvest.sos.stock.domain.AskingPrice;
 import com.sjinvest.sos.stock.domain.Kospi;
+import com.sjinvest.sos.stock.domain.Rank;
 import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.domain.StockMini;
 import com.sjinvest.sos.stock.domain.TimeSeries;
@@ -168,6 +169,20 @@ public class StockDao {
         }
         return stockMiniList;
 	}
+	public List<Rank> convertStockTop(JsonNode jsonMap){
+        JsonNode rankNode = jsonMap.get("rank");
+        List<Rank> rankList = new ArrayList<Rank>();
+        if(rankNode.isArray()) {
+        	for(JsonNode objNode : rankNode) {
+        		Rank rank = new Rank();
+        		rank.setStockName(objNode.get("stockName").asText());
+        		rank.setStockCode(objNode.get("stockCode").asText());
+        		rank.setStockValue(objNode.get("stockCode").asDouble());
+        		rankList.add(rank);
+        	}
+        }
+        return rankList;
+	}
 	public List<AskingPrice> convertAskingPriceList(JsonNode jsonMap){
         JsonNode askingPrice = jsonMap.get("askingPrice");
         List<AskingPrice> askingPriceList = new ArrayList<AskingPrice>();
@@ -239,7 +254,7 @@ public class StockDao {
             JsonNode jsonMap = mapper.readTree(in);
             result.put("realTime", convertStockMiniList(jsonMap, "realTime"));
             result.put("kospi", convertKospi(jsonMap));
-            result.put("topTap", convertStockMiniList(jsonMap, "rank"));
+            result.put("topTab", convertStockTop(jsonMap));
             result.put("stockList", convertStockList(jsonMap,"OwnStock"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -252,7 +267,7 @@ public class StockDao {
 		List<String> companyList = new ArrayList<String>();
 		companyList.add("086790");
 		companyList.add("004170");
-		Map<String, Object> result = stockDao.forIndex(companyList,"20181125","20181204",2,6);
-		System.out.println(result);
+		Map<String, Object> result = stockDao.forIndex(companyList,"20181125","20181204",1,1);
+		System.out.println(result.get("topTab"));
 	}
 }
