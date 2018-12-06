@@ -353,8 +353,17 @@
 }
 
 
+.wow thead th{
+  padding: 0px 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 
-
+.wow td{
+  padding: 0px 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 
 </style>
 

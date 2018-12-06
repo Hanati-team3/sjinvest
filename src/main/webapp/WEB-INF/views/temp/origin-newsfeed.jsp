@@ -811,8 +811,6 @@
     <aside class="col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-xs-12">
       <%-- 관심 종목 위젯--%>
       <jsp:include page="../widgets/activity-feed.jsp"></jsp:include>
-      <%-- 팔로잉, 팔로워 --%>
-      <jsp:include page="../widgets/birthday-alert.jsp"></jsp:include>
       <%-- 추천 페이지 위젯인데 우리도 추천 계정 해주면 좋을듯.. --%> 
       <jsp:include page="../widgets/recommend-page.jsp"></jsp:include> 
       <%-- 추천 친구 위젯인데 이것도..? --%> 

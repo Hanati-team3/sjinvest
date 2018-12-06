@@ -34,7 +34,7 @@ public class FollowController {
 	@GetMapping(value = "/followList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String,Object>> followList(int userSeq) {
 
-		System.out.println("팔로잉 유저번호: "+ userSeq);
+		//System.out.println("팔로잉 유저번호: "+ userSeq);
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		List<Follow> followList = service.listByUserFollow(userSeq);
 		List<Integer> userSeqList = new ArrayList<Integer>();
@@ -53,7 +53,7 @@ public class FollowController {
 	@GetMapping(value = "/followerList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String,Object>> followerList(int userSeq) {
 
-		System.out.println("팔로워 유저번호: "+userSeq);
+		//System.out.println("팔로워 유저번호: "+userSeq);
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		List<Follow> followerList = service.listByUserFollower(userSeq);
 		List<Integer> userSeqList = new ArrayList<Integer>();
