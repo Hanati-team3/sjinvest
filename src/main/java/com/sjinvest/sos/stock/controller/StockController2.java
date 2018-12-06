@@ -106,6 +106,7 @@ public class StockController2 {
 	@PostMapping(value="/indexUpdate", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<Map<String, Object>> indexUpdate(@RequestBody IndexParams params) {
 		System.out.println("indexUpdate params : " + params);
+		System.out.println(service);
 /*		Map<String, Object> map = new Hashtable<String, Object>();
 		// realtime
 		map.put("realtime", service.stockRealtime());
@@ -116,7 +117,7 @@ public class StockController2 {
 		//map.put("kospi",  kospiMethod(kospiOption));
 		map.put("kospi", kospiMethod());
 		// top 보여주는 탭 정보
-		map.put("topTap", service.stockTop(params.getTabOption()));
+		map.put("topTap", service.stockTop(params.getTabOption()+""));
 		// 로그인중
 		if(params.getUserId() != null) {
 			// 내 보유주식 위젯
@@ -124,11 +125,16 @@ public class StockController2 {
 			// 유저 프로필 위젯
 			// 유저 랭킹 위젯
 			// 관심종목카드
-			map.put("interestCard", interestCardMethod(params.getInterestCompanyNameList()));
-		}*/
-		return new ResponseEntity<>(service.getForIndex(
-				params.getHoldingList(), params.getInterestCompanyNumberList(),
-				params.getUserId(), ), HttpStatus.OK);
+			map.put("interestCard", interestCardMethod(params.getInterestCompanyNumberList()));
+		}
+		return new ResponseEntity<>(map, HttpStatus.OK);*/
+		Map<String, Object> map = service.getForIndex(params.getHoldingList(), 
+				params.getInterestCompanyNumberList(), params.getKospiOption(), params.getTabOption());
+		System.out.println(params.getHoldingList());
+		System.out.println(params.getKospiOption());
+		System.out.println(params.getKospiOption());
+		System.out.println(params.getTabOption());
+		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	
 	/** 상위종목 tab Update 요청*/

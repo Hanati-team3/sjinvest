@@ -296,7 +296,7 @@
 				setRateCard(stockData);
 				setHoldingTable(stockData.holdingList);
 				setChartCard(stockData.holdingList);
-				//setTimeout(indexUpdate, 2000);
+				setTimeout(holdingListUpdate, 2000);
 			},
 			error : function(request, status, error) {
 				console.log("code:" + request.status + "\n" + "message:"

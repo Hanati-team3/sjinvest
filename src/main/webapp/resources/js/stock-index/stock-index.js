@@ -18,9 +18,9 @@ function indexUpdate(indexParam) {
 		contentType: "application/json; charset=utf-8",
 		data : JSON.stringify({
 			"userId" : "suhyeon",
-			"fieldOption" : "1",
+			//"fieldOption" : "1",
 			"kospiOption" : "1",
-			"tabOption" : "Rising",
+			"tabOption" : "1",
 			"holdingList" : [
 			{
 	            "holdingSeq": 6,
@@ -41,7 +41,7 @@ function indexUpdate(indexParam) {
 	            "holdingRateOfReturn": 28.487200112530125
 	        }
 	        ],
-			"cashTotal" : "500000",
+			//"cashTotal" : "500000",
 			"interestCompanyNumberList" : [		        
 				"051900",
 		        "214420"
@@ -50,10 +50,10 @@ function indexUpdate(indexParam) {
 		success : function(stockData) {
 			console.log(stockData);
 			window.stock = stockData;
-			setFieldCard(stockData.fieldStock);
+/*			setFieldCard(stockData.fieldStock);
 			setInterestCard(stockData.interestCard);
 			setKospiCard(stockData.kospi);
-			setTopTab(stockData.topTap);
+			setTopTab(stockData.topTap);*/
 			//setTimeout(indexUpdate, 2000);
 		},
 		error : function(request, status, error) {

@@ -133,8 +133,8 @@
                   <div class="swiper-wrapper">
                   </div>
   
-                  <!-- If we need pagination -->
-                  <div class="swiper-pagination pagination-blue"></div>
+<!--                   If we need pagination -->
+                  <!-- <div class="swiper-pagination pagination-blue"></div> -->
                 </div>
               </div>
             </div>
