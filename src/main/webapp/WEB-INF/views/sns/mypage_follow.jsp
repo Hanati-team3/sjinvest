@@ -9,57 +9,28 @@
           <a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="../resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
         </div>
 
-        <ul class="notification-list friend-requests">
-          <li>
+        <ul class="notification-list friend-requests" id="follow_list">
+        
+          <!-- <li>
             <div class="author-thumb">
               <img src="../resources/img/avatar15-sm.jpg" alt="author">
             </div>
             <div class="notification-event">
-              <a href="#" class="h6 notification-friend">Tamara Romanoff</a>
+              <a href="#" class="h6 notification-friend" name="followUserId">Tamara Romanoff</a>
             </div>
+            
             <span class="notification-icon">
-              <a href="/sos/follow/delete" class="accept-request">
+            <a href="/sos/follow/delete" class="accept-request">
                 <span class="icon-minus">
                   <svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
                 </span>
                 unfollow
-              </a>
+           </a>
             </span>
-          </li>
-
-          <li>
-            <div class="author-thumb">
-              <img src="../resources/img/avatar16-sm.jpg" alt="author">
-            </div>
-            <div class="notification-event">
-              <a href="#" class="h6 notification-friend">Tony Stevens</a>
-            </div>
-            <span class="notification-icon">
-              <a href="#" class="accept-request">
-                <span class="icon-minus">
-                  <svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-                </span>
-                unfollow
-              </a>
-            </span>
-          </li>
+          </li> --> 
           
-          <li>
-            <div class="author-thumb">
-              <img src="../resources/img/avatar17-sm.jpg" alt="author">
-            </div>
-            <div class="notification-event">
-              <a href="#" class="h6 notification-friend">Mary Jane Stark</a>
-            </div>
-            <span class="notification-icon">
-              <a href="#" class="accept-request">
-                <span class="icon-minus">
-                  <svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-                </span>
-                unfollow
-              </a>
-            </span>
-          </li>
+          
+          
          </ul>
 
   </div>
