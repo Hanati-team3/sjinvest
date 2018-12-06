@@ -46,4 +46,5 @@ public interface StockService {
 	public Map<String, Object> getForIndex(List<Holding> holdingList, List<String> companyNumberList, int type, int rank);
 	
 	public Map<String, Object> getCompanyData(String companyNumber, int type);
+	public Map<String, Object> getForSearchResult(List<String> companyNumberList);
 }
