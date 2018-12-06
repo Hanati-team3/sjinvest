@@ -23,19 +23,15 @@
 
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <input class="form-control" placeholder="쩌리" type="text" style="text-align:center; background: white" readonly>
-                <textarea class="form-control" placeholder="" style="background: white" readonly>
-                안녕하세요! 주식에 관심이 많은 학생입니다.
-                모의투자를 통해서 많이 배우고 싶어요!
-                관심있는 분은 팔로우해서 주식정보 나누어요!
-                </textarea>
+                <input class="form-control" placeholder="${user.userNickname }" type="text" style="text-align:center; background: white" readonly>
+                <input class="form-control" placeholder="${user.userDetail }" type="text" style="text-align:center; background: white" readonly>
             </div>
 
               <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                <button class="btn btn-secondary btn-lg full-width">주식정보보기</button>
+                <a class="btn btn-secondary btn-lg full-width" style="color:white">>>주식정보보기</a>
               </div>
               <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                <button class="btn btn-secondary btn-lg full-width">뉴스피드보기</button>
+                <a class="btn btn-secondary btn-lg full-width" style="color:white">>>뉴스피드보기</a>
               </div>
 
           </div>

@@ -11,12 +11,7 @@
 <body>
 
   <!-- Header -->
-  <%-- 테스트 로그인 ID로 Yegyeom Yu 보냄 --%>
   <jsp:include page="../includes/header.jsp"/>
-
-          <%-- <jsp:param value="<%=loginId %>" name="userId" />
-  </jsp:include> --%>
-
   <!-- ... end Header -->
 
   <div class="header-spacer" style="height:80px"></div>
@@ -118,7 +113,9 @@
 <script type="text/javascript">
 $(document).ready( function() {
 
-	getFeedList();	
+	getFeedList();
+	getFollowList();
+	getFollowerList()
 	
     $('#loginForm').submit(function (e) {
     e.preventDefault();
@@ -169,7 +166,7 @@ $(document).ready( function() {
 });
 
 /** 
- * 로그인 처리를 위한 Ajax 통신
+ * 로그인 처리
  */
 function loginCheck() {
 
@@ -207,7 +204,7 @@ function loginCheck() {
 } 
 
 /** 
- * 회원가입 처리를 위한 Ajax 통신
+ * 회원가입 처리
  */
 function signup(){
 	
@@ -215,7 +212,7 @@ function signup(){
 }
 
 /** 
- * newsfeed의 list 목록 Ajax 통신
+ * newsfeed의 list 목록
  */
 function getFeedList(){
 $.ajax({
@@ -233,6 +230,21 @@ $.ajax({
 
 }
 
+/** 
+ * following 친구목록
+ */
+function getFollowList(){
+	
+	
+}
+
+/** 
+ * follower 친구목록
+ */
+function getFollowerList(){
+	
+	
+}
 
 </script>
   

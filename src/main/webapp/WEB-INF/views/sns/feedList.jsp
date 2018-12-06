@@ -92,13 +92,13 @@
           </a>
 
           <div class="comments-shared">
-            <a href="#" class="post-add-icon inline-items"> <svg
+            <a href="javascript:void(0);" class="post-add-icon inline-items"> <svg
                 class="olymp-speech-balloon-icon">
                     <use
                   xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
 
               <span>5</span>
-            </a> <a href="#" class="post-add-icon inline-items"> <svg
+            </a> <a href="javascript:void(0);" class="post-add-icon inline-items"> <svg
                 class="olymp-share-icon">
                     <use
                   xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-share-icon"></use></svg>
