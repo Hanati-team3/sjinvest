@@ -133,37 +133,24 @@
                 <div class="swiper-container" data-slide="fade">
                   <div class="swiper-wrapper">
                   
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                      
-                        <div class="company-name" data-swiper-parallax="-500">회사이름</div>
-                        <div class="company-stock" data-swiper-parallax="-500">현재주가</div>
-                        <span class="indicator">전일대비 00  +00%</span>
-                        <div class="chart-js chart-js-line-stacked">
-                          <canvas id="stacked-chart" width="730" height="300"></canvas>
-                        </div>
+                    <c:forEach var="eachInterest" items="${interestList}" varStatus="status">
+                      <div class="swiper-slide">
+                        <div class="statistics-slide">
                         
-                      </div>
-                    </div>
-                    
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                      
-                        <div class="company-name" data-swiper-parallax="-500">회사이름</div>
-                        <div class="company-stock" data-swiper-parallax="-500">현재주가</div>
-                        <span class="indicator">전일대비 00  +00%</span>
-                        <div class="chart-js chart-js-line-stacked">
-                          <canvas id="stacked-chart" width="730" height="300"></canvas>
+                          <div class="company-name" data-swiper-parallax="-500">${eachInterest.stockName}</div>
+                          <div class="company-stock" data-swiper-parallax="-500">${eachInterest.stockPrice}</div>
+                          <span class="indicator">전일대비 ${eachInterest.stockChange}  +${eachInterest.stockDiff * 100}%</span>
+<%--                           <div class="chart-js chart-js-line-stacked">
+                            <canvas id="stacked-chart" width="730" height="300"></canvas>
+                          </div> --%>
+                          
                         </div>
-                        
                       </div>
-                    </div>
-                    
-                    
+                    </c:forEach>
                     
                   </div>
   
-<!--                   If we need pagination -->
+                  <!-- If we need pagination -->
                   <!-- <div class="swiper-pagination pagination-blue"></div> -->
                 </div>
               </div>
@@ -555,7 +542,7 @@
                 
                           <div class="ui-block-content">
                             <div class="chart-js chart-js-one-bar">
-                              <canvas id="trading-amount-chart" width="1400" height="380"></canvas>
+                              <canvas id="trading-a  mount-chart" width="1400" height="380"></canvas>
                             </div>
                           </div>
                           
