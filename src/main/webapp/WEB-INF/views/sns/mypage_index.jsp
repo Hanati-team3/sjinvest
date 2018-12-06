@@ -56,7 +56,7 @@
   <script type="text/javascript">
 
 /**
- * mypage 페이지 이동없이 전환, mypage_leftside
+ * mypage_leftside,페이지 이동없이 전환
  */
 function information(){
 	console.log("${user.userId}");
@@ -102,6 +102,9 @@ function follow(){
 		success: function(data){
 			
 			console.log(data.followList);
+			for(var i=0; i<data.followList.length; i++){
+			$('#follow_list').append('<li><div class="author-thumb"><img src="../resources/img/avatar'+ data.followList[i].userSeq +'-sm.jpg" alt="author"></div><div class="notification-event"><a href="#" class="h6 notification-friend">'+ data.followList[i].userId +'</a></div><span class="notification-icon"><a href="/sos/follow/delete" class="accept-request"><span class="icon-minus"><svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg></span>unfollow</a></span></li> ');
+			}
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -126,6 +129,9 @@ function follower(){
 		success: function(data){
 			
 			console.log(data.followerList);
+			for(var i=0; i<data.followerList.length; i++){
+			$('#follower_list').append('<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12"><div class="ui-block"><div class="birthday-item inline-items"><div class="author-thumb"><img src="../resources/img/avatar'+ data.followerList[i].userSeq +'-sm.jpg"alt="author"></div><div class="birthday-author-name"><a href="#" class="h6 author-name">'+ data.followerList[i].userId +'</a></div><a href="20-CalendarAndEvents-MonthlyCalendar.html"class="btn btn-sm bg-blue" data-toggle="modal" data-target="#user_modal">보기</a></div></div></div>');
+			}
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");

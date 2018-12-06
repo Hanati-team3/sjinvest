@@ -19,6 +19,9 @@
             </a>
             <div class="author-content">
               <a href="02-ProfilePage.html" class="h4 author-name">${user.userId }</a>
+             
+              
+              
               <div class="country">${user.userEmail }</div>
             </div>
           </div>
@@ -29,3 +32,10 @@
 </div>
 
 <!-- 프로필 사진, 배경 end -->
+              
+              <!-- follow 버튼 -->
+              <div class="control-block-button post-control-button">
+                  <a href="#" class="btn btn-control has-i bg-interest">
+                      <i class="fas fa-heart"></i>
+                  </a>
+              </div>
