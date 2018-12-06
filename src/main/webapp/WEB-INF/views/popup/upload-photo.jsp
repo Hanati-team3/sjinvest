@@ -6,7 +6,7 @@
     </a>
 
     <div class="ui-block-title">
-      <h6 class="title">Update Header Photo</h6>
+      <h6 class="title">사진공유헤더</h6>
     </div>
 
     <a href="#" class="upload-photo-item">
@@ -17,7 +17,7 @@
 
     <a href="#" class="upload-photo-item" data-toggle="modal" data-target="#choose-from-my-photo">
       <svg class="olymp-photos-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-photos-icon"></use></svg>
-      <h6>Choose from My Photos</h6>
+      <h6>사진올리기</h6>
       <span>Choose from your uploaded photos</span>
     </a>
   </div>

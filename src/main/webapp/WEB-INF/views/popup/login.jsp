@@ -39,7 +39,7 @@
 							 아이디 저장
 							 </label>
 					   	  </div>
-						  <!-- <a href="#" class="forgot" data-toggle="modal" data-target="#sign_modal">아직 회원이 아니신가요?</a> -->
+						  <a href="#" class="forgot" data-toggle="modal" data-target="#signup_modal">아직 회원이 아니신가요?</a>
 					    </div>
                     
                         <button type="submit" class="btn btn-primary btn-lg full-width" >로그인</button>
