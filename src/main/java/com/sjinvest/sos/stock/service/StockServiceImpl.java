@@ -17,6 +17,7 @@ import com.sjinvest.sos.holding.domain.Holding;
 import com.sjinvest.sos.stock.dao.StockDao;
 import com.sjinvest.sos.stock.dao.StockNewsCrawler;
 import com.sjinvest.sos.stock.domain.AskingPrice;
+import com.sjinvest.sos.stock.domain.Kospi;
 import com.sjinvest.sos.stock.domain.News;
 import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.domain.TimeSeries;
@@ -402,5 +403,10 @@ public class StockServiceImpl implements StockService {
 		StockDao stockDao = new StockDao();
 		String[] date = getDate(type);
 		return stockDao.getKospiChartData(date[0],date[1],type);
+	}
+	@Override
+	public Kospi getKospiData() {
+		StockDao stockDao = new StockDao();
+		return (Kospi)stockDao.getKospiChartData("20181101", "20181101", 5).get("kospi");
 	}
 }
