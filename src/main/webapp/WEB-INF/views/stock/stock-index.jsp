@@ -132,6 +132,35 @@
               <div class="ui-block-content">
                 <div class="swiper-container" data-slide="fade">
                   <div class="swiper-wrapper">
+                  
+                    <div class="swiper-slide">
+                      <div class="statistics-slide">
+                      
+                        <div class="company-name" data-swiper-parallax="-500">회사이름</div>
+                        <div class="company-stock" data-swiper-parallax="-500">현재주가</div>
+                        <span class="indicator">전일대비 00  +00%</span>
+                        <div class="chart-js chart-js-line-stacked">
+                          <canvas id="stacked-chart" width="730" height="300"></canvas>
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="swiper-slide">
+                      <div class="statistics-slide">
+                      
+                        <div class="company-name" data-swiper-parallax="-500">회사이름</div>
+                        <div class="company-stock" data-swiper-parallax="-500">현재주가</div>
+                        <span class="indicator">전일대비 00  +00%</span>
+                        <div class="chart-js chart-js-line-stacked">
+                          <canvas id="stacked-chart" width="730" height="300"></canvas>
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    
+                    
                   </div>
   
 <!--                   If we need pagination -->
