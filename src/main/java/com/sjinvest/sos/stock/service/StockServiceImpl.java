@@ -399,7 +399,7 @@ public class StockServiceImpl implements StockService {
 		return stockDao.getChartData(companyNumberList, date[0], date[1], type);
 	}
 	@Override
-	public TimeSeries getKospiChartDate(int type) {
+	public Map<String, Object> getKospiChartDate(int type) {
 		StockDao stockDao = new StockDao();
 		String[] date = getDate(type);
 		return stockDao.getKospiChartData(date[0],date[1],type);

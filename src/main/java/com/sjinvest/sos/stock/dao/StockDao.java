@@ -246,7 +246,8 @@ public class StockDao {
         System.out.println(timeSeries);
         return timeSeries;
 	}
-	public TimeSeries convertKospiListTimeSeries(JsonNode jsonMap) {
+	public Map<String, Object> convertKospiListTimeSeries(JsonNode jsonMap) {
+		Map<String, Object> result = new HashMap<String, Object>();
         JsonNode period = jsonMap.get("kospi");
         TimeSeries timeSeries = new TimeSeries();
         List<Double> data = new ArrayList<Double>();
@@ -255,6 +256,13 @@ public class StockDao {
         	boolean first = true;
         	for(JsonNode objNode : period) {
         		if(first) {
+                    Kospi kospi = new Kospi();
+                    kospi.setHigh(objNode.get("high").asDouble());
+                    kospi.setPrice(objNode.get("price").asDouble());
+                    kospi.setLow(objNode.get("low").asDouble());
+                    kospi.setLastPrice(objNode.get("lastPrice").asDouble());
+                    kospi.setVolume(objNode.get("volume").asInt());
+                    result.put("kospi", kospi);
         			first=false;
         			continue;
         		}
@@ -267,8 +275,8 @@ public class StockDao {
         timeSeries.setData(datas);
         timeSeries.setDataName(dataName);
         timeSeries.setLabel(dataName);
-        System.out.println(timeSeries);
-        return timeSeries;
+        result.put("kospiChart", timeSeries);
+        return result;
 	}
 	public String convertListToString(List<String> companyNumber) {
 		String result = "";
@@ -337,7 +345,7 @@ public class StockDao {
 		}
 		return result;
 	}
-	public TimeSeries getKospiChartData(String kstartDate, String kendDate, int ktype) {
+	public Map<String, Object> getKospiChartData(String kstartDate, String kendDate, int ktype) {
 		TimeSeries result = new TimeSeries();
 		String apiURL = "http://54.180.117.83:8003/stock/chart?";
 		String urlString = apiURL + "kstartDate="+kstartDate+"&kendDate="+kendDate+"&ktype="+ktype;
@@ -352,7 +360,7 @@ public class StockDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return result;
+		return null;
 	}
 	public static void main(String[] args) {
 		StockDao stockDao = new StockDao();
