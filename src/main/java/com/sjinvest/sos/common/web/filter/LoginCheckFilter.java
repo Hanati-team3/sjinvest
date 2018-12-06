@@ -43,6 +43,9 @@ public class LoginCheckFilter implements Filter {
 					break;
 				}
 			}
+			request.setAttribute("userIdC", null);
+		}else {
+			request.setAttribute("userIdC", null);
 		}
 		chain.doFilter(request, response);
 //		else {
