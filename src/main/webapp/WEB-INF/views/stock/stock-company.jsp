@@ -31,13 +31,15 @@ function purchaseButton(){
 }
 function purchase(){
 	$('#amount').keydown(function (e){
-		if((${user.userMoney}-($(this).val()*$('#price').val()))<0){
-			$(this).val(((${user.userMoney}/$('#price').val())*1).toFixed(0));
+		if(user != null){
+			if((${user.userMoney}-($(this).val()*$('#price').val()))<0){
+				$(this).val(((${user.userMoney}/$('#price').val())*1).toFixed(0));
+			}
+			$(this).val($(this).val().replace("-",""));
+			$(this).val(($(this).val()*1).toFixed(0));
+			$('#totalPrice').val($(this).val()*$('#price').val());
+			$('#balance').val(${user.userMoney}-$('#totalPrice').val());
 		}
-		$(this).val($(this).val().replace("-",""));
-		$(this).val(($(this).val()*1).toFixed(0));
-		$('#totalPrice').val($(this).val()*$('#price').val());
-		$('#balance').val(${user.userMoney}-$('#totalPrice').val());
 	})
 }
 function addInterest(){
