@@ -11,7 +11,9 @@ var companyNumberList = new Array;
 <c:forEach var="company" items="${companyList}" varStatus="status">
 	companyNumberList.push("${company.companyNumber}");
 </c:forEach>
-
+<c:forEach var="company" items="${companyList}" varStatus="status">
+	companyNumberList.push("${company.companyNumber}");
+</c:forEach>
 function getStockData(){
 	$.ajax({ 
         type: "POST", 
@@ -22,10 +24,10 @@ function getStockData(){
           window.test=data;
 		  var trList = $(".search-result tbody tr");
           for(var i = 0; i < trList.length; i++){
-        	 	trList.eq(i).find(".stock-price a").text(numberWithCommas(data[i].stockPrice));
-        	 	trList.eq(i).find(".trading-amount a").text(numberWithCommas(data[i].stockVolume));
-        	 	trList.eq(i).find(".day-before div a").text(numberWithCommas(data[i].stockChange));
-        	 	trList.eq(i).find(".day-before-rate div a").text(numberWithCommas(data[i].stockDiff.toFixed(2))+"%");
+        	 	trList.eq(i).find(".stock-price a").text(numberWithCommas(data.stockList[i].stockPrice));
+        	 	trList.eq(i).find(".trading-amount a").text(numberWithCommas(data.stockList[i].stockVolume));
+        	 	trList.eq(i).find(".day-before div a").text(numberWithCommas(data.stockList[i].stockChange));
+        	 	trList.eq(i).find(".day-before-rate div a").text(numberWithCommas(data.stockList[i].stockDiff.toFixed(2))+"%");
           };
           setTimeout(getStockData, 1000);
         }

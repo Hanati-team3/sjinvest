@@ -94,9 +94,9 @@ public class StockController {
 	}
 	@ResponseBody
 	@PostMapping(value = "/getStocklist", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<Stock>> getStockDataList(String[] companyNumberList) {
+	public ResponseEntity<Map<String, Object>> getStockDataList(String[] companyNumberList) {
 		ArrayList<String> companyList = new ArrayList<String>(Arrays.asList(companyNumberList));
-		return new ResponseEntity<>(service.getStockList(companyList),HttpStatus.OK);
+		return new ResponseEntity<>(service.getForSearchResult(companyList),HttpStatus.OK);
 	}
 	@RequestMapping(value="/search" , method = {RequestMethod.GET, RequestMethod.POST})
 	public String search(String keyword, Model model, HttpServletRequest request) {

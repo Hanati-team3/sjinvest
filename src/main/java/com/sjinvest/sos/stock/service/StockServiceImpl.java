@@ -388,4 +388,8 @@ public class StockServiceImpl implements StockService {
 		StockDao stockDao = new StockDao();
 		return stockDao.forSearch(companyNumberList);
 	}
+//	@Override
+//	public Map<String, Object> getChartData(List<String> companyNumberList, int type, int kind) {
+//		
+//	}
 }
