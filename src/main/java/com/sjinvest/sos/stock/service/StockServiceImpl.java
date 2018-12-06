@@ -304,9 +304,7 @@ public class StockServiceImpl implements StockService {
 			holdingCompanyNumberList.add(holding.getCompanyNumber());
 		}
 		List<String> companyNumberList = union(holdingCompanyNumberList, interestCompanyNumberList);
-		System.out.println(100);
-		Map<String, Object> result = stockDao.forIndex(companyNumberList, date[0], date[1], type, rank);
-		System.out.println(200);
+		Map<String, Object> result = stockDao.forIndex(companyNumberList, rank);
 		List<Stock> stockList = (List<Stock>) result.get("stockList");
 		result.remove("stockList");
 		int stockTotal = 0;
@@ -394,12 +392,16 @@ public class StockServiceImpl implements StockService {
 		return stockDao.forSearch(companyNumberList);
 	}
 	@Override
-	public TimeSeries getChartData(List<String> companyNumberList, int type, int ktype) {
-		// TODO Auto-generated method stub
-		return null;
+
+	public TimeSeries getChartData(List<String> companyNumberList, int type, int kind) {
+		StockDao stockDao = new StockDao();
+		String[] date = getDate(type);
+		return stockDao.getChartData(companyNumberList, date[0], date[1], type);
 	}
-//	@Override
-//	public Map<String, Object> getChartData(List<String> companyNumberList, int type, int kind) {
-//		
-//	}
+	@Override
+	public TimeSeries getKospiChartDate(int type) {
+		StockDao stockDao = new StockDao();
+		String[] date = getDate(type);
+		return stockDao.getKospiChartData(date[0],date[1],type);
+	}
 }

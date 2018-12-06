@@ -11,8 +11,9 @@ var companyNumberList = new Array;
 <c:forEach var="company" items="${companyList}" varStatus="status">
 	companyNumberList.push("${company.companyNumber}");
 </c:forEach>
-<c:forEach var="company" items="${companyList}" varStatus="status">
-	companyNumberList.push("${company.companyNumber}");
+var realTimeCompanyNumberList = new Array;
+<c:forEach var="eachData" items="${realTime}" varStatus="status">
+	realTimeCompanyNumberList.push("${eachData.stockName}");
 </c:forEach>
 function getStockData(){
 	$.ajax({ 
