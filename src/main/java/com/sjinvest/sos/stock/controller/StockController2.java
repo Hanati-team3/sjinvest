@@ -106,7 +106,7 @@ public class StockController2 {
 
 		if(user != null) {
 			// 관심종목 정보
-			model.addAttribute("interestCard", map.get("interestMap"));
+			model.addAttribute("interestList", map.get("interestList"));
 			// 내 보유주식 위젯
 			Map<String, Object> holdingWidgetMap = (Map<String, Object>) map.get("holdingWidget");
 			holdingWidgetMap.put("chasTotal", user.getUserMoney());

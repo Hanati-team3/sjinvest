@@ -317,11 +317,16 @@ public class StockServiceImpl implements StockService {
 		holdingWidgetMap.put("holdingList", holdingList);
 		holdingWidgetMap.put("stockTotal", stockTotal);
 		result.put("holdingWidget", holdingWidgetMap);
-		Map<String, Stock> interestMap = new HashMap<String, Stock>();
+/*		Map<String, Stock> interestMap = new HashMap<String, Stock>();
 		for(String interestCompanyNumber : interestCompanyNumberList) {
 			interestMap.put(interestCompanyNumber, searchStock(interestCompanyNumber, stockList));
+		}*/
+		List<Stock> interestList = new ArrayList<>();
+		for(String interestCompanyNumber : interestCompanyNumberList) {
+			interestList.add(searchStock(interestCompanyNumber, stockList));
 		}
-		result.put("interestMap", interestMap);
+			
+		result.put("interestList", interestList);
 		return result;
 	}
 	public String[] getDate(int type) {
