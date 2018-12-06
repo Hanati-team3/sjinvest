@@ -296,9 +296,8 @@ public class StockServiceImpl implements StockService {
 	}
 	//index에 필요한 값 전달.
 	@Override
-	public Map<String, Object> getForIndex(List<Holding> holdingList, List<String> interestCompanyNumberList, int type, int rank) {
+	public Map<String, Object> getForIndex(List<Holding> holdingList, List<String> interestCompanyNumberList, int rank) {
 		StockDao stockDao = new StockDao();
-		String[] date = getDate(type);
 		List<String> holdingCompanyNumberList = new ArrayList<String>();
 		for (Holding holding : holdingList) {
 			holdingCompanyNumberList.add(holding.getCompanyNumber());

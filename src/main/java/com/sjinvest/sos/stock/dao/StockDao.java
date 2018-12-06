@@ -177,7 +177,7 @@ public class StockDao {
         		Rank rank = new Rank();
         		rank.setStockName(objNode.get("stockName").asText());
         		rank.setStockCode(objNode.get("stockCode").asText());
-        		rank.setStockValue(objNode.get("stockCode").asDouble());
+        		rank.setStockValue(objNode.get("stockValue").asDouble());
         		rankList.add(rank);
         	}
         }
