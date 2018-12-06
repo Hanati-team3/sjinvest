@@ -1,12 +1,9 @@
 package com.sjinvest.sos.stock.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.sjinvest.sos.holding.domain.Holding;
-import com.sjinvest.sos.setting.domain.Setting;
 import com.sjinvest.sos.stock.domain.AskingPrice;
 import com.sjinvest.sos.stock.domain.News;
 import com.sjinvest.sos.stock.domain.Stock;
@@ -43,4 +40,11 @@ public interface StockService {
 	public List<News> stockIndexNews();
 	// 회사 번호로 호가 받아오기
 	public List<AskingPrice> getAskingPrice(String companyNumber);
+
+	///////////////////////////////////////////////////////// 아래부터 진짜
+	// 주식 인덱스 페이지 정보 받기
+	public Map<String, Object> getForIndex(List<Holding> holdingList, List<String> companyNumberList, int type, int rank);
+	
+	public Map<String, Object> getCompanyData(String companyNumber, int type);
+	public Map<String, Object> getForSearchResult(List<String> companyNumberList);
 }

@@ -15,22 +15,22 @@
               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group label-floating">
                   <label class="control-label">아이디<sup>*</sup></label>
-                  <input class="form-control" placeholder="" type="text" value="onchul92" id="id" required>
+                  <input class="form-control" placeholder="" type="text" value="" id="id" name="userId" readonly>
                 </div>
 
                 <div class="form-group label-floating">
                   <label class="control-label">닉네임<sup>*</sup></label>
-                  <input class="form-control" placeholder="" type="text" value="쩌리" id="nickName" required>
+                  <input class="form-control" placeholder="" type="text" value="" id="nickName" name="userNickname" required>
                 </div>
                 
                 <div class="form-group label-floating">
                   <label class="control-label">이메일<sup>*</sup></label>
-                  <input class="form-control" placeholder="" type="email" value="hana@kosta.co.kr" id="email" required>
+                  <input class="form-control" placeholder="" type="email" value="" id="email" name="userEmail" required>
                 </div>
 
                 <div class="form-group label-floating is-empty">
                   <label class="control-label">비밀번호<sup>*</sup></label>
-                  <input class="form-control" placeholder="" type="password" required>
+                  <input class="form-control" placeholder="" type="password" value="" id="password" name="userPw" required>
                 </div>
 
               </div>
@@ -38,13 +38,13 @@
 
               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group label-floating">
-                  <label class="control-label">휴대폰번호</label>
-                  <input placeholder="e.g.010-0000-0000" type="text" value="" id="phoneNum">
+                  <label class="control-label">보유액(원)</label>
+                  <input class="form-control" placeholder="" type="text" value="" id="money" name="userMoney" readonly>
                 </div>
                 
                 <div class="form-group date-time-picker label-floating">
                   <label class="control-label">생년월일</label>
-                  <input name="datetimepicker" value="10/24/1984" id="birth" />
+                  <input name="datetimepicker" value="" id="birth" name=""/>
                   <span class="input-group-addon">
                     <svg class="olymp-month-calendar-icon icon"><use xlink:href="../resources/icons/icons.svg#olymp-month-calendar-icon"></use></svg>
                   </span>
@@ -53,8 +53,8 @@
                 <div class="form-group label-floating is-select">
                   <label class="control-label">성별</label>
                   <select class="selectpicker form-control" size="auto">
-                    <option value="MA">남자</option>
-                    <option value="FE">여자</option>
+                    <option value="1" >남자</option>
+                    <option value="2" >여자</option>
                   </select>
                 </div>
 
@@ -70,7 +70,7 @@
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                <div class="form-group label-floating">
                   <label class="control-label">자기소개</label>
-                  <textarea class="form-control" placeholder="" id="detail"></textarea>
+                  <textarea class="form-control" placeholder="" id="detail" name="userDetail"></textarea>
                 </div>
               </div>
 
@@ -78,7 +78,7 @@
                 <button type="reset" class="btn btn-secondary btn-lg full-width">되돌리기</button>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <button class="btn btn-primary btn-lg full-width">수정하기</button>
+                <button type="submit" class="btn btn-primary btn-lg full-width">수정하기</button>
               </div>
 
             </div>

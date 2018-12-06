@@ -1,36 +1,36 @@
-<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-  <title>MyPage</title>
-  <jsp:include page="../includes/head.jsp"></jsp:include>
+<title>MyPage</title>
+<jsp:include page="../includes/head.jsp"></jsp:include>
 
 </head>
 <body>
 
 
-<!-- header start -->
-<jsp:include page="../includes/header.jsp"/>
+  <!-- header start -->
+  <jsp:include page="../includes/header.jsp" />
   <%-- <jsp:param value="Yegyeom Yu" name="loginId"/>
 </jsp:include> --%>
-<!-- header end -->
+  <!-- header end -->
 
 
-<!-- mypage_profile start -->
-<jsp:include page="../includes/mypage_profile.jsp"></jsp:include>
-<!-- mypage_profile end -->
+  <!-- mypage_profile start -->
+  <jsp:include page="../includes/mypage_profile.jsp"></jsp:include>
+  <!-- mypage_profile end -->
 
 
 
-<!-- Your Account Personal Information -->
+  <!-- Your Account Personal Information -->
 
-<div class="container">
-  <div class="row" id="rowChange">
-  
+  <div class="container">
+    <div class="row" id="rowChange">
 
- 
-  <!-- 
+
+
+      <!-- 
   
   
         mypage에서 페이지 이동없이 추가되는 영역 
@@ -41,22 +41,22 @@
 
 
 
-    <!-- mypage leftside start -->
-    <jsp:include page="../includes/mypage_leftside.jsp"></jsp:include>
-    <!-- mypage leftside end -->
-    
+      <!-- mypage leftside start -->
+      <jsp:include page="../includes/mypage_leftside.jsp"></jsp:include>
+      <!-- mypage leftside end -->
+
+    </div>
   </div>
-</div>
 
   <!-- start bottom js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
   <!-- end bottom js -->
 
-    
-<script type="text/javascript">
+
+  <script type="text/javascript">
 
 /**
- * mypage 페이지 이동없이 전환, mypage_leftside
+ * mypage_leftside,페이지 이동없이 전환
  */
 function information(){
 	console.log("${user.userId}");
@@ -74,6 +74,7 @@ function information(){
 			$('#nickName').attr("value","${user.userNickname}");
 			$('#email').attr("value","${user.userEmail}");
 			$('#birth').attr("value","${user.userBirth}");
+			$('#money').attr("value","${user.userMoney}");
 			$('#detail').replaceWith('<textarea class="form-control" placeholder="" id="detail">${user.userDetail}</textarea>');
 			
 			
@@ -101,6 +102,9 @@ function follow(){
 		success: function(data){
 			
 			console.log(data.followList);
+			for(var i=0; i<data.followList.length; i++){
+			$('#follow_list').append('<li><div class="author-thumb"><img src="../resources/img/avatar'+ data.followList[i].userSeq +'-sm.jpg" alt="author"></div><div class="notification-event"><a href="#" class="h6 notification-friend">'+ data.followList[i].userId +'</a></div><span class="notification-icon"><a href="/sos/follow/delete" class="accept-request"><span class="icon-minus"><svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg></span>unfollow</a></span></li> ');
+			}
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -125,6 +129,9 @@ function follower(){
 		success: function(data){
 			
 			console.log(data.followerList);
+			for(var i=0; i<data.followerList.length; i++){
+			$('#follower_list').append('<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12"><div class="ui-block"><div class="birthday-item inline-items"><div class="author-thumb"><img src="../resources/img/avatar'+ data.followerList[i].userSeq +'-sm.jpg"alt="author"></div><div class="birthday-author-name"><a href="#" class="h6 author-name">'+ data.followerList[i].userId +'</a></div><a href="20-CalendarAndEvents-MonthlyCalendar.html"class="btn btn-sm bg-blue" data-toggle="modal" data-target="#user_modal">보기</a></div></div></div>');
+			}
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -149,6 +156,11 @@ function point(){
 		success: function(data){
 			
 			console.log(data.pointList);
+			
+			for(var i=0; i<data.pointList.length; i++){
+				$('#point_list').append('<li><div class="h6 notification-friend container" style="display: flex;"><div class="col-md-3" id="point_date">'+data.pointList[i].pointDate+'</div><div class="col-md-6" id="point_content">'+data.pointList[i].pointContent+'</div><div class="col-md-3" id="point_amount">'+data.pointList[i].pointAmount+'</div></div></li>');
+			}
+			
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -172,40 +184,37 @@ function setting_sns(){
 		},
 		success: function(data){
 			
-			console.log("aaa"+data.setFeedNotice);
-			console.log("bbb"+data.setTradeNotice);
-			console.log("ccc"+data.setPrivacy);
-			console.log("ddd"+data.setView);
-			
+			//console.log("aaa"+data.setFeedNotice);
+			//console.log("bbb"+data.setTradeNotice);
+			//console.log("ccc"+data.setPrivacy);
+			//console.log("ddd"+data.setView);
+
+			/*
+			 * 유저의 sns setting 기본 설정값 넘어오는 부분 
+			 */
 			if(data.setFeedNotice == "ON"){
-				
+				$('#setFeedNotice').attr("checked", "${setFeedNotice}");
 			}else{
-				
+				$('#setFeedNotice').replaceWith('<input type="checkbox" name="setFeedNotice" id="setFeedNotice">');
 			}
 			
 			if(data.setTradeNotice == "ON"){
-				
+				$('#setTradeNotice').attr("checked", "${setTradeNotice}");
 			}else{
-				
+				$('#setTradeNotice').replaceWith('<input type="checkbox" name="setTradeNotice" id="setTradeNotice">');
 			}
 			
 			if(data.setPrivacy == "ON"){
-				
+				$('#setPrivacy').attr("checked", "${setPrivacy}");
 			}else{
-				
-				
+				$('#setPrivacy').replaceWith('<input type="checkbox" name="setPrivacy" id="setPrivacy">');
 			}
 			
 			if(data.setView == "ON"){
-				
-				
+				$('#setView').attr("checked", "${setView}");
+			}else{
+				$('#setView').replaceWith('<input type="checkbox" name="setView" id="setView">');
 			}
-			
-			
-			$('#setFeedNotice').attr("checked", "${setFeedNotice}");
-			$('#setTradeNotice').attr("checked", "${setTradeNotice}");
-			$('#setPrivacy').attr("checked", "${setPrivacy}");
-			$('#setView').attr("checked", "${setView}");
 			
 		},
 		error : function() {
@@ -219,11 +228,34 @@ function setting_sns(){
     $("#rowChange").append(review);
 }
 
+function setting_sns_submit(){
+	
+	$.ajax({
+		
+		url : '/sos/setting/update',
+		type : 'get',
+		data : {
+			"userSeq" : "${user.userSeq}",
+			"setFeedNotice" : setFeedNotice,
+			"setTradeNotice" : setTradeNotice,
+			"setPrivacy" : setPrivacy,
+			"setView" : setView
+		},
+		success: function(data){
+			console.log("설정변환제출 영역..");
+		},
+		error : function(){
+			alert("관리자에게 문의해주세요.");
+		}
+		
+	})
+}
+
 function setting_stock(){
 	
     $('#new_tag').remove();
     var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_stock");
-    $("#rowChange").append(review);
+				$("#rowChange").append(review);
 }
 
 </script>

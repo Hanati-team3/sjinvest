@@ -9,16 +9,19 @@
         <div class="top-header">
           
           <div class="top-header-thumb">
-            <img src="../resources/img/top-header1.jpg" alt="nature">
+            <img src="<%=application.getContextPath()%>/resources/img/top-header1.jpg" alt="nature">
           </div>
           <div class="profile-section">
           </div>
           <div class="top-header-author">
             <a href="#" class="author-thumb">
-              <img src="../resources/img/author-main1.jpg" alt="author">
+              <img src="<%=application.getContextPath()%>/resources/img/author-main1.jpg" alt="author">
             </a>
             <div class="author-content">
               <a href="02-ProfilePage.html" class="h4 author-name">${user.userId }</a>
+             
+              
+              
               <div class="country">${user.userEmail }</div>
             </div>
           </div>
@@ -29,3 +32,10 @@
 </div>
 
 <!-- 프로필 사진, 배경 end -->
+              
+              <!-- follow 버튼 -->
+              <div class="control-block-button post-control-button">
+                  <a href="#" class="btn btn-control has-i bg-interest">
+                      <i class="fas fa-heart"></i>
+                  </a>
+              </div>

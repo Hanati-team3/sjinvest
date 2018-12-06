@@ -100,12 +100,21 @@ public class UserController {
 	}
 	
 	@PostMapping("/update")	
-	public String update(User user, RedirectAttributes rttr) {
-		
+	public String update(User user, HttpServletRequest request) {
+
 		log.info("regist : "+ user);
-		boolean result = service.updateUser(user);
-		System.out.println("정보수정결과: "+ result);
 		
+		//System.out.println("받아온 user 정보: "+user);
+		
+		String userId = (String) request.getAttribute("userId");
+		User userUpdate = service.readById(userId);
+		
+		int userSeq = userUpdate.getUserSeq();
+		user.setUserSeq(userSeq);
+		
+		boolean result = service.updateUser(user);
+		//System.out.println("수정된 user 결과: "+ result);
+
 		return "redirect:/sns/mypage_index";
 	}
 	

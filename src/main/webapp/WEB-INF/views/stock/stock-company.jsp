@@ -7,14 +7,51 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
 <script>
-function getInterest(){
+function purchaseButton(){
+	$('#purchase-button').click(function(e){
+		if($('#amount').val() > 0){
+			  $.ajax({ 
+			        type: "post", 
+			        url: "purchase", 
+			        data: {"companyNumber" : "${company.companyNumber}",
+			        	"companyName" :"${company.companyName}",
+			        	"tradingAmount" : $('#amount').val(),
+			        	"tradingPrice" : $('#price').val(),
+			        	"userSeq" : 2},
+			        success: function (data) {
+			        	if(data.message == "true"){
+			        		alert("${company.companyName} "+$('#amount').val()+"주가 구매되었습니다.");
+			        		$("#stock_buy_modal").modal('hide');
+			        	};
+			        }
+			})	
+		}
+	  
+	})
+}
+function purchase(){
+	$('#amount').keydown(function (e){
+		if(user != null){
+			if((${user.userMoney}-($(this).val()*$('#price').val()))<0){
+				$(this).val(((${user.userMoney}/$('#price').val())*1).toFixed(0));
+			}
+			$(this).val($(this).val().replace("-",""));
+			$(this).val(($(this).val()*1).toFixed(0));
+			$('#totalPrice').val($(this).val()*$('#price').val());
+			$('#balance').val(${user.userMoney}-$('#totalPrice').val());
+		}
+	})
+}
+function addInterest(){
 	$('.bg-interest').click(function (e) {
 		e.preventDefault();
-		if($("#fa-heart").hasClass("fas")===true){
+		console.log("${company.companyNumber}");
+		console.log("${company.companyName}");
+		if($(".fa-heart").hasClass("fas")===true){
 			$.ajax({ 
-		        type: "POST", 
+		        type: "post", 
 		        url: "addInterest", 
-		        data: {"userSeq" : 2, "companyNumber" : "${company.companyNumber}", "companyName" : "${company.companyName}", "type" : "add"}, 
+		        data: {"userSeq" : 2, "companyNumber" : "${company.companyNumber}", "companyName" : "${company.companyName}"}, 
 		        success: function (data) {
 		        	$('.fa-heart').removeClass('fas');
 		        	$('.fa-heart').addClass('far');
@@ -22,9 +59,9 @@ function getInterest(){
 		    })			
 		}else{
 			$.ajax({ 
-		        type: "POST", 
-		        url: "addInterest", 
-		        data: {"userSeq" : 2, "companyNumber" : "${company.companyNumber}", "companyName" : "${company.companyName}", "type" : "remove"}, 
+		        type: "post", 
+		        url: "removeInterest", 
+		        data: {"userSeq" : 2, "companyNumber" : "${company.companyNumber}", "companyName" : "${company.companyName}"}, 
 		        success: function (data) {
 		        	$('.fa-heart').removeClass('far');
 		        	$('.fa-heart').addClass('fas');
@@ -136,27 +173,31 @@ function runChart(){
 }
 function getStockData(){
     $.ajax({ 
-        type: "POST", 
+        type: "post", 
         url: "getdata", 
-        data: {}, 
+        data: {"companyNumber" : "${company.companyNumber}"}, 
         success: function (data) {
+          window.test = data;
           var d = new Date();
           var hour = d.getHours();
           var minutes = d.getMinutes();
           var seconds = d.getSeconds();
-          $(".company-stock").text(numberWithCommas(data.stockInfo.stockPrice));
-          $("#highPrice").html(numberWithCommas(data.stockInfo.stockHigh)+"<span class='indicator positive'> 4.207</span>");
-          $("#lowPrice").html(numberWithCommas(data.stockInfo.stockLow)+"<span class='indicator positive'> 4.207</span>");
-          $("#stockVolume").html(numberWithCommas(data.stockInfo.stockVolume)+"<span class='indicator positive'> 4.207</span>");
+          $('#price').val(data.stock.stockPrice);
+          $('#amount').attr("max",(${user.userMoney}/$('#price').val()).toFixed(0));
+  		  $('#totalPrice').val($("#amount").val()*$('#price').val());
+          $(".company-stock").text(numberWithCommas(data.stock.stockPrice));
+          $("#highPrice").html(numberWithCommas(data.stock.stockHigh)+"<span class='indicator positive'> 4.207</span>");
+          $("#lowPrice").html(numberWithCommas(data.stock.stockLow)+"<span class='indicator positive'> 4.207</span>");
+          $("#stockVolume").html(numberWithCommas(data.stock.stockVolume)+"<span class='indicator positive'> 4.207</span>");
           hour = hour >= 10 ? hour : '0' + hour;  
           minutes = minutes >= 10 ? minutes : '0' + minutes;  
           seconds = seconds >= 10 ? seconds : '0' + seconds;  
           $(".trading-time").text(hour+"-"+minutes+"-"+seconds)
 		  var trList = $(".company-today-table tr");
           for(var i = 1; i < 11; i++){
-        	 	trList.eq(i).find(".stock-price a").text(numberWithCommas(data.askingPrice[i-1].price));
-        	 	trList.eq(i).find(".trading-amount a").text(data.askingPrice[i-1].quantity);
-        	 	trList.eq(i).find(".transition-rate a").text(((data.askingPrice[i-1].price-data.stockInfo.stockPrice)/data.stockInfo.stockPrice).toFixed(2));
+        	 	trList.eq(i).find(".stock-price a").text(numberWithCommas(data.askingPriceList[i-1].price));
+        	 	trList.eq(i).find(".trading-amount a").text(data.askingPriceList[i-1].quantity);
+        	 	trList.eq(i).find(".transition-rate a").text(((data.askingPriceList[i-1].price-data.stock.stockPrice)/data.stock.stockPrice).toFixed(2));
           };
           setTimeout(getStockData, 1000);
         }
@@ -166,7 +207,9 @@ $(document).ready(function(){
 	getStockData();
 	runChart();
 	getChangeOption();
-	getInterest();
+	addInterest();
+	purchase();
+	purchaseButton();
 }
 );
 </script>
@@ -238,7 +281,14 @@ $(document).ready(function(){
               <article class="hentry blog-post single-post single-post-v1">
                 <div class="control-block-button post-control-button">
                   <a href="#" class="btn btn-control has-i bg-interest">
-                    <i class="fas fa-heart"></i>
+                    <c:choose>
+                        <c:when test="${isInterest eq true}">
+                          <i class="far fa-heart"></i>
+                        </c:when>
+                        <c:when test="${isInterest eq false}">
+                          <i class="fas fa-heart"></i>
+                        </c:when>
+                    </c:choose>
                   </a>
                 </div>
                 <div class="company-name" >${company.companyName}</div>
@@ -298,8 +348,7 @@ $(document).ready(function(){
                               <span> 종가 </span>
                             </div>
                             <div class="count-stat" id="closingPrice">
-                              28.432 <span class="indicator positive"> +
-                                4.207</span>
+                              <span class="indicator positive"></span>
                             </div>
                           </li>
                         </ul>
@@ -309,7 +358,7 @@ $(document).ready(function(){
                 </div>
                 <%-- 구매 버튼 시작--%>
                 <div class="row">
-                  <a class="btn btn-primary btn-md-2" data-toggle="modal"
+                  <a class="btn btn-primary btn-md-2" id="purchaseModal" data-toggle="modal"
                       data-target="#stock_buy_modal">구매</a>
                 </div>
                 <%-- 구매 버튼 끝 --%>
@@ -335,7 +384,7 @@ $(document).ready(function(){
                     <div class="h6">${company.fieldName}</div>
                     <div class="title">업종</div>
                   </a> <a href="#" class="friend-count-item">
-                    <div class="h6">코스피 50</div>
+                    <div class="h6">코스피</div>
                     <div class="title">시장구분</div>
                   </a> <a href="#" class="friend-count-item">
                     <div class="h6">코스피 27위</div>
@@ -461,21 +510,16 @@ $(document).ready(function(){
                 <table class="forums-table company-today-table">
                   <thead>
                     <tr>
-                      <th class="company-name">증감</th>
+<!--                        <th class="company-name">증감</th>  -->
                       <th class="stock-price">매도잔량</th>
                       <th class="trading-time" colspan="2">10:01:23</th>
                       <th class="day-before">매수잔량</th>
-                      <th class="day-before-rate">증감</th>
+<!--                        <th class="day-before-rate">증감</th> -->
                     </tr>
                   </thead>
       
                   <tbody>
                     <tr>
-                      <td class="company-name">
-                        <div class="author-freshness">
-                          <a href="#" class="small">6</a>
-                        </div>
-                      </td>
                       <td class="trading-amount">
                         <a href="#" class="h6 count"></a>
                       </td>
@@ -492,18 +536,8 @@ $(document).ready(function(){
                           <a href="#" class="h6 title"></a>
                         </div>
                       </td>
-                      <td class="day-before-rate">
-                        <div class="author-freshness">
-                          <a href="#" class="h6 title"></a>
-                        </div>
-                      </td>
                     </tr>
                     <tr>
-                      <td class="company-name">
-                        <div class="author-freshness">
-                          <a href="#" class="small"></a>
-                        </div>
-                      </td>
                       <td class="trading-amount">
                         <a href="#" class="h6 count"></a>
                       </td>
@@ -512,54 +546,16 @@ $(document).ready(function(){
                       </td>
                       <td class="day-before">
                         <div class="transition-rate plus">
-                          <a href="#" class="h6 title">+ 0.85</a>
-                        </div>
-                      </td>
-                      <td class="day-before">
-                        <div class="author-freshness">
                           <a href="#" class="h6 title"></a>
                         </div>
                       </td>
-                      <td class="day-before-rate">
+                      <td class="day-before">
                         <div class="author-freshness">
                           <a href="#" class="h6 title"></a>
                         </div>
                       </td>
                     </tr>
                     <tr>
-                      <td class="company-name">
-                        <div class="author-freshness">
-                          <a href="#" class="small"></a>
-                        </div>
-                      </td>
-                      <td class="trading-amount">
-                        <a href="#" class="h6 count">39,000</a>
-                      </td>
-                      <td class="stock-price plus">
-                        <a href="#" class="h6 count">6,498</a>
-                      </td>
-                      <td class="day-before">
-                        <div class="transition-rate plus">
-                          <a href="#" class="h6 title">+ 0.65</a>
-                        </div>
-                      </td>
-                      <td class="day-before">
-                        <div class="author-freshness">
-                          <a href="#" class="h6 title"></a>
-                        </div>
-                      </td>
-                      <td class="day-before-rate">
-                        <div class="author-freshness">
-                          <a href="#" class="h6 title"></a>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="company-name">
-                        <div class="author-freshness">
-                          <a href="#" class="small"></a>
-                        </div>
-                      </td>
                       <td class="trading-amount">
                         <a href="#" class="h6 count"></a>
                       </td>
@@ -568,7 +564,7 @@ $(document).ready(function(){
                       </td>
                       <td class="day-before">
                         <div class="transition-rate plus">
-                          <a href="#" class="h6 title">+ 0.65</a>
+                          <a href="#" class="h6 title"></a>
                         </div>
                       </td>
                       <td class="day-before">
@@ -576,18 +572,26 @@ $(document).ready(function(){
                           <a href="#" class="h6 title"></a>
                         </div>
                       </td>
-                      <td class="day-before-rate">
+                    </tr>
+                    <tr>
+                      <td class="trading-amount">
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="stock-price plus">
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="day-before">
+                        <div class="transition-rate plus">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                      <td class="day-before">
                         <div class="author-freshness">
                           <a href="#" class="h6 title"></a>
                         </div>
                       </td>
                     </tr>
                     <tr>
-                      <td class="company-name">
-                        <div class="author-freshness">
-                          <a href="#" class="small">6</a>
-                        </div>
-                      </td>
                      <td class="trading-amount">
                         <a href="#" class="h6 count"></a>
                       </td>
@@ -596,7 +600,7 @@ $(document).ready(function(){
                       </td>
                       <td class="day-before">
                         <div class="transition-rate plus">
-                          <a href="#" class="h6 title">+ 0.65</a>
+                          <a href="#" class="h6 title"></a>
                         </div>
                       </td>
                       <td class="day-before">
@@ -604,18 +608,24 @@ $(document).ready(function(){
                           <a href="#" class="h6 title"></a>
                         </div>
                       </td>
-                      <td class="day-before-rate">
-                        <div class="author-freshness">
+                    </tr>
+                    <tr>
+                     <td>
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="stock-price minus">
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="day-before">
+                        <div class="transition-rate minus">
                           <a href="#" class="h6 title"></a>
                         </div>
                       </td>
+                     <td class="trading-amount">
+                        <a href="#" class="h6 count"></a>
+                      </td>
                     </tr>
                     <tr>
-                      <td class="company-name">
-                        <div class="author-freshness">
-                          <a href="#" class="small"></a>
-                        </div>
-                      </td>
                      <td>
                         <a href="#" class="h6 count"></a>
                       </td>
@@ -624,50 +634,14 @@ $(document).ready(function(){
                       </td>
                       <td class="day-before">
                         <div class="transition-rate minus">
-                          <a href="#" class="h6 title">- 0.15</a>
-                        </div>
-                      </td>
-                     <td class="trading-amount">
-                        <a href="#" class="h6 count"></a>
-                      </td>
-                      <td class="day-before-rate">
-                        <div class="author-freshness">
-                          <a href="#" class="h6 title">8</a>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="company-name">
-                        <div class="author-freshness">
-                          <a href="#" class="small"></a>
-                        </div>
-                      </td>
-                     <td>
-                        <a href="#" class="h6 count"></a>
-                      </td>
-                      <td class="stock-price minus">
-                        <a href="#" class="h6 count"></a>
-                      </td>
-                      <td class="day-before">
-                        <div class="transition-rate minus">
-                          <a href="#" class="h6 title">- 0.15</a>
-                        </div>
-                      </td>
-                     <td class="trading-amount">
-                        <a href="#" class="h6 count"></a>
-                      </td>
-                      <td class="day-before-rate">
-                        <div class="author-freshness">
                           <a href="#" class="h6 title"></a>
                         </div>
                       </td>
+                     <td class="trading-amount">
+                        <a href="#" class="h6 count"></a>
+                      </td>
                     </tr>
                     <tr>
-                      <td class="company-name">
-                        <div class="author-freshness">
-                          <a href="#" class="small"></a>
-                        </div>
-                      </td>
                      <td>
                         <a href="#" class="h6 count"></a>
                       </td>
@@ -676,68 +650,43 @@ $(document).ready(function(){
                       </td>
                       <td class="day-before">
                         <div class="transition-rate minus">
-                          <a href="#" class="h6 title">- 0.15</a>
-                        </div>
-                      </td>
-                     <td class="trading-amount">
-                        <a href="#" class="h6 count"></a>
-                      </td>
-                      <td class="day-before-rate">
-                        <div class="author-freshness">
-                          <a href="#" class="h6 title">8</a>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="company-name">
-                        <div class="author-freshness">
-                          <a href="#" class="small"></a>
-                        </div>
-                      </td>
-                     <td>
-                        <a href="#" class="h6 count"></a>
-                      </td>
-                      <td class="stock-price minus">
-                        <a href="#" class="h6 count"></a>
-                      </td>
-                      <td class="day-before">
-                        <div class="transition-rate minus">
-                          <a href="#" class="h6 title">- 0.15</a>
-                        </div>
-                      </td>
-                     <td class="trading-amount">
-                        <a href="#" class="h6 count"></a>
-                      </td>
-                      <td class="day-before-rate">
-                        <div class="author-freshness">
-                          <a href="#" class="h6 title">15</a>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="company-name">
-                        <div class="author-freshness">
-                          <a href="#" class="small"></a>
-                        </div>
-                      </td>
-                     <td>
-                        <a href="#" class="h6 count"></a>
-                      </td>
-                      <td class="stock-price minus">
-                        <a href="#" class="h6 count"></a>
-                      </td>
-                      <td class="day-before">
-                        <div class="transition-rate minus">
-                          <a href="#" class="h6 title">- 0.15</a>
-                        </div>
-                      </td>
-                     <td class="trading-amount">
-                        <a href="#" class="h6 count"></a>
-                      </td>
-                      <td class="day-before-rate">
-                        <div class="author-freshness">
                           <a href="#" class="h6 title"></a>
                         </div>
+                      </td>
+                     <td class="trading-amount">
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                    </tr>
+                    <tr>
+                     <td>
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="stock-price minus">
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="day-before">
+                        <div class="transition-rate minus">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                     <td class="trading-amount">
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                    </tr>
+                    <tr>
+                     <td>
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="stock-price minus">
+                        <a href="#" class="h6 count"></a>
+                      </td>
+                      <td class="day-before">
+                        <div class="transition-rate minus">
+                          <a href="#" class="h6 title"></a>
+                        </div>
+                      </td>
+                     <td class="trading-amount">
+                        <a href="#" class="h6 count"></a>
                       </td>
                     </tr>
                     

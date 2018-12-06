@@ -9,7 +9,7 @@
 					<h6 class="title">SNS설정</h6>
 				</div>
 				<div class="ui-block-content">
-					<form action=/sos/setting/update>
+					<form><!-- action=/sos/setting/update -->
 						<div class="row">
 
                             <!-- 
@@ -42,7 +42,7 @@
 
 									<div class="togglebutton">
 										<label>
-											<input type="checkbox" checked=null name="setFeedNotice" id="setFeedNotice">
+											<input type="checkbox" name="setFeedNotice" id="setFeedNotice">
                                             <span class="toggle"></span>
 										</label>
 									</div>
@@ -55,7 +55,7 @@
 
 									<div class="togglebutton">
 										<label>
-											<input type="checkbox" checked="" name="setTradeNotice" id="setTradeNotice">
+											<input type="checkbox" name="setTradeNotice" id="setTradeNotice">
                                             <span class="toggle"></span>
 										</label>
 									</div>
@@ -68,7 +68,7 @@
 
 									<div class="togglebutton">
 										<label>
-											<input type="checkbox" checked="" name="setPrivacy" id="setPrivacy">
+											<input type="checkbox" name="setPrivacy" id="setPrivacy">
                                             <span class="toggle"></span>
 										</label>
 									</div>
@@ -81,7 +81,7 @@
 
 									<div class="togglebutton">
 										<label>
-											<input type="checkbox" checked="" name="setView" id="setView"> 
+											<input type="checkbox" name="setView" id="setView"> 
                                             <span class="toggle"></span>
 										</label>
 									</div>
@@ -92,7 +92,8 @@
 								<button type="reset" class="btn btn-secondary btn-lg full-width">되돌리기</button>
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-								<button type="submit" class="btn btn-primary btn-lg full-width">저장하기</button>
+								<button type="button" class="btn btn-primary btn-lg full-width">저장하기</button> 
+                                <!-- onclick="setting_sns_submit()" -->
 							</div>
 						</div>
 					</form>

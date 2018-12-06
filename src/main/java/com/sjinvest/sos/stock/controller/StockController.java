@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -59,9 +61,17 @@ public class StockController {
     // company, search, trade-list 남수현
 
 	@GetMapping("/company/{companyNumber}")
-	public String company(@PathVariable("companyNumber") String companyNumber, Model model) {
+	public String company(@PathVariable("companyNumber") String companyNumber, Model model, HttpServletRequest request) {
 		Company company = companyService.readByNumber(companyNumber);
 		List<News> news= service.getNewsList(company.getCompanyName()); 
+		String userId = (String)request.getAttribute("userId");
+		if(userId != null) {
+			User user = userService.readById(userId);
+			model.addAttribute("userSeq", user.getUserSeq());
+			model.addAttribute("isInterest",interestService.check(user.getUserSeq(), companyNumber));
+		}else {
+			model.addAttribute("isInterest",false);
+		}
 		model.addAttribute("company", company);
 		model.addAttribute("news", news);
 		model.addAttribute("chartData",service.getTimeSeries(companyNumber, ""));
@@ -73,7 +83,9 @@ public class StockController {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		returnData.put("stockInfo", service.getStockInfo(companyNumber, companyName));
 		returnData.put("askingPrice", service.getAskingPrice(companyNumber));
-		return new ResponseEntity<>(returnData,HttpStatus.OK);
+		return new ResponseEntity<>(service.getCompanyData(companyNumber, 1),HttpStatus.OK);
+//		return new ResponseEntity<>(returnData,HttpStatus.OK);
+
 	}	
 	@ResponseBody
 	@PostMapping(value = "/company/getchartdata", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -86,19 +98,13 @@ public class StockController {
 		ArrayList<String> companyList = new ArrayList<String>(Arrays.asList(companyNumberList));
 		return new ResponseEntity<>(service.getStockList(companyList),HttpStatus.OK);
 	}
-	@ResponseBody
-	@PostMapping(value = "/company/modifyInterest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Boolean> modifyInterest(int userSeq, String companyNumber, String companyName) {
-		Interest interest = new Interest();
-		interest.setCompanyName(companyName);
-		interest.setCompanyNumber(companyNumber);
-		interest.setUserSeq(userSeq);
-		System.out.println(interest);
-		boolean result = interestService.add(interest);
-		return new ResponseEntity<>(result, HttpStatus.OK);
-	}
 	@RequestMapping(value="/search" , method = {RequestMethod.GET, RequestMethod.POST})
-	public String search(String keyword, Model model) {
+	public String search(String keyword, Model model, HttpServletRequest request) {
+		String userId = (String)request.getAttribute("userId");
+		if(userId != null) {
+			User user = userService.readById(userId);
+			model.addAttribute("interestList",interestService.listByUser(user.getUserSeq()));
+		}
 		model.addAttribute("companyList", companyService.search(keyword));
 		return "stock/stock-search-result";
 	}
@@ -108,6 +114,48 @@ public class StockController {
 		model.addAttribute("tradingList", tradingService.listByUser(user.getUserSeq(), 0, null, null, 0, 0));
 		return "stock/stock-trade-list";
 	}
+	@ResponseBody
+	@PostMapping(value = "/company/addInterest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String, Object>> addInterest(String companyNumber, String companyName, HttpServletRequest request) {
+		User user = userService.readById((String)request.getAttribute("userId"));
+		Interest interest = new Interest();
+		interest.setCompanyName(companyName);
+		interest.setCompanyNumber(companyNumber);
+		interest.setUserSeq(user.getUserSeq());
+		boolean result = interestService.add(interest);
+		Map<String, Object> returnValue = new HashMap<String, Object>();
+		returnValue.put("message", ""+result);
+		return new ResponseEntity<>(returnValue, HttpStatus.OK);
+	}
+	@ResponseBody
+	@PostMapping(value = "/company/removeInterest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String, Object>> removeInterest(String companyNumber, String companyName, HttpServletRequest request) {
+		User user = userService.readById((String)request.getAttribute("userId"));
+		Interest interest = new Interest();
+		interest.setCompanyName(companyName);
+		interest.setCompanyNumber(companyNumber);
+		interest.setUserSeq(user.getUserSeq());
+		boolean result = interestService.delete(interest);
+		Map<String, Object> returnValue = new HashMap<String, Object>();
+		returnValue.put("message", ""+result);
+		return new ResponseEntity<>(returnValue, HttpStatus.OK);
+	}
+	@ResponseBody
+	@PostMapping(value = "/company/purchase", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String, Object>> purchase(int userSeq, String companyNumber, String companyName, int tradingAmount, int tradingPrice) {
+		Trading trading = new Trading();
+		trading.setCompanyName(companyName);
+		trading.setCompanyNumber(companyNumber);
+		trading.setTradingAmount(tradingAmount);
+		trading.setTradingPrice(tradingPrice);
+		trading.setTradingType(1);
+		trading.setUserSeq(userSeq);
+		boolean result = tradingService.create(trading);
+		Map<String, Object> returnValue = new HashMap<String, Object>();
+		returnValue.put("message", ""+result);
+		return new ResponseEntity<>(returnValue, HttpStatus.OK);
+	}
+	
 	// 여기서부터 예겸이 작업 go
 	
 }

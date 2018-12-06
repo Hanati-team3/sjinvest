@@ -1,15 +1,3 @@
-$(document).ready(function() {
-	//탭 클릭시 요청 발생
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-		  var target = $(e.target).attr("href") // activated tab
-		  console.log('탭요청 : ' + target);
-	});
-	var indexParam = 1;
-
-	indexUpdate(indexParam);
-	
-});
-
 function indexUpdate(indexParam) {
 	$.ajax({
 		type : "POST",
@@ -18,9 +6,9 @@ function indexUpdate(indexParam) {
 		contentType: "application/json; charset=utf-8",
 		data : JSON.stringify({
 			"userId" : "suhyeon",
-			"fieldOption" : "1",
+			//"fieldOption" : "1",
 			"kospiOption" : "1",
-			"tabOption" : "Rising",
+			"tabOption" : "6",
 			"holdingList" : [
 			{
 	            "holdingSeq": 6,
@@ -41,20 +29,19 @@ function indexUpdate(indexParam) {
 	            "holdingRateOfReturn": 28.487200112530125
 	        }
 	        ],
-			"cashTotal" : "500000",
-			"interestCompanyNameList" : [		        
-				"LG생활건강",
-		        "아모레퍼시픽",
-		        "토니모리"
+			//"cashTotal" : "500000",
+			"interestCompanyNumberList" : [		        
+				"051900",
+		        "214420"
 	        ]
 		}),
 		success : function(stockData) {
 			console.log(stockData);
 			window.stock = stockData;
-			setFieldCard(stockData.fieldStock);
+/*			setFieldCard(stockData.fieldStock);
 			setInterestCard(stockData.interestCard);
 			setKospiCard(stockData.kospi);
-			setTopTab(stockData.topTap);
+			setTopTab(stockData.topTap);*/
 			//setTimeout(indexUpdate, 2000);
 		},
 		error : function(request, status, error) {
@@ -112,11 +99,10 @@ function setInterestCard(interestCard) {
 
 /** 관심종목 차트 */
 function runInterestChart(chartList) {
-	var lineStackedCharts = document.getElementsByName("line-stacked-chart");
+	var lineStackedCharts = document.getElementsByName("interest-line-stacked-chart");
 	for (var i = 0; i < lineStackedCharts.length; i++) {
 		var lineStackedChart = lineStackedCharts[i];
 		var eachChart = chartList.pop();
-		removeLabelQuotes(eachChart);
 		/*
 		 *  Lines Graphic
 		 */
@@ -185,7 +171,6 @@ function setKospiCard(kospi) {
 /** 코스피 차트 설정 함수 */
 function runKospiChart(kospiTimeSeries) {
 	var lineChart = document.getElementById("kospi-line-chart");
-	removeLabelQuotes(kospiTimeSeries);
 	/*
 	 *  Yearly Line Graphic
 	 * 26-Statistics.html
@@ -201,12 +186,12 @@ function runKospiChart(kospiTimeSeries) {
 	                borderWidth: 4,
 	                pointBorderColor: "#ffdc1b",
 	                pointBackgroundColor: "#fff",
-	                pointBorderWidth: 4,
-	                pointRadius: 6,
-	                pointHoverRadius: 8,
+	                pointBorderWidth: 3,
+	                pointRadius: 1,
+	                pointHoverRadius: 1,
 	                fill: false,
 	                lineTension:0,
-	                data: kospiTimeSeries.data.pop()
+	                data: kospiTimeSeries.data
 	            }]
 	    };
 
@@ -220,11 +205,23 @@ function runKospiChart(kospiTimeSeries) {
 	            responsive: true,
 	            scales: {
 	                xAxes: [{
+	                	type: 'time',
 	                    ticks: {
-	                        fontColor: '#888da8'
+	                        fontColor: '#888da8',
+	                        stepSize: 10,
+	                        unitStepSize: 10
 	                    },
 	                    gridLines: {
 	                        color: "#f0f4f9"
+	                    },
+	                    time: { 
+		                    unit: 'second', 
+		                    unitStepSize: '10', 
+		                    format: "HHmmss", 
+		                    displayFormats: { 
+		                      minute: 'HH:mm', 
+		                      hour: 'HH:mm' 
+		                    } 
 	                    }
 	                }],
 	                yAxes: [{
@@ -232,7 +229,6 @@ function runKospiChart(kospiTimeSeries) {
 	                        color: "#f0f4f9"
 	                    },
 	                    ticks: {
-	                        beginAtZero:true,
 	                        fontColor: '#888da8'
 	                    }
 	                }]

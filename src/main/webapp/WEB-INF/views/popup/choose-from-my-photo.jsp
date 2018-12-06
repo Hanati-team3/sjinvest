@@ -15,11 +15,11 @@
             <svg class="olymp-photos-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-photos-icon"></use></svg>
           </a>
         </li>
-        <li class="nav-item">
+        <%-- <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">
             <svg class="olymp-albums-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-albums-icon"></use></svg>
           </a>
-        </li>
+        </li> --%>
       </ul>
     </div>
 
@@ -109,7 +109,9 @@
           <a href="#" class="btn btn-primary btn-lg btn--half-width">Confirm Photo</a>
 
         </div>
-        <div class="tab-pane" id="profile" role="tabpanel" aria-expanded="false">
+        
+        
+        <%-- <div class="tab-pane" id="profile" role="tabpanel" aria-expanded="false">
 
           <div class="choose-photo-item" data-mh="choose-item">
             <figure>
@@ -170,7 +172,9 @@
 
           <a href="#" class="btn btn-secondary btn-lg btn--half-width">Cancel</a>
           <a href="#" class="btn btn-primary btn-lg disabled btn--half-width">Confirm Photo</a>
-        </div>
+        </div> --%>
+        
+        
       </div>
     </div>
 
