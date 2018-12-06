@@ -252,7 +252,7 @@ public class StockDao {
 		List<String> companyList = new ArrayList<String>();
 		companyList.add("086790");
 		companyList.add("004170");
-		Map<String, Object> result = stockDao.forIndex(companyList,"20181125","20181204",2,6);
+		Map<String, Object> result = stockDao.forIndex(companyList,"20181125","20181204",1,1);
 		System.out.println(result);
 	}
 }

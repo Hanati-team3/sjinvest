@@ -81,7 +81,7 @@ public class StockController2 {
 		// 코스피 정보 카드
 		model.addAttribute("kospi", kospiMethod());
 		// 상승률 상위 5종목
-		model.addAttribute("topTapJ", service.stockTop("Rising"));
+		model.addAttribute("topTab", service.stockTop("Rising"));
 		// 주식 전체 뉴스
 		model.addAttribute("news", service.stockIndexNews());
 		// 로그인중
@@ -130,10 +130,6 @@ public class StockController2 {
 		return new ResponseEntity<>(map, HttpStatus.OK);*/
 		Map<String, Object> map = service.getForIndex(params.getHoldingList(), 
 				params.getInterestCompanyNumberList(), params.getKospiOption(), params.getTabOption());
-		System.out.println(params.getHoldingList());
-		System.out.println(params.getKospiOption());
-		System.out.println(params.getKospiOption());
-		System.out.println(params.getTabOption());
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	
