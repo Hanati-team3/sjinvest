@@ -11,10 +11,6 @@ var companyNumberList = new Array;
 <c:forEach var="company" items="${companyList}" varStatus="status">
 	companyNumberList.push("${company.companyNumber}");
 </c:forEach>
-var realTimeCompanyNumberList = new Array;
-<c:forEach var="eachData" items="${realTime}" varStatus="status">
-	realTimeCompanyNumberList.push("${eachData.stockName}");
-</c:forEach>
 function getStockData(){
 	$.ajax({ 
         type: "POST", 
@@ -23,6 +19,10 @@ function getStockData(){
 		data: {'companyNumberList' : companyNumberList},
         success: function (data) {
           window.test=data;
+          var realTimeList = $("ul#scroll li a");
+          for(var i = 0; i < realTimeList.length; i++){
+        	  realTimeList.eq(i).text((i+1)+"  "+data.realTime[i].stockName+" "+data.realTime[i].total)
+          }
 		  var trList = $(".search-result tbody tr");
           for(var i = 0; i < trList.length; i++){
         	 	trList.eq(i).find(".stock-price a").text(numberWithCommas(data.stockList[i].stockPrice));

@@ -12,6 +12,6 @@ function removeLabelQuotes(data){
 }
 //function updateRealTime(data){
 //	$("ul#scroll li a").each(function(index){
-//		$(this).text(index+"     "data.name[i]+"     "+data.price[i]);
+//		$(this).text(index+"     "data[i].stockName);
 //	});
 //}

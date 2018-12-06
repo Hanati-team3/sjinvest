@@ -47,5 +47,5 @@ public interface StockService {
 	public Map<String, Object> getCompanyData(String companyNumber, int type);
 	public Map<String, Object> getForSearchResult(List<String> companyNumberList);
 	public TimeSeries getChartData(List<String> companyNumberList, int type, int kind);
-	public TimeSeries getKospiChartDate(int type);
+	public Map<String, Object> getKospiChartDate(int type);
 }

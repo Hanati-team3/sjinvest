@@ -9,16 +9,9 @@
 			<a href="#" class="title">Following</a>
 		</div>
 
-		<ul class="chat-users">
+		<ul class="chat-users" id="follow_list">
     
-			<li class="inline-items">
-				<div class="author-thumb">
-					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar67-sm.jpg" class="avatar">
-				</div>
-				<div class="author-status">
-					<a href="#" class="h6 author-name">Carol Summers</a>
-				</div>
-			</li>
+			<!-- getFollowList Ajax 로 들어오는 부분-->
       
 		</ul>
 
@@ -26,16 +19,9 @@
 			<a href="#" class="title">Follower</a>
 		</div>
 
-		<ul class="chat-users">
+		<ul class="chat-users" id="follower_list">
     
-			<li class="inline-items">
-				<div class="author-thumb">
-					<img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar71-sm.jpg" class="avatar">
-				</div>
-				<div class="author-status">
-					<a href="#" class="h6 author-name">Bruce Peterson</a>
-				</div>
-			</li>
+			<!-- getFollowerList Ajax 로 들어오는 부분 -->
 
 		</ul>
 
