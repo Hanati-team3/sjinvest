@@ -638,7 +638,6 @@
 			var target = $(e.target).attr("href") // activated tab
 			console.log('탭요청 : ' + target);
 		});
-		var indexParam = 1;
 		var kospiChartLabel = [];
 		var kospiChartData = [];
 		<c:forEach var="eachLabel" items="${kospi.kospiTimeSeries.label}" varStatus="status">
@@ -652,9 +651,95 @@
 			data : kospiChartData
 		};
 		runKospiChart(kospiTimeSeries);
+		var indexParam = setIndexParam();
+		console.log(indexParam);
 		//runInterestChart(chartList);
 		//indexUpdate(indexParam);
 	});
+	function setIndexParam() {
+		var indexParam = {};
+		// 유저 아이디 설정
+		indexParam.userId = "suhyeon";
+		// 탭 옵션 설정
+		var activeTabId = $(".stock-top-tab .tab-content").find('.active').attr('id');
+		switch(activeTabId) {
+		//상승률 상위 5
+		case 'rising-rate' :
+			indexParam.tabOption = 1;
+			break;
+		// 하락률 상위 5
+		case 'falling-rate' :
+			indexParam.tabOption = 1;
+			break;
+		// 외국인 순매수 3
+		case 'foreigner' :
+			indexParam.tabOption = 1;
+			break;
+		// 기관 순매수 3
+		case 'institution' :
+			indexParam.tabOption = 1;
+			break;
+		// 거래량 20
+		case 'trading-amount' :
+			indexParam.tabOption = 1;
+			break;
+		// 시가총액 20
+		case 'total-value' :
+			indexParam.tabOption = 1;
+			break;
+		}
+		// 코스피옵션 설정
+		indexParam.kospiOption = 1;
+		// 보유자산 리스트 설정
+		indexParam.holdingList = [];
+		<c:forEach var="eachHolding" items="${holdingWidget.holdingList}" varStatus="status">
+		indexParam.holdingList.push({
+            "holdingSeq": ${eachHolding.holdingSeq},
+            "companyNumber": ${eachHolding.companyNumber},
+            "companyName": ${eachHolding.companyName},
+            "userSeq": ${eachHolding.userSeq},
+            "holdingAmount": ${eachHolding.holdingAmount},
+            "holdingTotalMoney": ${eachHolding.holdingTotalMoney},
+            "holdingRateOfReturn": ${holdingRateOfReturn}
+		});
+    	</c:forEach>
+		// 관심종목 회사번호 설정
+		indexParam.interestCompanyNumberList = [];
+		<c:forEach var="eachInterest" items="${interestList}" varStatus="status">
+		indexParam.interestCompanyNumberList.push(${eachInterest.stockCode});
+    	</c:forEach>
+/* 		indexParam = {
+				"userId" : "suhyeon",
+				//"fieldOption" : "1",
+				"kospiOption" : "1",
+				"holdingList" : [
+				{
+		            "holdingSeq": 6,
+		            "companyNumber": "090430",
+		            "companyName": "아모레퍼시픽",
+		            "userSeq": 2,
+		            "holdingAmount": 701,
+		            "holdingTotalMoney": 39404,
+		            "holdingRateOfReturn": 47.7836290535892
+		        },
+		        {
+		            "holdingSeq": 7,
+		            "companyNumber": "051900",
+		            "companyName": "LG생활건강",
+		            "userSeq": 2,
+		            "holdingAmount": 25,
+		            "holdingTotalMoney": 25233,
+		            "holdingRateOfReturn": 28.487200112530125
+		        }
+		        ],
+				//"cashTotal" : "500000",
+				"interestCompanyNumberList" : [		        
+					"051900",
+			        "214420"
+		        ]
+		} */
+		return indexParam;
+	}
   </script>
 
 </body>
