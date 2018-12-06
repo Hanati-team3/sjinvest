@@ -128,4 +128,8 @@ public class UserServiceImpl implements UserService {
 	public List<String> findUser(String term) {
 		return userMapper.findUser(term);
 	}
+	@Override
+	public int searchUser(String text) {
+		return userMapper.searchUser(text);
+	}
 }

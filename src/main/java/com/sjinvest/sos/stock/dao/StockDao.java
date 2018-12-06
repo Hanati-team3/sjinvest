@@ -228,24 +228,46 @@ public class StockDao {
 	}
 	public TimeSeries convertListTimeSeries(JsonNode jsonMap) {
         JsonNode com = jsonMap.get("com");
-        System.out.println(com.size());
-//        for(JsonNode objNode : comList) {
-//        	
-//        }
         TimeSeries timeSeries = new TimeSeries();
-//        List<Double> data = new ArrayList<Double>();
-//        List<String> dataName = new ArrayList<String>();
-//        if(period.isArray()) {
-//        	for(JsonNode objNode : period) {
-//        		data.add(objNode.get("close").asDouble());
-//        		dataName.add(objNode.get("date").asText());
-//        	}
-//        }
-//        List<List<Double>> datas = new ArrayList<List<Double>>();
-//        datas.add(data);
-//        timeSeries.setData(datas);
-//        timeSeries.setDataName(dataName);
-//        timeSeries.setLabel(dataName);
+        List<List<Double>> datas = new ArrayList<List<Double>>();
+        boolean first =true;
+        for(JsonNode objNode : com) {
+            List<String> dataName = new ArrayList<String>();
+        	List<Double> data = new ArrayList<Double>();
+        	for(JsonNode objInNode : objNode) {
+        		data.add(objInNode.get("close").asDouble());
+        		dataName.add(objInNode.get("date").asText());
+        	}
+        	datas.add(data);
+            timeSeries.setDataName(dataName);
+            timeSeries.setLabel(dataName);
+        }
+        timeSeries.setData(datas);
+        System.out.println(timeSeries);
+        return timeSeries;
+	}
+	public TimeSeries convertKospiListTimeSeries(JsonNode jsonMap) {
+        JsonNode period = jsonMap.get("kospi");
+        TimeSeries timeSeries = new TimeSeries();
+        List<Double> data = new ArrayList<Double>();
+        List<String> dataName = new ArrayList<String>();
+        if(period.isArray()) {
+        	boolean first = true;
+        	for(JsonNode objNode : period) {
+        		if(first) {
+        			first=false;
+        			continue;
+        		}
+        		data.add(objNode.get("close").asDouble());
+        		dataName.add(objNode.get("date").asText());
+        	}
+        }
+        List<List<Double>> datas = new ArrayList<List<Double>>();
+        datas.add(data);
+        timeSeries.setData(datas);
+        timeSeries.setDataName(dataName);
+        timeSeries.setLabel(dataName);
+        System.out.println(timeSeries);
         return timeSeries;
 	}
 	public String convertListToString(List<String> companyNumber) {
@@ -256,15 +278,10 @@ public class StockDao {
 		}
 		return result.substring(0,result.length()-1);
 	}
-	public Map<String, Object> forIndex(List<String> companyNumberList, String startDate, String endDate, int type, int rank){
+	public Map<String, Object> forIndex(List<String> companyNumberList,int rank){
 		Map<String, Object> result = new HashMap<String, Object>();
 		String apiURL = "http://54.180.117.83:8000/stock?";
 		String urlString = apiURL + "code="+convertListToString(companyNumberList);
-		if(startDate!=null && endDate!=null && type!=0) {
-			urlString=urlString+"&startDate="+startDate;
-			urlString=urlString+"&endDate="+endDate;
-			urlString=urlString+"&type="+type;
-		}
 		urlString = urlString+"&rank="+rank;
 		System.out.println(urlString);
 		try {
@@ -276,8 +293,6 @@ public class StockDao {
             JsonNode jsonMap = mapper.readTree(in);
             System.out.println("연결");
             result.put("realTime", convertStockMiniList(jsonMap, "realTime"));
-            result.put("kospi", convertKospi(jsonMap));
-            System.out.println("kospi");
             result.put("topTab", convertStockTop(jsonMap));
             result.put("stockList", convertStockList(jsonMap,"OwnStock"));
 		} catch (IOException e) {
@@ -316,7 +331,24 @@ public class StockDao {
             InputStream in = urlConnection.getInputStream();
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonMap = mapper.readTree(in);
-            convertListTimeSeries(jsonMap);
+            return convertListTimeSeries(jsonMap);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public TimeSeries getKospiChartData(String kstartDate, String kendDate, int ktype) {
+		TimeSeries result = new TimeSeries();
+		String apiURL = "http://54.180.117.83:8003/stock/chart?";
+		String urlString = apiURL + "kstartDate="+kstartDate+"&kendDate="+kendDate+"&ktype="+ktype;
+		try {
+			URL url = new URL(urlString);
+			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            InputStream in = urlConnection.getInputStream();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonMap = mapper.readTree(in);
+            return convertKospiListTimeSeries(jsonMap);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -327,6 +359,6 @@ public class StockDao {
 		List<String> companyList = new ArrayList<String>();
 		companyList.add("086790");
 		companyList.add("004170");
-		stockDao.forIndex(companyList, "20181202", "20181206", 2, 4);
+		System.out.println(stockDao.forIndex(companyList, 4));
 	}
 }

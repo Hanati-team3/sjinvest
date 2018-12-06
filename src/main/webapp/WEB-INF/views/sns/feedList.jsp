@@ -27,6 +27,176 @@
           <!-- ...Nav tabs end -->      
 
 <%-- 피드 목록 시작--%>
+<div id="makeFeed">
+	<!-- for문으로 피드 글 보여주기  -->
+	
+</div>
+
+	<div id="newsfeed-items-grid" style="display: none">
+	  <div class="ui-block">
+	    <article class="hentry post">
+	
+	      <div class="post__author author vcard inline-items">
+	        <img
+	          src="<%=application.getContextPath()%>/resources/img/avatar7-sm.jpg"
+	          alt="author">
+	
+	        <div class="author-date">
+	          <a name="postUserNickName" href="#" class="h6 post__author-name fn" data-toggle="modal" data-target="#user_modal"></a>
+	          <div class="post__date">
+	            <time name="postWriteDate" class="published"></time>
+	          </div>
+	        </div>
+	
+	        <div class="more">
+	          <svg class="olymp-three-dots-icon">
+	          <use
+	              xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
+	          <ul class="more-dropdown">
+	            <li><a href="#">수정</a></li>
+	            <li><a href="/sos/feed/delete">삭제</a></li>
+	          </ul>
+	        </div>
+	      </div>
+	
+	      <p name="feedContent"></p>
+	
+	      <div class="post-additional-info inline-items">
+	
+	        <a href="#" class="post-add-icon inline-items"> <svg
+	            class="olymp-heart-icon">
+	        <use
+	              xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-heart-icon"></use>
+	      </svg> <span name="feedLike"></span>
+	        </a>
+	
+	        <div class="comments-shared">
+	          <a href="#" class="post-add-icon inline-items"> <svg
+	              class="olymp-speech-balloon-icon">
+	                  <use
+	                xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
+	
+	            <span name="feedCommnetCount"></span>
+	          </a> <a href="#" class="post-add-icon inline-items"> <svg
+	              class="olymp-share-icon">
+	                  <use
+	                xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-share-icon"></use></svg>
+	
+	            <span name="feedShare"></span>
+	          </a>
+	        </div>
+	
+	
+	      </div>
+	
+	      <div class="control-block-button post-control-button">
+	
+	        <a href="#" class="btn btn-control"> <svg
+	            class="olymp-like-post-icon">
+	                <use
+	              xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-like-post-icon"></use></svg>
+	        </a> <a href="#" class="btn btn-control"> <svg
+	            class="olymp-comments-post-icon">
+	                <use
+	              xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
+	        </a> <a href="#" class="btn btn-control"> <svg
+	            class="olymp-share-icon">
+	                <use
+	              xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-share-icon"></use></svg>
+	        </a>
+	
+	      </div>
+	
+	    </article>
+	
+	
+	    <!-- 댓글 list start -->
+	    <div name="commentList" class="ui-block-title" id="accordion" role="tablist"
+	      aria-multiselectable="true" style="padding: 10px 0px 0px 6px;">
+	      <div class="card">
+	
+	        <div class="card-header" role="tab" id="headingOne">
+	          <h6 class="mb-0">
+	            <a data-toggle="collapse" data-parent="#accordion"
+	              href="#collapseOne" aria-expanded="true"
+	              aria-controls="collapseOne"
+	              style="text-align: center; font-size: 12px"> View
+	              more comments + <svg class="olymp-dropdown-arrow-icon">
+	              <use
+	                  xlink:href="../resources/icons/icons.svg#olymp-dropdown-arrow-icon"></use>
+	          </svg>
+	            </a>
+	          </h6>
+	        </div>
+	
+	        <div id="collapseOne" class="collapse show" role="tabpanel"
+	          aria-labelledby="headingOne">
+	          <ul class="comments-list">
+	            <li>
+	              <div class="post__author author vcard inline-items">
+	                <img
+	                  src="<%=application.getContextPath()%>/resources/img/avatar10-sm.jpg"
+	                  alt="author">
+	
+	                <div class="author-date">
+	                  <a name="replyName" class="h6 post__author-name fn"
+	                    href="02-ProfilePage.html" data-toggle="modal" data-target="#user_modal"></a>
+	                  <div class="post__date">
+	                    <time name="replyTime" class="published"
+	                      datetime="2004-07-24T18:18">
+	                    </time>
+	                  </div>
+	                </div>
+	
+	            
+	            <div class="more">
+	              <svg class="olymp-three-dots-icon">
+	                <use
+	                  xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
+	              <ul class="more-dropdown">
+	                <li><a href="#">댓글수정</a></li>
+	                <li><a href="/sos/feed/delete">댓글삭제</a></li>
+	              </ul>
+	            </div>
+	
+	              </div>
+	
+	              <p name="replyContent"></p>
+	
+	            </li>
+	
+	          </ul>
+	        </div>
+	
+	      </div>
+	    </div>
+	    <!-- ...댓글 list end -->
+	
+	
+	    <form class="comment-form inline-items">
+	
+	      <div class="post__author author vcard inline-items">
+	        <img
+	          src="<%=application.getContextPath()%>/resources/img/author-page.jpg"
+	          alt="author">
+	
+	        <div class="form-group with-icon-right ">
+	          <textarea class="form-control" placeholder=""></textarea>
+	          <div class="add-options-message">
+	            <a href="#" class="options-message" data-toggle="modal"
+	              data-target="#update-header-photo"> <svg
+	                class="olymp-camera-icon">
+	                    <use
+	                  xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-camera-icon"></use></svg>
+	            </a>
+	          </div>
+	        </div>
+	      </div>
+	
+	    </form>
+	
+	  </div>
+	</div>
 
 <c:forEach var="i" begin="1" end="10" step="1">
   <div id="newsfeed-items-grid">
@@ -252,7 +422,6 @@
 </c:forEach>
 
 <%-- 피드 목록 끝 --%>
-
 
 
 <%-- 더보기 버튼 start --%>

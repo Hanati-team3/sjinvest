@@ -71,10 +71,10 @@ public class FeedMapperTest {
 		data.put("startNum", 1);
 		data.put("endNum", 10);
 		data.put("userSeq", 2);
-		List<String> keywords = new ArrayList<String>(); 
-		keywords.add("테스트");
-		keywords.add("졸림");
-		data.put("keywords", keywords);
+//		List<String> keywords = new ArrayList<String>(); 
+//		keywords.add("테스트");
+//		keywords.add("졸림");
+//		data.put("keywords", keywords);
 		log.info(mapper.listBySearchPage(data));
 	}
 }
