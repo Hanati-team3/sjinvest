@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -59,11 +60,12 @@ public class StockController {
     // company, search, trade-list 남수현
 
 	@GetMapping("/company/{companyNumber}")
-	public String company(@PathVariable("companyNumber") String companyNumber, Model model) {
+	public String company(@PathVariable("companyNumber") String companyNumber, Model model, @RequestAttribute(name="userIdC") String userId) {
 		Company company = companyService.readByNumber(companyNumber);
 		List<News> news= service.getNewsList(company.getCompanyName()); 
 		User user = userService.readById("suhyeon");
 //		service.getCompanyData(companyNumber, 2);
+		System.out.println(userId);
 		model.addAttribute("company", company);
 		model.addAttribute("news", news);
 		model.addAttribute("isInterest",interestService.check(2, companyNumber));
@@ -105,8 +107,9 @@ public class StockController {
 	}
 	@RequestMapping(value="/search" , method = {RequestMethod.GET, RequestMethod.POST})
 	public String search(String keyword, Model model) {
+		String userId;
 		model.addAttribute("companyList", companyService.search(keyword));
-		model.addAttribute("","");
+//		model.addAttribute("interestLIst",interestService.listByUser(userSeq));
 		return "stock/stock-search-result";
 	}
 	@RequestMapping(value="/trade-list" , method = {RequestMethod.GET, RequestMethod.POST})
