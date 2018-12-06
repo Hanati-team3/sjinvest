@@ -304,7 +304,9 @@ public class StockServiceImpl implements StockService {
 			holdingCompanyNumberList.add(holding.getCompanyNumber());
 		}
 		List<String> companyNumberList = union(holdingCompanyNumberList, interestCompanyNumberList);
+		System.out.println(100);
 		Map<String, Object> result = stockDao.forIndex(companyNumberList, date[0], date[1], type, rank);
+		System.out.println(200);
 		List<Stock> stockList = (List<Stock>) result.get("stockList");
 		result.remove("stockList");
 		int stockTotal = 0;
@@ -315,6 +317,7 @@ public class StockServiceImpl implements StockService {
 			holding.setHoldingRateOfReturn(holding.getHoldingReturn()/holding.getHoldingTotalMoney());
 			stockTotal = stockTotal + (holdingPrice*holding.getHoldingAmount());
 		}
+		System.out.println(300);
 		Map<String, Object> holdingWidgetMap = new Hashtable<String, Object>();
 		holdingWidgetMap.put("holdingList", holdingList);
 		holdingWidgetMap.put("stockTotal", stockTotal);
@@ -323,11 +326,13 @@ public class StockServiceImpl implements StockService {
 		for(String interestCompanyNumber : interestCompanyNumberList) {
 			interestMap.put(interestCompanyNumber, searchStock(interestCompanyNumber, stockList));
 		}*/
+		System.out.println(400);
 		List<Stock> interestList = new ArrayList<>();
 		for(String interestCompanyNumber : interestCompanyNumberList) {
 			interestList.add(searchStock(interestCompanyNumber, stockList));
 		}
 			
+		System.out.println(500);
 		result.put("interestList", interestList);
 		return result;
 	}

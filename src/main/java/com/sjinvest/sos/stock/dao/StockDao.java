@@ -274,8 +274,10 @@ public class StockDao {
             InputStream in = urlConnection.getInputStream();
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonMap = mapper.readTree(in);
+            System.out.println("연결");
             result.put("realTime", convertStockMiniList(jsonMap, "realTime"));
             result.put("kospi", convertKospi(jsonMap));
+            System.out.println("kospi");
             result.put("topTab", convertStockTop(jsonMap));
             result.put("stockList", convertStockList(jsonMap,"OwnStock"));
 		} catch (IOException e) {
@@ -325,6 +327,6 @@ public class StockDao {
 		List<String> companyList = new ArrayList<String>();
 		companyList.add("086790");
 		companyList.add("004170");
-		stockDao.getChartData(companyList, "20181202", "20181206", 2);
+		stockDao.forIndex(companyList, "20181202", "20181206", 2, 4);
 	}
 }
