@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sjinvest.sos.stock.domain.AskingPrice;
 import com.sjinvest.sos.stock.domain.Kospi;
+import com.sjinvest.sos.stock.domain.Rank;
 import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.domain.StockMini;
 import com.sjinvest.sos.stock.domain.TimeSeries;
@@ -23,7 +24,7 @@ import lombok.extern.log4j.Log4j;
 public class StockDao {
 	
 	public Map<String, Object> getStockTotal(String companyNumber, String startDate, String endDate, int type) {
-		String apiURL = "http://54.180.117.83:8000/stock/com?";
+		String apiURL = "http://54.180.117.83:8008/stock/com?";
 		Map<String, Object> result = new HashMap<String, Object>();
 		String urlString = apiURL + "code="+companyNumber;
 		if(startDate!=null && endDate!=null && type!=0) {
@@ -168,6 +169,20 @@ public class StockDao {
         }
         return stockMiniList;
 	}
+	public List<Rank> convertStockTop(JsonNode jsonMap){
+        JsonNode rankNode = jsonMap.get("rank");
+        List<Rank> rankList = new ArrayList<Rank>();
+        if(rankNode.isArray()) {
+        	for(JsonNode objNode : rankNode) {
+        		Rank rank = new Rank();
+        		rank.setStockName(objNode.get("stockName").asText());
+        		rank.setStockCode(objNode.get("stockCode").asText());
+        		rank.setStockValue(objNode.get("stockCode").asDouble());
+        		rankList.add(rank);
+        	}
+        }
+        return rankList;
+	}
 	public List<AskingPrice> convertAskingPriceList(JsonNode jsonMap){
         JsonNode askingPrice = jsonMap.get("askingPrice");
         List<AskingPrice> askingPriceList = new ArrayList<AskingPrice>();
@@ -239,7 +254,7 @@ public class StockDao {
             JsonNode jsonMap = mapper.readTree(in);
             result.put("realTime", convertStockMiniList(jsonMap, "realTime"));
             result.put("kospi", convertKospi(jsonMap));
-            result.put("topTap", convertStockMiniList(jsonMap, "rank"));
+            result.put("topTab", convertStockTop(jsonMap));
             result.put("stockList", convertStockList(jsonMap,"OwnStock"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -253,6 +268,6 @@ public class StockDao {
 		companyList.add("086790");
 		companyList.add("004170");
 		Map<String, Object> result = stockDao.forIndex(companyList,"20181125","20181204",1,1);
-		System.out.println(result);
+		System.out.println(result.get("topTab"));
 	}
 }
