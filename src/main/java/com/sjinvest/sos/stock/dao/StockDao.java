@@ -226,6 +226,28 @@ public class StockDao {
         timeSeries.setLabel(dataName);
         return timeSeries;
 	}
+	public TimeSeries convertListTimeSeries(JsonNode jsonMap) {
+        JsonNode com = jsonMap.get("com");
+        System.out.println(com.size());
+//        for(JsonNode objNode : comList) {
+//        	
+//        }
+        TimeSeries timeSeries = new TimeSeries();
+//        List<Double> data = new ArrayList<Double>();
+//        List<String> dataName = new ArrayList<String>();
+//        if(period.isArray()) {
+//        	for(JsonNode objNode : period) {
+//        		data.add(objNode.get("close").asDouble());
+//        		dataName.add(objNode.get("date").asText());
+//        	}
+//        }
+//        List<List<Double>> datas = new ArrayList<List<Double>>();
+//        datas.add(data);
+//        timeSeries.setData(datas);
+//        timeSeries.setDataName(dataName);
+//        timeSeries.setLabel(dataName);
+        return timeSeries;
+	}
 	public String convertListToString(List<String> companyNumber) {
 		String result = "";
 		for(int i = 0; i < companyNumber.size(); i++) {
@@ -281,12 +303,28 @@ public class StockDao {
 		return result;
 
 	}
+	public TimeSeries getChartData(List<String> companyNumberList, String startDate, String endDate, int type) {
+		TimeSeries result = new TimeSeries();
+		String apiURL = "http://54.180.117.83:8003/stock/chart?";
+		String urlString = apiURL + "code="+convertListToString(companyNumberList)+"&startDate="+startDate+"&endDate="+endDate+"&type="+type;
+		try {
+			URL url = new URL(urlString);
+			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            InputStream in = urlConnection.getInputStream();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonMap = mapper.readTree(in);
+            convertListTimeSeries(jsonMap);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	public static void main(String[] args) {
 		StockDao stockDao = new StockDao();
 		List<String> companyList = new ArrayList<String>();
 		companyList.add("086790");
 		companyList.add("004170");
-		Map<String, Object> result = stockDao.forIndex(companyList,"20181125","20181204",1,1);
-		System.out.println(result.get("topTab"));
+		stockDao.getChartData(companyList, "20181202", "20181206", 2);
 	}
 }

@@ -10,3 +10,8 @@ function removeLabelQuotes(data){
 	});
 	return result;
 }
+//function updateRealTime(data){
+//	$("ul#scroll li a").each(function(index){
+//		$(this).text(index+"     "data.name[i]+"     "+data.price[i]);
+//	});
+//}
