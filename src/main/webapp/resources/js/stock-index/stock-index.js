@@ -99,11 +99,10 @@ function setInterestCard(interestCard) {
 
 /** 관심종목 차트 */
 function runInterestChart(chartList) {
-	var lineStackedCharts = document.getElementsByName("line-stacked-chart");
+	var lineStackedCharts = document.getElementsByName("interest-line-stacked-chart");
 	for (var i = 0; i < lineStackedCharts.length; i++) {
 		var lineStackedChart = lineStackedCharts[i];
 		var eachChart = chartList.pop();
-		removeLabelQuotes(eachChart);
 		/*
 		 *  Lines Graphic
 		 */

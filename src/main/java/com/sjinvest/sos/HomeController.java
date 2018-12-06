@@ -131,32 +131,4 @@ public class HomeController {
 		return "/temp/icon";
 	}
 	
-	@RequestMapping(value = "/stock/index", method = RequestMethod.GET)
-	public String stock() {
-		logger.info("stock index ");
-		
-		return "/stock/stock-index";
-	}
-	
-	@RequestMapping(value = "/stock/company", method = RequestMethod.GET)
-	public String company() {
-		logger.info("stock company ");
-		
-		return "/stock/stock-company";
-	}
-	
-	@RequestMapping(value = "/stock/interest", method = RequestMethod.GET)
-	public String interests() {
-		logger.info("stock interest ");
-		
-		return "/stock/stock-interest";
-	}
-	
-	@RequestMapping(value = "/stock/holding-list", method = RequestMethod.GET)
-	public String assetList() {
-		logger.info("stock holding-list ");
-		
-		return "/stock/stock-holding-list";
-	}
-	
 }

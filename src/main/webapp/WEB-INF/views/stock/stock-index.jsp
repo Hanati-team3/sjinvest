@@ -137,7 +137,7 @@
                           <div class="company-stock" data-swiper-parallax="-500">${eachInterest.stockPrice}</div>
                           <span class="indicator">전일대비 ${eachInterest.stockChange}  +${eachInterest.stockDiff * 100}%</span>
                           <div class="chart-js chart-js-line-stacked">
-                            <canvas id="line-stacked-chart" width="730" height="300"></canvas>
+                            <canvas name="interest-line-stacked-chart" width="730" height="300"></canvas>
                           </div>
                         </div>
                       </div>
@@ -650,8 +650,9 @@
 		var kospiTimeSeries = {
 			label : kospiChartLabel,
 			data : kospiChartData
-		}
+		};
 		runKospiChart(kospiTimeSeries);
+		//runInterestChart(chartList);
 		//indexUpdate(indexParam);
 	});
   </script>
