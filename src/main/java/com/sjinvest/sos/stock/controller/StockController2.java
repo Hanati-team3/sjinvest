@@ -49,7 +49,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/stock2/*")
+@RequestMapping("/stock/*")
 @AllArgsConstructor
 public class StockController2 {
 
