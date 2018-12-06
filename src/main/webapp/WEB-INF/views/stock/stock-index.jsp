@@ -6,9 +6,7 @@
 <title>SOS - 모의투자</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
 </head>
-
 <body class="stock">
-<h6>${interestList }</h6>
   <%-- 우리한테 필요 없는 고정 양측 사이드바 --%>
   <!-- Fixed Sidebar Left -->
   <%-- <jsp:include page="includes/fixed-sidebar-left.jsp"></jsp:include> --%>
@@ -132,26 +130,22 @@
               <div class="ui-block-content">
                 <div class="swiper-container" data-slide="fade">
                   <div class="swiper-wrapper">
-                  
                     <c:forEach var="eachInterest" items="${interestList}" varStatus="status">
                       <div class="swiper-slide">
                         <div class="statistics-slide">
-                        
                           <div class="company-name" data-swiper-parallax="-500">${eachInterest.stockName}</div>
                           <div class="company-stock" data-swiper-parallax="-500">${eachInterest.stockPrice}</div>
                           <span class="indicator">전일대비 ${eachInterest.stockChange}  +${eachInterest.stockDiff * 100}%</span>
-<%--                           <div class="chart-js chart-js-line-stacked">
-                            <canvas id="stacked-chart" width="730" height="300"></canvas>
-                          </div> --%>
-                          
+                          <div class="chart-js chart-js-line-stacked">
+                            <canvas id="line-stacked-chart" width="730" height="300"></canvas>
+                          </div>
                         </div>
                       </div>
                     </c:forEach>
-                    
                   </div>
   
                   <!-- If we need pagination -->
-                  <!-- <div class="swiper-pagination pagination-blue"></div> -->
+                  <div class="swiper-pagination pagination-blue"></div>
                 </div>
               </div>
             </div>
@@ -187,29 +181,29 @@
               
               <div class="ui-block-content display-flex content-around">
                 <div class="text-stat">
-                  <div class="count-stat"></div>
+                  <div class="count-stat">${kospi.kospiStock.price}</div>
                   <div class="title">시가</div>
                   <div class="sub-title">현재주가</div>
                 </div>
                 <div class="text-stat">
-                  <div class="count-stat"></div>
+                  <div class="count-stat">${kospi.kospiStock.high}</div>
                   <div class="title">고가</div>
                   <div class="sub-title">오늘고가</div>
                 </div>
                 <div class="text-stat">
-                  <div class="count-stat"></div>
+                  <div class="count-stat">${kospi.kospiStock.low}</div>
                   <div class="title">저가</div>
                   <div class="sub-title">오늘저가</div>
                 </div>
                 <div class="text-stat">
-                  <div class="count-stat"></div>
-                  <div class="title">전일지수</div>
-                  <div class="sub-title">전일대비 등락률</div>
+                  <div class="count-stat">${kospi.kospiStock.lastPrice}</div>
+                  <div class="title">종가</div>
+                  <div class="sub-title">어제 마감시가</div>
                 </div>
                 <div class="text-stat">
-                  <div class="count-stat"></div>
+                  <div class="count-stat">${kospi.kospiStock.volume}</div>
                   <div class="title">거래량</div>
-                  <div class="sub-title">(천주)</div>
+                  <div class="sub-title">코스피 전체 거래량</div>
                 </div>
               </div>
               
@@ -262,64 +256,52 @@
                       <div class="ui-block-content">
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title"></span>
+                            <span class="skills-item-title">${topTab[0].stockName}</span>
                             <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units"></span></span>
+                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">${topTab[0].stockValue}</span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-primary"></span>
+                            <span class="skills-item-meter-active bg-primary" style="width: ${topTab[0].stockValue}%"></span>
                           </div>
                         </div>
-            
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title"></span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="46" data-from="0"></span><span
-                              class="units"></span></span>
+                            <span class="skills-item-title">${topTab[1].stockName}</span>
+                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
+                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">${topTab[1].stockValue}</span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-purple"></span>
+                            <span class="skills-item-meter-active bg-purple" style="width: ${topTab[1].stockValue}%"></span>
                           </div>
                         </div>
-            
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title"></span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="79" data-from="0"></span><span
-                              class="units"></span></span>
+                            <span class="skills-item-title">${topTab[2].stockName}</span>
+                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
+                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">${topTab[2].stockValue}</span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-blue"></span>
+                            <span class="skills-item-meter-active bg-blue" style="width: ${topTab[2].stockValue}%" ></span>
                           </div>
                         </div>
-            
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title"></span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="34" data-from="0"></span><span
-                              class="units"></span></span>
+                            <span class="skills-item-title">${topTab[3].stockName}</span>
+                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
+                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">${topTab[3].stockValue}</span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-breez"></span>
+                            <span class="skills-item-meter-active bg-breez" style="width: ${topTab[3].stockValue}%"></span>
                           </div>
                         </div>
-            
                         <div class="skills-item">
                           <div class="skills-item-info">
-                            <span class="skills-item-title"></span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="95" data-from="0"></span><span
-                              class="units"></span></span>
+                            <span class="skills-item-title">${topTab[4].stockName}</span>
+                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
+                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">${topTab[4].stockValue}</span></span>
                           </div>
                           <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-yellow"></span>
+                            <span class="skills-item-meter-active bg-yellow" style="width: ${topTab[4].stockValue}%"></span>
                           </div>
                         </div>
                       </div>
@@ -649,6 +631,30 @@
   <!-- End Include js -->
   <%-- stock-index js --%>
   <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index.js"></script>
-  
+  <script>
+	$(document).ready(function() {
+		//탭 클릭시 요청 발생
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+			var target = $(e.target).attr("href") // activated tab
+			console.log('탭요청 : ' + target);
+		});
+		var indexParam = 1;
+		var kospiChartLabel = [];
+		var kospiChartData = [];
+		<c:forEach var="eachLabel" items="${kospi.kospiTimeSeries.label}" varStatus="status">
+		kospiChartLabel.push(${eachLabel});
+    	</c:forEach>
+		<c:forEach var="eachData" items="${kospi.kospiTimeSeries.data[0]}" varStatus="status">
+		kospiChartData.push(${eachData});
+    	</c:forEach>
+		var kospiTimeSeries = {
+			label : kospiChartLabel,
+			data : kospiChartData
+		}
+		runKospiChart(kospiTimeSeries);
+		//indexUpdate(indexParam);
+	});
+  </script>
+
 </body>
 </html>
