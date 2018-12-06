@@ -210,7 +210,6 @@ public class StockServiceImpl implements StockService {
 	// 회사 번호 리스트로 회사 주식 정보 리스트 받기
 	@Override
 	public List<Stock> getStockList(List<String> companyNumberList){
-		Random random = new Random();
 		List<Stock> stockList = new ArrayList<Stock>();
 		for(int i = 0; i < companyNumberList.size(); i++) {
 			stockList.add(getStockInfo("000000","아모레퍼시픽"));
@@ -383,5 +382,10 @@ public class StockServiceImpl implements StockService {
 			}
 		}
 		return null;
+	}
+	@Override
+	public Map<String, Object> getForSearchResult(List<String> companyNumberList) {
+		StockDao stockDao = new StockDao();
+		return stockDao.forSearch(companyNumberList);
 	}
 }
