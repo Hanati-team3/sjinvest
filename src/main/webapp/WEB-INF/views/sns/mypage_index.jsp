@@ -250,8 +250,9 @@ function setting_stock(){
     $('#new_tag').remove();
     var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_stock");
 				$("#rowChange").append(review);
-			}
-		</script>
+}
+
+</script>
 
 </body>
 </html>

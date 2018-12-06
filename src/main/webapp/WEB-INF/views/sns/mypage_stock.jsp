@@ -8,7 +8,7 @@
           <h6 class="title">주식설정</h6>
         </div> 
         <div class="ui-block-content">
-          <form>
+          <form action=/sos/setting/reset method="post">
             <div class="row">
 
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -33,7 +33,7 @@
                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group label-floating is-empty" style="width:65%">
                   <label class="control-label">비밀번호<sup>*</sup></label>
-                  <input class="form-control" placeholder="" type="password">
+                  <input class="form-control" placeholder="" type="password" name="password">
                 </div>
                </div>
               

@@ -3,6 +3,8 @@ package com.sjinvest.sos.setting.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sjinvest.sos.setting.domain.Setting;
 import com.sjinvest.sos.setting.service.SettingService;
 import com.sjinvest.sos.user.domain.User;
+import com.sjinvest.sos.user.service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -27,6 +29,7 @@ import lombok.extern.log4j.Log4j;
 public class SettingController {
 
 	private SettingService service;
+	private UserService userService;
 	
 	@ResponseBody
 	@GetMapping(value = "/read", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -64,7 +67,7 @@ public class SettingController {
 	@GetMapping("/update")	
 	public String update(String setFeedNotice, String setTradeNotice, String setPrivacy, String setView, int userSeq, Setting setting) {
 		
-		log.info("setting.");
+		log.info("setting.sns.");
 		
 		System.out.println("sns setting 유저번호?????: "+userSeq);
 		
@@ -96,7 +99,24 @@ public class SettingController {
 		setting.setSetFeedNotice(setView2);
 		
 		service.update(setting);
-		System.out.println("result qqqq"+ service.update(setting));
+		System.out.println("sns업데이트확인"+ service.update(setting));
+		
+		return "redirect:/sns/mypage_index";
+	}
+	
+	@PostMapping("/reset")	
+	public String reset(String password, HttpServletRequest request) {
+		
+		log.info("setting.stock.");
+		
+		String userId = (String) request.getAttribute("userId");
+		User user = userService.readById(userId);
+
+		if(user.getUserPw().equals(password)) {
+			
+			user.setUserMoney(50000000);
+			userService.updateUser(user);
+		}
 		
 		return "redirect:/sns/mypage_index";
 	}

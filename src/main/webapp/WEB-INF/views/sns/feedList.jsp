@@ -170,7 +170,7 @@
                   </div>
 
               
-              <div class="more">
+              <%-- <div class="more">
                 <svg class="olymp-three-dots-icon">
                   <use
                     xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
@@ -178,7 +178,7 @@
                   <li><a href="#">댓글수정</a></li>
                   <li><a href="/sos/feed/delete">댓글삭제</a></li>
                 </ul>
-              </div>
+              </div> --%>
 
                 </div>
 
