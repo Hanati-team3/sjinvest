@@ -14,7 +14,7 @@
                 </div>
                 <div
                   class="form-group with-icon label-floating is-empty">
-                  <textarea class="form-control" placeholder="주식정보를 공유하여 주세요..!"></textarea>
+                  <textarea name="feedContent" class="form-control" placeholder="주식정보를 공유하여 주세요..!"></textarea>
                 </div>
                 <div class="add-options-message">
                   

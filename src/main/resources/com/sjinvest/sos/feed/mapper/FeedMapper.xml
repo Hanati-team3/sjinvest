@@ -12,6 +12,7 @@
 		<result column="feed_content" property="feedContent" />
 		<result column="feed_like_count" property="feedLikeCnt" />
 		<result column="feed_share_count" property="feedShareCnt" />
+		<result column="feed_reply_count" property="feedReplyCnt" />
 		<result column="feed_picture" property="feedPicture" />
 		<result column="feed_original_seq" property="feedOriginalSeq" />
 	</resultMap>
@@ -33,7 +34,7 @@
 			feed_share_count,
 		</if>
 		<if test="feedReplyCnt != 0">
-			feed_share_count,
+			feed_reply_count,
 		</if>
 		<if test="feedPicture != null">
 			feed_picture,
@@ -85,7 +86,7 @@
 	        <if test="feedContent != null">feed_content = #{feedContent},</if>
 	        <if test="feedLikeCnt != 0">feed_like_count = #{feedLikeCnt},</if>
 	        <if test="feedShareCnt != 0">feed_share_count = #{feedShareCnt},</if>
-	        <if test="feedReplyCnt != 0">user_reply_count = #{feedReplyCnt},</if>
+	        <if test="feedReplyCnt != 0">feed_reply_count = #{feedReplyCnt},</if>
 	        <if test="feedPicture != null">user_picture = #{feedPicture},</if>
 	        <if test="feedOriginalSeq != 0">feed_original_seq = #{feedOriginalSeq},</if>
 	    </set>
@@ -117,10 +118,12 @@
 		       feed_content, 
 		       feed_like_count, 
 		       feed_update_date, 
-		       feed_reply_count feed_share_count, 
+		       feed_reply_count,
+		       feed_share_count, 
 		       feed_picture, 
 		       feed_original_seq 
 		FROM   feed
+		ORDER  BY feed_regdate desc
 	</select>
 	<!-- 피드 검색 및 페이징 처리 -->
 	<select id="listBySearchPage" resultType="Feed" resultMap="feedResultMap">
@@ -161,7 +164,9 @@
 					  <foreach collection="keywords" item="keyword"  open="(" close=")" separator="or">
                       feed_content LIKE '%' ||  #{keyword} || '%'
 			          </foreach>
-					  AND
+		              	<if test="userSeq != null">
+		           	    AND
+		              	</if>
 		              </if>
 		              <if test="userSeq != null">
 		           	  user_seq = #{userSeq}

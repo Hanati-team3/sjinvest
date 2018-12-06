@@ -39,16 +39,16 @@
       
       <%-- 검색 시작 --%>
       <div class="ui-block">
-        <form class="w-search" style="width: 100%;">
+        <div class="w-search" style="width: 100%;">
           <div class="form-group with-button is-empty">
-            <input id="autocompleteText" class="form-control" type="text" placeholder="캐시/태그/업종/다른유저">
+            <input id="autocompleteText" class="form-control" type="text" placeholder="캐시/태그/업종/다른유저" onkeypress="if(event.keyCode==13) {searching(); return false;}">
             <button id="searchYours" style="background-color: #3f4257;">
               <svg class="olymp-magnifying-glass-icon">
                 <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
             </button>
             <span class="material-input"></span>
           </div>
-        </form>
+        </div>
       </div>      
       <%-- 검색 끝 --%> 
       
@@ -121,8 +121,8 @@ $(document).ready( function() {
 	getFeedList();	
 	
     $('#loginForm').submit(function (e) {
-    e.preventDefault();
-    loginCheck();
+	    e.preventDefault();
+	    loginCheck();
   	})
   	
   	/* 페이지 이동처리 방지를 위하여 시작시 실행 */
@@ -148,25 +148,52 @@ $(document).ready( function() {
             });
         }
     });
-  /* Feed 검색 */
-  $(function(){
-	  $('#searchYours').on('click', function () {
-		  	console.log('너의 값: '+$("#autocompleteText").val())
-	        $.ajax({
-	        	type : 'post',
-	            url: '<%=application.getContextPath()%>/sns/searchAuto',
-	            data: {
-	                text: $("#autocompleteText").val()
-	            },
-	            dataType : 'json',
-	            success : function(data) {
-                	console.log(data);
-                }
-	        });
+    
+	/* Feed 검색 */
+	$(function(){
+		$('#searchYours').on('click', function() {
+		 	/* console.log('너의 값: '+$("#autocompleteText").val()) */
+			searching()
 		});
-  });
+	});
 	
 });
+/* 게시글 보여주기 (검색 포함) */
+function searching(){
+	$.ajax({
+      	type : 'post',
+          url: '<%=application.getContextPath()%>/feed/search',
+          data: {
+              text: $("#autocompleteText").val()
+          },
+          dataType : 'json',
+          success : function(data) {
+        	  	if(data){
+	          		console.log(data);
+	          		var feedCard = $("#makeFeed");
+	          		/* feedCard.html("") */
+	          		
+	          		for (var i = 0; i < data.feedList.length; i++) {
+						/* console.log(data.feedList[i]); */
+						
+						var nickname = $('a[name=postUserNickName]');
+						$(nickname[i]).text(data.userList[i].userNickname)
+						$(nickname[i]).attr('href', 'temp'+i)	/* 변경 필요 */
+						var time = $('time[name=postWriteDate]');
+						$(time[i]).text(data.feedList[i].feedRegdate);
+						var content = $('p[name=feedContent]');
+						$(content[i]).text(data.feedList[i].feedContent);
+						var feed = $('#newsfeed-items-grid').html(); 
+						if(i == 0 ){
+							$(feedCard).html(feed);
+						}else{
+							$(feedCard).append(feed);
+						}
+					}
+	            }
+			}
+      });
+}
 
 /** 
  * 로그인 처리를 위한 Ajax 통신
@@ -222,9 +249,61 @@ $.ajax({
 	    url : '/sos/feed/list',
 	    type : 'get',
 	    success : function(data) {
-	      if (data.feedList != null) {
-	           console.log(data.feedList);
-	      }
+	    	if(data){
+          		console.log(data);
+          		var feedCard = $("#makeFeed");
+          		/* feedCard.html("") */
+          		
+          		replyCnt = 0
+          		replyTemp = 0
+          		for (var i = 0; i < data.feedList.length; i++) {
+					/* console.log(data.feedList[i]); */
+					/* var feed = "<>"; */
+					
+					var nickname = $('a[name=postUserNickName]');
+					$(nickname[i]).text(data.userList[i].userNickname)
+					$(nickname[i]).attr('href', 'temp'+i)	/* 변경 필요 */
+					var time = $('time[name=postWriteDate]');
+					$(time[i]).text(data.feedList[i].feedRegdate);
+					var content = $('p[name=feedContent]');
+					$(content[i]).text(data.feedList[i].feedContent);
+					var like = $('span[name=feedLike]')
+					$(like[i]).text(data.feedList[i].feedLikeCnt);
+					
+					/* 수정 삭제 url 넣기!! */
+					/* 좋아요, 댓글, 공유 */
+					var commentCount = $('span[name=feedCommnetCount]')
+					$(commentCount[i]).text(data.feedList[i].feedReplyCnt);
+					var share = $('span[name=feedShare]');
+					$(share[i]).text(data.feedList[i].feedShareCnt);
+					
+					var reply = $('div[name=commentList]');
+					
+					var replyName = $('a[name=replyName]');
+					var replyTime = $('time[name=replyTime]');
+					var replyContent = $('p[name=replyContent]');
+					if(data.feedList[i].feedReplyCnt == 0){
+						$(reply[i]).css("display", "none");
+						replyCnt++;
+					}else{
+						$(reply[i]).css("display", "");
+						for (var j = replyCnt; j < replyCnt + data.feedList[i].feedReplyCnt; j++) {
+							$(replyName[j]).text(data.replyUser[replyTemp].userNickname);
+							$(replyTime[j]).text(data.replyList[replyTemp].commentRegdate);
+							$(replyContent[j]).text(data.replyList[replyTemp].commentContent);
+							replyTemp++;
+						}
+						replyCnt += data.feedList[i].feedReplyCnt;
+					}
+					
+					var feed = $('#newsfeed-items-grid').html(); 
+					if(i == 0 ){
+						$(feedCard).html(feed);
+					}else{
+						$(feedCard).append(feed);
+					}
+				}
+            }
 	    },
 	    error : function() {
 	      alert("관리자에게 문의해주세요.");
