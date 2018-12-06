@@ -143,7 +143,6 @@ public class StockController2 {
 	@PostMapping(value="/indexUpdate", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<Map<String, Object>> indexUpdate(@RequestBody IndexParams params) {
 		System.out.println("indexUpdate params : " + params);
-		System.out.println(service);
 /*		Map<String, Object> map = new Hashtable<String, Object>();
 		// realtime
 		map.put("realtime", service.stockRealtime());

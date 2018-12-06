@@ -653,6 +653,7 @@
 		runKospiChart(kospiTimeSeries);
 		var indexParam = setIndexParam();
 		console.log(indexParam);
+		indexUpdate(indexParam);
 		//runInterestChart(chartList);
 		//indexUpdate(indexParam);
 	});
@@ -694,19 +695,19 @@
 		indexParam.holdingList = [];
 		<c:forEach var="eachHolding" items="${holdingWidget.holdingList}" varStatus="status">
 		indexParam.holdingList.push({
-            "holdingSeq": ${eachHolding.holdingSeq},
-            "companyNumber": ${eachHolding.companyNumber},
-            "companyName": ${eachHolding.companyName},
-            "userSeq": ${eachHolding.userSeq},
-            "holdingAmount": ${eachHolding.holdingAmount},
-            "holdingTotalMoney": ${eachHolding.holdingTotalMoney},
-            "holdingRateOfReturn": ${holdingRateOfReturn}
+            "holdingSeq": "${eachHolding.holdingSeq}",
+            "companyNumber": "${eachHolding.companyNumber}",
+            "companyName": "${eachHolding.companyName}",
+            "userSeq": "${eachHolding.userSeq}",
+            "holdingAmount": "${eachHolding.holdingAmount}",
+            "holdingTotalMoney": "${eachHolding.holdingTotalMoney}",
+            "holdingRateOfReturn": "${eachHolding.holdingRateOfReturn}"
 		});
     	</c:forEach>
 		// 관심종목 회사번호 설정
 		indexParam.interestCompanyNumberList = [];
 		<c:forEach var="eachInterest" items="${interestList}" varStatus="status">
-		indexParam.interestCompanyNumberList.push(${eachInterest.stockCode});
+		indexParam.interestCompanyNumberList.push("${eachInterest.stockCode}");
     	</c:forEach>
 /* 		indexParam = {
 				"userId" : "suhyeon",
