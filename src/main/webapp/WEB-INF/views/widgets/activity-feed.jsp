@@ -7,35 +7,51 @@
 
   <ul class="widget w-activity-feed notification-list">
 
-    <li>
-      <div class="author-thumb">
-        <img src="<%=application.getContextPath()%>/resources/img/avatar50-sm.jpg" alt="author">
-      </div>
-      <div class="notification-event">
-        <a href="#" class="h6 notification-friend">Mary Jane Stark </a> added 20 new photos to her <a href="#" class="notification-link">gallery album.</a>.
-        <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">12 mins ago</time></span>
-      </div>
-    </li>
+    
+        <%-- 관심종목 목록 row 시작 --%>
+        <div class="row">
+          <%-- 관심종목 목록 카드 시작 --%>
+          <div class="col-xl-12 order-xl-1 col-lg-12 order-lg-1 col-md-12 order-md-1 col-sm-12 col-xs-12">
+              
+              
+              <table class="forums-table wow">
+                <thead style="background: white;" >
+                  <tr>
+                    <th class="company-name"><font color="black">기업명</font></th>
+                    <th class="stock-price"><font color="black">현재주가</font></th>
+                    <th class="day-before-rate"><font color="black">등락률</font></th>
+                  </tr>
+                </thead>
+    
+                <tbody id="interest_list">
+                
+                <!-- 현재주가, 등락률 값 못 받아옴.. -->
+                  <!-- <tr>
+                    <td class="company-name">
+                      <div class="author-freshness">
+                        <a href="#" class="h6 title">하나금융지주</a>
+                      </div>
+                    </td>
+                    
+                    <td class="stock-price">
+                      <a href="#" class="h6 count">38,750</a>
+                    </td>
 
-    <li>
-      <div class="author-thumb">
-        <img src="<%=application.getContextPath()%>/resources/img/avatar48-sm.jpg" alt="author">
-      </div>
-      <div class="notification-event">
-        <a href="#" class="h6 notification-friend">Marina Valentine </a> commented on Chris Greyson’s <a href="#" class="notification-link">status update</a>.
-        <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">1 hour ago</time></span>
-      </div>
-    </li>
-
-    <li>
-      <div class="author-thumb">
-        <img src="<%=application.getContextPath()%>/resources/img/avatar53-sm.jpg" alt="author">
-      </div>
-      <div class="notification-event">
-        <a href="#" class="h6 notification-friend">Bruce Peterson </a> changed his <a href="#" class="notification-link">profile picture</a>.
-        <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">15 hours ago</time></span>
-      </div>
-    </li> 
+                    <td class="day-before-rate">
+                      <div class="author-freshness plus">
+                        <a href="#" class="h6 title">+ 1.90 %</a>
+                      </div>
+                    </td>
+                  </tr> -->
+                  
+                  
+                </tbody>
+              </table>
+          </div>
+          <%-- 관심종목 목록 카드 끝 --%>
+        </div>
+        <%-- 관심종목 목록 row 끝 --%>
+    
 
   </ul>
 </div>
