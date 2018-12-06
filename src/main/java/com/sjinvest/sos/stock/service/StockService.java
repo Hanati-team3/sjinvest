@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.sjinvest.sos.holding.domain.Holding;
 import com.sjinvest.sos.stock.domain.AskingPrice;
+import com.sjinvest.sos.stock.domain.Kospi;
 import com.sjinvest.sos.stock.domain.News;
 import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.domain.TimeSeries;
@@ -48,4 +49,5 @@ public interface StockService {
 	public Map<String, Object> getForSearchResult(List<String> companyNumberList);
 	public TimeSeries getChartData(List<String> companyNumberList, int type, int kind);
 	public Map<String, Object> getKospiChartDate(int type);
+	public Kospi getKospiData();
 }
