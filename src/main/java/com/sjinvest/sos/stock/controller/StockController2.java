@@ -1,6 +1,7 @@
 package com.sjinvest.sos.stock.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -90,6 +91,7 @@ public class StockController2 {
 			}
 //			model.addAttribute("interestCard", interestCardMethod(interestCompanyNumberList));
 		}
+		/*
 		System.out.println(2);
 		Map<String, Object> map = service.getForIndex(holdingList, interestCompanyNumberList, 1, 6);
 		System.out.println(3);
@@ -115,7 +117,24 @@ public class StockController2 {
 			holdingWidgetMap.put("total", user.getUserMoney() + (Integer)holdingWidgetMap.get("stockTotal"));
 			model.addAttribute("holdingWidget", holdingWidgetMap);
 		}
-		System.out.println(map);
+		System.out.println(map);*/
+		Map<String, Object> holdingWidgetMap = new HashMap<>();
+		holdingWidgetMap.put("chasTotal", "500000000");
+		holdingWidgetMap.put("stockTotal", "1938000");
+		holdingWidgetMap.put("total", "501938000");
+		holdingWidgetMap.put("holdingList", holdingList);
+		for (Holding holding : holdingList) {
+			holding.setHoldingRateOfReturn(0);
+		}
+		model.addAttribute("holdingWidget", holdingWidgetMap);
+		List<Stock> interestList = new ArrayList<>();
+		Stock tempStock = new Stock();
+		tempStock.setStockCode("000000");
+		interestList.add(tempStock);
+		interestList.add(tempStock);
+		interestList.add(tempStock);
+		interestList.add(tempStock);
+		model.addAttribute("interestList", interestList);
 		return "stock/stock-index";
 	}
 	
