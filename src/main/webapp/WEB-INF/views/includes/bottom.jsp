@@ -44,3 +44,24 @@
 
 <!-- my scripts -->
 <script src="<%=application.getContextPath()%>/resources/js/stock-common/stock-common.js"></script>
+
+<script type="text/javascript">
+$(document).ready( function() {
+	$('#loginModal').on('click', function() {
+		$.ajax({
+		    url : '/sos/user/naverlogin',
+		    type : 'get',
+		    dataType: "json",
+		    success : function(data) {
+		    	console.log(data.url)
+		    	$('#naverLoginA').attr('href',data.url);
+		    	$('#login_modal').show();
+		    },
+		    error : function() {
+		      alert("관리자에게 문의해주세요.");
+		    }
+		});
+	});
+});
+	
+</script>

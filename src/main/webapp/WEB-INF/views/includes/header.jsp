@@ -52,7 +52,7 @@
       <c:choose>
         <%--로그인 아님 --%>
         <c:when test="${userId eq null}">
-          <a href="#" class="link-find-friend header-a-padding" data-toggle="modal" data-target="#login_modal">Login</a>
+          <a id="loginModal" href="#" class="link-find-friend header-a-padding" data-toggle="modal" data-target="#login_modal">Login</a>
           <a href="#" class="link-find-friend header-a-padding" data-toggle="modal" data-target="#signup_modal">Sign up</a>
         </c:when>
         <%--로그인 중 --%>

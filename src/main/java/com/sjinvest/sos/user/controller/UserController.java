@@ -1,7 +1,8 @@
 package com.sjinvest.sos.user.controller;
 
-import java.util.List;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -13,21 +14,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.google.gson.JsonParser;
 import com.sjinvest.sos.user.domain.KakaoLogin;
+import com.sjinvest.sos.user.domain.NaverLogin;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import net.sf.json.JSONObject;
 
 @Controller
 @Log4j
@@ -233,5 +240,64 @@ public class UserController {
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
 	*/
+	
+	//로그인 첫 화면 요청 메소드
+    @RequestMapping(value = "/naverlogin", method = { RequestMethod.GET, RequestMethod.POST })
+    public ResponseEntity<Map<String,Object>> login(Model model, HttpSession session) {
+    	Map<String, Object> returnData = new HashMap<String, Object>();
+    	NaverLogin naverLogin = new NaverLogin();
+        /* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
+        String naverAuthUrl = naverLogin.getAuthorizationUrl(session);
+        
+        //https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
+        //redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
+        System.out.println("네이버:" + naverAuthUrl);
+        
+        //네이버 
+        returnData.put("url", naverAuthUrl);
+        /* 생성한 인증 URL을 View로 전달 */
+        return new ResponseEntity<>(returnData,HttpStatus.OK);
+    }
+
+    //네이버 로그인 성공시 callback호출 메소드
+    @RequestMapping(value = "/callback.do", method = { RequestMethod.GET, RequestMethod.POST })
+    public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, HttpServletResponse response, RedirectAttributes reAttributes)
+            throws IOException {
+    	
+    	NaverLogin naverLogin = new NaverLogin();
+        OAuth2AccessToken oauthToken;
+        oauthToken = naverLogin.getAccessToken(session, code, state);
+        //로그인 사용자 정보를 읽어온다.
+        String apiResult = naverLogin.getUserProfile(oauthToken);
+        System.out.println(apiResult);
+        if(apiResult != null) {
+        	ObjectMapper mapper = new ObjectMapper();
+        	JsonNode jsonMap = mapper.readTree(apiResult.toString());
+        	JsonNode userInfo = jsonMap.get("response");
+        	User user = new User();
+        	user.setUserId(userInfo.get("id").asText());
+        	  user.setUserPw("naver");
+	  		  user.setUserEmail(userInfo.get("email").asText());
+	  		  user.setUserAuthority("naver");
+	  		  user.setUserNickname(userInfo.get("nickname").asText());
+	  		  user.setUserPicture(userInfo.get("profile_image").asText());
+	  		  if(service.readById(user.getUserId()) == null) {
+	  			  service.regist(user);
+	  		  }
+	  	
+	  		  session.setAttribute("login", user);
+  		  
+  			// 로그인 성공
+  			Cookie cookie = new Cookie("userIdC", user.getUserId());
+  			cookie.setMaxAge(60 * 60 * 24);
+  			cookie.setPath("/");
+  			
+  			response.addCookie(cookie);
+  			reAttributes.addFlashAttribute("user", user);
+        }else {
+        	reAttributes.addFlashAttribute("message","loginFail");
+        }
+        return "redirect:/sns/newsfeed";
+    }
 	
 }
