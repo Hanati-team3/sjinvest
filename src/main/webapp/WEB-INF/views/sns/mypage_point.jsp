@@ -9,11 +9,11 @@
 
 
   <div class="ui-block-title">
-    <h6 class="title">포인트 내역</h6>
+    <h6 class="title">포인트</h6>
     <input type="hidden">
     
     
-    
+    <!-- 보기방식 button 조건이 없음
     <div class="form-group label-floating is-select" style="text-align: right;">
       <div class="col-md-3 btn-group bootstrap-select form-control">
       
@@ -52,6 +52,8 @@
         
       </div>
     </div>
+    -->
+    
   </div>
   
   <ul class="notification-list" id="point_list">

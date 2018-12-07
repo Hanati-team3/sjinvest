@@ -110,7 +110,8 @@
   <!-- user data start-->
   <jsp:include page="../popup/user_data.jsp"></jsp:include>
   <!-- ... end user data -->
-
+  
+  
 
 <!-- ################################# 비동기통신을 위한 AJax 처리 #################################### -->  
 
@@ -567,6 +568,9 @@ $('#rankingList li a').on('click', function(){
 
 
 };
+
+
+
 
 </script>
 
