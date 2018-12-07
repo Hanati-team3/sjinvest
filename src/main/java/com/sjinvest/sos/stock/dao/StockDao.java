@@ -23,15 +23,10 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class StockDao {
 	
-	public Map<String, Object> getStockTotal(String companyNumber, String startDate, String endDate, int type) {
+	public Map<String, Object> getStockTotal(String companyNumber) {
 		String apiURL = "http://54.180.117.83:8008/stock/com?";
 		Map<String, Object> result = new HashMap<String, Object>();
 		String urlString = apiURL + "code="+companyNumber;
-		if(startDate!=null && endDate!=null && type!=0) {
-			urlString=urlString+"&startDate="+startDate;
-			urlString=urlString+"&endDate="+endDate;
-			urlString=urlString+"&type="+type;
-		}
 		log.info(urlString);
 		try {
 			URL url = new URL(urlString);
@@ -42,9 +37,7 @@ public class StockDao {
             JsonNode jsonMap = mapper.readTree(in);
             result.put("stock", convertStock(jsonMap));
             result.put("askingPriceList", convertAskingPriceList(jsonMap));
-    		if(startDate!=null && endDate!=null && type!=0) {
-                result.put("timeSeries", convertTimeSeries(companyNumber, jsonMap));
-    		}
+            result.put("realTime", convertStockMiniList(jsonMap, "realTime"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -226,18 +219,23 @@ public class StockDao {
         timeSeries.setLabel(dataName);
         return timeSeries;
 	}
-	public TimeSeries convertListTimeSeries(List<String> companyNumber, JsonNode jsonMap) {
+	public TimeSeries convertListTimeSeries(List<String> companyNumber, JsonNode jsonMap, int type) {
         JsonNode com = jsonMap.get("com");
         TimeSeries timeSeries = new TimeSeries();
         Map<String, List<Double>> datas = new HashMap<String, List<Double>>();
         boolean first =true;
         int index = 0;
         for(JsonNode objNode : com) {
+        	System.out.println(objNode);
             List<String> dataName = new ArrayList<String>();
         	List<Double> data = new ArrayList<Double>();
         	for(JsonNode objInNode : objNode) {
         		data.add(objInNode.get("close").asDouble());
-        		dataName.add(objInNode.get("date").asText());
+        		if(type == 1) {
+            		dataName.add(objInNode.get("date").asText().substring(0,4));
+        		}else {
+            		dataName.add(objInNode.get("date").asText());
+        		}
         	}
         	datas.put(companyNumber.get(index),data);
         	index = index +1;
@@ -342,7 +340,7 @@ public class StockDao {
             InputStream in = urlConnection.getInputStream();
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonMap = mapper.readTree(in);
-            return convertListTimeSeries(companyNumberList, jsonMap);
+            return convertListTimeSeries(companyNumberList, jsonMap, type);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

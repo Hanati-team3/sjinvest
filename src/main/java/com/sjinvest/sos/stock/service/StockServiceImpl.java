@@ -290,10 +290,9 @@ public class StockServiceImpl implements StockService {
 		return timeSeriesList;
 	}
 	@Override
-	public Map<String, Object> getCompanyData(String companyNumber, int type) {
+	public Map<String, Object> getCompanyData(String companyNumber) {
 		StockDao stockDao = new StockDao();
-		String[] date = getDate(type);
-		return stockDao.getStockTotal(companyNumber, date[0], date[1], type);
+		return stockDao.getStockTotal(companyNumber);
 	}
 	//index에 필요한 값 전달.
 	@Override
