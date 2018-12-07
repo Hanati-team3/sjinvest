@@ -187,7 +187,7 @@
 	              data-target="#update-header-photo"> <svg
 	                class="olymp-camera-icon">
 	                    <use
-	                  xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-camera-icon"></use></svg>
+	                  xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-check-icon"></use></svg>
 	            </a>
 	          </div>
 	        </div>

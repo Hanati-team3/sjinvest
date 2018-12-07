@@ -106,6 +106,10 @@
   <!-- user modal start-->
   <jsp:include page="../popup/user_profile.jsp"></jsp:include>
   <!-- ... end user modal -->
+  
+  <!-- user data start-->
+  <jsp:include page="../popup/user_data.jsp"></jsp:include>
+  <!-- ... end user data -->
 
 
 <!-- ################################# 비동기통신을 위한 AJax 처리 #################################### -->  
@@ -418,6 +422,7 @@ function getInterestList(){
 			"userSeq" : "${user.userSeq}"
 		},
 		success: function(data){
+<<<<<<< Updated upstream
 			if(data.fail != null){
 				/* 값이 없는 경우 */
 			}else{
@@ -425,6 +430,12 @@ function getInterestList(){
 				for(var i=0; i<data.interestList.length; i++){
 					$('#interest_list').append('<tr><td class="company-name"><div class="author-freshness"><a href="#" class="h6 title">'+ data.interestList[i].companyName +'</a></div></td><td class="stock-price"><a href="#" class="h6 count">38,750</a></td><td class="day-before-rate"><div class="author-freshness plus"><a href="#" class="h6 title">+ 1.90 %</a></div></td></tr>');
 				}
+=======
+			
+			console.log(data.interestList);
+			for(var i=0; i<data.interestList.length; i++){
+			$('#interest_list').append('<tr><td class="company-name"><div class="author-freshness"><a href="#" class="h6 title">'+ data.interestList[i].companyName +'</a></div></td><td class="stock-price"><a href="#" class="h6 count">38,750</a></td><td class="day-before-rate"><div class="author-freshness plus"><a href="#" class="h6 title"><a style="color:blue;">- 1.90 %</a></a></div></td></tr>');
+>>>>>>> Stashed changes
 			}
 		},
 		error : function() {
@@ -434,6 +445,39 @@ function getInterestList(){
 	})
 	
 }
+
+/*
+ * 유저 아이디 클릭시 data, modal
+ */
+function userData(){
+	
+	//console.log("${user.userSeq}");
+	$.ajax({
+		
+		url : '/sos/user/data',
+		type : 'post',
+		data : {
+			"userId" : "tester01"
+		},
+		success: function(data){
+			
+			console.log("모달확인");
+			$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
+			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
+			$('#nickName2').attr("placeholder", data.userData.userNickname);
+			$('#detail2').attr("placeholder", data.userData.userDetail);
+			
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+	
+	
+}
+
+
 
 </script>
   
