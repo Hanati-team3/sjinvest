@@ -21,6 +21,7 @@ public interface UserMapper {
 	public int checkUserMoney(int userSeq);
 	public List<User> readBySeqList(List<Integer> userSeqList);
 	public List<User> pointTop(int num);
+	public List<User> totalMarginTop(int num);
 	public List<String> findUser(String term);
 	public int searchUser(String text);
 	public int updateUserMargin(int userSeq);

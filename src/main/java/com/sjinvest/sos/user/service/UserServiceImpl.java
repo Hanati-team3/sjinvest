@@ -137,4 +137,9 @@ public class UserServiceImpl implements UserService {
 	public boolean updateUserMargin(int userSeq) {
 		return (userMapper.updateUserMargin(userSeq)==1);
 	}
+
+	@Override
+	public List<User> totalMarginTop(int num) {
+		return userMapper.totalMarginTop(num);
+	}
 }
