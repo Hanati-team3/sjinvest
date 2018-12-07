@@ -25,4 +25,6 @@ public interface FeedService {
 	public List<Feed> listBySearchPageByFieldNumber(SearchParam searchParam, int fieldNumber);
 	// 피드 검색(업종명으로 검색)
 	public List<Feed> listBySearchPageByFieldName(SearchParam searchParam, String fieldName);
+	// 피드 검색(유저 리스트로 검색)
+	public List<Feed> listBySearchPageByFieldName(int startNum, int endNum, List<Integer> userSeqList);
 }

@@ -137,4 +137,14 @@ public class FeedServiceImpl implements FeedService {
 		data.put("keywords", keywords);
 		return feedMapper.listBySearchPage(data);
 	}
+
+	@Override
+	public List<Feed> listBySearchPageByFieldName(int startNum, int endNum, List<Integer> userSeqList) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("userSeqList", userSeqList);
+		return feedMapper.listBySearchPageByUser(map);
+	}
+
 }
