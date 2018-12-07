@@ -13,6 +13,21 @@
     
 			<!-- getFollowList Ajax 로 들어오는 부분-->
       
+      
+        <li class="inline-items">
+        <div class="author-thumb">
+        
+        <img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar3-sm.jpg\" 
+        class="avatar"></div>
+        <div class="author-status">
+        <a href="javascript:void(0);" class="h6 author-name" data-toggle="modal" data-target="#user_data" onclick="userData()">임시userId</a>
+        </div>
+        </li>
+      
+      
+      
+      
+      
 		</ul>
 
 		<div class="ui-block-title ui-block-title-small">

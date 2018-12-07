@@ -36,7 +36,7 @@
           
           <div class="points">
             <span> <span class="statistics-point bg-purple"></span>
-              <h6>수익률 +6.78% &nbsp; &nbsp; +603,420</h6>
+              <h6>수익률 <a style="color:red;">+6.78% &nbsp; &nbsp; +603,420</a> </h6>
             </span>
           </div>
       </div>

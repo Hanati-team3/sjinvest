@@ -18,7 +18,7 @@
 
 
   <!-- mypage_profile start -->
-  <jsp:include page="../includes/mypage_profile.jsp"></jsp:include>
+  <jsp:include page="../widgets/profile-info.jsp"></jsp:include>
   <!-- mypage_profile end -->
 
 
@@ -130,7 +130,7 @@ function follower(){
 			
 			console.log(data.followerList);
 			for(var i=0; i<data.followerList.length; i++){
-			$('#follower_list').append('<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12"><div class="ui-block"><div class="birthday-item inline-items"><div class="author-thumb"><img src="../resources/img/avatar'+ data.followerList[i].userSeq +'-sm.jpg"alt="author"></div><div class="birthday-author-name"><a href="#" class="h6 author-name">'+ data.followerList[i].userId +'</a></div><a href="20-CalendarAndEvents-MonthlyCalendar.html"class="btn btn-sm bg-blue" data-toggle="modal" data-target="#user_modal">보기</a></div></div></div>');
+			$('#follower_list').append('<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12"><div class="ui-block"><div class="birthday-item inline-items"><div class="author-thumb"><img src="../resources/img/avatar'+ data.followerList[i].userSeq +'-sm.jpg"alt="author"></div><div class="birthday-author-name"><a href="#" class="h6 author-name">'+ data.followerList[i].userId +'</a></div><a href="#"class="btn btn-sm bg-blue" data-toggle="modal" data-target="#user_modal">보기</a></div></div></div>');
 			}
 		},
 		error : function() {

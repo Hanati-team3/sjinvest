@@ -21,7 +21,7 @@ function getStockData(){
           window.test=data;
           var realTimeList = $("ul#scroll li a");
           for(var i = 0; i < realTimeList.length; i++){
-        	  realTimeList.eq(i).text((i+1)+"  "+data.realTime[i].stockName+" "+data.realTime[i].total);
+        	  realTimeList.eq(i).text((i+1)+"  "+data.realTime[i].stockName+" "+numberWithCommas(data.realTime[i].total));
         	  realTimeList.eq(i).attr('href','company/'+data.realTime[i].stockCode);
           }
 		  var trList = $(".search-result tbody tr");

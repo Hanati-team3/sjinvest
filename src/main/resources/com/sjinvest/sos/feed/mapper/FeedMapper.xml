@@ -126,7 +126,7 @@
 		ORDER  BY feed_regdate desc
 	</select>
 	<!-- 피드 검색 및 페이징 처리 -->
-	<select id="listBySearchPage" resultType="Feed" resultMap="feedResultMap">
+	<select id="listBySearchPage" parameterType="Map" resultType="Feed" resultMap="feedResultMap">
 		SELECT B.feed_seq, 
 		       B.user_seq, 
 		       B.feed_regdate, 
@@ -170,6 +170,50 @@
 		              </if>
 		              <if test="userSeq != null">
 		           	  user_seq = #{userSeq}
+		              </if>
+		              ORDER  BY feed_seq DESC) A 
+		       WHERE  ROWNUM <![CDATA[<=]]> #{endNum}) B 
+		WHERE  B.rnum <![CDATA[>=]]> #{startNum} 
+	</select>
+	<!-- 피드 검색 및 페이징 처리 -->
+	<select id="listBySearchPageByUser" parameterType="Map" resultType="Feed" resultMap="feedResultMap">
+		SELECT B.feed_seq, 
+		       B.user_seq, 
+		       B.feed_regdate, 
+		       B.feed_content, 
+		       B.feed_like_count, 
+		       B.feed_update_date, 
+		       B.feed_reply_count, 
+		       B.feed_share_count, 
+		       B.feed_picture, 
+		       B.feed_original_seq 
+		FROM  (SELECT /*+INDEX_DESC(A feed_seq)*/ ROWNUM AS rnum, 
+		                                          A.feed_seq, 
+		                                          A.user_seq, 
+		                                          A.feed_regdate, 
+		                                          A.feed_content, 
+		                                          A.feed_like_count, 
+		                                          A.feed_update_date, 
+		                                          A.feed_reply_count, 
+		                                          A.feed_share_count, 
+		                                          A.feed_picture, 
+		                                          A.feed_original_seq 
+		       FROM  (SELECT feed_seq, 
+		                     user_seq, 
+		                     feed_regdate, 
+		                     feed_content, 
+		                     feed_like_count, 
+		                     feed_update_date, 
+		                     feed_reply_count, 
+		                     feed_share_count, 
+		                     feed_picture, 
+		                     feed_original_seq 
+		              FROM   feed 
+		              WHERE 		
+		              <if test="userSeqList != null">
+						  <foreach collection="userSeqList" item="userSeq"  open="(" close=")" separator="or">
+   		                   user_seq = #{userSeq}
+				          </foreach>
 		              </if>
 		              ORDER  BY feed_seq DESC) A 
 		       WHERE  ROWNUM <![CDATA[<=]]> #{endNum}) B 

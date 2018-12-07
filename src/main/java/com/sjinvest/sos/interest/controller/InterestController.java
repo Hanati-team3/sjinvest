@@ -44,15 +44,17 @@ public class InterestController {
 	
 	/** 주식 interest 화면 요청*/
 	@GetMapping(value="/list", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<Map<String, Object>> interest(int userSeq) {
+	public ResponseEntity<Map<String, Object>> interest(String userSeq) {
 		Map<String, Object> returnData = new Hashtable<String, Object>();
-
-		List<Interest> list = service.listByUser(userSeq);
-		
-		//System.out.println("관심종목: "+list);
-		returnData.put("interestList", list);
-
-		
-		return new ResponseEntity<>(returnData, HttpStatus.OK);
+		if(userSeq != "") {
+			List<Interest> list = service.listByUser(Integer.parseInt(userSeq));
+			
+			//System.out.println("관심종목: "+list);
+			returnData.put("interestList", list);
+			return new ResponseEntity<>(returnData, HttpStatus.OK);
+		}else {
+			returnData.put("fail", "");
+			return new ResponseEntity<>(returnData,HttpStatus.OK);
+		}
 	}
 }

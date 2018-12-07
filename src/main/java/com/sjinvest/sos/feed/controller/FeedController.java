@@ -6,6 +6,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,10 +23,10 @@ import com.sjinvest.sos.comment.domain.Comment;
 import com.sjinvest.sos.comment.service.CommentService;
 import com.sjinvest.sos.feed.domain.Feed;
 import com.sjinvest.sos.feed.domain.SearchParam;
-import com.sjinvest.sos.feed.mapper.FeedMapper;
 import com.sjinvest.sos.feed.service.FeedService;
+import com.sjinvest.sos.follow.domain.Follow;
+import com.sjinvest.sos.follow.service.FollowService;
 import com.sjinvest.sos.user.domain.User;
-import com.sjinvest.sos.user.mapper.UserMapper;
 import com.sjinvest.sos.user.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -39,21 +41,23 @@ public class FeedController {
 	private FeedService feedService;
 	private UserService userService;
 	private CommentService commentService;
+	private FollowService service;
 	
 	@PostMapping(value = "/write")
-	public String write(Feed feed, RedirectAttributes rttr) {
+	public String write(Feed feed, RedirectAttributes rttr, HttpServletRequest request) {
 //		해당 유저의 정보(seq가 필요함)
 //		feed.setUserSeq(userService.readById("").getUserSeq());
-		feed.setUserSeq(2);
-		feedService.write(feed);
+		if(request.getAttribute("userId") != null) {
+			feed.setUserSeq(userService.readById((String)request.getAttribute("userId")).getUserSeq());
+			feedService.write(feed);
+		}
 //		System.out.println("아직 유저때문에 !!! "+service.write(feed));
-		
 		return "redirect:/sns/newsfeed";
 	}
 	
 	@ResponseBody
 	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> list() {
+	public ResponseEntity<Map<String,Object>> listAll() {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		List<User> userList = new ArrayList<User>();
 		List<User> replyUser = new ArrayList<User>();
@@ -67,13 +71,85 @@ public class FeedController {
 				replyUser.add(userService.readBySeq(comment.getUserSeq()));
 			}
 		}
-				
 		returnData.put("feedList", feedList);
 		returnData.put("userList", userList);
 		returnData.put("replyList", commentList);
 		returnData.put("replyUser", replyUser);
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
+	@ResponseBody
+	@GetMapping(value = "/follow", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> listFollow(HttpServletRequest request) {
+		Map<String, Object> returnData = new HashMap<String, Object>();
+		List<User> userList = new ArrayList<User>();
+		List<User> replyUser = new ArrayList<User>();
+		List<Feed> feedList = new ArrayList<Feed>();
+		List<Comment> commentList = new ArrayList<Comment>();
+		SearchParam searchParam = new SearchParam();
+		searchParam.setStartNum(1);
+		searchParam.setEndNum(10);
+		
+		if(request.getAttribute("userId") != null) {
+			int userSeq = userService.readById((String)request.getAttribute("userId")).getUserSeq();
+			List<Follow> followList = service.listByUserFollow(userSeq);
+			if(followList != null) {
+//				팔로우 있는 사람에 맞게 글 출력 필요
+//				for (Follow follow : followList) {
+//					searchParam.setUserSeq(userSeq);
+//					feedList = ;
+//					feedList.add()
+//				}
+			}
+			
+			feedList = feedService.listBySearchPage(searchParam);
+			for (Feed feed : feedList) {
+				userList.add(userService.readBySeq(feed.getUserSeq()));
+				List<Comment> comments = commentService.listByFeed(feed.getFeedSeq());
+				for (Comment comment : comments) {
+					commentList.add(comment);
+					replyUser.add(userService.readBySeq(comment.getUserSeq()));
+				}
+			}
+		}
+		returnData.put("feedList", feedList);
+		returnData.put("userList", userList);
+		returnData.put("replyList", commentList);
+		returnData.put("replyUser", replyUser);
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
+	}
+
+	@ResponseBody
+	@GetMapping(value = "/own", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> listOwn(HttpServletRequest request) {
+		Map<String, Object> returnData = new HashMap<String, Object>();
+		List<User> userList = new ArrayList<User>();
+		List<User> replyUser = new ArrayList<User>();
+		List<Feed> feedList = new ArrayList<Feed>();
+		List<Comment> commentList = new ArrayList<Comment>();
+		SearchParam searchParam = new SearchParam();
+		searchParam.setStartNum(1);
+		searchParam.setEndNum(10);
+//		System.out.println((String)request.getAttribute("userId"));
+		
+		if(request.getAttribute("userId") != null) {
+			searchParam.setUserSeq(userService.readById((String)request.getAttribute("userId")).getUserSeq());
+			feedList = feedService.listBySearchPage(searchParam);
+			for (Feed feed : feedList) {
+				userList.add(userService.readBySeq(feed.getUserSeq()));
+				List<Comment> comments = commentService.listByFeed(feed.getFeedSeq());
+				for (Comment comment : comments) {
+					commentList.add(comment);
+					replyUser.add(userService.readBySeq(comment.getUserSeq()));
+				}
+			}
+		}
+		returnData.put("feedList", feedList);
+		returnData.put("userList", userList);
+		returnData.put("replyList", commentList);
+		returnData.put("replyUser", replyUser);
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
+	}
+
 	
 	@GetMapping(value = "/delete")
 	public String delete(int feedSeq, RedirectAttributes rttr) {

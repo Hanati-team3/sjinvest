@@ -64,7 +64,7 @@ public class FeedMapperTest {
 		log.info(mapper);
 		log.info(mapper.listAll());
 	}	
-	@Test
+//	@Test
 	public void testListSearchingPaging() throws SQLException {
 		log.info(mapper);
 		Map<String, Object> data = new HashMap<String, Object>();
@@ -76,5 +76,21 @@ public class FeedMapperTest {
 //		keywords.add("졸림");
 //		data.put("keywords", keywords);
 		log.info(mapper.listBySearchPage(data));
+	}
+//	@Test
+	public void testListUser() throws SQLException {
+		log.info(mapper);
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("startNum", 1);
+		data.put("endNum", 10);
+		List<Integer> userSeqList = new ArrayList<Integer>();
+		userSeqList.add(2);
+		userSeqList.add(6);
+		data.put("userSeqList", userSeqList);
+//		List<String> keywords = new ArrayList<String>(); 
+//		keywords.add("테스트");
+//		keywords.add("졸림");
+//		data.put("keywords", keywords);
+		log.info(mapper.listBySearchPageByUser(data));
 	}
 }

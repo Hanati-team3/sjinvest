@@ -32,44 +32,49 @@ public class FollowController {
 	
 	@ResponseBody
 	@GetMapping(value = "/followList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> followList(int userSeq) {
+	public ResponseEntity<Map<String,Object>> followList(String userSeq) {
 
 		//System.out.println("팔로잉 유저번호: "+ userSeq);
 		Map<String, Object> returnData = new HashMap<String, Object>();
-		List<Follow> followList = service.listByUserFollow(userSeq);
-		List<Integer> userSeqList = new ArrayList<Integer>();
-		
-		for(Follow follow : followList) {
-			userSeqList.add(follow.getFollowUserSeq());
+		if(userSeq != "") {
+			List<Follow> followList = service.listByUserFollow(Integer.parseInt(userSeq));
+			List<Integer> userSeqList = new ArrayList<Integer>();
+			if(followList.size() != 0) {
+				for(Follow follow : followList) {
+					userSeqList.add(follow.getFollowUserSeq());
+				}
+				List<User> userList = userService.readBySeqList(userSeqList);
+				
+				returnData.put("followList", userList);
+				return new ResponseEntity<>(returnData,HttpStatus.OK);
+			}
 		}
-		List<User> userList = userService.readBySeqList(userSeqList);
-		
-		returnData.put("followList", userList);
-
+		returnData.put("fail", "");
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
 	
 	@ResponseBody
 	@GetMapping(value = "/followerList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> followerList(int userSeq) {
+	public ResponseEntity<Map<String,Object>> followerList(String userSeq) {
 
 		//System.out.println("팔로워 유저번호: "+userSeq);
 		Map<String, Object> returnData = new HashMap<String, Object>();
-		List<Follow> followerList = service.listByUserFollower(userSeq);
-		List<Integer> userSeqList = new ArrayList<Integer>();
-		
-		for(Follow follower : followerList) {
-			userSeqList.add(follower.getUserSeq());
+		if(userSeq != "") {
+			List<Follow> followerList = service.listByUserFollower(Integer.parseInt(userSeq));
+			List<Integer> userSeqList = new ArrayList<Integer>();
+			if(followerList.size() != 0) {
+				for(Follow follower : followerList) {
+					userSeqList.add(follower.getUserSeq());
+				}
+				List<User> userList = userService.readBySeqList(userSeqList);
+				
+				returnData.put("followerList", userList);
+				return new ResponseEntity<>(returnData,HttpStatus.OK);
+			}
 		}
-		List<User> userList = userService.readBySeqList(userSeqList);
-		
-		// 비밀번호 숨겨서 보내는 부분
-		for(User user : userList) {
-			user.setUserPw("");
-		}
-		returnData.put("followerList", userList);
-		
+		returnData.put("fail", "");
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
+		
 	}
 	
 	// 아직 완성xxx
@@ -78,7 +83,6 @@ public class FollowController {
 	public ResponseEntity<Map<String,Object>> delete(Follow follow, String followUserId) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		System.out.println("팔로잉 삭제할 유저아이디: "+followUserId);
-
 		
 		//returnData.put("delete", service.deleteFollow(follow));
 
