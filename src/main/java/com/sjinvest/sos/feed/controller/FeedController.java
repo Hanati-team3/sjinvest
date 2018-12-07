@@ -92,16 +92,13 @@ public class FeedController {
 		if(request.getAttribute("userId") != null) {
 			int userSeq = userService.readById((String)request.getAttribute("userId")).getUserSeq();
 			List<Follow> followList = service.listByUserFollow(userSeq);
-			if(followList != null) {
-//				팔로우 있는 사람에 맞게 글 출력 필요
-//				for (Follow follow : followList) {
-//					searchParam.setUserSeq(userSeq);
-//					feedList = ;
-//					feedList.add()
-//				}
+			List<Integer> tempList = new ArrayList<Integer>();
+			if(followList.size() != 0) {
+				for (Follow follow : followList) {
+					tempList.add(follow.getUserSeq());
+				}
+				feedList = feedService.listBySearchPageByFieldName(1, 10, tempList);
 			}
-			
-			feedList = feedService.listBySearchPage(searchParam);
 			for (Feed feed : feedList) {
 				userList.add(userService.readBySeq(feed.getUserSeq()));
 				List<Comment> comments = commentService.listByFeed(feed.getFeedSeq());

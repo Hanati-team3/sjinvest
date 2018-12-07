@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,9 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.sjinvest.sos.user.domain.KakaoLogin;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
 
@@ -75,6 +80,47 @@ public class UserController {
 			return new ResponseEntity<>(returnData,HttpStatus.OK);
 		}
 		
+	}
+	
+	@GetMapping(value = "/kakaologin")
+	public String kakaoLogin(@RequestParam("code") String code , HttpServletRequest request, HttpServletResponse response, HttpSession session, RedirectAttributes reAttributes) throws Exception{
+	  System.out.println("인증키"+code);
+	  JsonNode token = KakaoLogin.getAccessToken(code);
+	  
+	  JsonNode profile = KakaoLogin.getKakaoUserInfo(token.path("access_token").toString());
+	  Map<String, Object> returnData = new HashMap<String, Object>();
+	  System.out.println("profile"+profile);
+	  User user = KakaoLogin.changeData(profile);
+	  
+	  System.out.println(user);
+	  if(user != null) {
+		  user.setUserPw("kakao");
+		  user.setUserEmail("kakao@kakao.com");
+		  user.setUserAuthority("kakao");
+		  user.setUserId(user.getUserId());
+		  if(service.readById(user.getUserId()) == null) {
+			  service.regist(user);
+		  }
+	
+		  System.out.println(session);
+		  session.setAttribute("login", user);
+		  System.out.println(user.toString());
+		  
+			// 로그인 성공
+			Cookie cookie = new Cookie("userIdC", user.getUserId());
+			cookie.setMaxAge(60 * 60 * 24);
+			cookie.setPath("/");
+			
+			response.addCookie(cookie);
+			reAttributes.addFlashAttribute("user", user);
+			
+			return "redirect:/sns/newsfeed";
+		}
+		// 로그인 실패
+		else {
+			reAttributes.addFlashAttribute("message","loginFail");
+			return "redirect:/sns/newsfeed";
+		}
 	}
 	
 	@GetMapping("/logout")

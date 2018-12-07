@@ -1,5 +1,7 @@
 package com.sjinvest.sos.comment.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sjinvest.sos.comment.domain.Comment;
 import com.sjinvest.sos.comment.service.CommentService;
+import com.sjinvest.sos.user.service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -20,12 +23,18 @@ import lombok.extern.log4j.Log4j;
 public class CommentController {
 	
 	private CommentService service;
+	private UserService userService;
 	
 	@PostMapping("/writing")
-	public String writing(Comment comment, RedirectAttributes rttr) {
+	public String writing(RedirectAttributes rttr, HttpServletRequest request, String content, int feedSeq) {
+		Comment comment = new Comment();
+		comment.setFeedSeq(feedSeq);
+		comment.setUserSeq(userService.readById((String)request.getAttribute("userId")).getUserSeq());
+		comment.setCommentContent(content);
 		log.info("register : "+comment);
 		service.Write(comment);
-		return "redirect:/comment/list";
+		/*return "redirect:/comment/list";*/
+		return "redirect:/feed/list";
 	}
 	
 }
