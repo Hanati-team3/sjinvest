@@ -1,3 +1,5 @@
+
+/** 2초마다 업종별 정보, 관심종목의 Stock정보(차트빼고), 코스피의 Stock정보(차트빼고), 열려진 탭의 Top 정보 업데이트 */
 function indexUpdate(indexParam) {
 	$.ajax({
 		type : "POST",
@@ -9,11 +11,11 @@ function indexUpdate(indexParam) {
 			console.log("stockData .. ")
 			console.log(stockData);
 			window.stock = stockData;
-/*			setFieldCard(stockData.fieldStock);
-			setInterestCard(stockData.interestCard);
-			setKospiCard(stockData.kospi);
-			setTopTab(stockData.topTap);*/
-			//setTimeout(indexUpdate, 2000);
+//			setFieldCard(stockData.fieldStock);
+			setInterestCard(stockData.interestList);
+			setKospiCard(stockData.kospiStock);
+			setTopTab(stockData.topTab);
+			setTimeout(indexUpdate(setIndexParam()), 2000);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n" + "message:"
@@ -30,45 +32,59 @@ function setFieldCard(fieldStock) {
 	});
 }
 
-/** 관심종목 카드 데이터 설정 */
-function setInterestCard(interestCard) {
+/** 관심종목 카드 데이터 */
+function setInterestCard(interestList) {
 	var slideCard = $(".stock-my-interest .swiper-wrapper");
-	slideCard.html("");
-	
-	for (var i = 0; i < interestCard.stockList.length; i++) {
-		var swiperSlide = $("<div class=\"swiper-slide\"></div>");
-		var statisticsSlide = $("<div class=\"statistics-slide\"></div>");
-		var nameDiv = $("<div class=\"company-name\" data-swiper-parallax=\"-500\"></div>");
-		var stockDiv = $("<div class=\"company-stock\" data-swiper-parallax=\"-500\"></div>");
-		var dayBeforeSpan = $("<span class=\"indicator\"></span>");
-		var chartDiv = $("<div class=\"chart-js chart-js-line-stacked\">" +
-							"<canvas name=\"line-stacked-chart\" width=\"730\" height=\"300\"></canvas>" +
-						"</div>");
-		$(nameDiv).text(interestCard.stockList[i].stockName);
-		$(stockDiv).text(interestCard.stockList[i].stockPrice.toLocaleString());
-		$(dayBeforeSpan).text("전일대비   " + interestCard.stockList[i].stockChange +"   "+ interestCard.stockList[i].stockDiff.toFixed(2)+"%");
-		if(interestCard.stockList[i].stockDiff > 0) {
-			$(stockDiv).removeClass('minus').addClass('plus');
-			$(dayBeforeSpan).removeClass('minus').addClass('plus');
+	var i = 0;
+	$(".stock-my-interest .swiper-wrapper .swiper-slide").each(function(index, item){
+		if(index != 0 && index != interestList.length -1) {
+			$(item).find(".company-name").text(interestList[i].stockName);
+			$(item).find(".company-stock").text(interestList[i].stockPrice.toLocaleString());
+			$(item).find(".indicator").html("전일대비 " + interestList[i].stockChange.toLocaleString() + 
+					"&nbsp;&nbsp;" + interestList[i].stockDiff +"%");
+			if(interestList[i].stockDiff > 0) {
+				$(item).find(".company-stock").removeClass('minus').addClass('plus');
+				$(item).find(".indicator").removeClass('minus').addClass('plus');
+			}
+			else {
+				$(item).find(".company-stock").removeClass('plus').addClass('minus');
+				$(item).find(".indicator").removeClass('plus').addClass('minus');
+			}
+			i++;
 		}
-		else {
-			$(stockDiv).removeClass('plus').addClass('minus');
-			$(dayBeforeSpan).removeClass('plus').addClass('minus');
+		// 자동으로 붙여주는 양 옆 슬라이드에 대한 추가적인 설정
+		else if(index == 0) {
+			$(item).find(".company-name").text(interestList[interestList.length -1].stockName);
+			$(item).find(".company-stock").text(interestList[interestList.length -1].stockPrice.toLocaleString());
+			$(item).find(".indicator").html("전일대비 " + interestList[interestList.length -1].stockChange.toLocaleString() + 
+					"&nbsp;&nbsp;" + interestList[interestList.length -1].stockDiff +"%");
+			if(interestList[interestList.length -1].stockDiff > 0) {
+				$(item).find(".company-stock").removeClass('minus').addClass('plus');
+				$(item).find(".indicator").removeClass('minus').addClass('plus');
+			}
+			else {
+				$(item).find(".company-stock").removeClass('plus').addClass('minus');
+				$(item).find(".indicator").removeClass('plus').addClass('minus');
+			}
 		}
-
-		$(statisticsSlide).append(nameDiv);
-		$(statisticsSlide).append(stockDiv);
-		$(statisticsSlide).append(dayBeforeSpan);
-		$(statisticsSlide).append(chartDiv);
-		$(swiperSlide).append(statisticsSlide);
-		$(slideCard).append(swiperSlide);
-	}
-	runInterestChart(interestCard.chartList);
-	CRUMINA.initSwiper();
-	//myInitSwiper();
+		else if(index == interestList.length -1) {
+			$(item).find(".company-name").text(interestList[0].stockName);
+			$(item).find(".company-stock").text(interestList[0].stockPrice.toLocaleString());
+			$(item).find(".indicator").html("전일대비&nbsp;&nbsp;&nbsp;" + interestList[0].stockChange.toLocaleString() + 
+					"&nbsp;&nbsp;&nbsp;" + interestList[0].stockDiff +"%");
+			if(interestList[0].stockDiff > 0) {
+				$(item).find(".company-stock").removeClass('minus').addClass('plus');
+				$(item).find(".indicator").removeClass('minus').addClass('plus');
+			}
+			else {
+				$(item).find(".company-stock").removeClass('plus').addClass('minus');
+				$(item).find(".indicator").removeClass('plus').addClass('minus');
+			}
+		}
+	});
 }
 
-/** 관심종목 차트 */
+/** 관심종목 카드 차트 */
 function runInterestChart(chartList) {
 	var lineStackedCharts = document.getElementsByName("interest-line-stacked-chart");
 	for (var i = 0; i < lineStackedCharts.length; i++) {
@@ -128,19 +144,19 @@ function runInterestChart(chartList) {
 		}
 	}
 }
-/** 코스피 카드 설정 함수 */
-function setKospiCard(kospi) {
+
+/** 코스피 카드 데이터 설정 */
+function setKospiCard(kospiStock) {
 	var statList = $(".stock-kospi-card .text-stat").find('.count-stat');
-	$(statList[0]).text(kospi.kospiStock.stockPrice.toLocaleString());
-	$(statList[1]).text(kospi.kospiStock.stockHigh.toLocaleString());
-	$(statList[2]).text(kospi.kospiStock.stockLow.toLocaleString());
-	$(statList[3]).text(kospi.kospiStock.stockChange.toLocaleString());
-	$(statList[4]).text(kospi.kospiStock.stockVolume.toLocaleString());
-	runKospiChart(kospi.kospiTimeSeries);
+	$(statList[0]).text(kospiStock.price.toLocaleString());
+	$(statList[1]).text(kospiStock.high.toLocaleString());
+	$(statList[2]).text(kospiStock.low.toLocaleString());
+	$(statList[3]).text(kospiStock.lastPrice.toLocaleString());
+	$(statList[4]).text(kospiStock.volume.toLocaleString());
 }
 
-/** 코스피 차트 설정 함수 */
-function runKospiChart(kospiTimeSeries) {
+/** 코스피 카드 차트 설정*/
+function runKospiChart(kospiTimeSeries, isFirst) {
 	var lineChart = document.getElementById("kospi-line-chart");
 	/*
 	 *  Yearly Line Graphic
@@ -165,53 +181,57 @@ function runKospiChart(kospiTimeSeries) {
 	                data: kospiTimeSeries.data
 	            }]
 	    };
-
-	    var lineChartEl = new Chart(ctx_lc, {
-	        type: 'line',
-	        data: data_lc,
-	        options: {
-	            legend: {
-	                display: false
-	            },
-	            responsive: true,
-	            scales: {
-	                xAxes: [{
-	                	type: 'time',
-	                    ticks: {
-	                        fontColor: '#888da8',
-	                        stepSize: 10,
-	                        unitStepSize: 10
-	                    },
-	                    gridLines: {
-	                        color: "#f0f4f9"
-	                    },
-	                    time: { 
-		                    unit: 'second', 
-		                    unitStepSize: '10', 
-		                    format: "HHmmss", 
-		                    displayFormats: { 
-		                      minute: 'HH:mm', 
-		                      hour: 'HH:mm' 
-		                    } 
-	                    }
-	                }],
-	                yAxes: [{
-	                    gridLines: {
-	                        color: "#f0f4f9"
-	                    },
-	                    ticks: {
-	                        fontColor: '#888da8'
-	                    }
-	                }]
-	            }
-	        }
-	    });
+	    
+	    stockIndex.config = {
+		        type: 'line',
+		        data: data_lc,
+		        options: {
+		            legend: {
+		                display: false
+		            },
+		            responsive: true,
+		            scales: {
+		                xAxes: [{
+		                	/*type: 'time',*/
+		                    ticks: {
+		                        fontColor: '#888da8'/*,
+		                        stepSize: 10,
+		                        unitStepSize: 10*/
+		                    },
+		                    gridLines: {
+		                        color: "#f0f4f9"
+		                    }/*,
+		                    time: { 
+			                    unit: 'second', 
+			                    unitStepSize: '60', 
+			                    format: "HHmmss", 
+			                    displayFormats: { 
+			                    	second: 'H:mm'
+			                    } 
+		                    }*/
+		                }],
+		                yAxes: [{
+		                    gridLines: {
+		                        color: "#f0f4f9"
+		                    },
+		                    ticks: {
+		                        fontColor: '#888da8'
+		                    }
+		                }]
+		            }
+		        }
+		    }
+	    if(isFirst) {
+		    lineChartEl = new Chart(ctx_lc, stockIndex.config);
+	    }
+	    else {
+	    	lineChartEl.update();
+	    }
 	}
 }
 
 /** 상위 종목 카드 설정 함수 */
 function setTopTab(topTab) {
-	window.tabbbb=topTab;
 	var activeTab = $(".stock-top-tab .tab-content").find('.active');
 	// 활성화된 탭 검사
 	switch($(activeTab).attr('id')) {
@@ -221,23 +241,18 @@ function setTopTab(topTab) {
 	case 'falling-rate' :
 		var itemList = $(activeTab).find('.skills-item');
 		for(var i = 0; i < 5; i++) {
-			$(itemList[i]).find('.skills-item-title').text(topTab[i].companyName);
-			$(itemList[i]).find('.units').text(topTab[i].value.toFixed(2)+"%");
-			$(itemList[i]).find('.skills-item-meter-active').css("width",topTab[i].value.toFixed(2)+"%");
+			$(itemList[i]).find('.skills-item-title').text(topTab[i].stockName);
+			$(itemList[i]).find('.units').text(topTab[i].stockValue +"%");
+			$(itemList[i]).find('.skills-item-meter-active').css("width",topTab[i].stockValue+"%");
 		}
 		break;
 	// 외국인 순매수 3
 	case 'foreigner' :
+		runOneBarChart(topTab, 'foreigner-chart');
+		break;
 	// 기관 순매수 3
 	case 'institution' :
-		var itemList = $(activeTab).find('.ui-block-content');
-		for(var i = 0; i < 3; i++) {
-			var figure = topTab[i].value / 100;
-			$(itemList[i]).find('.pie-chart').attr('data-value', figure);
-			$(itemList[i]).find('h6').text(topTab[i].companyName);
-			$(itemList[i]).find('p').text(topTab[i].value.toFixed(2)+"%");
-		}
-		runPiChart($(activeTab).attr('id'));
+		runOneBarChart(topTab, 'institution-chart');
 		break;
 	// 거래량 20
 	case 'trading-amount' :
@@ -249,18 +264,15 @@ function setTopTab(topTab) {
 		break;
 	}
 }
-
-/** 순매수 차트*/
+/*
+*//** 순매수 차트*//*
 function runPiChart(id) {
     var $pie_chartList = $('#' + id + ' .pie-chart');
     window.piList = $pie_chartList;
 	for (var i = 0; i < $pie_chartList.length; i++) {
 		var $pie_chart = $pie_chartList.slice(i,i);
-		window.pi=$pie_chart;
-		console.log('aa');
 	    $pie_chart.appear();
 	    $pie_chart.on('appear', function () {
-	    	console.log('bb');
 	        var current_cart = $pie_chart;
 	        //if (!current_cart.data('inited')) {
 	            var startColor = current_cart.data('startcolor');
@@ -287,45 +299,15 @@ function runPiChart(id) {
 	    });
 	}
 
-}
-/** 순매수 차트*//*
-function runPiChart() {
-	var $pie_chart = $('.pie-chart');
-	$pie_chart.appear({ force_process: true });
-	$pie_chart.on('appear', function () {
-		var current_cart = $(this);
-		if (!current_cart.data('inited')) {
-			var startColor = current_cart.data('startcolor');
-			var endColor = current_cart.data('endcolor');
-			var counter = current_cart.data('value') * 100;
-			
-			current_cart.circleProgress({
-				thickness: 16,
-				size: 360,
-				startAngle: -Math.PI / 4 * 2,
-				emptyFill: '#ebecf1',
-				lineCap: 'round',
-				fill: {
-					gradient: [endColor, startColor],
-					gradientAngle: Math.PI / 4
-				}
-			}).on('circle-animation-progress', function (event, progress) {
-				current_cart.find('.content').html(parseInt(counter * progress, 10) + '<span>%</span>'
-				)
-				
-			});
-			current_cart.data('inited', true);
-		}
-	});
-}
-*/
+}*/
+
 /** Top20 차트 함수 */
 function runOneBarChart(topTab, id) {
 	var nameList = [];
 	var dataList = [];
 	for(var i = 0; i < topTab.length; i++) {
-		nameList.push(topTab[i].companyName);
-		dataList.push(topTab[i].value);
+		nameList.push(topTab[i].stockName);
+		dataList.push(topTab[i].stockValue);
 	}
 	var oneBarChart = document.getElementById(id);
 	if (oneBarChart !== null) {
@@ -380,112 +362,3 @@ function runOneBarChart(topTab, id) {
 	    });
 	}
 }
-
-/** initSwiper 설정 함수 */
-/*
-function myInitSwiper() {
-	var swipers = {};
-	var initIterator = 0;
-	var $breakPoints = false;
-	$('.swiper-container').each(function () {
-
-		var $t = $(this);
-		var index = 'swiper-unique-id-' + initIterator;
-
-		$t.addClass('swiper-' + index + ' initialized').attr('id', index);
-		$t.find('.swiper-pagination').addClass('pagination-' + index);
-
-		var $effect = ($t.data('effect')) ? $t.data('effect') : 'slide',
-			$crossfade = ($t.data('crossfade')) ? $t.data('crossfade') : true,
-			$loop = ($t.data('loop') == false) ? $t.data('loop') : true,
-			$showItems = ($t.data('show-items')) ? $t.data('show-items') : 1,
-			$scrollItems = ($t.data('scroll-items')) ? $t.data('scroll-items') : 1,
-			$scrollDirection = ($t.data('direction')) ? $t.data('direction') : 'horizontal',
-			$mouseScroll = ($t.data('mouse-scroll')) ? $t.data('mouse-scroll') : false,
-			$autoplay = ($t.data('autoplay')) ? parseInt($t.data('autoplay'), 10) : 0,
-			$autoheight = ($t.hasClass('auto-height')) ? true: false,
-			$slidesSpace = ($showItems > 1) ? 20 : 0;
-
-		if ($showItems > 1) {
-			$breakPoints = {
-				480: {
-					slidesPerView: 1,
-					slidesPerGroup: 1
-				},
-				768: {
-					slidesPerView: 2,
-					slidesPerGroup: 2
-				}
-			}
-		}
-
-		swipers['swiper-' + index] = new Swiper('.swiper-' + index, {
-			pagination: '.pagination-' + index,
-			paginationClickable: true,
-			direction: $scrollDirection,
-			mousewheelControl: $mouseScroll,
-			mousewheelReleaseOnEdges: $mouseScroll,
-			slidesPerView: $showItems,
-			slidesPerGroup: $scrollItems,
-			spaceBetween: $slidesSpace,
-			keyboardControl: true,
-			setWrapperSize: true,
-			preloadImages: true,
-			updateOnImagesReady: true,
-			autoplay: $autoplay,
-			autoHeight: $autoheight,
-			loop: $loop,
-			breakpoints: $breakPoints,
-			effect: $effect,
-			fade: {
-				crossFade: $crossfade
-			},
-			parallax: true,
-			onSlideChangeStart: function (swiper) {
-			    var sliderThumbs = $t.siblings('.slider-slides');
-				if (sliderThumbs.length) {
-                    sliderThumbs.find('.slide-active').removeClass('slide-active');
-					var realIndex = swiper.slides.eq(swiper.activeIndex).attr('data-swiper-slide-index');
-                    sliderThumbs.find('.slides-item').eq(realIndex).addClass('slide-active');
-				}
-			}
-		});
-		initIterator++;
-	});
-	
-
-    //swiper arrows
-    $('.btn-prev').on('click', function () {
-        var sliderID = $(this).closest('.slider-slides').siblings('.swiper-container').attr('id');
-        swipers['swiper-' + sliderID].slidePrev();
-    });
-
-    $('.btn-next').on('click', function () {
-        var sliderID = $(this).closest('.slider-slides').siblings('.swiper-container').attr('id');
-        swipers['swiper-' + sliderID].slideNext();
-    });
-	
-    //swiper arrows
-    $('.btn-prev-without').on('click', function () {
-        var sliderID = $(this).closest('.swiper-container').attr('id');
-        swipers['swiper-' + sliderID].slidePrev();
-    });
-
-    $('.btn-next-without').on('click', function () {
-        var sliderID = $(this).closest('.swiper-container').attr('id');
-        swipers['swiper-' + sliderID].slideNext();
-    });
-	
-	
-    // Click on thumbs
-    $('.slider-slides .slides-item').on('click', function () {
-        if ($(this).hasClass('slide-active')) return false;
-        var activeIndex = $(this).parent().find('.slides-item').index(this);
-        var sliderID = $(this).closest('.slider-slides').siblings('.swiper-container').attr('id');
-        swipers['swiper-' + sliderID].slideTo(activeIndex + 1);
-        $(this).parent().find('.slide-active').removeClass('slide-active');
-        $(this).addClass('slide-active');
-
-        return false;
-    });
-};*/
