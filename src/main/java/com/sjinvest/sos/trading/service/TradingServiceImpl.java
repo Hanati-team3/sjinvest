@@ -51,6 +51,7 @@ public class TradingServiceImpl implements TradingService {
 				double perSharePrice = existHolding.getHoldingTotalMoney()/existHolding.getHoldingAmount();
 				double tradingEarningsRatio = (((trading.getTradingPrice()-perSharePrice)/perSharePrice)*100);
 				trading.setTradingEarningsRatio(tradingEarningsRatio);
+				userMapper.updateUserMargin(trading.getUserSeq());
 			}
 			userMapper.addUserMoney(data);
 			if(holdingMapper.checkByCompanyNumber(holding).size()>0) {

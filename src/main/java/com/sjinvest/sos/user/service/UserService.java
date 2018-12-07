@@ -28,8 +28,12 @@ public interface UserService {
 	public List<User> readBySeqList(List<Integer> userSeqList);
 	// 포인트로 top 유저 목록 가져오기
 	public List<User> pointTop(int num);
+	// 유저 총이익으로 top 유저 목록 가져오기
+	public List<User> totalMarginTop(int num);
 	// 유저 검색(자동완성기능)
 	public List<String> findUser(String term);
 	// 유저 검색
 	public int searchUser(String text);
+	// 유저 총이익 업데이트
+	public boolean updateUserMargin(int userSeq);
 }
