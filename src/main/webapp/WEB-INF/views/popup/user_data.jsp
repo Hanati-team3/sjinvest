@@ -40,7 +40,7 @@
               <img src="<%=application.getContextPath()%>/resources/img/author-main1.jpg" alt="author">
             </a>
             <div class="author-content">
-              <a href="#" id="id2" class="h4 author-name"></a>
+              <a href="#" id="id2" class="h4 author-name">aaa</a>
               
               <div class="email" id="email2"></div>
             </div>
