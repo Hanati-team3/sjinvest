@@ -564,16 +564,24 @@
 			console.log('탭요청 : ' + target);
 			topTabUpdate(target);
 		});
-		console.log("${interestMap.interestList}")
+		// 코스피 차트 그리기
 		runKospiChart(getKospiFromRequest(), true);
+		// 관심종목 차트 그리기
 		runInterestChart(getInterestFromRequest(), true);
+		// index update 호출
 		var indexParam = setIndexParam();
-		setTimeout(indexUpdate(indexParam), 1000);
+		indexUpdate(indexParam);
+		// 차트 업데이트 호출
+		allChartUpdate(indexParam.interestCompanyNumberList, 1);
 	});
+	
+	/* index update 요청을 중지하는 함수 */
   	function stop() {
   		INDEX.flag = false;
   		console.log('stop');
   	}
+  	
+  	/* request에서 interestMap의 차트 데이터를 찾아서 자바스크립트 객체로 반환하는 함수 */
   	function getInterestFromRequest() {
   		var interestChartLabel = ${interestMap.interestChart.label};
   		var interestName = [];
@@ -582,8 +590,6 @@
 		<c:forEach var="key" items="${interestMap.interestChart.data.keySet()}" varStatus="status">
 		interestName.push("${key}");
 		interestDataList.push(${interestMap.interestChart.data.get(key)});
-		console.log("${key}");
-		console.log(${interestMap.interestChart.data.get(key)});
     	</c:forEach>
     	
 		var interestListChart = {
@@ -591,10 +597,10 @@
 			nameList : interestName,
 			dataList : interestDataList
 		};
-		console.log(interestListChart);
 		return interestListChart;
   	}
 	
+  	/* request에서 kospi 차트 데이터를 찾아서 자바스크립트 객체로 반환하는 함수 */
 	function getKospiFromRequest() {
 		var kospiChartLabel = ${kospiMap.kospiChart.label};
 		var kospiChartData = ${kospiMap.kospiChart.data.kospi};
@@ -605,7 +611,7 @@
 		return kospiChart;
 	}
 	
-	
+	/* 첫 화면 출력 후 indexUpdate를 요청하기 위해 요청 파라미터를 설정하여 반환하는 함수 */
 	function setIndexParam() {
 		var indexParam = {};
 		// 유저 아이디 설정

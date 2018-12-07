@@ -27,10 +27,10 @@ function indexUpdate(indexParam) {
 	}
 }
 
+/* tab을 클릭하면 발생하는 일회성 데이터 요청 */
 function topTabUpdate(target) {
 	var tabOption;
 	// 활성화된 탭 검사
-	console.log(target.split('#')[1]);
 	switch(target.split('#')[1]) {
 	//상승률 상위 5
 	case INDEX.tabList[0] :
@@ -81,6 +81,24 @@ function topTabUpdate(target) {
 	})
 }
 
+/** 차트데이터 요청을 보내서 차트를 업데이트하는 함수 */
+function allChartUpdate(companyNumberList, kospiOption) {
+	$.ajax({
+		type : "POST",
+		url : "index/tab/"+tabOption,
+		dataType : "json",
+		contentType: "application/json; charset=utf-8",
+		success : function(topData) {
+			console.log("topData .. ");
+			console.log(topData);
+			setTopTab(topData, tabOption);
+		},
+		error : function(request, status, error) {
+			console.log("code:" + request.status + "\n" + "message:"
+					+ request.responseText + "\n" + "error:" + error);
+		}
+	})
+}
 /** 업종별 정보 카드 데이터 설정 */
 function setFieldCard(fieldStock) {
 	$(".stock-index-trend li").each(function(index, item){

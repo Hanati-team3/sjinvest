@@ -153,6 +153,17 @@ public class StockController2 {
 		System.out.println("tabUpdate type : " + type);
 		return new ResponseEntity<>(service.stockTop(type+""), HttpStatus.OK);
 	}
+	
+	/** index의 chart update 요청*/
+	//@ResponseBody
+	@PostMapping(value="/index/chart", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Map<String, Object>> chartUpdate(List<String> companyNumberList, int kospiOption) {
+		System.out.println("chartUpdate : " + companyNumberList + ", " + kospiOption);
+		Map<String, Object> map = new HashMap<>();
+		map.put("interestTimeSeries", service.getChartData(companyNumberList, 1, 1));
+		map.put("kospiMap", service.getKospiChartDate(kospiOption));
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
 
 /*	
    //** 내 보유주식 위젯 요청*//*
