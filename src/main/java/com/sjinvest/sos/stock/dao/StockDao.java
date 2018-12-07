@@ -43,7 +43,7 @@ public class StockDao {
             result.put("stock", convertStock(jsonMap));
             result.put("askingPriceList", convertAskingPriceList(jsonMap));
     		if(startDate!=null && endDate!=null && type!=0) {
-                result.put("timeSeries", convertTimeSeries(jsonMap));
+                result.put("timeSeries", convertTimeSeries(companyNumber, jsonMap));
     		}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -116,7 +116,7 @@ public class StockDao {
         if(kospis.isArray()) {
         	List<String> label = new ArrayList<String>();
         	List<String> dataName = new ArrayList<String>();
-        	List<List<Double>> datas = new ArrayList<List<Double>>();
+        	Map<String, List<Double>> datas = new HashMap<String, List<Double>>();
         	List<Double> data = new ArrayList<Double>();
         	for(JsonNode objNode : kospis) {
              	if(first) {
@@ -134,7 +134,7 @@ public class StockDao {
              	dataName.add(objNode.get("date").asText());
              	data.add(objNode.get("close").asDouble());
         	}
-        	datas.add(data);
+        	datas.put("kospi",data);
         	TimeSeries timeSeries = new TimeSeries();
         	timeSeries.setData(datas);
         	timeSeries.setDataName(dataName);
@@ -208,7 +208,7 @@ public class StockDao {
         }
         return askingPriceList;
 	}
-	public TimeSeries convertTimeSeries(JsonNode jsonMap) {
+	public TimeSeries convertTimeSeries(String companyNumber, JsonNode jsonMap) {
         JsonNode period = jsonMap.get("period");
         TimeSeries timeSeries = new TimeSeries();
         List<Double> data = new ArrayList<Double>();
@@ -219,18 +219,19 @@ public class StockDao {
         		dataName.add(objNode.get("date").asText());
         	}
         }
-        List<List<Double>> datas = new ArrayList<List<Double>>();
-        datas.add(data);
+        Map<String, List<Double>> datas = new HashMap<String, List<Double>>();
+        datas.put(companyNumber,data);
         timeSeries.setData(datas);
         timeSeries.setDataName(dataName);
         timeSeries.setLabel(dataName);
         return timeSeries;
 	}
-	public TimeSeries convertListTimeSeries(JsonNode jsonMap) {
+	public TimeSeries convertListTimeSeries(List<String> companyNumber, JsonNode jsonMap) {
         JsonNode com = jsonMap.get("com");
         TimeSeries timeSeries = new TimeSeries();
-        List<List<Double>> datas = new ArrayList<List<Double>>();
+        Map<String, List<Double>> datas = new HashMap<String, List<Double>>();
         boolean first =true;
+        int index = 0;
         for(JsonNode objNode : com) {
             List<String> dataName = new ArrayList<String>();
         	List<Double> data = new ArrayList<Double>();
@@ -238,7 +239,8 @@ public class StockDao {
         		data.add(objInNode.get("close").asDouble());
         		dataName.add(objInNode.get("date").asText());
         	}
-        	datas.add(data);
+        	datas.put(companyNumber.get(index),data);
+        	index = index +1;
             timeSeries.setDataName(dataName);
             timeSeries.setLabel(dataName);
         }
@@ -270,8 +272,8 @@ public class StockDao {
         		dataName.add(objNode.get("date").asText());
         	}
         }
-        List<List<Double>> datas = new ArrayList<List<Double>>();
-        datas.add(data);
+        Map<String, List<Double>> datas = new HashMap<String, List<Double>>();
+        datas.put("kospi", data);
         timeSeries.setData(datas);
         timeSeries.setDataName(dataName);
         timeSeries.setLabel(dataName);
@@ -332,6 +334,7 @@ public class StockDao {
 		TimeSeries result = new TimeSeries();
 		String apiURL = "http://54.180.117.83:8003/stock/chart?";
 		String urlString = apiURL + "code="+convertListToString(companyNumberList)+"&startDate="+startDate+"&endDate="+endDate+"&type="+type;
+		System.out.println(urlString);
 		try {
 			URL url = new URL(urlString);
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -339,7 +342,7 @@ public class StockDao {
             InputStream in = urlConnection.getInputStream();
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonMap = mapper.readTree(in);
-            return convertListTimeSeries(jsonMap);
+            return convertListTimeSeries(companyNumberList, jsonMap);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -367,6 +370,6 @@ public class StockDao {
 		List<String> companyList = new ArrayList<String>();
 		companyList.add("086790");
 		companyList.add("004170");
-		System.out.println(stockDao.forIndex(companyList, 4));
+		System.out.println(stockDao.getChartData(companyList, "20181205", "20181206", 2));
 	}
 }
