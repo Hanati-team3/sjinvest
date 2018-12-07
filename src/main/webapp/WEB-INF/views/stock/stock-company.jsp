@@ -45,8 +45,6 @@ function purchase(){
 function addInterest(){
 	$('.bg-interest').click(function (e) {
 		e.preventDefault();
-		console.log("${company.companyNumber}");
-		console.log("${company.companyName}");
 		if($(".fa-heart").hasClass("fas")===true){
 			$.ajax({ 
 		        type: "post", 
@@ -73,18 +71,31 @@ function addInterest(){
 
 function getChangeOption(){
 	$("#chart-option").change(function() {
+		var unitValue = "day";
+		var stepSizeValue = 10;
+		if($(this).children("option:selected").attr("value")==1){
+			unitValue = "hour";
+			stepSizeValue = 1;
+		}else if($(this).children("option:selected").attr("value")==2){
+			unitValue = "day"
+			stepSizeValue = 5;
+		}else if($(this).children("option:selected").attr("value")==3){
+			unitValue = "week"
+			stepSizeValue = 1;
+		}else if($(this).children("option:selected").attr("value")==4){
+			unitValue = "month"
+			stepSizeValue = 1;
+		}
 	    $.ajax({ 
 	        type: "POST", 
 	        url: "getchartdata", 
-	        data: {"companyNumber" : "${company.companyNumber}", "type" : $(this).children("option:selected").text()}, 
+	        data: {"companyNumber" : "${company.companyNumber}", "type" : $(this).children("option:selected").attr("value")}, 
 	        success: function (data) {
-        	    
 	        	config.data.datasets.splice(0, 1);
-				removeLabelQuotes(data);
+	        	removeLabelQuotes(data);
 	        	var data_lc = {
 	        	        labels: data.label,
 	        	        datasets: [
-	                        <c:forEach items="data.data" varStatus="status">
 	                        {
 	        	                label: " - value",
 	        	                borderColor: "#ffdc1b",
@@ -96,13 +107,42 @@ function getChangeOption(){
 	        	                pointHoverRadius: 8,
 	        	                fill: false,
 	        	                lineTension:0,
-	        	                data: data.data[${status.index}]
+	        	                data: data.data["${company.companyNumber}"]
 	        	            },
-	                        </c:forEach>
 	        				]
 	        	    };
-	        	
+	        	var option_lc = {
+			            legend: {
+			                display: false
+			            },
+			            responsive: true,
+			            scales: {
+			            	xAxes: [{
+			                    ticks: {
+			                        fontColor: '#888da8',
+			                    },
+			                    gridLines: {
+			                        color: "#f0f4f9"
+			                    },
+			                    type:"time",
+			                    time:{
+			                    	unit:unitValue,
+			                    	unitStepSize: stepSizeValue
+			                    }
+			                }],
+			                yAxes: [{
+			                    gridLines: {
+			                        color: "#f0f4f9"
+			                    },
+			                    ticks: {
+			                        beginAtZero:false,
+			                        fontColor: '#888da8'
+			                    }
+			                }]
+			            }
+			        }
 	        	config.data = data_lc;
+	        	config.opitons = option_lc;
 	        	lineChartEl.update();
 	        	
 	        }
@@ -147,9 +187,9 @@ function runChart(){
 		            },
 		            responsive: true,
 		            scales: {
-		                xAxes: [{
+		            	xAxes: [{
 		                    ticks: {
-		                        fontColor: '#888da8'
+		                        fontColor: '#888da8',
 		                    },
 		                    gridLines: {
 		                        color: "#f0f4f9"
@@ -160,7 +200,7 @@ function runChart(){
 		                        color: "#f0f4f9"
 		                    },
 		                    ticks: {
-		                        beginAtZero:true,
+		                        beginAtZero:false,
 		                        fontColor: '#888da8'
 		                    }
 		                }]
@@ -208,9 +248,7 @@ $(document).ready(function(){
 	runChart();
 	getChangeOption();
 	addInterest();
-	if()
 	purchase();
-
 	purchaseButton();
 }
 );
@@ -799,10 +837,10 @@ $(document).ready(function(){
                 <!-- <div class="h6 title">KOSPI Line Graphic</div> -->
                 <div><h6 class="title">${company.companyName} 차트</h6></div>
                 <select id="chart-option" class="selectpicker form-control without-border" size="auto">
-                  <option value="LY">기본</option>
-                  <option value="2">거래량</option>
-                  <option value="2">시장지수</option>
-                  <option value="2">20일 이동 평균</option>
+                  <option value="1">당일</option>
+                  <option value="2">일단위</option>
+                  <option value="3">주단위</option>
+                  <option value="4">월단위</option>
                 </select>
                 <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
@@ -876,24 +914,6 @@ $(document).ready(function(){
               </ul>
     
             </div>
-            <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-center">
-                <li class="page-item disabled"><a class="page-link"
-                  href="#" tabindex="-1">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1
-                    <div class="ripple-container">
-                      <div class="ripple ripple-on ripple-out"
-                        style="left: -10.3833px; top: -16.8333px; background-color: rgb(255, 255, 255); transform: scale(16.7857);"></div>
-                    </div>
-                </a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                <li class="page-item"><a class="page-link" href="#">12</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a>
-                </li>
-              </ul>
-            </nav>
           </div>
         </div>
         <%-- 뉴스 row 끝 --%>
