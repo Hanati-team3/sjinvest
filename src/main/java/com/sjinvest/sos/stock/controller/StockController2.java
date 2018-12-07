@@ -77,6 +77,7 @@ public class StockController2 {
 		List<String> interestCompanyNumberList = new ArrayList<>();
 		Map<String, Object> interestMap = new Hashtable<>();
 		Map<String, Object> holdingWidgetMap = null;
+		Map<String, Object> map = null;
 		
 		User user = null;
 		// 로그인중
@@ -89,8 +90,10 @@ public class StockController2 {
 				interestMap.put("interestChart", interestTimeSeries);
 			}
 		}
+		
+		map = service.getForIndex(holdingList, interestCompanyNumberList, 1);
+		
 		System.out.println(2);
-		Map<String, Object> map = service.getForIndex(holdingList, interestCompanyNumberList, 1);
 		System.out.println(3);
 		// realtime
 		model.addAttribute("realTime", map.get("realTime"));

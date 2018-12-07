@@ -133,7 +133,9 @@
                     <c:forEach var="eachInterest" items="${interestMap.interestList}" varStatus="status">
                       <div class="swiper-slide">
                         <div class="statistics-slide">
-                          <div class="company-name" data-swiper-parallax="-500">${eachInterest.stockName}</div>
+                          <div class="company-name" data-swiper-parallax="-500">
+                            <a href="<%=application.getContextPath()%>/stock/company/${eachInterest.stockCode}">${eachInterest.stockName}</a>
+                          </div>
                           <div class="company-stock" data-swiper-parallax="-500">${eachInterest.stockPrice}</div>
                           <span class="indicator">전일대비 ${eachInterest.stockChange}  +${eachInterest.stockDiff}%</span>
                           <div class="chart-js chart-js-line-stacked">
@@ -548,6 +550,7 @@
   <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index.js"></script>
   <script>
   	var stockIndex = {};	//stock-index 전역변수
+  	stockIndex.interestNameList
 	$(document).ready(function() {
 		//탭 클릭시 요청 발생
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
@@ -555,12 +558,35 @@
 			console.log('탭요청 : ' + target);
 		});
 		runKospiChart(getKospiFromRequest(), true);
-		//runInterestChart(chartList);
-		
+		//runInterestChart(getInterestFromRequest(), true);
+		getInterestFromRequest();
 		var indexParam = setIndexParam();
 		window.aa = indexParam;
 		indexUpdate(indexParam);
 	});
+  	
+  	function getInterestFromRequest() {
+  		var interestChartLabel = [];
+  		var interestDataList = [];
+  		var tempInterestData = [];
+  		var interestName = [];
+		<c:forEach var="eachLabel" items="${interestMap.interestChart.label}" varStatus="status">
+		interestChartLabel.push(${eachLabel});
+    	</c:forEach>
+    	<c:forEach var="eachInterestChart" items="${interestMap.interestChart.data}" varStatus="status">
+    		<c:forEach var="eachChart" items="${eachInterestChart}" varStatus="status">
+    		tempInterestData.push(${eachChart});
+        	</c:forEach>
+        	interestDataList.push(tempInterestData);
+        	tempInterestData = [];
+    	</c:forEach>
+		var interestListChart = {
+			label : interestChartLabel,
+			dataList : interestDataList
+		};
+		console.log(interestListChart);
+		return interestListChart;
+  	}
 	
 	function getKospiFromRequest() {
 		var kospiChartLabel = [];
@@ -571,11 +597,11 @@
 		<c:forEach var="eachData" items="${kospiMap.kospiChart.data[0]}" varStatus="status">
 		kospiChartData.push(${eachData});
     	</c:forEach>
-		var kospiTimeSeries = {
+		var kospiChart = {
 			label : kospiChartLabel,
 			data : kospiChartData
 		};
-		return kospiTimeSeries;
+		return kospiChart;
 	}
 	
 	
