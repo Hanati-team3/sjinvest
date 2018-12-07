@@ -122,6 +122,7 @@ $(document).ready( function() {
 	getFollowList();
 	getFollowerList();
 	getInterestList();
+	getRankingList();
 	
     $('#loginForm').submit(function (e) {
 	    e.preventDefault();
@@ -454,9 +455,10 @@ function getFollowList(){
 			}else{
 				console.log(data.followList);
 				for(var i=0; i<data.followList.length; i++){
-					$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+ data.followList[i].userSeq +'-sm.jpg\" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\">'+ data.followList[i].userId +'</a></div></li>');
+					$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userId +'</a></div></li>');
 				}
 			}
+			appendClickEvent();
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -485,9 +487,11 @@ function getFollowerList(){
 			}else{
 				console.log(data.followerList);
 				for(var i=0; i<data.followerList.length; i++){
-					$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+ data.followerList[i].userSeq +'-sm.jpg\" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\">'+ data.followerList[i].userId +'</a></div></li>');
+					$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userId +'</a></div></li>');
 				}
 			}
+			appendClickEvent();
+			
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -512,11 +516,13 @@ function getInterestList(){
 			"userSeq" : "${user.userSeq}"
 		},
 		success: function(data){
+
 			if(data.fail != null){
 				/* 값이 없는 경우 */
 			}else{
 				for(var i=0; i<data.interestList.length; i++){
 					$('#interest_list').append('<tr><td class="company-name"><div class="author-freshness"><a href="#" class="h6 title">'+ data.interestList[i].companyName +'</a></div></td><td class="stock-price"><a href="#" class="h6 count">38,750</a></td><td class="day-before-rate"><div class="author-freshness plus"><a href="#" class="h6 title">+ 1.90 %</a></div></td></tr>');
+
 				}
 			}
 		},
@@ -528,22 +534,59 @@ function getInterestList(){
 	
 }
 
+/** 
+ * 주식랭킹 top5
+ */
+function getRankingList(){
+	
+	//console.log("${user.userSeq}");
+	$.ajax({
+		
+		url : '/sos/user/ranking',
+		type : 'get',
+		/* data : {
+		}, */
+		success: function(data){
+
+ 			if(data.fail != null){
+				/* 값이 없는 경우 */
+			}else{
+				for(var i=0; i<data.userRanking.length; i++){
+					
+					$('#rankingList').append(
+							'<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+ data.userRanking[i].userSeq +'-sm.jpg\" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\">'+ data.userRanking[i].userId +'</a><div style=\"color:red;\">'+ data.userRanking[i].userTotalMargin +'%</div></div></li>'
+					);
+				}
+			}
+ 			appendClickEvent();
+		},
+		error : function() {
+	        alert("관리자에게 문의에게 문의해주세요.");
+	    }
+	
+	})
+	
+}
+	
+
 /*
  * 유저 아이디 클릭시 data, modal
  */
-function userData(){
+function appendClickEvent(){
 	
-	//console.log("${user.userSeq}");
+// follow 친구 아이디 click시
+$('#follow_list li a').on('click', function(){
+
+//	console.log($(this).closest("ul").html());
 	$.ajax({
 		
 		url : '/sos/user/data',
 		type : 'post',
 		data : {
-			"userId" : "tester01"
+			"userId" : this.text
 		},
 		success: function(data){
 			
-			console.log("모달확인");
 			$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
 			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
 			$('#nickName2').attr("placeholder", data.userData.userNickname);
@@ -556,14 +599,66 @@ function userData(){
 	
 	})
 	
+})
+
+// follower 친구 아이디 click시
+$('#follower_list li a').on('click', function(){
+
+//	console.log($(this).closest("ul").html());
+	$.ajax({
+		
+		url : '/sos/user/data',
+		type : 'post',
+		data : {
+			"userId" : this.text
+		},
+		success: function(data){
+			
+			$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
+			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
+			$('#nickName2').attr("placeholder", data.userData.userNickname);
+			$('#detail2').attr("placeholder", data.userData.userDetail);
+			
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
 	
-}
+	})
+	
+})
+
+// ranking 유저 아이디 click시
+$('#rankingList li a').on('click', function(){
+
+//	console.log($(this).closest("ul").html());
+	$.ajax({
+		
+		url : '/sos/user/data',
+		type : 'post',
+		data : {
+			"userId" : this.text
+		},
+		success: function(data){
+			
+			$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
+			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
+			$('#nickName2').attr("placeholder", data.userData.userNickname);
+			$('#detail2').attr("placeholder", data.userData.userDetail);
+			
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+	
+})
 
 
+};
 
 </script>
-  
-  
 
 </body>
 </html>

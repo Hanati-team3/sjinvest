@@ -130,12 +130,12 @@
               <div class="ui-block-content">
                 <div class="swiper-container" data-slide="fade">
                   <div class="swiper-wrapper">
-                    <c:forEach var="eachInterest" items="${interestList}" varStatus="status">
+                    <c:forEach var="eachInterest" items="${interestMap.interestList}" varStatus="status">
                       <div class="swiper-slide">
                         <div class="statistics-slide">
                           <div class="company-name" data-swiper-parallax="-500">${eachInterest.stockName}</div>
                           <div class="company-stock" data-swiper-parallax="-500">${eachInterest.stockPrice}</div>
-                          <span class="indicator">전일대비 ${eachInterest.stockChange}  +${eachInterest.stockDiff * 100}%</span>
+                          <span class="indicator">전일대비 ${eachInterest.stockChange}  +${eachInterest.stockDiff}%</span>
                           <div class="chart-js chart-js-line-stacked">
                             <canvas name="interest-line-stacked-chart" width="730" height="300"></canvas>
                           </div>
@@ -181,27 +181,27 @@
               
               <div class="ui-block-content display-flex content-around">
                 <div class="text-stat">
-                  <div class="count-stat">${kospi.kospiStock.price}</div>
+                  <div class="count-stat">${kospiMap.kospi.price}</div>
                   <div class="title">시가</div>
                   <div class="sub-title">현재주가</div>
                 </div>
                 <div class="text-stat">
-                  <div class="count-stat">${kospi.kospiStock.high}</div>
+                  <div class="count-stat">${kospiMap.kospi.high}</div>
                   <div class="title">고가</div>
                   <div class="sub-title">오늘고가</div>
                 </div>
                 <div class="text-stat">
-                  <div class="count-stat">${kospi.kospiStock.low}</div>
+                  <div class="count-stat">${kospiMap.kospi.low}</div>
                   <div class="title">저가</div>
                   <div class="sub-title">오늘저가</div>
                 </div>
                 <div class="text-stat">
-                  <div class="count-stat">${kospi.kospiStock.lastPrice}</div>
+                  <div class="count-stat">${kospiMap.kospi.lastPrice}</div>
                   <div class="title">종가</div>
                   <div class="sub-title">어제 마감시가</div>
                 </div>
                 <div class="text-stat">
-                  <div class="count-stat">${kospi.kospiStock.volume}</div>
+                  <div class="count-stat">${kospiMap.kospi.volume}</div>
                   <div class="title">거래량</div>
                   <div class="sub-title">코스피 전체 거래량</div>
                 </div>
@@ -398,53 +398,11 @@
                             <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                       </div>
                       
-                      <div class="row">
-                      
-                        <div class="col-xl-4 order-xl-1 col-lg-4 order-lg-1 col-md-4 order-md-1 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.68" data-startcolor="#38a9ff" data-endcolor="#317cb6">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                
-                            <div class="chart-text">
-                              <h6>..</h6>
-                              <p>..</p>
-                            </div>
-                          </div>
+                      <div class="ui-block-content">
+                        <div class="chart-js chart-js-one-bar">
+                          <canvas id="foreigner-chart" width="1400" height="380"></canvas>
                         </div>
-                        
-                        <div class="col-xl-4 order-xl-2 col-lg-4 order-lg-2 col-md-4 order-md-2 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.50" data-startcolor="#38a9ff" data-endcolor="#317cb6">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                            <div class="chart-text">
-                              <h6>..</h6>
-                              <p>..</p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="col-xl-4 order-xl-3 col-lg-4 order-lg-3 col-md-4 order-md-3 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.83" data-startcolor="#38a9ff" data-endcolor="#317cb6">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                            <div class="chart-text">
-                              <h6>..</h6>
-                              <p>..</p>
-                            </div>
-                          </div>
-                        </div>
-                        
                       </div>
-                      <%-- row 끝 --%>
                     </div>
                   </div>
                   <%-- foreigner 탭 끝 --%>
@@ -458,54 +416,11 @@
                         <a href="#" class="more"><svg class="olymp-three-dots-icon">
                             <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                       </div>
-                      
-                      <div class="row">
-                      
-                        <div class="col-xl-4 order-xl-1 col-lg-4 order-lg-1 col-md-4 order-md-1 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.68" data-startcolor="#ffc109e0" data-endcolor="#ff8400">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                
-                            <div class="chart-text">
-                              <h6>..</h6>
-                              <p>..</p>
-                            </div>
-                          </div>
+                      <div class="ui-block-content">
+                        <div class="chart-js chart-js-one-bar">
+                          <canvas id="institution-chart" width="1400" height="380"></canvas>
                         </div>
-                        
-                        <div class="col-xl-4 order-xl-2 col-lg-4 order-lg-2 col-md-4 order-md-2 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.50" data-startcolor="#ffc109e0" data-endcolor="#ff8400">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                            <div class="chart-text">
-                              <h6>..</h6>
-                              <p>..</p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="col-xl-4 order-xl-3 col-lg-4 order-lg-3 col-md-4 order-md-3 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.83" data-startcolor="#ffc109e0" data-endcolor="#ff8400">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                            <div class="chart-text">
-                              <h6>..</h6>
-                              <p>..</p>
-                            </div>
-                          </div>
-                        </div>
-                        
                       </div>
-                      <%-- row 끝 --%>
                     </div>
                   </div>
                   <%-- institution 탭 끝 --%>
@@ -524,7 +439,7 @@
                 
                           <div class="ui-block-content">
                             <div class="chart-js chart-js-one-bar">
-                              <canvas id="trading-a  mount-chart" width="1400" height="380"></canvas>
+                              <canvas id="trading-amount-chart" width="1400" height="380"></canvas>
                             </div>
                           </div>
                           
@@ -581,8 +496,8 @@
                     <img src="<%=application.getContextPath()%>/resources/img/avatar${status.index+1}-sm.jpg" alt="author">
                   </div>
                   <div class="notification-event">
-                    <a href=# class="h6 notification-friend">${item.source}</a>
-                    <a href="http://${item.link}" target="_blank" class="news-title" >${item.title}</a>
+                    <a href="${item.link}" class="h6 notification-friend">${item.source}</a>
+                    <a href="${item.link}" target="_blank" class="news-title" >${item.title}</a>
                   </div>
                   <span class="notification-icon">
                     <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
@@ -632,30 +547,28 @@
   <%-- stock-index js --%>
   <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index.js"></script>
   <script>
+  	var stockIndex = {};	//stock-index 전역변수
 	$(document).ready(function() {
 		//탭 클릭시 요청 발생
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 			var target = $(e.target).attr("href") // activated tab
 			console.log('탭요청 : ' + target);
 		});
-		runKospiChart(getKospiFromRequest(kospiTimeSeries));
+		runKospiChart(getKospiFromRequest(), true);
 		//runInterestChart(chartList);
+		
 		var indexParam = setIndexParam();
-		console.log("document Ready : " + indexParam);
 		window.aa = indexParam;
-		console.log("${kospi}");
-		console.log("${holdingWidget}");
-		console.log("${interestList}");
 		indexUpdate(indexParam);
 	});
 	
 	function getKospiFromRequest() {
 		var kospiChartLabel = [];
 		var kospiChartData = [];
-		<c:forEach var="eachLabel" items="${kospi.kospiTimeSeries.label}" varStatus="status">
+		<c:forEach var="eachLabel" items="${kospiMap.kospiChart.label}" varStatus="status">
 		kospiChartLabel.push(${eachLabel});
     	</c:forEach>
-		<c:forEach var="eachData" items="${kospi.kospiTimeSeries.data[0]}" varStatus="status">
+		<c:forEach var="eachData" items="${kospiMap.kospiChart.data[0]}" varStatus="status">
 		kospiChartData.push(${eachData});
     	</c:forEach>
 		var kospiTimeSeries = {
@@ -664,6 +577,8 @@
 		};
 		return kospiTimeSeries;
 	}
+	
+	
 	function setIndexParam() {
 		var indexParam = {};
 		// 유저 아이디 설정
@@ -677,23 +592,23 @@
 			break;
 		// 하락률 상위 5
 		case 'falling-rate' :
-			indexParam.tabOption = 1;
+			indexParam.tabOption = 2;
 			break;
 		// 외국인 순매수 3
 		case 'foreigner' :
-			indexParam.tabOption = 1;
+			indexParam.tabOption = 3;
 			break;
 		// 기관 순매수 3
 		case 'institution' :
-			indexParam.tabOption = 1;
+			indexParam.tabOption = 4;
 			break;
 		// 거래량 20
 		case 'trading-amount' :
-			indexParam.tabOption = 1;
+			indexParam.tabOption = 5;
 			break;
 		// 시가총액 20
 		case 'total-value' :
-			indexParam.tabOption = 1;
+			indexParam.tabOption = 6;
 			break;
 		}
 		// 코스피옵션 설정
@@ -713,7 +628,7 @@
     	</c:forEach>
 		// 관심종목 회사번호 설정
 		indexParam.interestCompanyNumberList = [];
-		<c:forEach var="eachInterest" items="${interestList}" varStatus="status">
+		<c:forEach var="eachInterest" items="${interestMap.interestList}" varStatus="status">
 		indexParam.interestCompanyNumberList.push("${eachInterest.stockCode}");
     	</c:forEach>
 		return indexParam;

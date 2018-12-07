@@ -69,7 +69,24 @@
           </form>
         </div>
         <%-- 검색 끝 --%>
-
+        <%-- tradelist 필터 시작 --%>
+        <div class="ui-block">
+          <form class="w-search" style="width: 100%;">
+            <div class="w-select form-group with-button is-empty">
+              <select class="W-" name = "trade-type">
+                <option value="1">BUY</option>
+                <option value="2">SELL</option>
+              </select>
+              <input class="form-control" type="text" placeholder="회사명/업종 검색...">
+              <button style="background-color: #3f4257;">
+                <svg class="olymp-magnifying-glass-icon">
+                  <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
+              </button>
+              <span class="material-input"></span>
+            </div>
+          </form>
+        </div>
+        <%-- tradelist 필터 끝 --%>
         <%-- 검색 결과 시작 --%>
         <div class="row">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">

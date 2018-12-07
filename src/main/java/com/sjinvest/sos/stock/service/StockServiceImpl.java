@@ -56,8 +56,8 @@ public class StockServiceImpl implements StockService {
 			label.add("\""+i+"월"+"\"");
 			data.add(random.nextInt(200)*1.1);
 		}
-		List<List<Double>> datas = new ArrayList<List<Double>>();
-		datas.add(data);
+		Map<String, List<Double>> datas = new HashMap<String, List<Double>>();
+		datas.put("companyNumber", data);
 		timeSeries.setLabel(label);
 		timeSeries.setData(datas);
 		return timeSeries;
@@ -222,8 +222,8 @@ public class StockServiceImpl implements StockService {
 	public TimeSeries getTimeSeriesListByOne(List<String> companyNumberList, String type){
 		TimeSeries timeSeries = new TimeSeries();
 		for(int i = 0; i < companyNumberList.size(); i++) {
-			List<List<Double>> existDatas = timeSeries.getData();
-			existDatas.add(getTimeSeries(companyNumberList.get(i), type).getData().get(1));
+			Map<String, List<Double>> existDatas = timeSeries.getData();
+			existDatas.put(companyNumberList.get(i), getTimeSeries(companyNumberList.get(i), type).getData().get(1));
 			timeSeries.setData(existDatas);
 		}
 		return timeSeries;
