@@ -14,4 +14,5 @@ public interface FeedMapper {
 	public int increaseShare(Map<String, Integer> map);
 	public List<Feed> listAll();
 	public List<Feed> listBySearchPage(Map<String, Object> map);
+	public List<Feed> listBySearchPageByUser(Map<String, Object> map);
 }
