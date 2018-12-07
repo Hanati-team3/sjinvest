@@ -44,13 +44,14 @@ public class FeedController {
 	private FollowService service;
 	
 	@PostMapping(value = "/write")
-	public String write(Feed feed, RedirectAttributes rttr) {
+	public String write(Feed feed, RedirectAttributes rttr, HttpServletRequest request) {
 //		해당 유저의 정보(seq가 필요함)
 //		feed.setUserSeq(userService.readById("").getUserSeq());
-		feed.setUserSeq(2);
-		feedService.write(feed);
+		if(request.getAttribute("userId") != null) {
+			feed.setUserSeq(userService.readById((String)request.getAttribute("userId")).getUserSeq());
+			feedService.write(feed);
+		}
 //		System.out.println("아직 유저때문에 !!! "+service.write(feed));
-		
 		return "redirect:/sns/newsfeed";
 	}
 	
@@ -92,11 +93,12 @@ public class FeedController {
 			int userSeq = userService.readById((String)request.getAttribute("userId")).getUserSeq();
 			List<Follow> followList = service.listByUserFollow(userSeq);
 			if(followList != null) {
-				for (Follow follow : followList) {
-					searchParam.setUserSeq(userSeq);
+//				팔로우 있는 사람에 맞게 글 출력 필요
+//				for (Follow follow : followList) {
+//					searchParam.setUserSeq(userSeq);
 //					feedList = ;
 //					feedList.add()
-				}
+//				}
 			}
 			
 			feedList = feedService.listBySearchPage(searchParam);

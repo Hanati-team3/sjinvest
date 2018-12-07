@@ -39,19 +39,18 @@ public class FollowController {
 		if(userSeq != "") {
 			List<Follow> followList = service.listByUserFollow(Integer.parseInt(userSeq));
 			List<Integer> userSeqList = new ArrayList<Integer>();
-			if(followList != null) {
+			if(followList.size() != 0) {
 				for(Follow follow : followList) {
 					userSeqList.add(follow.getFollowUserSeq());
 				}
 				List<User> userList = userService.readBySeqList(userSeqList);
 				
 				returnData.put("followList", userList);
+				return new ResponseEntity<>(returnData,HttpStatus.OK);
 			}
-			return new ResponseEntity<>(returnData,HttpStatus.OK);
-		}else {
-			returnData.put("fail", "");
-			return new ResponseEntity<>(returnData,HttpStatus.OK);
 		}
+		returnData.put("fail", "");
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
 	
 	@ResponseBody
@@ -63,23 +62,19 @@ public class FollowController {
 		if(userSeq != "") {
 			List<Follow> followerList = service.listByUserFollower(Integer.parseInt(userSeq));
 			List<Integer> userSeqList = new ArrayList<Integer>();
-			if(followerList != null) {
+			if(followerList.size() != 0) {
 				for(Follow follower : followerList) {
 					userSeqList.add(follower.getUserSeq());
 				}
 				List<User> userList = userService.readBySeqList(userSeqList);
 				
-				// 비밀번호 숨겨서 보내는 부분
-				for(User user : userList) {
-					user.setUserPw("");
-				}
 				returnData.put("followerList", userList);
+				return new ResponseEntity<>(returnData,HttpStatus.OK);
 			}
-			return new ResponseEntity<>(returnData,HttpStatus.OK);
-		}else {
-			returnData.put("fail", "");
-			return new ResponseEntity<>(returnData,HttpStatus.OK);
 		}
+		returnData.put("fail", "");
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
+		
 	}
 	
 	// 아직 완성xxx

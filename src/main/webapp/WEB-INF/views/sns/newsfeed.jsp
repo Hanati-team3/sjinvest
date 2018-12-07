@@ -422,20 +422,12 @@ function getInterestList(){
 			"userSeq" : "${user.userSeq}"
 		},
 		success: function(data){
-<<<<<<< Updated upstream
 			if(data.fail != null){
 				/* 값이 없는 경우 */
 			}else{
-				
 				for(var i=0; i<data.interestList.length; i++){
 					$('#interest_list').append('<tr><td class="company-name"><div class="author-freshness"><a href="#" class="h6 title">'+ data.interestList[i].companyName +'</a></div></td><td class="stock-price"><a href="#" class="h6 count">38,750</a></td><td class="day-before-rate"><div class="author-freshness plus"><a href="#" class="h6 title">+ 1.90 %</a></div></td></tr>');
 				}
-=======
-			
-			console.log(data.interestList);
-			for(var i=0; i<data.interestList.length; i++){
-			$('#interest_list').append('<tr><td class="company-name"><div class="author-freshness"><a href="#" class="h6 title">'+ data.interestList[i].companyName +'</a></div></td><td class="stock-price"><a href="#" class="h6 count">38,750</a></td><td class="day-before-rate"><div class="author-freshness plus"><a href="#" class="h6 title"><a style="color:blue;">- 1.90 %</a></a></div></td></tr>');
->>>>>>> Stashed changes
 			}
 		},
 		error : function() {
