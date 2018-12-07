@@ -115,7 +115,8 @@ $(document).ready( function() {
 
 	getFeedList();
 	getFollowList();
-	getFollowerList()
+	getFollowerList();
+	getInterestList();
 	
     $('#loginForm').submit(function (e) {
 	    e.preventDefault();
@@ -310,18 +311,87 @@ $.ajax({
 }
 
 /** 
- * following 친구목록
+ * 내가 following한 친구목록
  */
 function getFollowList(){
 	
+	//console.log("${user.userSeq}");
+	$.ajax({
+		
+		url : '/sos/follow/followList',
+		type : 'get',
+		data : {
+			"userSeq" : "${user.userSeq}"
+		},
+		success: function(data){
+
+			console.log(data.followList);
+			for(var i=0; i<data.followList.length; i++){
+			$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+ data.followList[i].userSeq +'-sm.jpg\" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\">'+ data.followList[i].userId +'</a></div></li>');
+			}
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
 	
 }
 
 /** 
- * follower 친구목록
+ * 나를 follower한 친구목록
  */
 function getFollowerList(){
 	
+	//console.log("${user.userSeq}");
+	$.ajax({
+		
+		url : '/sos/follow/followerList',
+		type : 'get',
+		data : {
+			"userSeq" : "${user.userSeq}"
+		},
+		success: function(data){
+			
+			console.log(data.followerList);
+			for(var i=0; i<data.followerList.length; i++){
+			$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+ data.followerList[i].userSeq +'-sm.jpg\" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\">'+ data.followerList[i].userId +'</a></div></li>');
+			}
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+	
+}
+
+
+/** 
+ * 주식관심종목 List
+ */
+function getInterestList(){
+	
+	//console.log("${user.userSeq}");
+	$.ajax({
+		
+		url : '/sos/interest/list',
+		type : 'get',
+		data : {
+			"userSeq" : "${user.userSeq}"
+		},
+		success: function(data){
+			
+			console.log(data.interestList);
+			for(var i=0; i<data.interestList.length; i++){
+			$('#interest_list').append('<tr><td class="company-name"><div class="author-freshness"><a href="#" class="h6 title">'+ data.interestList[i].companyName +'</a></div></td><td class="stock-price"><a href="#" class="h6 count">38,750</a></td><td class="day-before-rate"><div class="author-freshness plus"><a href="#" class="h6 title">+ 1.90 %</a></div></td></tr>');
+			}
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
 	
 }
 

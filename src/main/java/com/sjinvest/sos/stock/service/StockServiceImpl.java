@@ -17,6 +17,7 @@ import com.sjinvest.sos.holding.domain.Holding;
 import com.sjinvest.sos.stock.dao.StockDao;
 import com.sjinvest.sos.stock.dao.StockNewsCrawler;
 import com.sjinvest.sos.stock.domain.AskingPrice;
+import com.sjinvest.sos.stock.domain.Kospi;
 import com.sjinvest.sos.stock.domain.News;
 import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.domain.TimeSeries;
@@ -296,15 +297,14 @@ public class StockServiceImpl implements StockService {
 	}
 	//index에 필요한 값 전달.
 	@Override
-	public Map<String, Object> getForIndex(List<Holding> holdingList, List<String> interestCompanyNumberList, int type, int rank) {
+	public Map<String, Object> getForIndex(List<Holding> holdingList, List<String> interestCompanyNumberList, int rank) {
 		StockDao stockDao = new StockDao();
-		String[] date = getDate(type);
 		List<String> holdingCompanyNumberList = new ArrayList<String>();
 		for (Holding holding : holdingList) {
 			holdingCompanyNumberList.add(holding.getCompanyNumber());
 		}
 		List<String> companyNumberList = union(holdingCompanyNumberList, interestCompanyNumberList);
-		Map<String, Object> result = stockDao.forIndex(companyNumberList, date[0], date[1], type, rank);
+		Map<String, Object> result = stockDao.forIndex(companyNumberList, rank);
 		List<Stock> stockList = (List<Stock>) result.get("stockList");
 		result.remove("stockList");
 		int stockTotal = 0;
@@ -315,6 +315,7 @@ public class StockServiceImpl implements StockService {
 			holding.setHoldingRateOfReturn(holding.getHoldingReturn()/holding.getHoldingTotalMoney());
 			stockTotal = stockTotal + (holdingPrice*holding.getHoldingAmount());
 		}
+		System.out.println(300);
 		Map<String, Object> holdingWidgetMap = new Hashtable<String, Object>();
 		holdingWidgetMap.put("holdingList", holdingList);
 		holdingWidgetMap.put("stockTotal", stockTotal);
@@ -323,11 +324,13 @@ public class StockServiceImpl implements StockService {
 		for(String interestCompanyNumber : interestCompanyNumberList) {
 			interestMap.put(interestCompanyNumber, searchStock(interestCompanyNumber, stockList));
 		}*/
+		System.out.println(400);
 		List<Stock> interestList = new ArrayList<>();
 		for(String interestCompanyNumber : interestCompanyNumberList) {
 			interestList.add(searchStock(interestCompanyNumber, stockList));
 		}
 			
+		System.out.println(500);
 		result.put("interestList", interestList);
 		return result;
 	}
@@ -389,12 +392,21 @@ public class StockServiceImpl implements StockService {
 		return stockDao.forSearch(companyNumberList);
 	}
 	@Override
-	public TimeSeries getChartData(List<String> companyNumberList, int type, int ktype) {
-		// TODO Auto-generated method stub
-		return null;
+
+	public TimeSeries getChartData(List<String> companyNumberList, int type, int kind) {
+		StockDao stockDao = new StockDao();
+		String[] date = getDate(type);
+		return stockDao.getChartData(companyNumberList, date[0], date[1], type);
 	}
-//	@Override
-//	public Map<String, Object> getChartData(List<String> companyNumberList, int type, int kind) {
-//		
-//	}
+	@Override
+	public Map<String, Object> getKospiChartDate(int type) {
+		StockDao stockDao = new StockDao();
+		String[] date = getDate(type);
+		return stockDao.getKospiChartData(date[0],date[1],type);
+	}
+	@Override
+	public Kospi getKospiData() {
+		StockDao stockDao = new StockDao();
+		return (Kospi)stockDao.getKospiChartData("20181101", "20181101", 5).get("kospi");
+	}
 }

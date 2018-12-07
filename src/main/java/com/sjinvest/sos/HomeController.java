@@ -117,6 +117,13 @@ public class HomeController {
 		
 		return "/sns/user_profile";
 	}
+	
+	@RequestMapping(value = "/stock/interest1", method = RequestMethod.GET)
+	public String interest() {
+		logger.info("stock-interest.");
+		
+		return "/stock/stock-interest";
+	}
 
 
 	
