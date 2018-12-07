@@ -92,5 +92,11 @@ public class TradingServiceImpl implements TradingService {
 		return mapper.earningRatio(num);
 	}
 
+	@Override
+	public int countByUser(int userSeq, int tradingType, String startDate, String endDate, int startNum, int endNum) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 }

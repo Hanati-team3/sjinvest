@@ -208,7 +208,9 @@ $(document).ready(function(){
 	runChart();
 	getChangeOption();
 	addInterest();
+	if()
 	purchase();
+
 	purchaseButton();
 }
 );
