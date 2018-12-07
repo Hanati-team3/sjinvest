@@ -1,5 +1,6 @@
 package com.sjinvest.sos.user.controller;
 
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -141,10 +142,28 @@ public class UserController {
 		System.out.println("유저 이름 클릭시 아이디: "+userId);
 		returnData.put("userData", service.readById(userId));
 
-		System.out.println("유저누구나올까?"+service.readById(userId));
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
 	
+	
+	/**
+	 * newsfeed page 주식랭킹 Top5, 아직 완성xxxxxxxxxxxxxxxxxx
+	 */
+	@ResponseBody
+	@GetMapping(value = "/ranking", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> userRanking() {
+		
+		int num=5;
+		//System.out.println("주식랭킹 top5");		
+		
+		Map<String, Object> returnData = new HashMap<String, Object>();
+		List<User> userList = service.totalMarginTop(num);
+		
+		//System.out.println(userList);
+		returnData.put("userRanking",service.totalMarginTop(num));
+		
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
+	}
 	
 	
 

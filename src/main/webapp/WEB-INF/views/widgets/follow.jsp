@@ -11,19 +11,23 @@
 
 		<ul class="chat-users" id="follow_list">
     
-			<!-- getFollowList Ajax 로 들어오는 부분-->
+	  
+    
+        <!-- getFollowList Ajax 로 들어오는 부분 start-->
       
-      
+        <%-- sample data 
         <li class="inline-items">
         <div class="author-thumb">
         
-        <img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar3-sm.jpg\" 
+        <img alt="author" src="<%=application.getContextPath()%>/resources/img/avatar3-sm.jpg" 
         class="avatar"></div>
         <div class="author-status">
-        <a href="javascript:void(0);" class="h6 author-name" data-toggle="modal" data-target="#user_data" onclick="userData()">임시userId</a>
+        <a href="javascript:void(0);" class="h6 author-name" data-toggle="modal" data-target="#user_data" >tester02</a>
         </div>
-        </li>
+        </li> --%>
+
       
+        <!-- ..getFollowList Ajax 로 들어오는 부분 end-->
       
       
       
@@ -36,7 +40,7 @@
 
 		<ul class="chat-users" id="follower_list">
     
-			<!-- getFollowerList Ajax 로 들어오는 부분 -->
+	    <!-- getFollowerList Ajax 로 들어오는 부분 -->
 
 		</ul>
 
