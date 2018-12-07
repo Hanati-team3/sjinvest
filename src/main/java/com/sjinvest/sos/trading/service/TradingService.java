@@ -12,4 +12,6 @@ public interface TradingService {
 	public List<Trading> listByUser(int userSeq, int tradingType, String startDate, String endDate, int startNum, int endNum);
 	// 실현 수익률 top 5 유저 목록 및 수익률 가져오기 user_seq, earnings_ratio
 	public List<Map<String, Object>> earningRatio(int num);
+	// 
+	public int countByUser(int userSeq, int tradingType, String startDate, String endDate, int startNum, int endNum);
 }

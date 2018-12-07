@@ -111,6 +111,7 @@ public class StockController {
 	@RequestMapping(value="/trade-list" , method = {RequestMethod.GET, RequestMethod.POST})
 	public String tradeList(String userId, Model model) {
 		User user = userService.readById("suhyeon");
+		int count = tradingService.countByUser(user.getUserSeq(), 0, null, null, 0, 0);
 		model.addAttribute("tradingList", tradingService.listByUser(user.getUserSeq(), 0, null, null, 0, 0));
 		return "stock/stock-trade-list";
 	}
