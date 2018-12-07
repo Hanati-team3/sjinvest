@@ -36,7 +36,7 @@
     <%-- realtime row 끝 --%>
     
     
-    <a onclick="stop()">요청종료</a>
+    <a onclick="stop()" href="#">요청종료</a>
     
     
     <%-- 사이드 포함 row 시작 --%>
