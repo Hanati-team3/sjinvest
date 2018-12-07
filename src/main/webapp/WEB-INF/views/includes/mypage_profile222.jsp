@@ -18,11 +18,11 @@
               <img src="<%=application.getContextPath()%>/resources/img/author-main1.jpg" alt="author">
             </a>
             <div class="author-content">
-              <a href="02-ProfilePage.html" class="h4 author-name">${user.userId }</a>
+              <a href="#" class="h4 author-name">${user.userId }</a>
              
               
               
-              <div class="country">${user.userEmail }</div>
+              <div class="email">${user.userEmail }</div>
             </div>
           </div>
         </div>

@@ -61,7 +61,7 @@
       <div class="h6 notification-friend container" style="display: flex;">
         <div class="col-md-3" id="point_date">날짜</div>
         <div class="col-md-6" id="point_content">내용</div>
-        <div class="col-md-3" id="point_amount">보유포인트</div>
+        <div class="col-md-3" id="point_amount">사용내역</div>
       </div>
     </li>
   <%-- </c:forEach> --%>

@@ -118,15 +118,33 @@ public class UserController {
 		return "redirect:/sns/mypage_index";
 	}
 	
+	/**
+	 * mypage 개인정보 들어오는 컨트롤러
+	 */
 	@ResponseBody
 	@PostMapping(value = "/information", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String,Object>> userInformation(String userId) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
-		System.out.println("유저들어오는지 확인: "+userId);
+		System.out.println("mypage 유저아이디: "+userId);
 		returnData.put("user", service.readById(userId));
 
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
+	
+	/**
+	 * 각 유저 이름 클릭시 modal에 보여주기 위한 컨트롤러
+	 */
+	@ResponseBody
+	@PostMapping(value = "/data", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> userData(String userId) {
+		Map<String, Object> returnData = new HashMap<String, Object>();
+		System.out.println("유저 이름 클릭시 아이디: "+userId);
+		returnData.put("userData", service.readById(userId));
+
+		System.out.println("유저누구나올까?"+service.readById(userId));
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
+	}
+	
 	
 	
 
