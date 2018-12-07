@@ -74,8 +74,8 @@ function getChangeOption(){
 		var unitValue = "day";
 		var stepSizeValue = 10;
 		if($(this).children("option:selected").attr("value")==1){
-			unitValue = "hour";
-			stepSizeValue = 1;
+			unitValue = "second";
+			stepSizeValue = 10;
 		}else if($(this).children("option:selected").attr("value")==2){
 			unitValue = "day"
 			stepSizeValue = 5;

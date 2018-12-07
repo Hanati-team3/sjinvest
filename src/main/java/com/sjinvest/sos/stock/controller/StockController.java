@@ -110,6 +110,9 @@ public class StockController {
 	public String tradeList(String userId, Model model) {
 		User user = userService.readById("suhyeon");
 		int count = tradingService.countByUser(user.getUserSeq(), 0, null, null, 0, 0);
+		int pageTotalNum = (int)Math.ceil((1.0*count)/(1.0*10));
+//		model.addAttribute("pageTotalNum", pageTotalNum);
+		model.addAttribute("pageTotalNum", 10);
 		model.addAttribute("tradingList", tradingService.listByUser(user.getUserSeq(), 0, null, null, 0, 0));
 		return "stock/stock-trade-list";
 	}
