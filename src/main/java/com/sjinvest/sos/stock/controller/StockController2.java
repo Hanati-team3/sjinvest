@@ -142,6 +142,7 @@ public class StockController2 {
 		Map<String, Object> map = service.getForIndex(params.getHoldingList(), 
 				params.getInterestCompanyNumberList(), params.getTabOption());
 		map.put("kospiStock", service.getKospiData());
+		map.put("topTabOption", params.getTabOption());
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	

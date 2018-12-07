@@ -549,18 +549,22 @@
   <%-- stock-index js --%>
   <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index.js"></script>
   <script>
-  	var stockIndex = {};	//stock-index 전역변수
+  	var INDEX = {};	//stock-index 전역변수
+  	INDEX.tabList = ["rising-rate", "falling-rate", "foreigner", "institution", "trading-amount", "total-value"];
+  	
+  	
 	$(document).ready(function() {
 		//탭 클릭시 요청 발생
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 			var target = $(e.target).attr("href") // activated tab
 			console.log('탭요청 : ' + target);
+			topTabUpdate(target);
 		});
 		console.log("${interestMap.interestList}")
 		runKospiChart(getKospiFromRequest(), true);
 		runInterestChart(getInterestFromRequest(), true);
 		var indexParam = setIndexParam();
-		//indexUpdate(indexParam); 
+		indexUpdate(indexParam); 
 	});
   	
   	function getInterestFromRequest() {
@@ -603,27 +607,27 @@
 		var activeTabId = $(".stock-top-tab .tab-content").find('.active').attr('id');
 		switch(activeTabId) {
 		//상승률 상위 5
-		case 'rising-rate' :
+		case INDEX.tabList[0] :
 			indexParam.tabOption = 1;
 			break;
 		// 하락률 상위 5
-		case 'falling-rate' :
+		case INDEX.tabList[1] :
 			indexParam.tabOption = 2;
 			break;
 		// 외국인 순매수 3
-		case 'foreigner' :
+		case INDEX.tabList[2] :
 			indexParam.tabOption = 3;
 			break;
 		// 기관 순매수 3
-		case 'institution' :
+		case INDEX.tabList[3] :
 			indexParam.tabOption = 4;
 			break;
 		// 거래량 20
-		case 'trading-amount' :
+		case INDEX.tabList[4] :
 			indexParam.tabOption = 5;
 			break;
 		// 시가총액 20
-		case 'total-value' :
+		case INDEX.tabList[5] :
 			indexParam.tabOption = 6;
 			break;
 		}
