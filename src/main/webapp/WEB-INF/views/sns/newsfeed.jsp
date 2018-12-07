@@ -6,6 +6,7 @@
 <head>
 <title>Newsfeed</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 </head>
 <body>
@@ -204,8 +205,37 @@ $(document).ready( function() {
 	  });
 	}); 
 
+	$('a[name=writeComment]').on('click', function(){
+		
+	});
 	
 });
+
+function writeComment(obj){
+	var feedSeq = $(obj).attr('title');
+	var content = $(obj).closest("div.comment-div").find('textarea').val()
+	/* console.log("내용!!! "+comment); */
+	$.ajax({
+	    url : '/sos/comment/writing',
+	    type : 'post',
+	    data : {
+	    	content : content,
+	    	feedSeq : feedSeq
+	    },
+	    success : function(data) {
+	    	if(data){
+          		console.log(data)
+          		showFeedList(data);
+            }
+	    },
+	    error : function() {
+	      alert("관리자에게 문의해주세요.");
+	    }
+  });
+}
+
+
+
 /* 게시글 보여주기 (검색 포함) */
 function searching(){
 	$.ajax({
@@ -281,7 +311,7 @@ function getFeedList(){
 	    	if(data){
           		console.log(data)
           		showFeedList(data);
-            }
+	    	}
 	    },
 	    error : function() {
 	      alert("관리자에게 문의해주세요.");
@@ -294,10 +324,10 @@ function showFeedList(data){
 	var feedCard = $("#makeFeed");
 	$(feedCard).html("");
 	replyCnt = 0
-	replyTemp = 0
 	for (var i = 0; i < data.feedList.length; i++) {
 		/* console.log(data.feedList[i]); */
 		/* var feed = "<>"; */
+		
 		var nickname = $('a[name=postUserNickName]');
 		$(nickname[i]).text(data.userList[i].userNickname)
 		$(nickname[i]).attr('href', 'temp'+i)	/* 변경 필요 */
@@ -309,30 +339,56 @@ function showFeedList(data){
 		$(like[i]).text(data.feedList[i].feedLikeCnt);
 		
 		/* 수정 삭제 url 넣기!! */
-		/* 좋아요, 댓글, 공유 */
+		/* 좋아요, 공유 */
 		var commentCount = $('span[name=feedCommnetCount]')
 		$(commentCount[i]).text(data.feedList[i].feedReplyCnt);
 		var share = $('span[name=feedShare]');
 		$(share[i]).text(data.feedList[i].feedShareCnt);
 		
+		/* 댓글 */
+		var commentCard = $("div[name=makeComment]")
 		var reply = $('div[name=commentList]');
 		
-		var replyName = $('a[name=replyName]');
-		var replyTime = $('time[name=replyTime]');
-		var replyContent = $('p[name=replyContent]');
+		var replyUL = $('ul[name=commentListUL]');
+		var replyLI = $('li[name=commentLI]');
 		if(data.feedList[i].feedReplyCnt == 0){
-			$(reply[i]).css("display", "none");
-			replyCnt++;
+			$(commentCard[i]).css("display", "none");
+			$(commentCard[i]).html(reply[i]);
 		}else{
+			$(commentCard[i]).css("display", "")
+			$(replyUL[i]).css("display", "")
+			$(reply[i]).css("display", "")
+			$(commentCard[i]).html(reply[i]);
+			
+		}
+		
+		/* if(data.feedList[i].feedReplyCnt == 0){
+			$(CommentCard[i]).html("");
+		}else{
+			var replyUL = $('ul[name=commentListUL]');
 			$(reply[i]).css("display", "");
 			for (var j = replyCnt; j < replyCnt + data.feedList[i].feedReplyCnt; j++) {
-				$(replyName[j]).text(data.replyUser[replyTemp].userNickname);
-				$(replyTime[j]).text(data.replyList[replyTemp].commentRegdate);
-				$(replyContent[j]).text(data.replyList[replyTemp].commentContent);
-				replyTemp++;
+				var replyOther = $('li[name=commentFromOther]');
+				var replyName = $('a[name=replyName]');
+				var replyTime = $('time[name=replyTime]');
+				var replyContent = $('p[name=replyContent]');
+				$(replyName[j]).text(data.replyUser[j].userNickname);
+				$(replyTime[j]).text(data.replyList[j].commentRegdate);
+				$(replyContent[j]).text(data.replyList[j].commentContent);
+				console.log(data.replyList[j].commentContent);
+				$(replyOther[j]).css("display", "");
+				if(j == replyCnt){
+					$(replyUL[i]).html(replyOther[j]);
+				}else{
+					$(replyUL[i]).append(replyOther[j]);
+				}
+				$(CommentCard[i]).html(reply[replyTemp++]);
 			}
 			replyCnt += data.feedList[i].feedReplyCnt;
-		}
+		} */
+		
+		var writeComment = $('a[name=writeComment]')
+		$(writeComment[i]).attr('title',data.feedList[i].feedSeq)
 		
 		var feed = $('#newsfeed-items-grid').html(); 
 		if(i == 0 ){
@@ -341,9 +397,43 @@ function showFeedList(data){
 			$(feedCard).append(feed);
 		}
 	}
+	
+	/* 댓글 망해쒀어~~~  */
+	var replyUL = $('ul[name=commentListUL]');
+	for (var i = 0; i < data.feedList.length; i++) {
 		
+		if(data.feedList[i].feedReplyCnt == 0){
+			
+		}else{
+			for (var j = 0; j < data.feedList[i].feedReplyCnt; j++) {
+				var replyLI = $('li[name=commentLI]')
+				if(j==0){
+					$(replyUL[i]).html(replyLI);
+				}else{
+					$(replyUL[i]).append(replyLI);
+					console.log("왜 안 나오니");
+				}
+			}
+			var replyName = $('a[name=replyName]');
+			var replyTime = $('time[name=replyTime]');
+			var replyContent = $('p[name=replyContent]');
+			for (var k = replyCnt; k < replyCnt + data.feedList[i].feedReplyCnt; k++){
+				console.log("댓글");
+				var replyLI = $('li[name=commentLI]');
+				
+				$(replyName[k]).text(data.replyUser[k].userNickname);
+				$(replyTime[k]).text(data.replyList[k].commentRegdate);
+				$(replyContent[k]).text(data.replyList[k].commentContent);
+				$(replyLI).css("display","");
+			}
+			replyCnt += data.feedList[i].feedReplyCnt;
+		}
+	}
 }
 
+/**
+ * 댓글쓰기
+ */
 
 /** 
  * 내가 following한 친구목록

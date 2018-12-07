@@ -2,6 +2,7 @@
 
 <!-- login page start -->
 
+
 <div class="modal fade" id="login_modal">
 	<div class="modal-dialog ui-block window-popup fav-page-popup">
 		<a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
@@ -48,8 +49,9 @@
 
                         
                         <!-- 네이버, 다음 로그인 start -->
-                        <a href="#" class="btn btn-lg bg-facebook full-width btn-icon-left"><i class="fa fa-facebook" aria-hidden="true"></i>login with facebook</a>
-                        <a href="#" class="btn btn-lg bg-twitter full-width btn-icon-left"><i class="fa fa-twitter" aria-hidden="true"></i>login with twitter</a>
+                        <a class="full-width" style="width: 100%" id="kakao-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=c7ab399d372865fa6d3eedac2f2b93a6&redirect_uri=http://localhost/sos/user/kakaologin&response_type=code">
+                        	<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="100%" height="15%" align="center"/>
+                        </a>
                         <!-- 네이버, 다음 로그인 end -->                        
 
                     </div>
@@ -59,7 +61,6 @@
 		 </div>
     </div>
 </div>
-
 
 <!-- ... login page end -->
 
