@@ -35,6 +35,10 @@
     </div>
     <%-- realtime row 끝 --%>
     
+    
+    <a onclick="stop()">요청종료</a>
+    
+    
     <%-- 사이드 포함 row 시작 --%>
     <div class="row stock-index-main">
       <!-- Left Sidebar -->
@@ -551,7 +555,7 @@
   <script>
   	var INDEX = {};	//stock-index 전역변수
   	INDEX.tabList = ["rising-rate", "falling-rate", "foreigner", "institution", "trading-amount", "total-value"];
-  	
+  	INDEX.flag = true;
   	
 	$(document).ready(function() {
 		//탭 클릭시 요청 발생
@@ -564,9 +568,12 @@
 		runKospiChart(getKospiFromRequest(), true);
 		runInterestChart(getInterestFromRequest(), true);
 		var indexParam = setIndexParam();
-		indexUpdate(indexParam); 
+		setTimeout(indexUpdate(indexParam), 1000);
 	});
-  	
+  	function stop() {
+  		INDEX.flag = false;
+  		console.log('stop');
+  	}
   	function getInterestFromRequest() {
   		var interestChartLabel = ${interestMap.interestChart.label};
   		var interestName = [];

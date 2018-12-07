@@ -1,55 +1,65 @@
 
 /** 2초마다 업종별 정보, 관심종목의 Stock정보(차트빼고), 코스피의 Stock정보(차트빼고), 열려진 탭의 Top 정보 업데이트 */
 function indexUpdate(indexParam) {
-	$.ajax({
-		type : "POST",
-		url : "indexUpdate",
-		dataType : "json",
-		contentType: "application/json; charset=utf-8",
-		data : JSON.stringify(indexParam),
-		success : function(stockData) {
-			console.log("stockData .. ");
-			console.log(stockData);
-			window.stock = stockData;
-//			setFieldCard(stockData.fieldStock);
-			setInterestCard(stockData.interestList);
-			setKospiCard(stockData.kospiStock);
-			setTopTab(stockData.topTab, stockData.topTabOption);
-			setTimeout(indexUpdate(setIndexParam()), 2000);
-		},
-		error : function(request, status, error) {
-			console.log("code:" + request.status + "\n" + "message:"
-					+ request.responseText + "\n" + "error:" + error);
-		}
-	})
+	if(INDEX.flag) {
+		console.log(INDEX.flag);
+		$.ajax({
+			type : "POST",
+			url : "index/update",
+			dataType : "json",
+			contentType: "application/json; charset=utf-8",
+			data : JSON.stringify(indexParam),
+			success : function(stockData) {
+				console.log("stockData .. ");
+				console.log(stockData);
+				window.stock = stockData;
+//				setFieldCard(stockData.fieldStock);
+				setInterestCard(stockData.interestList);
+				setKospiCard(stockData.kospiStock);
+				setTopTab(stockData.topTab, stockData.topTabOption);
+				setTimeout(indexUpdate(setIndexParam()), 2000);
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		});
+	}
 }
 
-function toptabUpdate(target) {
+function topTabUpdate(target) {
 	var tabOption;
 	// 활성화된 탭 검사
-	switch(target) {
+	console.log(target.split('#')[1]);
+	switch(target.split('#')[1]) {
 	//상승률 상위 5
 	case INDEX.tabList[0] :
+		console.log("tab 1");
 		tabOption = 1;
 		break;
 	// 하락률 상위 5
 	case INDEX.tabList[1] :
+		console.log("tab 2");
 		tabOption = 2;
 		break;
 	// 외국인 순매수 3
 	case INDEX.tabList[2] :
+		console.log("tab 3");
 		tabOption = 3;
 		break;
 	// 기관 순매수 3
 	case INDEX.tabList[3] :
+		console.log("tab 4");
 		tabOption = 4;
 		break;
 	// 거래량 20
 	case INDEX.tabList[4] :
+		console.log("tab 5");
 		tabOption = 5;
 		break;
 	// 시가총액 20
 	case INDEX.tabList[5] :
+		console.log("tab 6");
 		tabOption = 6;
 		break;
 	}
@@ -59,16 +69,10 @@ function toptabUpdate(target) {
 		url : "index/tab/"+tabOption,
 		dataType : "json",
 		contentType: "application/json; charset=utf-8",
-		data : JSON.stringify(indexParam),
-		success : function(stockData) {
-			console.log("stockData .. ");
-			console.log(stockData);
-			window.stock = stockData;
-//			setFieldCard(stockData.fieldStock);
-			setInterestCard(stockData.interestList);
-			setKospiCard(stockData.kospiStock);
-			setTopTab(stockData.topTab, stockData.topTabOption);
-			setTimeout(indexUpdate(setIndexParam()), 2000);
+		success : function(topData) {
+			console.log("topData .. ");
+			console.log(topData);
+			setTopTab(topData, tabOption);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n" + "message:"

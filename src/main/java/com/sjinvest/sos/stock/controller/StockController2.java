@@ -111,7 +111,7 @@ public class StockController2 {
 		model.addAttribute("topTab", map.get("topTab"));
 		System.out.println(8);
 		// 주식 전체 뉴스
-		model.addAttribute("news", service.stockIndexNews());
+		//model.addAttribute("news", service.stockIndexNews());
 		System.out.println(9);
 
 		if(user != null) {
@@ -136,7 +136,7 @@ public class StockController2 {
 	
 	/** 주식 index Update 요청*/
 	//@ResponseBody
-	@PostMapping(value="/indexUpdate", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@PostMapping(value="/index/update", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<Map<String, Object>> indexUpdate(@RequestBody IndexParams params) {
 		System.out.println("indexUpdate params : " + params);
 		Map<String, Object> map = service.getForIndex(params.getHoldingList(), 
