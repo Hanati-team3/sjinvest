@@ -67,7 +67,7 @@ public class StockController {
 		String userId = (String)request.getAttribute("userId");
 		if(userId != null) {
 			User user = userService.readById(userId);
-			model.addAttribute("userSeq", user.getUserSeq());
+			model.addAttribute("user", user);
 			model.addAttribute("isInterest",interestService.check(user.getUserSeq(), companyNumber));
 		}else {
 			model.addAttribute("isInterest",false);
@@ -80,17 +80,15 @@ public class StockController {
 	@ResponseBody
 	@PostMapping(value = "/company/getdata", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String,Object>> getData(String companyNumber, String companyName) {
-		Map<String, Object> returnData = new HashMap<String, Object>();
-		returnData.put("stockInfo", service.getStockInfo(companyNumber, companyName));
-		returnData.put("askingPrice", service.getAskingPrice(companyNumber));
-		return new ResponseEntity<>(service.getCompanyData(companyNumber, 1),HttpStatus.OK);
-//		return new ResponseEntity<>(returnData,HttpStatus.OK);
+		return new ResponseEntity<>(service.getCompanyData(companyNumber),HttpStatus.OK);
 
 	}	
 	@ResponseBody
 	@PostMapping(value = "/company/getchartdata", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<TimeSeries> getChartData(String companyNumber, String type) {
-		return new ResponseEntity<>(service.getTimeSeries(companyNumber, type),HttpStatus.OK);
+	public ResponseEntity<TimeSeries> getChartData(String companyNumber, int type) {
+		List<String> companyNumberList = new ArrayList<String>();
+		companyNumberList.add(companyNumber);
+		return new ResponseEntity<>(service.getChartData(companyNumberList, type, 1),HttpStatus.OK);
 	}
 	@ResponseBody
 	@PostMapping(value = "/getStocklist", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
