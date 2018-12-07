@@ -8,7 +8,7 @@ function indexUpdate(indexParam) {
 		contentType: "application/json; charset=utf-8",
 		data : JSON.stringify(indexParam),
 		success : function(stockData) {
-			console.log("stockData .. ")
+			console.log("stockData .. ");
 			console.log(stockData);
 			window.stock = stockData;
 //			setFieldCard(stockData.fieldStock);
@@ -57,60 +57,70 @@ function setInterestCard(interestList) {
 /** 관심종목 카드 차트 */
 function runInterestChart(interestListChart, isFirst) {
 	var lineStackedCharts = document.getElementsByName("interest-line-stacked-chart");
-	for (var i = 0; i < lineStackedCharts.nameList.length; i++) {
+	if(lineStackedCharts == null) {
+		console.log("인터레스트 차트 없음");
+		return;
+	}
+	window.chartList = lineStackedCharts;
+	// 각 차트에 대해 
+	for (var i = 0; i < lineStackedCharts.length; i++) {
 		var lineStackedChart = lineStackedCharts[i];
-		var eachData = interestListChart.dataList[i];
-		/*
-		 *  Lines Graphic
-		 */
-		if (lineStackedChart !== null) {
-		    var ctx_ls = lineStackedChart.getContext("2d");
-		    var data_ls = {
-		        labels: interestListChart.label,
-		        datasets: [
-		            {
-		                label: " 원 ",
-		                backgroundColor: "rgba(57,169,255,0.35)",
-		                borderColor: "#38a9ff",
-		                borderWidth: 4,
-		                pointBorderColor: "#38a9ff",
-		                pointBackgroundColor: "#fff",
-		                pointBorderWidth: 4,
-		                pointRadius: 6,
-		                pointHoverRadius: 8,
-		                data: eachData
-		            }]
-		    };
+		// 각 interest 항목에 대해
+		for(var j = 0; j < interestListChart.dataList.length;  j++) {
+			if(lineStackedChart.getAttribute("target") == interestListChart.nameList[j]) {
+				console.log("일치" + lineStackedChart.getAttribute("target"));
+				var eachData = interestListChart.dataList[j];
+			    var ctx_ls = lineStackedChart.getContext("2d");
+			    var data_ls = {
+			        labels: interestListChart.label,
+			        datasets: [
+			            {
+			                label: " 원 ",
+			                backgroundColor: "rgba(57,169,255,0.35)",
+			                borderColor: "#38a9ff",
+			                borderWidth: 2,
+			                pointBorderColor: "#38a9ff",
+			                pointBackgroundColor: "#fff",
+			                pointBorderWidth: 1,
+			                pointRadius: 1,
+			                pointHoverRadius: 1,
+			                data: eachData
+			            }]
+			    };
 
-		    var lineStackedEl = new Chart(ctx_ls, {
-		        type: 'line',
-		        data: data_ls,
-		        options: {
-		            legend: {
-		                display: false
-		            },
-		            responsive: true,
-		            scales: {
-		                xAxes: [{
-		                    gridLines: {
-		                        color: "#f0f4f9"
-		                    },
-		                    ticks: {
-		                        fontColor: '#888da8'
-		                    }
-		                }],
-		                yAxes: [{
-		                    gridLines: {
-		                        display: false
-		                    },
-		                    ticks: {
-		                        beginAtZero:true,
-		                        fontColor: '#888da8'
-		                    }
-		                }]
-		            }
-		        }
-		    });
+			    var myLineStackedEl = new Chart(ctx_ls, {
+			        type: 'line',
+			        data: data_ls,
+			        options: {
+			            legend: {
+			                display: false
+			            },
+			            responsive: true,
+			            scales: {
+			                xAxes: [{
+			                    gridLines: {
+			                        color: "#f0f4f9"
+			                    },
+			                    ticks: {
+			                        fontColor: '#888da8'
+			                    }
+			                }],
+			                yAxes: [{
+			                    gridLines: {
+			                        display: false
+			                    },
+			                    ticks: {
+			                        fontColor: '#888da8'
+			                    }
+			                }]
+			            }
+			        }
+			    });
+			    myLineStackedEl.update();
+				break;
+			}
+			else {
+			}
 		}
 	}
 }

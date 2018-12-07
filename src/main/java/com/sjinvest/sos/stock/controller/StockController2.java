@@ -86,9 +86,9 @@ public class StockController2 {
 			holdingList = holdingService.listByUser(user.getUserSeq());
 			for (Interest interest : interestService.listByUser(user.getUserSeq())) {
 				interestCompanyNumberList.add(interest.getCompanyNumber());
-				TimeSeries interestTimeSeries = service.getChartData(interestCompanyNumberList, 1, 1);
-				interestMap.put("interestChart", interestTimeSeries);
 			}
+			TimeSeries interestTimeSeries = service.getChartData(interestCompanyNumberList, 1, 1);
+			interestMap.put("interestChart", interestTimeSeries);
 		}
 		
 		map = service.getForIndex(holdingList, interestCompanyNumberList, 1);

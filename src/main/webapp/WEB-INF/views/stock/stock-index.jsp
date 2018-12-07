@@ -139,7 +139,7 @@
                           <div class="company-stock" data-swiper-parallax="-500">${eachInterest.stockPrice}</div>
                           <span class="indicator">전일대비 ${eachInterest.stockChange}  +${eachInterest.stockDiff}%</span>
                           <div class="chart-js chart-js-line-stacked">
-                            <canvas name="interest-line-stacked-chart" width="730" height="300"></canvas>
+                            <canvas name="interest-line-stacked-chart" target="${eachInterest.stockCode}" width="730" height="300"></canvas>
                           </div>
                         </div>
                       </div>
@@ -550,18 +550,17 @@
   <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index.js"></script>
   <script>
   	var stockIndex = {};	//stock-index 전역변수
-  	stockIndex.interestNameList
 	$(document).ready(function() {
 		//탭 클릭시 요청 발생
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 			var target = $(e.target).attr("href") // activated tab
 			console.log('탭요청 : ' + target);
 		});
+		console.log("${interestMap.interestList}")
 		runKospiChart(getKospiFromRequest(), true);
 		runInterestChart(getInterestFromRequest(), true);
 		var indexParam = setIndexParam();
-		window.aa = indexParam;
-		indexUpdate(indexParam); 
+		//indexUpdate(indexParam); 
 	});
   	
   	function getInterestFromRequest() {
@@ -570,8 +569,10 @@
   		var interestDataList = [];
   		
 		<c:forEach var="key" items="${interestMap.interestChart.data.keySet()}" varStatus="status">
-		interestName.push(${key});
+		interestName.push("${key}");
 		interestDataList.push(${interestMap.interestChart.data.get(key)});
+		console.log("${key}");
+		console.log(${interestMap.interestChart.data.get(key)});
     	</c:forEach>
     	
 		var interestListChart = {
