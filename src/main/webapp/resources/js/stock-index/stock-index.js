@@ -57,7 +57,7 @@ function setInterestCard(interestList) {
 /** 관심종목 카드 차트 */
 function runInterestChart(interestListChart, isFirst) {
 	var lineStackedCharts = document.getElementsByName("interest-line-stacked-chart");
-	for (var i = 0; i < lineStackedCharts.length; i++) {
+	for (var i = 0; i < lineStackedCharts.nameList.length; i++) {
 		var lineStackedChart = lineStackedCharts[i];
 		var eachData = interestListChart.dataList[i];
 		/*
@@ -234,42 +234,6 @@ function setTopTab(topTab) {
 		break;
 	}
 }
-/*
-*//** 순매수 차트*//*
-function runPiChart(id) {
-    var $pie_chartList = $('#' + id + ' .pie-chart');
-    window.piList = $pie_chartList;
-	for (var i = 0; i < $pie_chartList.length; i++) {
-		var $pie_chart = $pie_chartList.slice(i,i);
-	    $pie_chart.appear();
-	    $pie_chart.on('appear', function () {
-	        var current_cart = $pie_chart;
-	        //if (!current_cart.data('inited')) {
-	            var startColor = current_cart.data('startcolor');
-	            var endColor = current_cart.data('endcolor');
-	            var counter = current_cart.data('value') * 100;
-
-	            current_cart.circleProgress({
-	                thickness: 16,
-	                size: 360,
-	                startAngle: -Math.PI / 4 * 2,
-	                emptyFill: '#ebecf1',
-	                lineCap: 'round',
-	                fill: {
-	                    gradient: [endColor, startColor],
-	                    gradientAngle: Math.PI / 4
-	                }
-	            }).on('circle-animation-progress', function (event, progress) {
-	                current_cart.find('.content').html(parseInt(counter * progress, 10) + '<span>%</span>'
-	                )
-
-	            });
-	            current_cart.data('inited', false);
-	        //}
-	    });
-	}
-
-}*/
 
 /** Top20 차트 함수 */
 function runOneBarChart(topTab, id) {

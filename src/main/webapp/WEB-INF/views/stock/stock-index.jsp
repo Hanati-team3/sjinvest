@@ -558,30 +558,25 @@
 			console.log('탭요청 : ' + target);
 		});
 		runKospiChart(getKospiFromRequest(), true);
-		//runInterestChart(getInterestFromRequest(), true);
-		getInterestFromRequest();
+		runInterestChart(getInterestFromRequest(), true);
 		var indexParam = setIndexParam();
 		window.aa = indexParam;
-		indexUpdate(indexParam);
+		indexUpdate(indexParam); 
 	});
   	
   	function getInterestFromRequest() {
-  		var interestChartLabel = [];
-  		var interestDataList = [];
-  		var tempInterestData = [];
+  		var interestChartLabel = ${interestMap.interestChart.label};
   		var interestName = [];
-		<c:forEach var="eachLabel" items="${interestMap.interestChart.label}" varStatus="status">
-		interestChartLabel.push(${eachLabel});
+  		var interestDataList = [];
+  		
+		<c:forEach var="key" items="${interestMap.interestChart.data.keySet()}" varStatus="status">
+		interestName.push(${key});
+		interestDataList.push(${interestMap.interestChart.data.get(key)});
     	</c:forEach>
-    	<c:forEach var="eachInterestChart" items="${interestMap.interestChart.data}" varStatus="status">
-    		<c:forEach var="eachChart" items="${eachInterestChart}" varStatus="status">
-    		tempInterestData.push(${eachChart});
-        	</c:forEach>
-        	interestDataList.push(tempInterestData);
-        	tempInterestData = [];
-    	</c:forEach>
+    	
 		var interestListChart = {
 			label : interestChartLabel,
+			nameList : interestName,
 			dataList : interestDataList
 		};
 		console.log(interestListChart);
@@ -589,14 +584,8 @@
   	}
 	
 	function getKospiFromRequest() {
-		var kospiChartLabel = [];
-		var kospiChartData = [];
-		<c:forEach var="eachLabel" items="${kospiMap.kospiChart.label}" varStatus="status">
-		kospiChartLabel.push(${eachLabel});
-    	</c:forEach>
-		<c:forEach var="eachData" items="${kospiMap.kospiChart.data[0]}" varStatus="status">
-		kospiChartData.push(${eachData});
-    	</c:forEach>
+		var kospiChartLabel = ${kospiMap.kospiChart.label};
+		var kospiChartData = ${kospiMap.kospiChart.data.kospi};
 		var kospiChart = {
 			label : kospiChartLabel,
 			data : kospiChartData
