@@ -132,4 +132,9 @@ public class UserServiceImpl implements UserService {
 	public int searchUser(String text) {
 		return userMapper.searchUser(text);
 	}
+
+	@Override
+	public boolean updateUserMargin(int userSeq) {
+		return (userMapper.updateUserMargin(userSeq)==1);
+	}
 }

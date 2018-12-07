@@ -22,4 +22,5 @@ public class User {
 	private int userGender;
 	private String userBirth;
 	private String userAuthority;
+	private double userTotalMargin;
 }

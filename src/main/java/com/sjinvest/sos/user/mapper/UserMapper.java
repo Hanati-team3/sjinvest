@@ -23,4 +23,5 @@ public interface UserMapper {
 	public List<User> pointTop(int num);
 	public List<String> findUser(String term);
 	public int searchUser(String text);
+	public int updateUserMargin(int userSeq);
 }

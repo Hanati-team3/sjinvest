@@ -32,4 +32,6 @@ public interface UserService {
 	public List<String> findUser(String term);
 	// 유저 검색
 	public int searchUser(String text);
+	// 유저 총이익 업데이트
+	public boolean updateUserMargin(int userSeq);
 }

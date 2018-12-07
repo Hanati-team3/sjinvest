@@ -18,6 +18,7 @@
 		<result column="user_gender" property="userGender" />
 		<result column="user_birth" property="userBirth" />
 		<result column="user_authority" property="userAuthority" />
+		<result column="user_total_margin" property="userTotalMargin" />
 	</resultMap>
 
 	<!-- 유저 등록 -->
@@ -88,7 +89,8 @@
 		user_money,
 		user_gender,
 		user_birth,
-		user_authority
+		user_authority,
+		user_total_margin
 		FROM users
 		WHERE user_id = #{value}
 	</select>
@@ -107,7 +109,8 @@
 		user_money,
 		user_gender,
 		user_birth,
-		user_authority
+		user_authority,
+		user_total_margin
 		FROM users
 		WHERE user_seq = #{value}
 	</select>
@@ -126,7 +129,8 @@
 		user_money,
 		user_gender,
 		user_birth,
-		user_authority
+		user_authority,
+		user_total_margin
 		FROM users
 		WHERE
 		<foreach collection="list" item="userSeq" separator="or">
@@ -164,7 +168,8 @@
 		user_money,
 		user_gender,
 		user_birth,
-		user_authority
+		user_authority,
+		user_total_margin
 		FROM users
 		WHERE user_id = #{userId}
 		AND user_password = #{userPw}
@@ -224,6 +229,26 @@
 	    WHERE user_seq = #{userSeq}
 	</update>
 	
+	<!--회원 마진 변경-->
+	<update id="updateUserMargin" parameterType="Integer">
+		UPDATE users 
+		SET    user_total_margin = (SELECT ( SUM(( trading_earnings_ratio / 100 ) * ( 
+		                                                trading_price * trading_amount ) 
+		                                     ) / 
+		                                                    SUM 
+		                                                    ( 
+		                                                      ( 
+		                                     trading_price * trading_amount 
+		                                                      ) / ( 
+		                                                      ( trading_earnings_ratio + 
+		                                                        100 ) 
+		                                                      / 100 )) 
+		                                   ) * 100 earnings_ratio 
+		                            FROM   trading 
+		                            WHERE  user_seq = ${value} 
+		                                   AND trading_type = 2) 
+		WHERE  user_seq = ${value}
+	</update>
 	<!-- 회원 포인트 값 확인 -->
 	<select id="checkUserMoney" parameterType="Integer" resultType="Integer">
 		SELECT user_money
@@ -244,7 +269,8 @@
 		       user_money, 
 		       user_gender, 
 		       user_birth, 
-		       user_authority 
+		       user_authority,
+		       user_total_margin 
 		FROM   users 
 		WHERE  rownum <![CDATA[<=]]> #{value} 
 		ORDER  BY user_point DESC 
