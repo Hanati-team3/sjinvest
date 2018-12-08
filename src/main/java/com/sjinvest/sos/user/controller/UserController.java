@@ -230,7 +230,7 @@ public class UserController {
 	
 	
 	/**
-	 * newsfeed page 주식랭킹 Top5, 아직 완성xxxxxxxxxxxxxxxxxx
+	 * newsfeed page 주식랭킹 Top5
 	 */
 	@ResponseBody
 	@GetMapping(value = "/ranking", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -286,7 +286,6 @@ public class UserController {
         returnData.put("url", naverAuthUrl);
         return new ResponseEntity<>(returnData,HttpStatus.OK);
     }
-
     //네이버 로그인 성공시 callback호출 메소드
     @RequestMapping(value = "/callback.do", method = { RequestMethod.GET, RequestMethod.POST })
     public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, HttpServletResponse response, RedirectAttributes reAttributes)
@@ -327,5 +326,4 @@ public class UserController {
         }
         return "redirect:/sns/newsfeed";
     }
-	
 }
