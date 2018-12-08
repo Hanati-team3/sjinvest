@@ -114,6 +114,26 @@
 		FROM users
 		WHERE user_seq = #{value}
 	</select>
+	
+	<!-- 닉네임으로 유저 읽어오기 -->
+	<select id="readByNickname" parameterType="String" resultType="User"
+		resultMap="userResultMap">
+		SELECT user_seq,
+		user_id,
+		user_nickname,
+		user_email,
+		user_point,
+		user_picture,
+		user_detail,
+		to_char(user_regdate, 'YYYY-DD-MM'),
+		user_money,
+		user_gender,
+		user_birth,
+		user_authority,
+		user_total_margin
+		FROM users
+		WHERE user_nickname = #{value}
+	</select>
 
 	<!-- 유저 시퀀스 리스트로 유저 읽어오기 -->
 	<select id="readBySeqList" parameterType="java.util.List" resultType="User"

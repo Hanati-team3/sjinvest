@@ -142,4 +142,9 @@ public class UserServiceImpl implements UserService {
 	public List<User> totalMarginTop(int num) {
 		return userMapper.totalMarginTop(num);
 	}
+	
+	@Override
+	public User readByNickname(String userNickname) {
+		return userMapper.readByNickname(userNickname);
+	}
 }

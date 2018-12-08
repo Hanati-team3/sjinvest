@@ -28,7 +28,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.sjinvest.sos.user.domain.KakaoLogin;
 import com.sjinvest.sos.user.domain.NaverLogin;
-//import com.sjinvest.sos.user.domain.NaverLogin;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
 
@@ -217,6 +216,17 @@ public class UserController {
 
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
+	/**
+	 * 각 유저 이름 클릭시 modal에 보여주기 위한 컨트롤러 (닉네임)
+	 */
+	@ResponseBody
+	@PostMapping(value = "/dataNick", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> userDataNickName(String userNickname) {
+		Map<String, Object> returnData = new HashMap<String, Object>();
+		returnData.put("userData", service.readByNickname(userNickname));
+
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
+	}
 	
 	
 	/**
@@ -262,7 +272,7 @@ public class UserController {
 	*/
 	
 	//로그인 첫 화면 요청 메소드
-/*    @RequestMapping(value = "/naverlogin", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/naverlogin", method = { RequestMethod.GET, RequestMethod.POST })
     public ResponseEntity<Map<String,Object>> login(Model model, HttpSession session) {
     	Map<String, Object> returnData = new HashMap<String, Object>();
     	NaverLogin naverLogin = new NaverLogin();
@@ -317,5 +327,5 @@ public class UserController {
         }
         return "redirect:/sns/newsfeed";
     }
-	*/
+	
 }
