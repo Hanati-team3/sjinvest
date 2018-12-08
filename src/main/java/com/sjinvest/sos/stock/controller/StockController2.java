@@ -6,6 +6,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -73,24 +75,27 @@ public class StockController2 {
 	
 	/** 주식 index 화면 요청*/
 	@GetMapping(value="/index", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public String index(String userId, Model model) {
+	public String index(Model model, HttpServletRequest request) {
+		String userId =  (String)request.getAttribute("userId");
+		if(userId == null) {
+			userId = "suhyeon";
+		}
+		User user =  userService.readById(userId);
+		request.setAttribute("user", user);
+		
 		List<Holding> holdingList = new ArrayList<>();					/* 보유자산 리스트 */
 		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
 		Map<String, Object> interestMap = new Hashtable<>();	/* 관심종목 Stock리스트와 Chart데이터 */
 		Map<String, Object> holdingWidgetMap = null;			/* 보유자산 total, stockTotal, cashTotal, Holding리스트 */
 		Map<String, Object> map = null;							/* stock 서비스에서 한번에 받아올 정보 : realTime, topTab, 관심종목 Stock리스트, HoldingMap  */
-		User user = null;
 		
-		// 로그인중
-		if(userId != null) {
-			user = userService.readById(userId);
-			holdingList = holdingService.listByUser(user.getUserSeq());
-			for (Interest interest : interestService.listByUser(user.getUserSeq())) {
-				interestCompanyNumberList.add(interest.getCompanyNumber());
-			}
-			TimeSeries interestTimeSeries = service.getChartData(interestCompanyNumberList, 1, 1);
-			interestMap.put("interestChart", interestTimeSeries);
+		holdingList = holdingService.listByUser(user.getUserSeq());
+		for (Interest interest : interestService.listByUser(user.getUserSeq())) {
+			interestCompanyNumberList.add(interest.getCompanyNumber());
 		}
+		
+		TimeSeries interestTimeSeries = service.getChartData(interestCompanyNumberList, 1, 1);
+		interestMap.put("interestChart", interestTimeSeries);
 		
 		map = service.getForIndex(holdingList, interestCompanyNumberList, 1);
 		
@@ -169,17 +174,16 @@ public class StockController2 {
 	
 	/** 주식 interest 화면 요청*/
 	@GetMapping(value="/interest/list", params= {"userId"}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public String interest(Model model, String userId) {
+	public String interest(Model model, HttpServletRequest request) {
 		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
 		Map<String, Object> map = null;
-		User user = userService.readById(userId);
-
-		
+		String userId = (String)request.getAttribute("userId");
 		// 로그인중아님
-		if(user == null) {
+		if(userId == null) {
 			return "stock/stock-index";
 		}
-		
+		User user = userService.readById(userId);
+		request.setAttribute("user", user);
 		for (Interest interest : interestService.listByUser(user.getUserSeq())) {
 			interestCompanyNumberList.add(interest.getCompanyNumber());
 		}
@@ -213,21 +217,21 @@ public class StockController2 {
 	
 	/** 주식 holding 리스트 화면 요청*/
 	@GetMapping(value="/holding/list", params= {"userId"}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public String holding(Model model, String userId) {
+	public String holding(Model model, HttpServletRequest request) {
+		String userId = (String)request.getAttribute("userId");
+		// 로그인중아님
+		if(userId == null) {
+			return "stock/stock-index";
+		}
+		User user = userService.readById(userId);
+		request.setAttribute("user", user);
 		List<Holding> holdingList = new ArrayList<>();		/* 보유자산 리스트 */
 		Map<String, Object> holdingMap = null;				/* 보유자산 total, stockTotal, cashTotal, Holding리스트 */
 		// realtime
 		model.addAttribute("realtime", service.stockRealtime());
 		// 회사 목록
 		model.addAttribute("companyList", companyService.list());
-		User user = userService.readById(userId);
 		
-		// 로그인중아님
-		if(user == null) {
-			return "stock/stock-index";
-		}
-
-		user = userService.readById(userId);
 		holdingList = holdingService.listByUser(user.getUserSeq());
 		//holdingMap = service.getHoldingMap();
 		System.out.println(11);
@@ -241,5 +245,14 @@ public class StockController2 {
 		// 유저 프로필 위젯
 		// 유저 랭킹 위젯
 		return "stock/stock-holding-list";
+	}	
+	
+	/** 주식 holding 업데이트 요청 */
+	@GetMapping(value="/holding/update", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Map<String, Object>> holdingUpdate(List<Holding> HoldingList) {
+		System.out.println("holdingUpdate :  " + HoldingList);
+		Map<String, Object> map = new HashMap<>();
+		
+		return new ResponseEntity<>( map, HttpStatus.OK);
 	}
 }

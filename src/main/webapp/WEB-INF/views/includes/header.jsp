@@ -414,12 +414,12 @@
 
 <script type="text/javascript">
 
-$(document).ready( function() {
+/* $(document).ready( function() {
 	
 	snsList();
 	stockList();
 
-});
+}); */
 
 /**
  * header의 sns 목록 함수

@@ -284,6 +284,9 @@ public class StockDao {
 			result = result+companyNumber.get(i);
 			result = result+"+";
 		}
+		if(companyNumber.size() == 0) {
+			return "004170";
+		}
 		return result.substring(0,result.length()-1);
 	}
 	public Map<String, Object> forIndex(List<String> companyNumberList,int rank){

@@ -1,6 +1,8 @@
 package com.sjinvest.sos.common.web.filter;
 
 import java.io.IOException;
+
+import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -11,6 +13,17 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
+import com.sjinvest.sos.follow.mapper.FollowMapper;
+import com.sjinvest.sos.holding.mapper.HoldingMapper;
+import com.sjinvest.sos.interest.mapper.InterestMapper;
+import com.sjinvest.sos.like.mapper.LikeMapper;
+import com.sjinvest.sos.notice.mapper.NoticeMapper;
+import com.sjinvest.sos.setting.mapper.SettingMapper;
+import com.sjinvest.sos.user.mapper.UserMapper;
+import com.sjinvest.sos.user.service.UserService;
+import com.sjinvest.sos.user.service.UserServiceImpl;
+
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 
@@ -20,14 +33,12 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class LoginCheckFilter implements Filter {
 	
-	private Logger logger = Logger.getLogger(LoginCheckFilter.class);
-	
+//	private Logger logger = Logger.getLogger(LoginCheckFilter.class);
 //	private String loginPage = "/user/login.jsp";
-	private String loginPage;
-
+//	private String loginPage;
     @Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-    	loginPage = filterConfig.getInitParameter("loginPage");
+    	String loginPage = filterConfig.getInitParameter("loginPage");
 	}
 
     @Override
