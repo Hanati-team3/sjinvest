@@ -217,11 +217,13 @@ $(document).ready( function() {
 		    }
 	  });
 	}); 
-
-	$('a[name=writeComment]').on('click', function(){
-		
+	$(function(){
+		/* 이거 뭐하려고 만들었지? */
+		$('a[name=writeComment]').on('click', function(){
+			
+		});
 	});
-	
+
 });
 
 function writeComment(obj){
@@ -447,7 +449,6 @@ function showFeedList(data){
 /**
  * 댓글쓰기
  */
-
  
  
 /** 
@@ -581,6 +582,25 @@ function getRankingList(){
 	})
 	
 }
+function userModal(obj){
+	$.ajax({
+		url : '/sos/user/dataNick',
+		type : 'post',
+		data : {
+			"userNickname" : obj.text
+		},
+		success: function(data){
+			$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
+			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
+			$('#nickName2').attr("placeholder", data.userData.userNickname);
+			$('#detail2').attr("placeholder", data.userData.userDetail);
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	});
+};	
 	
 
 /*
@@ -640,7 +660,8 @@ $('#follower_list li a').on('click', function(){
 	
 	})
 	
-})
+});
+
 
 // ranking 유저 아이디 click시
 $('#rankingList li a').on('click', function(){
@@ -671,7 +692,6 @@ $('#rankingList li a').on('click', function(){
 
 
 };
-
 
 
 

@@ -20,6 +20,8 @@ public interface UserService {
 	public User readById(String userId);
 	// 유저 번호로 유저 가져오기
 	public User readBySeq(int userSeq);
+	// 유저 닉네임로 유저 가져오기
+	public User readByNickname(String userNickname);
 	// 유저 정보 변경
 	public boolean updateUser(User user);
 	// 유저 돈 리셋
