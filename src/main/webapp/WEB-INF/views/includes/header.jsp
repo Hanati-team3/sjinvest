@@ -141,10 +141,8 @@
               <div class="mCustomScrollbar" data-mcs-theme="dark">
                 <ul class="notification-list">
                 
+                  <%-- stock 알림 sample
                   <li>
-                    <div class="author-thumb">
-                      <img src="<%=application.getContextPath()%>/resources/img/avatar62-sm.jpg" alt="author">
-                    </div>
                     <div class="notification-event">
                       <div><a href="#" class="h6 notification-friend">Mathilda Brinker</a> commented on your new <a href="#" class="notification-link">profile status</a>.</div>
                       <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">4 hours ago</time></span>
@@ -152,48 +150,24 @@
                       <span class="notification-icon">
                         <svg class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
                       </span>
-    
                     <div class="more">
-                      <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
                       <svg class="olymp-little-delete"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-little-delete"></use></svg>
                     </div>
-                  </li>
-    
-                  <li class="un-read">
-                    <div class="author-thumb">
-                      <img src="<%=application.getContextPath()%>/resources/img/avatar63-sm.jpg" alt="author">
-                    </div>
-                    <div class="notification-event">
-                      <div>You and <a href="#" class="h6 notification-friend">Nicholas Grissom</a> just became friends. Write on <a href="#" class="notification-link">his wall</a>.</div>
-                      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
-                    </div>
-                      <span class="notification-icon">
-                        <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-                      </span>
-    
-                    <div class="more">
-                      <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-                      <svg class="olymp-little-delete"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-little-delete"></use></svg>
-                    </div>
-                  </li>
-    
+                  </li> 
+                  --%>
+                  
                   <li>
-                    <div class="author-thumb">
-                      <img src="<%=application.getContextPath()%>/resources/img/avatar65-sm.jpg" alt="author">
-                    </div>
                     <div class="notification-event">
-                      <div><a href="#" class="h6 notification-friend">Green Goo Rock</a> invited you to attend to his event Goo in <a href="#" class="notification-link">Gotham Bar</a>.</div>
-                      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">March 5th at 6:43pm</time></span>
+                      <div><a href="#" class="h6 notification-friend">내용 나와라</a></div>
+                      <span class="notification-date">4 hours ago</time></span>
                     </div>
                       <span class="notification-icon">
-                        <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+                        <svg class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
                       </span>
-    
                     <div class="more">
-                      <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
                       <svg class="olymp-little-delete"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-little-delete"></use></svg>
                     </div>
-                  </li>
+                  </li> 
     
 
                 </ul>
@@ -432,14 +406,14 @@ function snsList(){
 		
 		url : '/sos/notice/snsList',
 		type : 'get',
-		data : {
-			"userSeq" : "${user.userSeq}"
-		},
+		data : {},
 		success: function(data){
 			
-			console.log(data.snsList);
-			console.log(data.snsList);
 			
+			for(var i=0; i<data.snsList.length; i++){
+				
+				console.log("sns정보"+data.snsList[i].noticeContent);
+			}			
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -464,7 +438,10 @@ function stockList(){
 		},
 		success: function(data){
 			
-			console.log(data.stockList);
+			for(var i=0; i<data.stockList.length; i++){
+				
+				console.log("주식정보"+data.stockList[i].noticeContent);
+			}
 			
 		},
 		error : function() {
