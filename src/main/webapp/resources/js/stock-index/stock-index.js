@@ -305,14 +305,17 @@ function setTopTab(topTab, topTabOption) {
 	switch($(activeTab).attr('id')) {
 	//상승률 상위 5
 	case INDEX.tabList[0] :
+		runOneBarChart(topTab, 'rising-rate-chart');
+		break;
 	// 하락률 상위 5
 	case INDEX.tabList[1] :
-		var itemList = $(activeTab).find('.skills-item');
+/*		var itemList = $(activeTab).find('.skills-item');
 		for(var i = 0; i < 5; i++) {
 			$(itemList[i]).find('.skills-item-title').text(topTab[i].stockName);
 			$(itemList[i]).find('.units').text(topTab[i].stockValue +"%");
 			$(itemList[i]).find('.skills-item-meter-active').css("width",topTab[i].stockValue+"%");
-		}
+		}*/
+		runOneBarChart(topTab, 'falling-rate-chart');
 		break;
 	// 외국인 순매수 3
 	case INDEX.tabList[2] :

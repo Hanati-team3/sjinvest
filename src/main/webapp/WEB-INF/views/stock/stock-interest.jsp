@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,6 +39,9 @@
       <!-- ..realtime end -->
     </div>
     <%-- realtime row 끝 --%>
+    
+    <a onclick="stop()" href="#">요청종료</a>
+    
     <%-- 사이드 포함 row 시작 --%>
     <div class="row stock-interest-main">
       <!-- Left Sidebar -->
@@ -87,71 +91,39 @@
                 </thead>
     
                 <tbody>
-                  <tr>
-                    <td class="company-number">
-                      <div class="forum-item">
-                        <a href="#" class="h6 count">086790</a>
-                      </div>
-                    </td>
-                    <td class="company-name">
-                      <div class="author-freshness">
-                        <a href="#" class="h6 title">하나금융지주</a>
-                        <time class="entry-date updated"
-                          datetime="2017-06-24T18:18">은행</time>
-                      </div>
-                    </td>
-                    <td class="stock-price"><a href="#" class="h6 count">38,750</a>
-                    </td>
-                    <td class="trading-amount">
-                      <a href="#" class="h6 count">1,024,522</a>
-                    </td>
-                    <td class="day-before">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6 title">+ 800</a>
-                      </div>
-                    </td>
-                    <td class="day-before-rate">
-                      <div class="author-freshness plus">
-                        <a href="#" class="h6 title">+ 1.90 %</a>
-                      </div>
-                    </td>
-                    <td class="add-to-interest">
-                        <a href="#" class="more"><i class="fas fa-heart"></i></a>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <td class="company-number">
-                      <div class="forum-item">
-                        <a href="#" class="h6 count">039130</a>
-                      </div>
-                    </td>
-                    <td class="company-name">
-                      <div class="author-freshness">
-                        <a href="#" class="h6 title">하나투어</a>
-                        <time class="entry-date updated"
-                          datetime="2017-06-24T18:18">은행</time>
-                      </div>
-                    </td>
-                    <td class="stock-price"><a href="#" class="h6 count">69,800</a>
-                    </td>
-                    <td class="trading-amount">
-                      <a href="#" class="h6 count">166,143</a>
-                    </td>
-                    <td class="day-before">
-                      <div class="author-freshness minus">
-                        <a href="#" class="h6 title">- 1000</a>
-                      </div>
-                    </td>
-                    <td class="day-before-rate">
-                      <div class="author-freshness  minus">
-                        <a href="#" class="h6 title">- 1.41 %</a>
-                      </div>
-                    </td>
-                    <td class="add-to-interest">
-                        <a href="#" class="more"><i class="fas fa-heart"></i></a>
-                    </td>
-                  </tr>
+                  <c:forEach var="eachInterest" items="${interestStockList}" varStatus="status">
+                    <tr>
+                      <td class="company-number">
+                        <div class="forum-item">
+                          <a href="#" class="h6 count">${eachInterest.stockCode}</a>
+                        </div>
+                      </td>
+                      <td class="company-name">
+                        <div class="author-freshness">
+                          <a href="#" class="h6 title">${eachInterest.stockName}</a>
+                          <time class="entry-date updated">${eachInterest.fieldName}</time>
+                        </div>
+                      </td>
+                      <td class="stock-price"><a href="#" class="h6 count">${eachInterest.stockPrice}</a>
+                      </td>
+                      <td class="trading-amount">
+                        <a href="#" class="h6 count">${eachInterest.stockVolume}</a>
+                      </td>
+                      <td class="day-before">
+                        <div class="author-freshness plus">
+                          <a href="#" class="h6 title">${eachInterest.stockChange}</a>
+                        </div>
+                      </td>
+                      <td class="day-before-rate">
+                        <div class="author-freshness plus">
+                          <a href="#" class="h6 title">${eachInterest.stockDiff}</a>
+                        </div>
+                      </td>
+                      <td class="remove-interest">
+                          <a href="#" class="more"><i class="fas fa-heart"></i></a>
+                      </td>
+                    </tr>
+                  </c:forEach>
                 </tbody>
               </table>
             </div>
@@ -160,9 +132,9 @@
         </div>
         <%-- 관심종목 목록 row 끝 --%>
         
-        <%-- 각 기업 그래프 row 시작 --%>
+<%--         각 기업 그래프 row 시작
         <div class="row">
-          <%-- 각 기업 그래프 카드 시작 --%>
+          각 기업 그래프 카드 시작
           <div class="col-xl-12 order-xl-1 col-lg-12 order-lg-1 col-md-12 order-md-1 col-sm-12 col-xs-12 stock-my-interest">
             <div class="ui-block" data-mh="pie-chart">
               <div class="ui-block-title">
@@ -209,11 +181,11 @@
               </div>
             </div>
           </div>
-          <%-- 각 기업 그래프 카드 끝 --%>
+          각 기업 그래프 카드 끝
         </div>
-        <%-- 각 기업 그래프 row 끝 --%>
+        각 기업 그래프 row 끝
         
-        <%-- 그래프 row 시작 --%>
+        그래프 row 시작
         <div class="row">
           <div class="col-lg-12 col-sm-12 col-xs-12">
             <div class="ui-block responsive-flex">
@@ -269,8 +241,8 @@
             </div>
           </div>
         </div>
-        <%-- 그래프 row 끝 --%>
-        
+        그래프 row 끝
+         --%>
         <%-- 뉴스 row 시작 --%>
         <div class="row stock-index-news">
           <div class="col-lg-12 col-sm-12 col-xs-12">
@@ -361,6 +333,50 @@
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
   <!-- End Include js -->
+  
+  <script>
+	var INTEREST = {};	//stock-interest 전역변수
+  	// interest update를 활성화/중지
+  	INTEREST.flag = true;
+  	INTEREST.interestNumberArray = [];
+  	
+    $(document).ready(function() {
+    	// index update 호출
+    	INTEREST.interestNumberArray = ${interestNumberList};
+    	console.log("interestNumberArray" + INTEREST.interestNumberArray );
+    	interestUpdate();
+    	// 차트 업데이트 호출
+    	//allChartUpdate(indexParam.interestCompanyNumberList, 1);
+    });
+    
+	/* interestUpdate 요청을 중지하는 함수 */
+  	function stop() {
+  		INTEREST.flag = false;
+  		console.log('stop');
+  	}
+    
+    /** 2초마다 interest 정보 업데이트 */
+    function interestUpdate() {
+    	if(INTEREST.flag) {
+    		$.ajax({
+    			type : "GET",
+    			url : "update",
+    			dataType : "json",
+    			contentType: "application/json; charset=utf-8",
+    			data : INTEREST.interestNumberArray,
+    			success : function(interestData) {
+    				console.log("interestData .. ");
+    				console.log(interestData);
+    			},
+    			error : function(request, status, error) {
+    				console.log("code:" + request.status + "\n" + "message:"
+    						+ request.responseText + "\n" + "error:" + error);
+    			}
+    		});
+    	}
+    }
+  
+  </script>
 
 </body>
 </html>

@@ -255,60 +255,13 @@
                   <div class="tab-pane active " id="rising-rate" role="tabpanel" aria-expanded="true">
                     <div class="ui-block" data-mh="pie-chart" style="border-top: none;">
                       <div class="ui-block-title">
-                        <div class="h6 title">상승률 상위 5 종목</div>
+                        <div class="h6 title">상승률 상위 10 종목</div>
                         <a href="#" class="more"><i class="far fa-question-circle"></i></a>
                       </div>
             
                       <div class="ui-block-content">
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">${topTab[0].stockName}</span>
-                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">${topTab[0].stockValue}</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-primary" style="width: ${topTab[0].stockValue}%"></span>
-                          </div>
-                        </div>
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">${topTab[1].stockName}</span>
-                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">${topTab[1].stockValue}</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-purple" style="width: ${topTab[1].stockValue}%"></span>
-                          </div>
-                        </div>
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">${topTab[2].stockName}</span>
-                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">${topTab[2].stockValue}</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-blue" style="width: ${topTab[2].stockValue}%" ></span>
-                          </div>
-                        </div>
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">${topTab[3].stockName}</span>
-                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">${topTab[3].stockValue}</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-breez" style="width: ${topTab[3].stockValue}%"></span>
-                          </div>
-                        </div>
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">${topTab[4].stockName}</span>
-                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">${topTab[4].stockValue}</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-yellow" style="width: ${topTab[4].stockValue}%"></span>
-                          </div>
+                        <div class="chart-js chart-js-one-bar">
+                          <canvas id="rising-rate-chart" width="1400" height="380"></canvas>
                         </div>
                       </div>
                     </div>
@@ -318,77 +271,14 @@
                   <div class="tab-pane" id="falling-rate" role="tabpanel" aria-expanded="true">
                     <div class="ui-block" data-mh="pie-chart" style="border-top: none;">
                       <div class="ui-block-title">
-                        <div class="h6 title">하락률 상위 5 종목</div>
+                        <div class="h6 title">하락률 상위 10 종목</div>
                         <a href="#" class="more"><svg class="olymp-three-dots-icon">
                             <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                       </div>
             
                       <div class="ui-block-content">
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title"> </span>
-                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units"> </span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-primary" ></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title"> </span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="46" data-from="0"></span><span
-                              class="units"> </span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-purple"
-                               ></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title"> </span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="79" data-from="0"></span><span
-                              class="units"> </span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-blue"
-                               ></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title"></span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="34" data-from="0"></span><span
-                              class="units"></span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-breez"
-                              ></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title"></span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="95" data-from="0"></span><span
-                              class="units"></span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-yellow"
-                              ></span>
-                          </div>
+                        <div class="chart-js chart-js-one-bar">
+                          <canvas id="falling-rate-chart" width="1400" height="380"></canvas>
                         </div>
                       </div>
                     </div>
@@ -399,7 +289,7 @@
                     <div class="ui-block">
                     
                       <div class="ui-block-title">
-                        <div class="h6 title">외국인 매수 상위 3 종목</div>
+                        <div class="h6 title">외국인 매수 상위 10 종목</div>
                         <a href="#" class="more"><svg class="olymp-three-dots-icon">
                             <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                       </div>
@@ -418,7 +308,7 @@
                     <div class="ui-block">
                     
                       <div class="ui-block-title">
-                        <div class="h6 title">기관 매수 상위 3 종목</div>
+                        <div class="h6 title">기관 매수 상위 10 종목</div>
                         <a href="#" class="more"><svg class="olymp-three-dots-icon">
                             <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                       </div>
@@ -438,7 +328,7 @@
                         <div class="ui-block responsive-flex">
                         
                           <div class="ui-block-title">
-                            <div class="h6 title">상위 거래량 그래프</div>
+                            <div class="h6 title">거래량 상위 10 종목</div>
                             <a href="#" class="more"><svg class="olymp-three-dots-icon">
                                 <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                           </div>
@@ -462,7 +352,7 @@
                         <div class="ui-block responsive-flex">
                         
                           <div class="ui-block-title">
-                            <div class="h6 title">상위 시가총액 그래프</div>
+                            <div class="h6 title">시가총액 상위 10 종목</div>
                             <a href="#" class="more"><svg class="olymp-three-dots-icon">
                                 <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                           </div>
@@ -555,6 +445,7 @@
   <script>
   	var INDEX = {};	//stock-index 전역변수
   	INDEX.tabList = ["rising-rate", "falling-rate", "foreigner", "institution", "trading-amount", "total-value"];
+  	// index update를 활성화/중지
   	INDEX.flag = true;
   	
 	$(document).ready(function() {

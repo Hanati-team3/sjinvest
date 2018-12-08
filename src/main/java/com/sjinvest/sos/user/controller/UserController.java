@@ -262,7 +262,7 @@ public class UserController {
 	*/
 	
 	//로그인 첫 화면 요청 메소드
-/*    @RequestMapping(value = "/naverlogin", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/naverlogin", method = { RequestMethod.GET, RequestMethod.POST })
     public ResponseEntity<Map<String,Object>> login(Model model, HttpSession session) {
     	Map<String, Object> returnData = new HashMap<String, Object>();
     	NaverLogin naverLogin = new NaverLogin();
@@ -317,5 +317,5 @@ public class UserController {
         }
         return "redirect:/sns/newsfeed";
     }
-	*/
+	
 }
