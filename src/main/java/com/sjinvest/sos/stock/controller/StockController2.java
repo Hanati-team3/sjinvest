@@ -173,7 +173,7 @@ public class StockController2 {
 
 	
 	/** 주식 interest 화면 요청*/
-	@GetMapping(value="/interest/list", params= {"userId"}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@GetMapping(value="/interest/list", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String interest(Model model, HttpServletRequest request) {
 		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
 		Map<String, Object> map = null;
@@ -197,6 +197,8 @@ public class StockController2 {
 		model.addAttribute("realTime", map.get("realTime"));		
 		// 회사 목록
 		model.addAttribute("companyList", companyService.list());
+		// 회사 목록
+		//model.addAttribute("news", service.stockIndexNews());
 
 		
 		return "stock/stock-interest";
@@ -216,7 +218,7 @@ public class StockController2 {
 	}
 	
 	/** 주식 holding 리스트 화면 요청*/
-	@GetMapping(value="/holding/list", params= {"userId"}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@GetMapping(value="/holding/list", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String holding(Model model, HttpServletRequest request) {
 		String userId = (String)request.getAttribute("userId");
 		// 로그인중아님

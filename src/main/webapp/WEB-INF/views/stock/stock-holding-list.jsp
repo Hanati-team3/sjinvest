@@ -263,7 +263,7 @@
 
 	function holdingListUpdate(holdingList, cashTotal) {
 		$.ajax({
-			type : "POST",
+			type : "GET",
 			url : "update",
 			dataType : "json",
 			contentType: "application/json; charset=utf-8",
