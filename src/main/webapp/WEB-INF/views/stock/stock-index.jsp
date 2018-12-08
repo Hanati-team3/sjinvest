@@ -572,7 +572,7 @@
 		var indexParam = setIndexParam();
 		indexUpdate(indexParam);
 		// 차트 업데이트 호출
-		allChartUpdate(indexParam.interestCompanyNumberList, 1);
+		//allChartUpdate(indexParam.interestCompanyNumberList, 1);
 	});
 	
 	/* index update 요청을 중지하는 함수 */

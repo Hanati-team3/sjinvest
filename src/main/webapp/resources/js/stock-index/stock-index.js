@@ -2,7 +2,6 @@
 /** 2초마다 업종별 정보, 관심종목의 Stock정보(차트빼고), 코스피의 Stock정보(차트빼고), 열려진 탭의 Top 정보 업데이트 */
 function indexUpdate(indexParam) {
 	if(INDEX.flag) {
-		console.log(INDEX.flag);
 		$.ajax({
 			type : "POST",
 			url : "index/update",
@@ -82,16 +81,27 @@ function topTabUpdate(target) {
 }
 
 /** 차트데이터 요청을 보내서 차트를 업데이트하는 함수 */
-function allChartUpdate(companyNumberList, kospiOption) {
+//companyNumberList
+function allChartUpdate(interestCompanyNumberList, kospiOption) {
+	console.log('interestCompanyNumberList : ' + interestCompanyNumberList);
+	console.log('kospiOption : ' + kospiOption);
 	$.ajax({
 		type : "POST",
-		url : "index/tab/"+tabOption,
-		dataType : "json",
+		url : "index/chart",
+		datatype: 'json',
+		traditional: true,
+		data : JSON.stringify({
+			"interestCompanyNumberList" : interestCompanyNumberList,
+			"kospiOption" : kospiOption
+		}),
 		contentType: "application/json; charset=utf-8",
-		success : function(topData) {
-			console.log("topData .. ");
-			console.log(topData);
-			setTopTab(topData, tabOption);
+		success : function(chartData) {
+			console.log("chartData .. ");
+			console.log(chartData);
+			// 코스피 차트 그리기
+			//runKospiChart(getKospiFromRequest(), true);
+			// 관심종목 차트 그리기
+			//runInterestChart(getInterestFromRequest(), true);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n" + "message:"

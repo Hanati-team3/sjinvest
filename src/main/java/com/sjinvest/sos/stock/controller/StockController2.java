@@ -35,6 +35,7 @@ import com.sjinvest.sos.point.service.PointService;
 import com.sjinvest.sos.setting.service.SettingService;
 import com.sjinvest.sos.stock.dao.StockDao;
 import com.sjinvest.sos.stock.params.HoldingListParams;
+import com.sjinvest.sos.stock.params.IndexChartParams;
 import com.sjinvest.sos.stock.params.IndexParams;
 import com.sjinvest.sos.stock.domain.News;
 import com.sjinvest.sos.stock.domain.Stock;
@@ -157,11 +158,11 @@ public class StockController2 {
 	/** index의 chart update 요청*/
 	//@ResponseBody
 	@PostMapping(value="/index/chart", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<Map<String, Object>> chartUpdate(List<String> companyNumberList, int kospiOption) {
-		System.out.println("chartUpdate : " + companyNumberList + ", " + kospiOption);
+	public ResponseEntity<Map<String, Object>> chartUpdate(@RequestBody IndexChartParams params) {
+		System.out.println("chartUpdate : params " + params);
 		Map<String, Object> map = new HashMap<>();
-		map.put("interestTimeSeries", service.getChartData(companyNumberList, 1, 1));
-		map.put("kospiMap", service.getKospiChartDate(kospiOption));
+		map.put("interestTimeSeries", service.getChartData(params.getInterestCompanyNumberList(), 1, 1));
+		map.put("kospiMap", service.getKospiChartDate(params.getKospiOption()));
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
