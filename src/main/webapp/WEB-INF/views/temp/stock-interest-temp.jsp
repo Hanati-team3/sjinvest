@@ -95,12 +95,12 @@
                     <tr>
                       <td class="company-number">
                         <div class="forum-item">
-                          <a href="<%=application.getContextPath()%>/stock/company/${eachInterest.stockCode}" class="h6 count">${eachInterest.stockCode}</a>
+                          <a href="#" class="h6 count">${eachInterest.stockCode}</a>
                         </div>
                       </td>
                       <td class="company-name">
                         <div class="author-freshness">
-                          <a href="<%=application.getContextPath()%>/stock/company/${eachInterest.stockCode}" class="h6 title">${eachInterest.stockName}</a>
+                          <a href="#" class="h6 title">${eachInterest.stockName}</a>
                           <time class="entry-date updated">${eachInterest.fieldName}</time>
                         </div>
                       </td>
@@ -253,20 +253,45 @@
               </div>
     
               <ul class="notification-list">
-                <c:forEach var="item" items="${news}" varStatus="status">
-                  <li>
-                    <div class="author-thumb">
-                      <img src="<%=application.getContextPath()%>/resources/img/avatar${status.index+1}-sm.jpg" alt="author">
-                    </div>
-                    <div class="notification-event">
-                      <a href="${item.link}" class="h6 notification-friend">${item.source}</a>
-                      <a href="${item.link}" target="_blank" class="news-title" >${item.title}</a>
-                    </div>
-                    <span class="notification-icon">
-                      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
-                    </span>
-                  </li>
-                </c:forEach>
+                <li>
+                  <div class="author-thumb">
+                    <img src="<%=application.getContextPath()%>/resources/img/avatar1-sm.jpg" alt="author">
+                  </div>
+                  <div class="notification-event">
+                    <a href="#" class="h6 notification-friend">서울경제</a>
+                    오전 11:30 현재 코스피는 50:50으로 보합세, 매수강세 업종은 철강..
+                  </div>
+                  <span class="notification-icon">
+                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
+                  </span>
+                </li>
+    
+                <li class="un-read">
+                  <div class="author-thumb">
+                    <img src="<%=application.getContextPath()%>/resources/img/avatar2-sm.jpg" alt="author">
+                  </div>
+                  <div class="notification-event">
+                    <a href="#" class="h6 notification-friend">한국경제 </a>
+                    코스피, 외국인·기관 '팔자'에 약보합세…5G 기대 통신株 '강세'
+                  </div>
+                  <span class="notification-icon">
+                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
+                  </span>
+                </li>
+                
+                <li class="un-read">
+                  <div class="author-thumb">
+                    <img src="<%=application.getContextPath()%>/resources/img/avatar3-sm.jpg" alt="author">
+                  </div>
+                  <div class="notification-event">
+                    <a href="#" class="h6 notification-friend">IBK투자증권 </a>
+                    [Start with IBKS]KOSPI는 기관과 외국인의 순매수로 상승함
+                  </div>
+                  <span class="notification-icon">
+                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
+                  </span>
+                </li>
+ 
               </ul>
     
             </div>
@@ -349,7 +374,6 @@
     				console.log("interestData .. ");
     				console.log(interestData);
     				setInterestData(interestData);
-    				setTimeout(interestUpdate(), 2000);
     			},
     			error : function(request, status, error) {
     				console.log("code:" + request.status + "\n" + "message:"
@@ -360,25 +384,9 @@
     }
   
     function setInterestData(interestData) {
-    	$(".forums-table tbody tr").each(function(index, item){
-    		$(item).find(".company-number a").text(interestData[index].stockCode);
-    		$(item).find(".company-name a").text(interestData[index].stockName);
-    		$(item).find(".company-name time").text(interestData[index].fieldName);
-    		$(item).find(".stock-price a").text(interestData[index].stockPrice.toLocaleString());
-    		$(item).find(".trading-amount a").text(interestData[index].stockVolume.toLocaleString());
-    		$(item).find(".day-before a").text(interestData[index].stockChange);
-    		$(item).find(".day-before-rate a").text(interestData[index].stockDiff);
-			
-    		if(interestData[index].stockDiff > 0) {
-				$(item).find(".stock-price a").removeClass('minus').addClass('plus');
-				$(item).find(".day-before a").removeClass('minus').addClass('plus');
-				$(item).find(".day-before-rate a").removeClass('minus').addClass('plus');
-			}
-			else {
-				$(item).find(".stock-price a").removeClass('plus').addClass('minus');
-				$(item).find(".day-before a").removeClass('plus').addClass('minus');
-				$(item).find(".day-before-rate a").removeClass('plus').addClass('minus');
-			}
+    	$(".stock-index-trend li").each(function(index, item){
+    		$(item).find(".fieldName").text(fieldStock[index].fieldName);
+    		$(item).find(".count-stat").text(fieldStock[index].fieldAmount.toLocaleString())
     	});
     }
   </script>

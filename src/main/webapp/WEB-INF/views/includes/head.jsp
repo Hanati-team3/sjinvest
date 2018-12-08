@@ -275,7 +275,7 @@
 .stock-interest-main .forums-table .day-before-rate{
   width : 100px;
 }
-.stock-interest-main .forums-table .add-to-interest{
+.stock-interest-main .forums-table .remove-interest{
   width : 100px;
 }
 

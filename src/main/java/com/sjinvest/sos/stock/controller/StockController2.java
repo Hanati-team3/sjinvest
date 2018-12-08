@@ -6,6 +6,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -73,24 +75,27 @@ public class StockController2 {
 	
 	/** 주식 index 화면 요청*/
 	@GetMapping(value="/index", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public String index(String userId, Model model) {
+	public String index(Model model, HttpServletRequest request) {
+		String userId =  (String)request.getAttribute("userId");
+		if(userId == null) {
+			userId = "suhyeon";
+		}
+		User user =  userService.readById(userId);
+		request.setAttribute("user", user);
+		
 		List<Holding> holdingList = new ArrayList<>();					/* 보유자산 리스트 */
 		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
 		Map<String, Object> interestMap = new Hashtable<>();	/* 관심종목 Stock리스트와 Chart데이터 */
 		Map<String, Object> holdingWidgetMap = null;			/* 보유자산 total, stockTotal, cashTotal, Holding리스트 */
 		Map<String, Object> map = null;							/* stock 서비스에서 한번에 받아올 정보 : realTime, topTab, 관심종목 Stock리스트, HoldingMap  */
-		User user = null;
 		
-		// 로그인중
-		if(userId != null) {
-			user = userService.readById(userId);
-			holdingList = holdingService.listByUser(user.getUserSeq());
-			for (Interest interest : interestService.listByUser(user.getUserSeq())) {
-				interestCompanyNumberList.add(interest.getCompanyNumber());
-			}
-			TimeSeries interestTimeSeries = service.getChartData(interestCompanyNumberList, 1, 1);
-			interestMap.put("interestChart", interestTimeSeries);
+		holdingList = holdingService.listByUser(user.getUserSeq());
+		for (Interest interest : interestService.listByUser(user.getUserSeq())) {
+			interestCompanyNumberList.add(interest.getCompanyNumber());
 		}
+		
+		TimeSeries interestTimeSeries = service.getChartData(interestCompanyNumberList, 1, 1);
+		interestMap.put("interestChart", interestTimeSeries);
 		
 		map = service.getForIndex(holdingList, interestCompanyNumberList, 1);
 		
@@ -166,119 +171,90 @@ public class StockController2 {
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
-/*	
-   //** 내 보유주식 위젯 요청*//*
-	@GetMapping(value="/holdingWidget", params= {"userId"}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<Map<String, Object>> holdingWidget(String userId) {
-		User user = userService.readById(userId);
-		return new ResponseEntity<>(holdingWidgetMethod(user), HttpStatus.OK);
-	}
-
-
-	
-	*//** 업종별 거래량 *//*
-	@GetMapping(value="/stockFieldAmount", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Map<String, Object>>> stockFieldAmount() {
-		List<Map<String, Object>> list = service.stockFieldAmount();
-		return new ResponseEntity<>(list, HttpStatus.OK);
-	}
-	
-	*//** 관심종목카드 *//*
-	@GetMapping(value="/interestCard", params= {"userId"}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<Map<String, Object>> interestCard(String userId) {
-		User user = userService.readById(userId);
-		return new ResponseEntity<>(interestCardMethod(user), HttpStatus.OK);
-	}
-	
-	
-	*//** 코스피 정보 *//*
-	@GetMapping(value="/kospi", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<Map<String, Object>> kospi() {
-		return new ResponseEntity<>(kospiMethod(), HttpStatus.OK);
-	}
-	
-	*//** 상승률 상위 5개 정보 *//*
-	@GetMapping(value="/risingTop", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Map<String, Object>>> risingTop() {
-		List<Map<String, Object>> risingList = service.stockTop("Rising");
-		return new ResponseEntity<>(risingList, HttpStatus.OK);
-	}
-	
-	*//** 하락률 상위 5개 정보 *//*
-	@GetMapping(value="/fallingTop", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Map<String, Object>>> fallingTop() {
-		List<Map<String, Object>> fallingList = service.stockTop("Falling");
-		return new ResponseEntity<>(fallingList, HttpStatus.OK);
-	}
-	
-	*//** 외국인순매수 상위 5개 정보 *//*
-	@GetMapping(value="/foreignTop", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Map<String, Object>>> foreignTop() {
-		List<Map<String, Object>> foreignList = service.stockTop("Foreign");
-		return new ResponseEntity<>(foreignList, HttpStatus.OK);
-	}
-	
-	*//** 기관순매수 상위 5개 정보 *//*
-	@GetMapping(value="/institutionTop", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Map<String, Object>>> institutionTop() {
-		List<Map<String, Object>> institutionList = service.stockTop("Institution");
-		return new ResponseEntity<>(institutionList, HttpStatus.OK);
-	}
-	
-	*//** 상위 거래량 상위 20개 정보 *//*
-	@GetMapping(value="/tradeAmountTop", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Map<String, Object>>> tradeAmountTop() {
-		List<Map<String, Object>> tradeAmountList = service.stockTop("TradeAmount");
-		return new ResponseEntity<>(tradeAmountList, HttpStatus.OK);
-	}
-	
-	*//** 시가총액 상위 20개 정보 *//*
-	@GetMapping(value="/totalValueTop", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Map<String, Object>>> totalValueTop() {
-		List<Map<String, Object>> totalValueList = service.stockTop("totalValue");
-		return new ResponseEntity<>(totalValueList, HttpStatus.OK);
-	}
-	
-	*//** 인덱스 뉴스 *//*
-	@GetMapping(value="/indexNews", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<News>> indexNews() {
-		List<News> news = service.stockIndexNews();
-		return new ResponseEntity<>(news, HttpStatus.OK);
-	}
-	
-*/
-	
 	
 	/** 주식 interest 화면 요청*/
-	@GetMapping(value="/interest", params= {"userId"}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<Map<String, Object>> interest(String userId) {
-		Map<String, Object> map = new Hashtable<String, Object>();
+	@GetMapping(value="/interest/list", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public String interest(Model model, HttpServletRequest request) {
+		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
+		Map<String, Object> map = null;
+		String userId = (String)request.getAttribute("userId");
+		// 로그인중아님
+		if(userId == null) {
+			return "stock/stock-index";
+		}
+		User user = userService.readById(userId);
+		request.setAttribute("user", user);
+		for (Interest interest : interestService.listByUser(user.getUserSeq())) {
+			interestCompanyNumberList.add(interest.getCompanyNumber());
+		}
+		map = service.getForSearchResult(interestCompanyNumberList);
+		
+		// 관심종목 주식 목록
+		model.addAttribute("interestStockList", map.get("stockList"));
+		// 관심종목 주식 목록
+		model.addAttribute("interestNumberList", interestCompanyNumberList);
+		// 실시간 순위
+		model.addAttribute("realTime", map.get("realTime"));		
+		// 회사 목록
+		model.addAttribute("companyList", companyService.list());
+		// 회사 목록
+		//model.addAttribute("news", service.stockIndexNews());
 
 		
-		return new ResponseEntity<>(map, HttpStatus.OK);
+		return "stock/stock-interest";
+	}
+	
+	/** 주식 interest 화면 요청*/
+	@GetMapping(value="/interest/update", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<Stock>> interestUpdate(String[] interestCompanyNumberArray) {
+		System.out.println("interestUpdate : array " + interestCompanyNumberArray[0]);
+		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
+		Map<String, Object> map = new HashMap<>();
+		for (String string : interestCompanyNumberArray) {
+			interestCompanyNumberList.add(string);
+		}
+		map = service.getForSearchResult(interestCompanyNumberList);
+		return new ResponseEntity<>( (List<Stock>)map.get("stockList"), HttpStatus.OK);
 	}
 	
 	/** 주식 holding 리스트 화면 요청*/
-	@GetMapping(value="/holding/list", params= {"userId"}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public String holding(Model model, String userId) {
+	@GetMapping(value="/holding/list", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public String holding(Model model, HttpServletRequest request) {
+		String userId = (String)request.getAttribute("userId");
+		// 로그인중아님
+		if(userId == null) {
+			return "stock/stock-index";
+		}
+		User user = userService.readById(userId);
+		request.setAttribute("user", user);
+		List<Holding> holdingList = new ArrayList<>();		/* 보유자산 리스트 */
+		Map<String, Object> holdingMap = null;				/* 보유자산 total, stockTotal, cashTotal, Holding리스트 */
 		// realtime
 		model.addAttribute("realtime", service.stockRealtime());
 		// 회사 목록
 		model.addAttribute("companyList", companyService.list());
-		User user = userService.readById(userId);
+		
+		holdingList = holdingService.listByUser(user.getUserSeq());
+		//holdingMap = service.getHoldingMap();
+		System.out.println(11);
+		//holdingMap.put("chasTotal", user.getUserMoney());
+		//holdingMap.put("total", user.getUserMoney() + (Integer)holdingMap.get("stockTotal"));
+		System.out.println(12);
+		model.addAttribute("holdingMap", holdingMap);
+		
 		// 내 보유주식 위젯
 		//model.addAttribute("holdingWidget", holdingWidgetMethod(holdingService.listByUser(user.getUserSeq()), user.getUserMoney()));
 		// 유저 프로필 위젯
 		// 유저 랭킹 위젯
 		return "stock/stock-holding-list";
+	}	
+	
+	/** 주식 holding 업데이트 요청 */
+	@GetMapping(value="/holding/update", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Map<String, Object>> holdingUpdate(List<Holding> HoldingList) {
+		System.out.println("holdingUpdate :  " + HoldingList);
+		Map<String, Object> map = new HashMap<>();
+		
+		return new ResponseEntity<>( map, HttpStatus.OK);
 	}
-	
-	
-	/** 주식 index Update 요청*/
-	//@ResponseBody
-	/*	@PostMapping(value="/holding/update", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<Map<String, Object>> holdingUpdate(@RequestBody HoldingListParams params) {
-		System.out.println("holdingUpdate params : " + params);
-		return new ResponseEntity<>(holdingWidgetMethod(params.getHoldingList(), params.getCashTotal()), HttpStatus.OK);
-	}*/
 }
