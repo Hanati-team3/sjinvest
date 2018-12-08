@@ -245,8 +245,8 @@ public class StockServiceImpl implements StockService {
 		List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
 		for(int i = 0; i < 5; i++) {
 			Map<String, Object> map = new HashMap<String,Object>();
-			map.put("companyName", "아모레퍼시픽");
-			map.put("value",random.nextDouble()*100);
+			map.put("stockName", "아모레퍼시픽");
+			map.put("stockValue",random.nextDouble()*100);
 			resultList.add(map);
 		}
 		return resultList;

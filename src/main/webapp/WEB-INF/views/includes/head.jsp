@@ -72,6 +72,13 @@
 }
 
 /*주식 index*/
+.stock-index-main .stock-my-interest a {
+  color : #515365;
+}
+.stock-index-main .stock-my-interest a :hover{
+  color: #ff5e3a;
+}
+
 .stock-index-ul {
   text-align: center; 
   font-weight: bold; 

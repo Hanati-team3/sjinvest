@@ -1,21 +1,77 @@
 
 /** 2초마다 업종별 정보, 관심종목의 Stock정보(차트빼고), 코스피의 Stock정보(차트빼고), 열려진 탭의 Top 정보 업데이트 */
 function indexUpdate(indexParam) {
+	if(INDEX.flag) {
+		$.ajax({
+			type : "POST",
+			url : "index/update",
+			dataType : "json",
+			contentType: "application/json; charset=utf-8",
+			data : JSON.stringify(indexParam),
+			success : function(stockData) {
+				console.log("stockData .. ");
+				console.log(stockData);
+				window.stock = stockData;
+//				setFieldCard(stockData.fieldStock);
+				setInterestCard(stockData.interestList);
+				setKospiCard(stockData.kospiStock);
+				setTopTab(stockData.topTab, stockData.topTabOption);
+				setTimeout(indexUpdate(setIndexParam()), 2000);
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		});
+	}
+}
+
+/* tab을 클릭하면 발생하는 일회성 데이터 요청 */
+function topTabUpdate(target) {
+	var tabOption;
+	// 활성화된 탭 검사
+	switch(target.split('#')[1]) {
+	//상승률 상위 5
+	case INDEX.tabList[0] :
+		console.log("tab 1");
+		tabOption = 1;
+		break;
+	// 하락률 상위 5
+	case INDEX.tabList[1] :
+		console.log("tab 2");
+		tabOption = 2;
+		break;
+	// 외국인 순매수 3
+	case INDEX.tabList[2] :
+		console.log("tab 3");
+		tabOption = 3;
+		break;
+	// 기관 순매수 3
+	case INDEX.tabList[3] :
+		console.log("tab 4");
+		tabOption = 4;
+		break;
+	// 거래량 20
+	case INDEX.tabList[4] :
+		console.log("tab 5");
+		tabOption = 5;
+		break;
+	// 시가총액 20
+	case INDEX.tabList[5] :
+		console.log("tab 6");
+		tabOption = 6;
+		break;
+	}
+	
 	$.ajax({
 		type : "POST",
-		url : "indexUpdate",
+		url : "index/tab/"+tabOption,
 		dataType : "json",
 		contentType: "application/json; charset=utf-8",
-		data : JSON.stringify(indexParam),
-		success : function(stockData) {
-			console.log("stockData .. ")
-			console.log(stockData);
-			window.stock = stockData;
-//			setFieldCard(stockData.fieldStock);
-			setInterestCard(stockData.interestList);
-			setKospiCard(stockData.kospiStock);
-			setTopTab(stockData.topTab);
-			setTimeout(indexUpdate(setIndexParam()), 2000);
+		success : function(topData) {
+			console.log("topData .. ");
+			console.log(topData);
+			setTopTab(topData, tabOption);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n" + "message:"
@@ -24,6 +80,35 @@ function indexUpdate(indexParam) {
 	})
 }
 
+/** 차트데이터 요청을 보내서 차트를 업데이트하는 함수 */
+//companyNumberList
+function allChartUpdate(interestCompanyNumberList, kospiOption) {
+	console.log('interestCompanyNumberList : ' + interestCompanyNumberList);
+	console.log('kospiOption : ' + kospiOption);
+	$.ajax({
+		type : "POST",
+		url : "index/chart",
+		datatype: 'json',
+		traditional: true,
+		data : JSON.stringify({
+			"interestCompanyNumberList" : interestCompanyNumberList,
+			"kospiOption" : kospiOption
+		}),
+		contentType: "application/json; charset=utf-8",
+		success : function(chartData) {
+			console.log("chartData .. ");
+			console.log(chartData);
+			// 코스피 차트 그리기
+			//runKospiChart(getKospiFromRequest(), true);
+			// 관심종목 차트 그리기
+			//runInterestChart(getInterestFromRequest(), true);
+		},
+		error : function(request, status, error) {
+			console.log("code:" + request.status + "\n" + "message:"
+					+ request.responseText + "\n" + "error:" + error);
+		}
+	})
+}
 /** 업종별 정보 카드 데이터 설정 */
 function setFieldCard(fieldStock) {
 	$(".stock-index-trend li").each(function(index, item){
@@ -34,113 +119,92 @@ function setFieldCard(fieldStock) {
 
 /** 관심종목 카드 데이터 */
 function setInterestCard(interestList) {
-	var slideCard = $(".stock-my-interest .swiper-wrapper");
-	var i = 0;
 	$(".stock-my-interest .swiper-wrapper .swiper-slide").each(function(index, item){
-		if(index != 0 && index != interestList.length -1) {
-			$(item).find(".company-name").text(interestList[i].stockName);
-			$(item).find(".company-stock").text(interestList[i].stockPrice.toLocaleString());
-			$(item).find(".indicator").html("전일대비 " + interestList[i].stockChange.toLocaleString() + 
-					"&nbsp;&nbsp;" + interestList[i].stockDiff +"%");
-			if(interestList[i].stockDiff > 0) {
-				$(item).find(".company-stock").removeClass('minus').addClass('plus');
-				$(item).find(".indicator").removeClass('minus').addClass('plus');
-			}
-			else {
-				$(item).find(".company-stock").removeClass('plus').addClass('minus');
-				$(item).find(".indicator").removeClass('plus').addClass('minus');
-			}
-			i++;
-		}
-		// 자동으로 붙여주는 양 옆 슬라이드에 대한 추가적인 설정
-		else if(index == 0) {
-			$(item).find(".company-name").text(interestList[interestList.length -1].stockName);
-			$(item).find(".company-stock").text(interestList[interestList.length -1].stockPrice.toLocaleString());
-			$(item).find(".indicator").html("전일대비 " + interestList[interestList.length -1].stockChange.toLocaleString() + 
-					"&nbsp;&nbsp;" + interestList[interestList.length -1].stockDiff +"%");
-			if(interestList[interestList.length -1].stockDiff > 0) {
-				$(item).find(".company-stock").removeClass('minus').addClass('plus');
-				$(item).find(".indicator").removeClass('minus').addClass('plus');
-			}
-			else {
-				$(item).find(".company-stock").removeClass('plus').addClass('minus');
-				$(item).find(".indicator").removeClass('plus').addClass('minus');
-			}
-		}
-		else if(index == interestList.length -1) {
-			$(item).find(".company-name").text(interestList[0].stockName);
-			$(item).find(".company-stock").text(interestList[0].stockPrice.toLocaleString());
-			$(item).find(".indicator").html("전일대비&nbsp;&nbsp;&nbsp;" + interestList[0].stockChange.toLocaleString() + 
-					"&nbsp;&nbsp;&nbsp;" + interestList[0].stockDiff +"%");
-			if(interestList[0].stockDiff > 0) {
-				$(item).find(".company-stock").removeClass('minus').addClass('plus');
-				$(item).find(".indicator").removeClass('minus').addClass('plus');
-			}
-			else {
-				$(item).find(".company-stock").removeClass('plus').addClass('minus');
-				$(item).find(".indicator").removeClass('plus').addClass('minus');
+		for (var i = 0; i < interestList.length; i++) {
+			if($(item).find(".company-name a").text() == interestList[i].stockName) {
+				$(item).find(".company-stock").text(interestList[i].stockPrice.toLocaleString());
+				$(item).find(".indicator").html("전일대비 " + interestList[i].stockChange.toLocaleString() + 
+						"&nbsp;&nbsp;" + interestList[i].stockDiff +"%");
+				if(interestList[i].stockDiff > 0) {
+					$(item).find(".company-stock").removeClass('minus').addClass('plus');
+					$(item).find(".indicator").removeClass('minus').addClass('plus');
+				}
+				else {
+					$(item).find(".company-stock").removeClass('plus').addClass('minus');
+					$(item).find(".indicator").removeClass('plus').addClass('minus');
+				}
+				break;
 			}
 		}
 	});
 }
 
 /** 관심종목 카드 차트 */
-function runInterestChart(chartList) {
+function runInterestChart(interestListChart, isFirst) {
 	var lineStackedCharts = document.getElementsByName("interest-line-stacked-chart");
+	if(lineStackedCharts == null) {
+		console.log("인터레스트 차트 없음");
+		return;
+	}
+	window.chartList = lineStackedCharts;
+	// 각 차트에 대해 
 	for (var i = 0; i < lineStackedCharts.length; i++) {
 		var lineStackedChart = lineStackedCharts[i];
-		var eachChart = chartList.pop();
-		/*
-		 *  Lines Graphic
-		 */
-		if (lineStackedChart !== null) {
-		    var ctx_ls = lineStackedChart.getContext("2d");
-		    var data_ls = {
-		        labels: eachChart.label,
-		        datasets: [
-		            {
-		                label: " 원 ",
-		                backgroundColor: "rgba(57,169,255,0.35)",
-		                borderColor: "#38a9ff",
-		                borderWidth: 4,
-		                pointBorderColor: "#38a9ff",
-		                pointBackgroundColor: "#fff",
-		                pointBorderWidth: 4,
-		                pointRadius: 6,
-		                pointHoverRadius: 8,
-		                data: eachChart.data.pop()
-		            }]
-		    };
+		// 각 interest 항목에 대해
+		for(var j = 0; j < interestListChart.dataList.length;  j++) {
+			if(lineStackedChart.getAttribute("target") == interestListChart.nameList[j]) {
+				var eachData = interestListChart.dataList[j];
+			    var ctx_ls = lineStackedChart.getContext("2d");
+			    var data_ls = {
+			        labels: interestListChart.label,
+			        datasets: [
+			            {
+			                label: " 원 ",
+			                backgroundColor: "rgba(57,169,255,0.35)",
+			                borderColor: "#38a9ff",
+			                borderWidth: 2,
+			                pointBorderColor: "#38a9ff",
+			                pointBackgroundColor: "#fff",
+			                pointBorderWidth: 1,
+			                pointRadius: 1,
+			                pointHoverRadius: 1,
+			                data: eachData
+			            }]
+			    };
 
-		    var lineStackedEl = new Chart(ctx_ls, {
-		        type: 'line',
-		        data: data_ls,
-		        options: {
-		            legend: {
-		                display: false
-		            },
-		            responsive: true,
-		            scales: {
-		                xAxes: [{
-		                    gridLines: {
-		                        color: "#f0f4f9"
-		                    },
-		                    ticks: {
-		                        fontColor: '#888da8'
-		                    }
-		                }],
-		                yAxes: [{
-		                    gridLines: {
-		                        display: false
-		                    },
-		                    ticks: {
-		                        beginAtZero:true,
-		                        fontColor: '#888da8'
-		                    }
-		                }]
-		            }
-		        }
-		    });
+			    var myLineStackedEl = new Chart(ctx_ls, {
+			        type: 'line',
+			        data: data_ls,
+			        options: {
+			            legend: {
+			                display: false
+			            },
+			            responsive: true,
+			            scales: {
+			                xAxes: [{
+			                    gridLines: {
+			                        color: "#f0f4f9"
+			                    },
+			                    ticks: {
+			                        fontColor: '#888da8'
+			                    }
+			                }],
+			                yAxes: [{
+			                    gridLines: {
+			                        display: false
+			                    },
+			                    ticks: {
+			                        fontColor: '#888da8'
+			                    }
+			                }]
+			            }
+			        }
+			    });
+			    myLineStackedEl.update();
+				break;
+			}
+			else {
+			}
 		}
 	}
 }
@@ -182,7 +246,7 @@ function runKospiChart(kospiTimeSeries, isFirst) {
 	            }]
 	    };
 	    
-	    stockIndex.config = {
+	    INDEX.config = {
 		        type: 'line',
 		        data: data_lc,
 		        options: {
@@ -222,7 +286,7 @@ function runKospiChart(kospiTimeSeries, isFirst) {
 		        }
 		    }
 	    if(isFirst) {
-		    lineChartEl = new Chart(ctx_lc, stockIndex.config);
+		    lineChartEl = new Chart(ctx_lc, INDEX.config);
 	    }
 	    else {
 	    	lineChartEl.update();
@@ -231,14 +295,18 @@ function runKospiChart(kospiTimeSeries, isFirst) {
 }
 
 /** 상위 종목 카드 설정 함수 */
-function setTopTab(topTab) {
+function setTopTab(topTab, topTabOption) {
 	var activeTab = $(".stock-top-tab .tab-content").find('.active');
+	if($(activeTab).attr('id') != INDEX.tabList[topTabOption - 1]) {
+		console.log('다른 탭 요청 들어옴');
+		return;
+	}
 	// 활성화된 탭 검사
 	switch($(activeTab).attr('id')) {
 	//상승률 상위 5
-	case 'rising-rate' :
+	case INDEX.tabList[0] :
 	// 하락률 상위 5
-	case 'falling-rate' :
+	case INDEX.tabList[1] :
 		var itemList = $(activeTab).find('.skills-item');
 		for(var i = 0; i < 5; i++) {
 			$(itemList[i]).find('.skills-item-title').text(topTab[i].stockName);
@@ -247,59 +315,23 @@ function setTopTab(topTab) {
 		}
 		break;
 	// 외국인 순매수 3
-	case 'foreigner' :
+	case INDEX.tabList[2] :
 		runOneBarChart(topTab, 'foreigner-chart');
 		break;
 	// 기관 순매수 3
-	case 'institution' :
+	case INDEX.tabList[3] :
 		runOneBarChart(topTab, 'institution-chart');
 		break;
 	// 거래량 20
-	case 'trading-amount' :
+	case INDEX.tabList[4] :
 		runOneBarChart(topTab, 'trading-amount-chart');
 		break;
 	// 시가총액 20
-	case 'total-value' :
+	case INDEX.tabList[5] :
 		runOneBarChart(topTab, 'total-money-chart');
 		break;
 	}
 }
-/*
-*//** 순매수 차트*//*
-function runPiChart(id) {
-    var $pie_chartList = $('#' + id + ' .pie-chart');
-    window.piList = $pie_chartList;
-	for (var i = 0; i < $pie_chartList.length; i++) {
-		var $pie_chart = $pie_chartList.slice(i,i);
-	    $pie_chart.appear();
-	    $pie_chart.on('appear', function () {
-	        var current_cart = $pie_chart;
-	        //if (!current_cart.data('inited')) {
-	            var startColor = current_cart.data('startcolor');
-	            var endColor = current_cart.data('endcolor');
-	            var counter = current_cart.data('value') * 100;
-
-	            current_cart.circleProgress({
-	                thickness: 16,
-	                size: 360,
-	                startAngle: -Math.PI / 4 * 2,
-	                emptyFill: '#ebecf1',
-	                lineCap: 'round',
-	                fill: {
-	                    gradient: [endColor, startColor],
-	                    gradientAngle: Math.PI / 4
-	                }
-	            }).on('circle-animation-progress', function (event, progress) {
-	                current_cart.find('.content').html(parseInt(counter * progress, 10) + '<span>%</span>'
-	                )
-
-	            });
-	            current_cart.data('inited', false);
-	        //}
-	    });
-	}
-
-}*/
 
 /** Top20 차트 함수 */
 function runOneBarChart(topTab, id) {

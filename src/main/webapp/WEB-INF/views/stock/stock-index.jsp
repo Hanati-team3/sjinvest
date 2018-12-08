@@ -35,6 +35,10 @@
     </div>
     <%-- realtime row 끝 --%>
     
+    
+    <a onclick="stop()" href="#">요청종료</a>
+    
+    
     <%-- 사이드 포함 row 시작 --%>
     <div class="row stock-index-main">
       <!-- Left Sidebar -->
@@ -133,11 +137,13 @@
                     <c:forEach var="eachInterest" items="${interestMap.interestList}" varStatus="status">
                       <div class="swiper-slide">
                         <div class="statistics-slide">
-                          <div class="company-name" data-swiper-parallax="-500">${eachInterest.stockName}</div>
+                          <div class="company-name" data-swiper-parallax="-500">
+                            <a href="<%=application.getContextPath()%>/stock/company/${eachInterest.stockCode}">${eachInterest.stockName}</a>
+                          </div>
                           <div class="company-stock" data-swiper-parallax="-500">${eachInterest.stockPrice}</div>
                           <span class="indicator">전일대비 ${eachInterest.stockChange}  +${eachInterest.stockDiff}%</span>
                           <div class="chart-js chart-js-line-stacked">
-                            <canvas name="interest-line-stacked-chart" width="730" height="300"></canvas>
+                            <canvas name="interest-line-stacked-chart" target="${eachInterest.stockCode}" width="730" height="300"></canvas>
                           </div>
                         </div>
                       </div>
@@ -547,38 +553,65 @@
   <%-- stock-index js --%>
   <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index.js"></script>
   <script>
-  	var stockIndex = {};	//stock-index 전역변수
+  	var INDEX = {};	//stock-index 전역변수
+  	INDEX.tabList = ["rising-rate", "falling-rate", "foreigner", "institution", "trading-amount", "total-value"];
+  	INDEX.flag = true;
+  	
 	$(document).ready(function() {
 		//탭 클릭시 요청 발생
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 			var target = $(e.target).attr("href") // activated tab
 			console.log('탭요청 : ' + target);
+			topTabUpdate(target);
 		});
+		// 코스피 차트 그리기
 		runKospiChart(getKospiFromRequest(), true);
-		//runInterestChart(chartList);
-		
+		// 관심종목 차트 그리기
+		runInterestChart(getInterestFromRequest(), true);
+		// index update 호출
 		var indexParam = setIndexParam();
-		window.aa = indexParam;
 		indexUpdate(indexParam);
+		// 차트 업데이트 호출
+		//allChartUpdate(indexParam.interestCompanyNumberList, 1);
 	});
 	
+	/* index update 요청을 중지하는 함수 */
+  	function stop() {
+  		INDEX.flag = false;
+  		console.log('stop');
+  	}
+  	
+  	/* request에서 interestMap의 차트 데이터를 찾아서 자바스크립트 객체로 반환하는 함수 */
+  	function getInterestFromRequest() {
+  		var interestChartLabel = ${interestMap.interestChart.label};
+  		var interestName = [];
+  		var interestDataList = [];
+  		
+		<c:forEach var="key" items="${interestMap.interestChart.data.keySet()}" varStatus="status">
+		interestName.push("${key}");
+		interestDataList.push(${interestMap.interestChart.data.get(key)});
+    	</c:forEach>
+    	
+		var interestListChart = {
+			label : interestChartLabel,
+			nameList : interestName,
+			dataList : interestDataList
+		};
+		return interestListChart;
+  	}
+	
+  	/* request에서 kospi 차트 데이터를 찾아서 자바스크립트 객체로 반환하는 함수 */
 	function getKospiFromRequest() {
-		var kospiChartLabel = [];
-		var kospiChartData = [];
-		<c:forEach var="eachLabel" items="${kospiMap.kospiChart.label}" varStatus="status">
-		kospiChartLabel.push(${eachLabel});
-    	</c:forEach>
-		<c:forEach var="eachData" items="${kospiMap.kospiChart.data[0]}" varStatus="status">
-		kospiChartData.push(${eachData});
-    	</c:forEach>
-		var kospiTimeSeries = {
+		var kospiChartLabel = ${kospiMap.kospiChart.label};
+		var kospiChartData = ${kospiMap.kospiChart.data.kospi};
+		var kospiChart = {
 			label : kospiChartLabel,
 			data : kospiChartData
 		};
-		return kospiTimeSeries;
+		return kospiChart;
 	}
 	
-	
+	/* 첫 화면 출력 후 indexUpdate를 요청하기 위해 요청 파라미터를 설정하여 반환하는 함수 */
 	function setIndexParam() {
 		var indexParam = {};
 		// 유저 아이디 설정
@@ -587,27 +620,27 @@
 		var activeTabId = $(".stock-top-tab .tab-content").find('.active').attr('id');
 		switch(activeTabId) {
 		//상승률 상위 5
-		case 'rising-rate' :
+		case INDEX.tabList[0] :
 			indexParam.tabOption = 1;
 			break;
 		// 하락률 상위 5
-		case 'falling-rate' :
+		case INDEX.tabList[1] :
 			indexParam.tabOption = 2;
 			break;
 		// 외국인 순매수 3
-		case 'foreigner' :
+		case INDEX.tabList[2] :
 			indexParam.tabOption = 3;
 			break;
 		// 기관 순매수 3
-		case 'institution' :
+		case INDEX.tabList[3] :
 			indexParam.tabOption = 4;
 			break;
 		// 거래량 20
-		case 'trading-amount' :
+		case INDEX.tabList[4] :
 			indexParam.tabOption = 5;
 			break;
 		// 시가총액 20
-		case 'total-value' :
+		case INDEX.tabList[5] :
 			indexParam.tabOption = 6;
 			break;
 		}

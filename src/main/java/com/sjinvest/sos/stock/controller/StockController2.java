@@ -35,6 +35,7 @@ import com.sjinvest.sos.point.service.PointService;
 import com.sjinvest.sos.setting.service.SettingService;
 import com.sjinvest.sos.stock.dao.StockDao;
 import com.sjinvest.sos.stock.params.HoldingListParams;
+import com.sjinvest.sos.stock.params.IndexChartParams;
 import com.sjinvest.sos.stock.params.IndexParams;
 import com.sjinvest.sos.stock.domain.News;
 import com.sjinvest.sos.stock.domain.Stock;
@@ -73,24 +74,27 @@ public class StockController2 {
 	/** 주식 index 화면 요청*/
 	@GetMapping(value="/index", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String index(String userId, Model model) {
-		List<Holding> holdingList = new ArrayList<>();
-		List<String> interestCompanyNumberList = new ArrayList<>();
-		Map<String, Object> interestMap = new Hashtable<>();
-		Map<String, Object> holdingWidgetMap = null;
-		
+		List<Holding> holdingList = new ArrayList<>();					/* 보유자산 리스트 */
+		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
+		Map<String, Object> interestMap = new Hashtable<>();	/* 관심종목 Stock리스트와 Chart데이터 */
+		Map<String, Object> holdingWidgetMap = null;			/* 보유자산 total, stockTotal, cashTotal, Holding리스트 */
+		Map<String, Object> map = null;							/* stock 서비스에서 한번에 받아올 정보 : realTime, topTab, 관심종목 Stock리스트, HoldingMap  */
 		User user = null;
+		
 		// 로그인중
 		if(userId != null) {
 			user = userService.readById(userId);
 			holdingList = holdingService.listByUser(user.getUserSeq());
 			for (Interest interest : interestService.listByUser(user.getUserSeq())) {
 				interestCompanyNumberList.add(interest.getCompanyNumber());
-				TimeSeries interestTimeSeries = service.getChartData(interestCompanyNumberList, 1, 1);
-				interestMap.put("interestChart", interestTimeSeries);
 			}
+			TimeSeries interestTimeSeries = service.getChartData(interestCompanyNumberList, 1, 1);
+			interestMap.put("interestChart", interestTimeSeries);
 		}
+		
+		map = service.getForIndex(holdingList, interestCompanyNumberList, 1);
+		
 		System.out.println(2);
-		Map<String, Object> map = service.getForIndex(holdingList, interestCompanyNumberList, 1);
 		System.out.println(3);
 		// realtime
 		model.addAttribute("realTime", map.get("realTime"));
@@ -108,7 +112,7 @@ public class StockController2 {
 		model.addAttribute("topTab", map.get("topTab"));
 		System.out.println(8);
 		// 주식 전체 뉴스
-		model.addAttribute("news", service.stockIndexNews());
+		//model.addAttribute("news", service.stockIndexNews());
 		System.out.println(9);
 
 		if(user != null) {
@@ -133,12 +137,13 @@ public class StockController2 {
 	
 	/** 주식 index Update 요청*/
 	//@ResponseBody
-	@PostMapping(value="/indexUpdate", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@PostMapping(value="/index/update", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<Map<String, Object>> indexUpdate(@RequestBody IndexParams params) {
 		System.out.println("indexUpdate params : " + params);
 		Map<String, Object> map = service.getForIndex(params.getHoldingList(), 
 				params.getInterestCompanyNumberList(), params.getTabOption());
 		map.put("kospiStock", service.getKospiData());
+		map.put("topTabOption", params.getTabOption());
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	
@@ -148,6 +153,17 @@ public class StockController2 {
 	public ResponseEntity<List<Map<String, Object>>> tabUpdate(@PathVariable("type")int type) {
 		System.out.println("tabUpdate type : " + type);
 		return new ResponseEntity<>(service.stockTop(type+""), HttpStatus.OK);
+	}
+	
+	/** index의 chart update 요청*/
+	//@ResponseBody
+	@PostMapping(value="/index/chart", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Map<String, Object>> chartUpdate(@RequestBody IndexChartParams params) {
+		System.out.println("chartUpdate : params " + params);
+		Map<String, Object> map = new HashMap<>();
+		map.put("interestTimeSeries", service.getChartData(params.getInterestCompanyNumberList(), 1, 1));
+		map.put("kospiMap", service.getKospiChartDate(params.getKospiOption()));
+		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
 /*	

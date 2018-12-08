@@ -26,15 +26,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.google.gson.JsonParser;
 import com.sjinvest.sos.user.domain.KakaoLogin;
 import com.sjinvest.sos.user.domain.NaverLogin;
+//import com.sjinvest.sos.user.domain.NaverLogin;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import net.sf.json.JSONObject;
 
 @Controller
 @Log4j
@@ -267,7 +266,6 @@ public class UserController {
     public ResponseEntity<Map<String,Object>> login(Model model, HttpSession session) {
     	Map<String, Object> returnData = new HashMap<String, Object>();
     	NaverLogin naverLogin = new NaverLogin();
-         네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 
         String naverAuthUrl = naverLogin.getAuthorizationUrl(session);
         
         //https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
@@ -276,7 +274,6 @@ public class UserController {
         
         //네이버 
         returnData.put("url", naverAuthUrl);
-         생성한 인증 URL을 View로 전달 
         return new ResponseEntity<>(returnData,HttpStatus.OK);
     }
 
