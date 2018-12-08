@@ -111,65 +111,8 @@
 	
 	
 	    <!-- 댓글 list start -->
-	    <div name="commentList" class="ui-block-title" id="accordion" role="tablist"
-	      aria-multiselectable="true" style="padding: 10px 0px 0px 6px;">
-	      <div class="card">
-	
-	        <div class="card-header" role="tab" id="headingOne">
-	          <h6 class="mb-0">
-	            <a data-toggle="collapse" data-parent="#accordion"
-	              href="#collapseOne" aria-expanded="true"
-	              aria-controls="collapseOne"
-	              style="text-align: center; font-size: 12px"> View
-	              more comments + <svg class="olymp-dropdown-arrow-icon">
-	              <use
-	                  xlink:href="../resources/icons/icons.svg#olymp-dropdown-arrow-icon"></use>
-	          </svg>
-	            </a>
-	          </h6>
-	        </div>
-	
-	        <div id="collapseOne" class="collapse show" role="tabpanel"
-	          aria-labelledby="headingOne">
-	          <ul class="comments-list">
-	            <li>
-	              <div class="post__author author vcard inline-items">
-	                <img
-	                  src="<%=application.getContextPath()%>/resources/img/avatar10-sm.jpg"
-	                  alt="author">
-	
-	                <div class="author-date">
-	                  <a name="replyName" class="h6 post__author-name fn"
-	                    href="02-ProfilePage.html" data-toggle="modal" data-target="#user_modal"></a>
-	                  <div class="post__date">
-	                    <time name="replyTime" class="published"
-	                      datetime="2004-07-24T18:18">
-	                    </time>
-	                  </div>
-	                </div>
-	
-	            
-	            <div class="more">
-	              <svg class="olymp-three-dots-icon">
-	                <use
-	                  xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-	              <ul class="more-dropdown">
-	                <li><a href="#">댓글수정</a></li>
-	                <li><a href="/sos/feed/delete">댓글삭제</a></li>
-	              </ul>
-	            </div>
-	
-	              </div>
-	
-	              <p name="replyContent"></p>
-	
-	            </li>
-	
-	          </ul>
-	        </div>
-	
-	      </div>
-	    </div>
+	    <div name="makeComment"></div>
+	    
 	    <!-- ...댓글 list end -->
 	
 	
@@ -180,11 +123,10 @@
 	          src="<%=application.getContextPath()%>/resources/img/author-page.jpg"
 	          alt="author">
 	
-	        <div class="form-group with-icon-right ">
-	          <textarea class="form-control" placeholder=""></textarea>
+	        <div class="form-group with-icon-right comment-div">
+	          <textarea name="commentForHere" class="form-control" placeholder="댓글을 입력해주세요"></textarea>
 	          <div class="add-options-message">
-	            <a href="#" class="options-message" data-toggle="modal"
-	              data-target="#update-header-photo"> <svg
+	            <a name="writeComment" onclick="writeComment(this);" class="options-message" title=""> <svg
 	                class="olymp-camera-icon">
 	                    <use
 	                  xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-check-icon"></use></svg>
@@ -198,8 +140,63 @@
 	  </div>
 	</div>
 <%-- ..피드 목록 end --%>
+<div name="commentList" class="ui-block-title" id="accordion" role="tablist"
+      aria-multiselectable="true" style="padding: 10px 0px 0px 6px; display: none">
+  <div class="card">
 
+    <div class="card-header" role="tab" id="headingOne">
+      <h6 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion"
+          href="#collapseOne" aria-expanded="true"
+          aria-controls="collapseOne"
+          style="text-align: center; font-size: 12px"> View
+          more comments + <svg class="olymp-dropdown-arrow-icon">
+          <use
+              xlink:href="../resources/icons/icons.svg#olymp-dropdown-arrow-icon"></use>
+      </svg>
+        </a>
+      </h6>
+    </div>
 
+    <div id="collapseOne" class="collapse show" role="tabpanel"
+      aria-labelledby="headingOne">
+      <ul name="commentListUL" class="comments-list"></ul>
+      
+    </div>
+
+  </div>
+</div>
+
+<li name="commentLI" style="display:none">
+	  <div class="post__author author vcard inline-items">
+	    <img
+	      src="<%=application.getContextPath()%>/resources/img/avatar10-sm.jpg"
+	      alt="author">
+	
+	    <div class="author-date">
+	      <a name="replyName" class="h6 post__author-name fn"
+	        href="02-ProfilePage.html" data-toggle="modal" data-target="#user_modal">힘들다</a>
+	      <div class="post__date">
+	        <time name="replyTime" class="published"
+	          datetime="2004-07-24T18:18">
+	        </time>
+	      </div>
+	    </div>
+	
+	
+	 <div class="more">
+	   <svg class="olymp-three-dots-icon">
+	     <use
+	       xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
+	   <ul class="more-dropdown">
+	     <li><a href="#">댓글수정</a></li>
+	     <li><a href="/sos/feed/delete">댓글삭제</a></li>
+	   </ul>
+	 </div>
+
+   </div>
+   <p name="replyContent"></p>
+</li>
 
 
 <%-- 더보기 버튼 start --%>

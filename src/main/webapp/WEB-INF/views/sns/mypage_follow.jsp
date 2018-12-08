@@ -10,8 +10,9 @@
         </div>
 
         <ul class="notification-list friend-requests" id="follow_list">
-        
-          <!-- <li>
+          
+          <!-- 팔로잉 sameple 데이터 
+          <li>
             <div class="author-thumb">
               <img src="../resources/img/avatar15-sm.jpg" alt="author">
             </div>

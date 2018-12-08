@@ -6,6 +6,21 @@
 <jsp:include page="../includes/head.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
+<script>
+function addPageNation(){
+	for(var i = 1; i < ${pageTotalNum}+1; i++){
+		console.log(i);
+		$('ul.pagination').append('<li class="page-item"><a class="page-link" href="#">'+i+'</a></li>')
+	}
+}
+
+
+
+$(document).ready(function(){
+	addPageNation()
+}
+);
+</script>
 </head>
 
 <body class="stock">
@@ -166,17 +181,6 @@
               <ul class="pagination justify-content-center">
                 <li class="page-item disabled"><a class="page-link"
                   href="#" tabindex="-1">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1
-                    <div class="ripple-container">
-                      <div class="ripple ripple-on ripple-out"
-                        style="left: -10.3833px; top: -16.8333px; background-color: rgb(255, 255, 255); transform: scale(16.7857);"></div>
-                    </div>
-                </a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                <li class="page-item"><a class="page-link" href="#">12</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a>
                 </li>
               </ul>
             </nav>

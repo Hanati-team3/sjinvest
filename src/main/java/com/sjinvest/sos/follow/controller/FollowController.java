@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -77,17 +80,36 @@ public class FollowController {
 		
 	}
 	
-	// 아직 완성xxx
 	@ResponseBody
 	@GetMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> delete(Follow follow, String followUserId) {
+	public ResponseEntity<Map<String,Object>> delete(String followUserId, int userSeq) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
+		
+		
 		System.out.println("팔로잉 삭제할 유저아이디: "+followUserId);
 		
-		//returnData.put("delete", service.deleteFollow(follow));
+		Follow follow = new Follow();
+		
+		int followUserSeq = userService.readById(followUserId).getUserSeq();
+		
+		//System.out.println("나의 seq: "+userSeq);
+		//System.out.println("너의 seq: "+followUserSeq);
+		
+		follow.setFollowUserSeq(followUserSeq);
+		follow.setUserSeq(userSeq);
+		
+		//System.out.println("팔로잉 삭제 결과: "+ service.deleteFollow(follow));
 
-		return null;
-				//new ResponseEntity<>(returnData,HttpStatus.OK);
+		returnData.put("deleteResult", service.deleteFollow(follow));
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
