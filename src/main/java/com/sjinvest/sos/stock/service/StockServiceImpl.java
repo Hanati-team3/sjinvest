@@ -19,6 +19,7 @@ import com.sjinvest.sos.stock.dao.StockNewsCrawler;
 import com.sjinvest.sos.stock.domain.AskingPrice;
 import com.sjinvest.sos.stock.domain.Kospi;
 import com.sjinvest.sos.stock.domain.News;
+import com.sjinvest.sos.stock.domain.Rank;
 import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.domain.TimeSeries;
 
@@ -391,7 +392,6 @@ public class StockServiceImpl implements StockService {
 		return stockDao.forSearch(companyNumberList);
 	}
 	@Override
-
 	public TimeSeries getChartData(List<String> companyNumberList, int type, int kind) {
 		StockDao stockDao = new StockDao();
 		String[] date = getDate(type);
@@ -407,5 +407,41 @@ public class StockServiceImpl implements StockService {
 	public Kospi getKospiData() {
 		StockDao stockDao = new StockDao();
 		return (Kospi)stockDao.getKospiChartData("20181101", "20181101", 5).get("kospi");
+	}
+	@Override
+	public Map<String, Object> getChartDataWithKospi(List<String> companyNumberList, int type) {
+		StockDao stockDao = new StockDao();
+		String[] date = getDate(1);
+		String[] kdate = getDate(type);
+		return stockDao.getChartDataWithKospi(companyNumberList, date[0], date[1], 1, kdate[0], kdate[1], type);
+	}
+	@Override
+	public List<Rank> getRanking(int type) {
+		StockDao stockDao = new StockDao();
+		return stockDao.getRank(type);
+	}
+	@Override
+	public Map<String, Object> getHolding(List<Holding> holdingList) {
+		StockDao stockDao = new StockDao();
+		List<String> holdingCompanyNumberList = new ArrayList<String>();
+		for (Holding holding : holdingList) {
+			holdingCompanyNumberList.add(holding.getCompanyNumber());
+		}
+		Map<String, Object> map = stockDao.forHolding(holdingCompanyNumberList);
+		List<Stock> stockList = (List<Stock>) map.get("stockList");
+		int stockTotal = 0;
+		for (Holding holding : holdingList) {
+			int holdingPrice = searchPrice(holding.getCompanyNumber(), stockList);
+			holding.setRealTimePrice(holdingPrice);
+			holding.setHoldingReturn((holdingPrice*holding.getHoldingAmount())-holding.getHoldingTotalMoney());
+			holding.setHoldingRateOfReturn(holding.getHoldingReturn()/holding.getHoldingTotalMoney());
+			stockTotal = stockTotal + (holdingPrice*holding.getHoldingAmount());
+		}
+		Map<String, Object> holdingWidgetMap = new Hashtable<String, Object>();
+		holdingWidgetMap.put("holdingList", holdingList);
+		holdingWidgetMap.put("stockTotal", stockTotal);
+		map.put("holdingWidget", holdingWidgetMap);
+		map.remove("stockList");
+		return map;
 	}
 }

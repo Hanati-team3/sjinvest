@@ -7,6 +7,7 @@ import com.sjinvest.sos.holding.domain.Holding;
 import com.sjinvest.sos.stock.domain.AskingPrice;
 import com.sjinvest.sos.stock.domain.Kospi;
 import com.sjinvest.sos.stock.domain.News;
+import com.sjinvest.sos.stock.domain.Rank;
 import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.domain.TimeSeries;
 
@@ -50,4 +51,7 @@ public interface StockService {
 	public TimeSeries getChartData(List<String> companyNumberList, int type, int kind);
 	public Map<String, Object> getKospiChartDate(int type);
 	public Kospi getKospiData();
+	public Map<String, Object> getChartDataWithKospi(List<String> companyNumberList, int type);
+	public List<Rank> getRanking(int type);
+	public Map<String, Object> getHolding(List<Holding> holdingList);
 }
