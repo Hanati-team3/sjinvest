@@ -28,7 +28,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.sjinvest.sos.user.domain.KakaoLogin;
 import com.sjinvest.sos.user.domain.NaverLogin;
-//import com.sjinvest.sos.user.domain.NaverLogin;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
 
@@ -214,6 +213,17 @@ public class UserController {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		System.out.println("유저 이름 클릭시 아이디: "+userId);
 		returnData.put("userData", service.readById(userId));
+
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
+	}
+	/**
+	 * 각 유저 이름 클릭시 modal에 보여주기 위한 컨트롤러 (닉네임)
+	 */
+	@ResponseBody
+	@PostMapping(value = "/dataNick", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> userDataNickName(String userNickname) {
+		Map<String, Object> returnData = new HashMap<String, Object>();
+		returnData.put("userData", service.readByNickname(userNickname));
 
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}

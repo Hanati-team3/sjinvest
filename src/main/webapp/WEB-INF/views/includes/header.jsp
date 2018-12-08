@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page import="com.sjinvest.sos.user.domain.User" %>
 <%
 	Cookie[] cookies = request.getCookies();
 	String userId = null;
@@ -207,7 +207,12 @@
           <!-- 개인정보 시작  -->
           <div class="author-page author vcard inline-items more">
             <div class="author-thumb">
-              <img alt="author" src="<%=application.getContextPath()%>/resources/img/${user.userPicture}" width="36" height="36" class="avatar">
+            <%if (((((User)request.getAttribute("user")).getUserPicture().split(":")[0]).equals("http") || (((User)request.getAttribute("user")).getUserPicture().split(":")[0]).equals("https"))){ %>
+              		<img src="${user.userPicture}" width="36" height="36" class="avatar">
+              <%}else{ %>
+              		<img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"width="36" height="36" class="avatar">
+              
+              <%} %>
               <!-- 마우스 오버 -->
               <div class="more-dropdown more-with-triangle">
                 <div class="mCustomScrollbar" data-mcs-theme="dark">

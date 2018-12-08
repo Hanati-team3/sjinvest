@@ -9,6 +9,7 @@ public interface UserMapper {
 	public void create(User user);
 	public User readById(String userId);
 	public User readBySeq(int userSeq);
+	public User readByNickname(String userNickname);
 	public String isExistId(String userId);
 	public String isExistNickname(String userNickname);
 	public User certify(Map<String, String> map);

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.sjinvest.sos.user.domain.User" %>
 <div class="row">
 
 <%--
@@ -27,7 +28,12 @@
           <c:when test="${userId ne null }">
           <div class="top-header-author">
             <a href="#" class="author-thumb" data-toggle="modal" data-target="#update-header-photo">
-              <img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}" width="124" height="124" alt="author">
+            	<%if ((((User)request.getAttribute("user")).getUserPicture().split(":")[0]).equals("http") || (((User)request.getAttribute("user")).getUserPicture().split(":")[0]).equals("https")){ %>
+              		<img src="${user.userPicture}" width="124" height="124" alt="author">
+              <%}else{ %>
+              		<img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}" width="124" height="124" alt="author">
+              
+              <%} %>
             </a>
             <div class="author-content">
               <a href="#" class="h4 author-name">${user.userId }</a>

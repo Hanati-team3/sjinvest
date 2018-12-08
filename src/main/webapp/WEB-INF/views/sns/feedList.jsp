@@ -42,7 +42,7 @@
 	          alt="author">
 	
 	        <div class="author-date">
-	          <a name="postUserNickName" href="#" class="h6 post__author-name fn" data-toggle="modal" data-target="#user_modal"></a>
+	          <a name="postUserNickName"  href="javascript:void(0);" onclick="userModal(this)" class="h6 post__author-name fn" data-toggle="modal" data-target="#user_data"></a>
 	          <div class="post__date">
 	            <time name="postWriteDate" class="published"></time>
 	          </div>
@@ -175,7 +175,7 @@
 	
 	    <div class="author-date">
 	      <a name="replyName" class="h6 post__author-name fn"
-	        href="02-ProfilePage.html" data-toggle="modal" data-target="#user_modal">힘들다</a>
+	        href="javascript:void(0);" onclick="userModal(this)" data-toggle="modal" data-target="#user_data"></a>
 	      <div class="post__date">
 	        <time name="replyTime" class="published"
 	          datetime="2004-07-24T18:18">
