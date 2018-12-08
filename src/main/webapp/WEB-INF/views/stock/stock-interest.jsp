@@ -341,8 +341,11 @@
   	INTEREST.interestNumberArray = [];
   	
     $(document).ready(function() {
+    	<c:forEach var="number" items="${interestNumberList}" varStatus="status">
+    	INTEREST.interestNumberArray.push("${number}");
+    	</c:forEach>
+    	
     	// index update 호출
-    	INTEREST.interestNumberArray = ${interestNumberList};
     	console.log("interestNumberArray" + INTEREST.interestNumberArray );
     	interestUpdate();
     	// 차트 업데이트 호출
@@ -362,11 +365,15 @@
     			type : "GET",
     			url : "update",
     			dataType : "json",
+    	        traditional : true,
     			contentType: "application/json; charset=utf-8",
-    			data : INTEREST.interestNumberArray,
+    			data : { 
+    				"interestCompanyNumberArray" : INTEREST.interestNumberArray
+    			},
     			success : function(interestData) {
     				console.log("interestData .. ");
     				console.log(interestData);
+    				setInterestData(interestData);
     			},
     			error : function(request, status, error) {
     				console.log("code:" + request.status + "\n" + "message:"
@@ -376,6 +383,12 @@
     	}
     }
   
+    function setInterestData(interestData) {
+    	$(".stock-index-trend li").each(function(index, item){
+    		$(item).find(".fieldName").text(fieldStock[index].fieldName);
+    		$(item).find(".count-stat").text(fieldStock[index].fieldAmount.toLocaleString())
+    	});
+    }
   </script>
 
 </body>
