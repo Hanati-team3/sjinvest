@@ -19,7 +19,7 @@
                 <div class="add-options-message">
                   
                   <a href="#" class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="ADD PHOTOS"> 
-                    <svg class="olymp-camera-icon" data-toggle="modal" data-target="#choose-from-my-photo">
+                    <svg class="olymp-camera-icon" data-toggle="modal" data-target="#update-header-photo">
                     <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-camera-icon"></use></svg>
                   </a> 
                   <%-- 

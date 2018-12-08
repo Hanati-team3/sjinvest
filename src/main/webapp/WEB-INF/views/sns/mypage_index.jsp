@@ -12,14 +12,19 @@
 
   <!-- header start -->
   <jsp:include page="../includes/header.jsp" />
-  <%-- <jsp:param value="Yegyeom Yu" name="loginId"/>
-</jsp:include> --%>
   <!-- header end -->
-
 
   <!-- mypage_profile start -->
   <jsp:include page="../widgets/profile-info.jsp"></jsp:include>
   <!-- mypage_profile end -->
+
+  <!-- Window-popup Update Header Photo -->
+  <jsp:include page="../popup/upload-photo.jsp"></jsp:include>
+  <!-- ... end Window-popup Update Header Photo -->
+
+  <!-- Window-popup Choose from my Photo -->
+  <jsp:include page="../popup/choose-from-my-photo.jsp"></jsp:include>
+  <!-- ... end Window-popup Choose from my Photo -->
 
 
 
