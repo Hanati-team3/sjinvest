@@ -406,10 +406,9 @@ function snsList(){
 		
 		url : '/sos/notice/snsList',
 		type : 'get',
-		data : {
-			"userSeq" : "${user.userSeq}"
-		},
+		data : {},
 		success: function(data){
+			
 			
 			for(var i=0; i<data.snsList.length; i++){
 				
