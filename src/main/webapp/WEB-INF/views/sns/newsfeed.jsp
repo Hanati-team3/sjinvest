@@ -65,10 +65,16 @@
 
       <!-- Left Sidebar -->
       <aside class="col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-xs-12">
+        
+
         <%-- 내 정보 위젯 --%>
         <jsp:include page="../widgets/profile-info.jsp"></jsp:include>
+
+        <c:if test="${userId ne null }">
         <%-- 내 주식정보 위젯 --%>
         <jsp:include page="../widgets/twitter-feed.jsp"></jsp:include>
+        </c:if>
+        
         <%-- 모의 투자 랭킹 위젯 --%>
         <jsp:include page="../widgets/ranking.jsp"></jsp:include>
       </aside>
@@ -76,15 +82,20 @@
 
       <!-- Right Sidebar -->
       <aside class="col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-xs-12">
+        
+        <c:if test="${userId ne null }">
         <%-- 관심 종목 위젯--%>
         <jsp:include page="../widgets/activity-feed.jsp"></jsp:include>
         <%-- 팔로잉, 팔로워 --%>
         <jsp:include page="../widgets/follow.jsp"></jsp:include>
+        </c:if>
 
         <%-- 추천 페이지 위젯인데 우리도 추천 계정 해주면 좋을듯.. --%>
-        <%-- <jsp:include page="widgets/recommend-page.jsp"></jsp:include> --%>
+        <%-- <jsp:include page="../widgets/recommend-page.jsp"></jsp:include> --%>
+        
         <%-- 추천 친구 위젯인데 이것도..? --%>
-        <%-- <jsp:include page="widgets/recommend-friend.jsp"></jsp:include> --%>
+        <jsp:include page="../widgets/recommend-friend.jsp"></jsp:include>
+      
       </aside>
       <!-- ... end Right Sidebar -->
     </div>

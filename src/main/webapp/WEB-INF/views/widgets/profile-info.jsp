@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="row">
 
 <%--
@@ -17,13 +17,17 @@
         <div class="top-header">
           
           <div class="top-header-thumb">
-            <img src="<%=application.getContextPath()%>/resources/img/top-header1.jpg" alt="nature">
+            <img src="<%=application.getContextPath()%>/resources/img/top-header4.png" alt="nature">
           </div>
           <div class="profile-section">
           </div>
+          
+          <c:choose>
+          
+          <c:when test="${userId ne null }">
           <div class="top-header-author">
-            <a href="#" class="author-thumb">
-              <img src="<%=application.getContextPath()%>/resources/img/author-main1.jpg" alt="author">
+            <a href="#" class="author-thumb" data-toggle="modal" data-target="#update-header-photo">
+              <img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}" width="124" height="124" alt="author">
             </a>
             <div class="author-content">
               <a href="#" class="h4 author-name">${user.userId }</a>
@@ -31,6 +35,20 @@
               <div class="email">${user.userEmail }</div>
             </div>
           </div>
+          </c:when>
+          
+          <c:otherwise>
+          <div class="top-header-author">
+            <div class="author-content">
+              <a href="#" class="h4 author-name">로그인 후<br>이용해보세요.</a>
+            </div>
+          </div>
+          </c:otherwise>
+          
+          
+          </c:choose>
+
+
         </div>
       </div>
     </div>

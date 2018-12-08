@@ -155,19 +155,40 @@ public class UserController {
 	@PostMapping("/update")	
 	public String update(User user, HttpServletRequest request) {
 
-		log.info("regist : "+ user);
+		log.info("update : "+ user);
 		
 		//System.out.println("받아온 user 정보: "+user);
 		
 		String userId = (String) request.getAttribute("userId");
 		User userUpdate = service.readById(userId);
-		
 		int userSeq = userUpdate.getUserSeq();
+		
 		user.setUserSeq(userSeq);
 		
 		boolean result = service.updateUser(user);
 		//System.out.println("수정된 user 결과: "+ result);
 
+		return "redirect:/sns/mypage_index";
+	}
+	
+	@PostMapping("/updateImage")	
+	public String updateImage(HttpServletRequest request) {
+
+		log.info("updateImage : ");
+		
+		//System.out.println("파일 :"+request.getParameter("file"));
+
+		String userId = (String) request.getAttribute("userId");
+		User user = service.readById(userId);
+		String userImage = request.getParameter("file");
+
+		if(userImage == null) {
+			userImage = "forum7.png";
+		}
+		
+		user.setUserPicture(userImage);
+		boolean result = service.updateUser(user);
+		
 		return "redirect:/sns/mypage_index";
 	}
 	
@@ -241,11 +262,10 @@ public class UserController {
 	*/
 	
 	//로그인 첫 화면 요청 메소드
-    @RequestMapping(value = "/naverlogin", method = { RequestMethod.GET, RequestMethod.POST })
+/*    @RequestMapping(value = "/naverlogin", method = { RequestMethod.GET, RequestMethod.POST })
     public ResponseEntity<Map<String,Object>> login(Model model, HttpSession session) {
     	Map<String, Object> returnData = new HashMap<String, Object>();
     	NaverLogin naverLogin = new NaverLogin();
-  //       네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 
         String naverAuthUrl = naverLogin.getAuthorizationUrl(session);
         
         //https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
@@ -254,7 +274,6 @@ public class UserController {
         
         //네이버 
         returnData.put("url", naverAuthUrl);
- //        생성한 인증 URL을 View로 전달 
         return new ResponseEntity<>(returnData,HttpStatus.OK);
     }
 
@@ -298,5 +317,5 @@ public class UserController {
         }
         return "redirect:/sns/newsfeed";
     }
-	
+	*/
 }
