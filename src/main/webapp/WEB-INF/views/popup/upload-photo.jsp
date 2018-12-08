@@ -6,19 +6,24 @@
     </a>
 
     <div class="ui-block-title">
-      <h6 class="title">사진공유헤더</h6>
+      <h6 class="title">My Photo</h6>
     </div>
+
 
     <a href="#" class="upload-photo-item">
       <svg class="olymp-computer-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-computer-icon"></use></svg>
-      <h6>Upload Photo</h6>
+      <h6>프로필사진</h6>
       <span>Browse your computer.</span>
+<form action="/sos/user/updateImage" method="post">
+    <input type="file" value="파일선택" name="file"/>
+    <input type="submit" value="변경하기" />
+</form>
     </a>
 
-    <a href="#" class="upload-photo-item" data-toggle="modal" data-target="#choose-from-my-photo">
+     <a href="#" class="upload-photo-item" data-toggle="modal" data-target="#choose-from-my-photo">
       <svg class="olymp-photos-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-photos-icon"></use></svg>
-      <h6>사진올리기</h6>
-      <span>Choose from your uploaded photos</span>
+      <h6>주식정보공유</h6>
+      <span>Choose from my stock</span>
     </a>
   </div>
 </div>
