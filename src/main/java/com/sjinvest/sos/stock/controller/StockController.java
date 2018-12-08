@@ -107,13 +107,24 @@ public class StockController {
 		return "stock/stock-search-result";
 	}
 	@RequestMapping(value="/trade-list" , method = {RequestMethod.GET, RequestMethod.POST})
-	public String tradeList(String userId, Model model) {
+	public String tradeList(String userId, Model model, HttpServletRequest request) {
 		User user = userService.readById("suhyeon");
-		int count = tradingService.countByUser(user.getUserSeq(), 0, null, null, 0, 0);
+		int type = 0;
+		if(request.getParameter("type") != null) {
+			type = Integer.parseInt(request.getParameter("type"));
+		}
+		int count = tradingService.countByUser(user.getUserSeq(), type, null, null, 0, 0);
+		int amount = 10;
+		int page = 0;
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+			System.out.println(page);
+		}
 		int pageTotalNum = (int)Math.ceil((1.0*count)/(1.0*10));
-//		model.addAttribute("pageTotalNum", pageTotalNum);
-		model.addAttribute("pageTotalNum", 10);
-		model.addAttribute("tradingList", tradingService.listByUser(user.getUserSeq(), 0, null, null, 0, 0));
+		model.addAttribute("thisPage", page);
+		model.addAttribute("pageTotalNum", pageTotalNum);
+		model.addAttribute("type", type);
+		model.addAttribute("tradingList", tradingService.listByUser(user.getUserSeq(), type, null, null, ((page-1)*amount)+1, page*amount));
 		return "stock/stock-trade-list";
 	}
 	@ResponseBody

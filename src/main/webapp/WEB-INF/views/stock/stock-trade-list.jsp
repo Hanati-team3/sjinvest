@@ -5,21 +5,57 @@
 <title>SOS - 모의투자 거래내역</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
 <script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
+<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
+var companyNumberList = new Array;
+companyNumberList.push("000270");
+function getStockData(){
+	$.ajax({ 
+        type: "POST", 
+        url: "getStocklist", 
+        traditional : true,
+		data: {'companyNumberList' : companyNumberList},
+        success: function (data) {
+          window.test=data;
+          var realTimeList = $("ul#scroll li a");
+          for(var i = 0; i < realTimeList.length; i++){
+        	  realTimeList.eq(i).text((i+1)+"  "+data.realTime[i].stockName+" "+numberWithCommas(data.realTime[i].total));
+        	  realTimeList.eq(i).attr('href','company/'+data.realTime[i].stockCode);
+          }
+          setTimeout(getStockData, 1000);
+        }
+})
+}
 function addPageNation(){
-	for(var i = 1; i < ${pageTotalNum}+1; i++){
-		console.log(i);
-		$('ul.pagination').append('<li class="page-item"><a class="page-link" href="#">'+i+'</a></li>')
+	if(${pageTotalNum}<11){
+		for(var i = 1; i < ${pageTotalNum}+1; i++){
+			$('ul.pagination').append('<li class="page-item"><a class="page-link" href="trade-list?page='+1+'">'+i+'</a></li>')
+		}		
+	}else{
+		$('ul.pagination').append('<li class="page-item"><a class="page-link" href="trade-list?page='+i+'">'+이전으로+'</a></li>')
+		for(var i = 1; i < ${pageTotalNum}+1; i++){
+			$('ul.pagination').append('<li class="page-item"><a class="page-link" href="trade-list?page='+i+'">'+i+'</a></li>')
+		}				
+		$('ul.pagination').append('<li class="page-item"><a class="page-link" href="trade-list?page='+${pageTotalNum}+'">'+다음으로+'</a></li>')
 	}
 }
-
-
+function changeType(){
+	$('.type-select').val("${type}").prop("selected",true);
+}
+function typeChanged(){	
+	$('.type-select').change(function(){
+		window.location.href ='trade-list?type='+$(this).children("option:selected").attr("value");
+	});
+}
 
 $(document).ready(function(){
-	addPageNation()
-}
-);
+	changeType();
+	addPageNation();
+	typeChanged();
+	getStockData();
+});
 </script>
 </head>
 
@@ -86,13 +122,13 @@ $(document).ready(function(){
         <%-- 검색 끝 --%>
         <%-- tradelist 필터 시작 --%>
         <div class="ui-block">
-          <form class="w-search" style="width: 100%;">
+          <form class="w-search" style="width: 100%;" action="#" method >
             <div class="w-select form-group with-button is-empty">
-              <select class="W-" name = "trade-type">
-                <option value="1">BUY</option>
-                <option value="2">SELL</option>
+              <select class="W- type-select" name = "trade-type">
+                <option value="0">ALL</option>
+                <option value="1">SELL</option>
+                <option value="2">BUY</option>
               </select>
-              <input class="form-control" type="text" placeholder="회사명/업종 검색...">
               <button style="background-color: #3f4257;">
                 <svg class="olymp-magnifying-glass-icon">
                   <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
@@ -177,14 +213,11 @@ $(document).ready(function(){
                   </c:forEach>
                 </tbody>
               </table>
+            </div>
                <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
-                <li class="page-item disabled"><a class="page-link"
-                  href="#" tabindex="-1">Previous</a></li>
-                </li>
               </ul>
             </nav>
-            </div>
           </div>
         </div>
         <%-- 검색 결과 끝 --%>

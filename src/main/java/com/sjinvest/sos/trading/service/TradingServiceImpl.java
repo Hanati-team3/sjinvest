@@ -94,8 +94,22 @@ public class TradingServiceImpl implements TradingService {
 
 	@Override
 	public int countByUser(int userSeq, int tradingType, String startDate, String endDate, int startNum, int endNum) {
-		// TODO Auto-generated method stub
-		return 0;
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(userSeq != 0) {
+			map.put("userSeq", userSeq);
+		}
+		if(tradingType != 0) {
+			map.put("tradingType", tradingType);
+		}
+		if(startDate != null && endDate != null) {
+			map.put("startDate", startDate);
+			map.put("endDate", endDate);
+		}
+		if(startNum != 0 && endNum != 0) {
+			map.put("startNum", startNum);
+			map.put("endNum", endNum);
+		}
+		return mapper.countByUser(map);
 	}
 
 	
