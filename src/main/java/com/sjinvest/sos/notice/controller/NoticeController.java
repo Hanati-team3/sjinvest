@@ -1,5 +1,6 @@
 package com.sjinvest.sos.notice.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,13 +44,18 @@ public class NoticeController {
 		//System.out.println("notice 유저번호: "+userSeq);
 		//System.out.println("notice: "+service.listByUser(userSeq));
 		
-		List<Notice> snsList = service.listByUser(userSeq);
+		if(userSeq != 0) {
+			
+			List<Notice> snsList = service.listByUser(userSeq);
+			List<Notice> snsList2 = new ArrayList<>();
 		
-		for(int i=0; i<snsList.size(); i++) {
+ 		for(int i=0; i<snsList.size(); i++) {
 			if(snsList.get(i).getNoticeType() == 1) {
-				returnData.put("snsList", snsList.get(i));
-				System.out.println("snsList: "+snsList.get(i));
+				snsList2.add(snsList.get(i));
 			}
+		}
+
+ 		returnData.put("snsList", snsList2);
 		}
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
@@ -62,13 +68,18 @@ public class NoticeController {
 		//System.out.println("notice 유저번호: "+userSeq);
 		//System.out.println("notice: "+service.listByUser(userSeq));
 		
-		List<Notice> stockList = service.listByUser(userSeq);
+		if(userSeq != 0) {
+			
+			List<Notice> stockList = service.listByUser(userSeq);
+			List<Notice> stockList2 = new ArrayList<>();
 		
 		for(int i=0; i<stockList.size(); i++) {
 			if(stockList.get(i).getNoticeType() == 2) {
-				returnData.put("stockList", stockList.get(i));
-				System.out.println("stockList:" + stockList.get(i));
+				stockList2.add(stockList.get(i));
 			}
+		}
+		
+		returnData.put("stockList", stockList2);
 		}
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
