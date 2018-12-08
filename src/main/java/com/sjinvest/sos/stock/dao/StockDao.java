@@ -299,7 +299,6 @@ public class StockDao {
             InputStream in = urlConnection.getInputStream();
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonMap = mapper.readTree(in);
-            System.out.println("연결");
             result.put("realTime", convertStockMiniList(jsonMap, "realTime"));
             result.put("topTab", convertStockTop(jsonMap));
             result.put("stockList", convertStockList(jsonMap,"OwnStock"));
