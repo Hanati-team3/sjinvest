@@ -40,7 +40,7 @@
           <c:otherwise>
           <div class="top-header-author">
             <div class="author-content">
-              <a href="#" class="h4 author-name">로그인 후<br>이용해보세요.</a>
+              <div class="email" style="font-weight:bold; font-size:15px; color:red;">로그인 후 <br>이용하세요.</div>
             </div>
           </div>
           </c:otherwise>

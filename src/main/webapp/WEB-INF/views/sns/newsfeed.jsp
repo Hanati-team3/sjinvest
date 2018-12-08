@@ -94,7 +94,7 @@
         <%-- <jsp:include page="../widgets/recommend-page.jsp"></jsp:include> --%>
         
         <%-- 추천 친구 위젯인데 이것도..? --%>
-        <jsp:include page="../widgets/recommend-friend.jsp"></jsp:include>
+        <%-- <jsp:include page="../widgets/recommend-friend.jsp"></jsp:include> --%>
       
       </aside>
       <!-- ... end Right Sidebar -->
@@ -424,14 +424,14 @@ function showFeedList(data){
 					$(replyUL[i]).html(replyLI);
 				}else{
 					$(replyUL[i]).append(replyLI);
-					console.log("왜 안 나오니");
+					//console.log("왜 안 나오니");
 				}
 			}
 			var replyName = $('a[name=replyName]');
 			var replyTime = $('time[name=replyTime]');
 			var replyContent = $('p[name=replyContent]');
 			for (var k = replyCnt; k < replyCnt + data.feedList[i].feedReplyCnt; k++){
-				console.log("댓글");
+				//console.log("댓글");
 				var replyLI = $('li[name=commentLI]');
 				
 				$(replyName[k]).text(data.replyUser[k].userNickname);
@@ -448,6 +448,8 @@ function showFeedList(data){
  * 댓글쓰기
  */
 
+ 
+ 
 /** 
  * 내가 following한 친구목록
  */
@@ -465,7 +467,7 @@ function getFollowList(){
 			if(data.fail != null){
 				/* 값이 없는 경우 */
 			}else{
-				console.log(data.followList);
+				//console.log(data.followList);
 				for(var i=0; i<data.followList.length; i++){
 					$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userId +'</a></div></li>');
 				}
@@ -497,7 +499,7 @@ function getFollowerList(){
 			if(data.fail != null){
 				/* 값이 없는 경우 */
 			}else{
-				console.log(data.followerList);
+				//console.log(data.followerList);
 				for(var i=0; i<data.followerList.length; i++){
 					$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userId +'</a></div></li>');
 				}
