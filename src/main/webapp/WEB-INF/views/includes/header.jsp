@@ -62,7 +62,7 @@
           
           <%-- SNS 알림 시작 --%>
           <div class="control-icon more has-items">
-            <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+            <svg class="olymp-happy-face-icon" onclick="snsList()"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
             <div class="label-avatar bg-blue">2</div>
     
             <div class="more-dropdown more-with-triangle triangle-top-center">
@@ -130,7 +130,7 @@
     
           <%-- 주식 알림 시작 --%>
           <div class="control-icon more has-items">
-            <svg class="olymp-thunder-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-thunder-icon"></use></svg>
+            <svg class="olymp-thunder-icon" onclick="stockList()"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-thunder-icon"></use></svg>
     
             <div class="label-avatar bg-primary">3</div>
     
@@ -395,8 +395,6 @@
 <!-- ... end Responsive Header -->
 
 
-
-
  
   <!-- login modal start-->
   <jsp:include page="../popup/login.jsp"></jsp:include>
@@ -405,5 +403,76 @@
   <!-- signup modal start -->
   <jsp:include page="../popup/signup.jsp"></jsp:include>
   <!-- ... end signup modal -->
+
+
+<script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready( function() {
+	
+	snsList();
+	stockList();
+
+});
+
+/**
+ * header의 sns 목록 함수
+ */
+function snsList(){
+	
+	//console.log("sns리스트 시작.");
+	
+	$.ajax({
+		
+		url : '/sos/notice/snsList',
+		type : 'get',
+		data : {
+			"userSeq" : "${user.userSeq}"
+		},
+		success: function(data){
+			
+			console.log(data.snsList);
+			console.log(data.snsList);
+			
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+}
+
+/**
+ * header의 stock 목록 함수
+ */
+function stockList(){
+	
+	//console.log("stock리스트 시작.");
+	
+	$.ajax({
+		
+		url : '/sos/notice/stockList',
+		type : 'get',
+		data : {
+			"userSeq" : "${user.userSeq}"
+		},
+		success: function(data){
+			
+			console.log(data.stockList);
+			
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+}
+
+
+</script>
+
+
+
 
 

@@ -299,7 +299,6 @@ public class StockDao {
             InputStream in = urlConnection.getInputStream();
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonMap = mapper.readTree(in);
-            System.out.println("연결");
             result.put("realTime", convertStockMiniList(jsonMap, "realTime"));
             result.put("topTab", convertStockTop(jsonMap));
             result.put("stockList", convertStockList(jsonMap,"OwnStock"));
@@ -326,7 +325,24 @@ public class StockDao {
 			e.printStackTrace();
 		}
 		return result;
-
+	}
+	public Map<String, Object> forHolding(List<String> companyNumberList){
+		Map<String, Object> result = new HashMap<String, Object>();
+		String apiURL = "http://54.180.117.83:8000/stock?";
+		String urlString = apiURL + "code="+convertListToString(companyNumberList);
+		try {
+			URL url = new URL(urlString);
+			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            InputStream in = urlConnection.getInputStream();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonMap = mapper.readTree(in);
+            result.put("realTime", convertStockMiniList(jsonMap, "realTime"));
+            result.put("stockList", convertStockList(jsonMap,"OwnStock"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	public TimeSeries getChartData(List<String> companyNumberList, String startDate, String endDate, int type) {
 		TimeSeries result = new TimeSeries();
@@ -363,11 +379,48 @@ public class StockDao {
 		}
 		return null;
 	}
+	public Map<String, Object> getChartDataWithKospi(List<String> companyNumberList, String startDate, String endDate, int type, String kStartDate, String kEndDate, int kType) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		TimeSeries result = new TimeSeries();
+		String apiURL = "http://54.180.117.83:8003/stock/chart?";
+		String urlString = apiURL + "code="+convertListToString(companyNumberList)+"&startDate="+startDate+"&endDate="+endDate+"&type="+type+"&kstartDate="+kStartDate+"&kendDate="+kEndDate+"&ktype="+kType;
+		System.out.println(urlString);
+		try {
+			URL url = new URL(urlString);
+			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            InputStream in = urlConnection.getInputStream();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonMap = mapper.readTree(in);
+            map.put("chart", convertListTimeSeries(companyNumberList, jsonMap, type));
+            map.put("kospiChart", convertKospiListTimeSeries(jsonMap).get("kospiChart"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+	public List<Rank> getRank(int type) {
+		String apiURL = "http://54.180.117.83:8008/rank?";
+		String urlString = apiURL + "rank="+type;
+		System.out.println(urlString);
+		try {
+			URL url = new URL(urlString);
+			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            InputStream in = urlConnection.getInputStream();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonMap = mapper.readTree(in);
+            return convertStockTop(jsonMap);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	public static void main(String[] args) {
 		StockDao stockDao = new StockDao();
 		List<String> companyList = new ArrayList<String>();
 		companyList.add("086790");
 		companyList.add("004170");
-		System.out.println(stockDao.getChartData(companyList, "20181205", "20181206", 2));
+		System.out.println(stockDao.getChartDataWithKospi(companyList, "20181208", "20181208", 1,"20181201","20181208",2));
 	}
 }
