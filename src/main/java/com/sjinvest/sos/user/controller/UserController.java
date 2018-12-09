@@ -57,7 +57,7 @@ public class UserController {
 	
 	@ResponseBody
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> login(String userId, String userPw, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String,Object>> login(HttpSession session, String userId, String userPw, HttpServletRequest request, HttpServletResponse response) {
 		
 		log.info("login : "+ userId);
 		log.info("login : "+ userPw);
@@ -65,14 +65,12 @@ public class UserController {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		
 		User user = service.certify(userId, userPw);
-		//System.out.println("user정보 :"+user);
 		
 		// 로그인 성공
 		if(user != null) {
-			
 			// session 부분
-			request.getSession().setAttribute("user", user);
-			
+			session.setAttribute("user", user);
+
 			// cookie 부분
 			Cookie cookie = new Cookie("userIdC", userId);
 			cookie.setMaxAge(60 * 60 * 24);
@@ -134,7 +132,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
 		log.info("logout");
 
@@ -153,7 +151,8 @@ public class UserController {
 		}
 		
 		// session 지우는 부분
-		request.getSession().invalidate();
+		//request.getSession().invalidate();
+		session.invalidate();
 		
 		return "redirect:/sns/newsfeed";
 

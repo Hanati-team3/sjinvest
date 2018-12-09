@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <!-- user_profile modal start -->
 
   <div class="modal fade" id="user_data">
@@ -41,7 +41,6 @@
             </a>
             <div class="author-content">
               <a href="#" id="id2" class="h4 author-name">aaa</a>
-              
               <div class="email" id="email2"></div>
             </div>
           </div>
@@ -50,6 +49,25 @@
     </div>
   </div>
 </div>
+
+
+                <%-- <div class="control-block-button post-control-button">
+                  <a href="#" class="btn btn-control has-i bg-interest">
+                    <c:choose>
+                        <c:when test="${isInterest eq true}">
+                          <i class="far fa-heart"></i>
+                        </c:when>
+                        <c:when test="${isInterest eq false}">
+                          <i class="fas fa-heart"></i>
+                        </c:when>
+                    </c:choose>
+                  </a>
+                </div> --%>
+
+
+
+
+
 
 <!-- 프로필 사진, 배경 end -->
 
