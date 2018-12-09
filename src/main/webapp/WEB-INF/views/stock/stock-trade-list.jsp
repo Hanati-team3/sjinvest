@@ -11,6 +11,24 @@
 <script>
 var companyNumberList = new Array;
 companyNumberList.push("000270");
+
+function html2canvas(){
+	$('#share-btn').click(function() {
+	    html2canvas($('.forums-table').parent(), {
+	        onrendered: function(canvas) {
+	            if (typeof FlashCanvas != "undefined") {
+	                FlashCanvas.initElement(canvas);
+	            }
+	            var image = canvas.toDataURL("image/png"); 
+	            $("#imgData").val(image);
+	            $("#imgForm").submit();
+	        }
+	    });
+	});	
+}
+
+
+
 function getStockData(){
 	$.ajax({ 
         type: "POST", 
@@ -55,6 +73,7 @@ $(document).ready(function(){
 	addPageNation();
 	typeChanged();
 	getStockData();
+	html2canvas();
 });
 </script>
 </head>
@@ -213,6 +232,12 @@ $(document).ready(function(){
                   </c:forEach>
                 </tbody>
               </table>
+                 <div class="printBtnZone" align="right" >
+			        <a id="share-btn" class="btn bg-gray small w-auto">다운로드</a>
+			    </div>
+			    <form name="imgForm" id="imgForm" action="/convertToImage" method="post">
+			        <input type="hidden" id="imgData" name="imgData">
+			    </form>
             </div>
                <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
