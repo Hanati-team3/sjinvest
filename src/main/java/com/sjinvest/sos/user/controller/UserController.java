@@ -102,7 +102,6 @@ public class UserController {
 	  
 	  System.out.println(user);
 	  if(user != null) {
-		  session.setAttribute("user", user);
 		  user.setUserPw("kakao");
 		  user.setUserEmail("kakao@kakao.com");
 		  user.setUserAuthority("kakao");
@@ -110,8 +109,8 @@ public class UserController {
 		  if(service.readById(user.getUserId()) == null) {
 			  service.regist(user);
 		  }
-	
-		  System.out.println(session);
+		  user = service.readById(user.getUserId());
+		  session.setAttribute("user", user);
 		  session.setAttribute("login", user);
 		  System.out.println(user.toString());
 		  
@@ -319,6 +318,7 @@ public class UserController {
 	  		  if(service.readById(user.getUserId()) == null) {
 	  			  service.regist(user);
 	  		  }
+	  		  user = service.readById(userInfo.get("id").asText());
 	  		  session.setAttribute("user", user);
 	  		  session.setAttribute("login", user);
   		  

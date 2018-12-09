@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,11 +45,12 @@ public class FeedController {
 	private FollowService service;
 	
 	@PostMapping(value = "/write")
-	public String write(Feed feed, RedirectAttributes rttr, HttpServletRequest request) {
+	public String write(HttpSession session, Feed feed, RedirectAttributes rttr, HttpServletRequest request) {
 //		해당 유저의 정보(seq가 필요함)
 //		feed.setUserSeq(userService.readById("").getUserSeq());
-		if(request.getAttribute("userId") != null) {
-			feed.setUserSeq(userService.readById((String)request.getAttribute("userId")).getUserSeq());
+		if(session.getAttribute("user") != null) {
+//			System.out.println("네이버 로그인?");
+			feed.setUserSeq(((User)session.getAttribute("user")).getUserSeq());
 			feedService.write(feed);
 		}
 //		System.out.println("아직 유저때문에 !!! "+service.write(feed));
@@ -148,14 +150,25 @@ public class FeedController {
 	}
 
 	
-	@GetMapping(value = "/delete")
-	public String delete(int feedSeq, RedirectAttributes rttr) {
-		
-		feedService.deleteFeed(feedSeq);
-		System.out.println("아직 유저때문에 !!! "+feedService.deleteFeed(feedSeq));
-		
-		return "redirect:/sns/newsfeed";
-	}
+//	@PostMapping(value ="/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	public ResponseEntity<Integer> add(int userSeq, int feedSeq, RedirectAttributes rttr, RedirectAttributes reAttributes) {
+//		
+//		
+//		
+//		
+//		/*Like like = new Like();
+//		like.setFeedSeq(feedSeq);
+//		like.setUserSeq(userSeq);
+////		유저 아닐 때 처리하는 거 없음
+//		if(service.check(like)){
+//			service.delete(like);
+//		}else {
+//			service.add(like);
+//		}
+//		int likeList = service.checkCount(feedSeq);
+//		return new ResponseEntity<>(likeList,HttpStatus.OK);*/
+//		return null;
+//	}
 	
 //	검색
 	@ResponseBody
