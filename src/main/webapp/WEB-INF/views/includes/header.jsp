@@ -26,6 +26,20 @@
 
 <%-- <div>${userSession.userId}</div> --%>
 
+
+<%
+boolean result = true;
+
+if((User)(request.getSession().getAttribute("user")) != null){
+
+  if(((((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("http") || (((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("https"))){
+    result = true;
+  }else{
+    result = false;
+  }
+}
+%>
+
 <!-- Header -->
 
 <header class="header--standard header--standard-dark" id="header--standard-2" style="width: 100%; left: 0px; padding: 0px 55px;">
@@ -134,12 +148,19 @@
           <!-- 개인정보 시작  -->
           <div class="author-page author vcard inline-items more">
             <div class="author-thumb">
-            <%if (((((User)request.getAttribute("user")).getUserPicture().split(":")[0]).equals("http") || (((User)request.getAttribute("user")).getUserPicture().split(":")[0]).equals("https"))){ %>
-              		<img src="${user.userPicture}" width="36" height="36" class="avatar">
-              <%}else{ %>
-              		<img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"width="36" height="36" class="avatar">
               
-              <%} %>
+              <c:choose>
+                <c:when test="${result eq true}">
+                
+                <!-- ((((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("http") || (((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("https")) -->
+                  <img src="${user.userPicture}" width="36" height="36" class="avatar">
+                </c:when>
+                <c:otherwise>
+                  <img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"width="36" height="36" class="avatar">
+                </c:otherwise> 
+              </c:choose>
+              
+              
               <!-- 마우스 오버 -->
               <div class="more-dropdown more-with-triangle">
                 <div class="mCustomScrollbar" data-mcs-theme="dark">
@@ -150,17 +171,17 @@
                   </div>
                   <ul>
                     <li>
-                      <a href="#">
+                      <a href="/sos/stock/interest/list">
                         <span>관심종목</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="/sos/stock/trade-list">
                         <span>주문내역</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="/sos/stock/holding/list">
                         <span>현재보유내역</span>
                       </a>
                     </li>
@@ -341,12 +362,14 @@
 
 <script type="text/javascript">
 
+
+
 $(document).ready( function() {
-	
 	snsList();
 	stockList();
-
 });
+
+ 
 
 /**
  * header의 sns 목록 함수
@@ -364,16 +387,16 @@ function snsList(){
 			"userId" : "${user.userId}"
 		},
 		success: function(data){
-			
-			
-			for(var i=0; i<data.snsList.length; i++){
-				
-				//console.log("sns정보"+data.snsList[i].noticeContent);
-				$('#snsCnt').replaceWith('<div class="label-avatar bg-blue" id="snsCnt">'+ data.snsList.length +'</div>');
-				$('#sns-list').append('<li><div class="notification-event"><div><a href="#" class="h6 notification-friend">'+ data.snsList[i].noticeContent +'</a></div><span class="notification-date">'+ data.snsList[i].noticeDate +'</span></div></li>');
-			
-			
-			}			
+			if(!data.fail){
+    			if(data.snsList.length != null){	
+    			for(var i=0; i<data.snsList.length; i++){
+    				
+    				//console.log("sns정보"+data.snsList[i].noticeContent);
+    				$('#snsCnt').replaceWith('<div class="label-avatar bg-blue" id="snsCnt">'+ data.snsList.length +'</div>');
+    				$('#sns-list').append('<li><div class="notification-event"><div><a href="#" class="h6 notification-friend">'+ data.snsList[i].noticeContent +'</a></div><span class="notification-date">'+ data.snsList[i].noticeDate +'</span></div></li>');
+    			}		
+			}
+		}
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -397,19 +420,19 @@ function stockList(){
 			"userId" : "${user.userId}"
 		},
 		success: function(data){
-			
-			for(var i=0; i<data.stockList.length; i++){
-				
-				//console.log("주식정보 : "+data.stockList[i].noticeContent);
-				$('#stockCnt').replaceWith('<div class="label-avatar bg-primary" id="stockCnt">'+ data.stockList.length +'</div>');
-				$('#stock-list').append('<li><div class="notification-event"><div><a href="#" class="h6 notification-friend">'+ data.stockList[i].noticeContent +'</a></div><span class="notification-date">'+ data.stockList[i].noticeDate +'</span></div></li>');	
-			
-			
+			if(!data.fail){
+				if(data.stockList.length != null){	
+					for(var i=0; i<data.stockList.length; i++){
+						
+						//console.log("주식정보 : "+data.stockList[i].noticeContent);
+						$('#stockCnt').replaceWith('<div class="label-avatar bg-primary" id="stockCnt">'+ data.stockList.length +'</div>');
+						$('#stock-list').append('<li><div class="notification-event"><div><a href="#" class="h6 notification-friend">'+ data.stockList[i].noticeContent +'</a></div><span class="notification-date">'+ data.stockList[i].noticeDate +'</span></div></li>');	
+					}
+				}
 			}
-			
 		},
 		error : function() {
-	        alert("관리자에게 문의해주세요.");
+	       alert("관리자에게 문의해주세요.");
 	    }
 	
 	})

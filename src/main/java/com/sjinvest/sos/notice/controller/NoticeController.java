@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,11 +50,11 @@ public class NoticeController {
 
 		// System.out.println("notice 유저번호: "+userSeq);
 		// System.out.println("notice: "+service.listByUser(userSeq));
-
+		
 		List<Notice> snsList = new ArrayList<>();
 		List<Notice> snsList2 = new ArrayList<>();
 
-		if (userId != null) {
+		if (userId != "") {
 			User user = userService.readById(userId);
 			int userSeq = user.getUserSeq();
 
@@ -64,11 +65,14 @@ public class NoticeController {
 					snsList2.add(snsList.get(i));
 				}
 			}
-
+			returnData.put("snsList", snsList2);
+		}else{
+			returnData.put("fail", "notUser");
 		}
-
-		returnData.put("snsList", snsList2);
+		
+		
 		return new ResponseEntity<>(returnData, HttpStatus.OK);
+
 	}
 
 	@ResponseBody
@@ -81,8 +85,7 @@ public class NoticeController {
 
 		List<Notice> stockList2 = new ArrayList<>();
 		List<Notice> stockList = new ArrayList<>();
-
-		if (userId != null) {
+		if (userId != "") {
 			User user = userService.readById(userId);
 			int userSeq = user.getUserSeq();
 
@@ -94,8 +97,11 @@ public class NoticeController {
 				}
 			}
 
+			returnData.put("stockList", stockList2);
+		}else{
+			returnData.put("fail", "notUser");
 		}
-		returnData.put("stockList", stockList2);
+		
 		return new ResponseEntity<>(returnData, HttpStatus.OK);
 	}
 }
