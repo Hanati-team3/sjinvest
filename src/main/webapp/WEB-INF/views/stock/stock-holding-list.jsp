@@ -116,7 +116,7 @@
                   </ul>
     
                   <div class="chart-js chart-js-pie-color">
-                    <canvas id="pie-color-chart" width="180" height="180"></canvas>
+                    <canvas id="total-holding-chart" width="180" height="180"></canvas>
                     <div class="general-statistics">
                       <fmt:formatNumber value="${holdingMap.total}" type="currency" currencySymbol="￦"/>
                       <span>자산총액</span>
@@ -211,7 +211,7 @@
                       <td class="holding-total-money">
                         <div class="author-freshness">
                           <a class="h6">
-                            <fmt:formatNumber value="${eachHolding.holdingTotalMoney}" pattern="#,###" />
+                            <fmt:formatNumber value="${eachHolding.realTimePrice * eachHolding.holdingAmount}" pattern="#,###" />
                           </a>
                         </div>
                       </td>
@@ -262,14 +262,12 @@
   	HOLDING.flag = true;
   	HOLDING.holdingList = [];
   	HOLDING.cashTotal = [];
+  	HOLDING.totalHoldingChart = document.getElementById("total-holding-chart");
   	
 	$(document).ready(function() {
 		HOLDING.cashTotal = ${holdingMap.cashTotal};
-		console.log("ready... HOlDING.cashTotal");
-		console.log(HOLDING.cashTotal);
+		setTotalHoldingChart( ${holdingMap.stockTotal},HOLDING.cashTotal);
 		setHoldingList();
-		console.log("ready... HOlDING.holdingList");
-		console.log(HOLDING.holdingList);
 		holdingListUpdate();
 	});
 	
@@ -295,29 +293,46 @@
 		});
     	</c:forEach>
 	}
+
+	/* 현금 자산 비율 차트 세팅 */
+	function setTotalHoldingChart(stock, cash) {
+	    var ctx_pc = HOLDING.totalHoldingChart.getContext("2d");
+	    var data_pc = {
+	        labels: ["주식", "현금"],
+	        datasets: [
+	            {
+	                data: [stock, cash],
+	                borderWidth: 0,
+	                backgroundColor: [
+	                    "#7c5ac2",
+	                    "#08ddc1"
+	                ]
+	            }]
+	    };
+
+	    HOLDING.totalHoldingChartEL = new Chart(ctx_pc, {
+	        type: 'doughnut',
+	        data: data_pc,
+	        options: {
+	            deferred: {           // enabled by default
+	                delay: 300        // delay of 500 ms after the canvas is considered inside the viewport
+	            },
+	            cutoutPercentage:93,
+	            legend: {
+	                display: false
+	            },
+	            animation: {
+	                animateScale: false
+	            }
+	        }
+	    });
+	}
 	
-	function holdingListUpdate() {
-		if(HOLDING.flag) {
-    		$.ajax({
-    			type : "POST",
-    			url : "update",
-    			dataType : "json",
-    			contentType: "application/json; charset=utf-8",
-    			data: JSON.stringify(HOLDING.holdingList),
-    			success : function(map) {
-    				console.log(map);
-    				window.stock = map;
-    				setRateCard(map.holdingWidget.stockTotal);
-    				setHoldingTable(map.holdingWidget.holdingList);
-    				//setChartCard(stockData.holdingList);
-    				//setTimeout(holdingListUpdate, 2000);
-    			},
-    			error : function(request, status, error) {
-    				console.log("code:" + request.status + "\n" + "message:"
-    						+ request.responseText + "\n" + "error:" + error);
-    			}
-    		})
-		}
+	/* 현금 자산 비율 차트 업데이트 */
+	function updateTotalHoldingChart(stock, cash) {
+		console.log(HOLDING.totalHoldingChartEL.data.datasets[0].data);
+		HOLDING.totalHoldingChartEL.data.datasets[0].data = [stock, cash];
+		HOLDING.totalHoldingChartEL.update(0);
 	}
 	
 	/** 자산 비율 카드 세팅 */
@@ -351,21 +366,51 @@
 		});
 	}
 	
-	/** 차트 세팅 */
+	/** 각 보유종목 슬라이드 데이터 세팅 */
 	function setChartCard(holdingList) {
-		// 모든 슬라이드에 대해
+		// 모든 슬라이드에 대해.. (each)
+		// 슬라이드의 개수가 holdingList의 length보다 2 큼. 템플릿 js가 양쪽에 동적으로 슬라이드를 두개 붙이기 때문에
 		$(".swiper-slide").each(function(index, item){
-			if(index < holdingList.length) {
-				//원래는  return 하지 말고 밑에있는 행 지워야함. ㄱㅊ
-    			console.log("each" + holdingList[index]);
-    			var figure = (holdingList[index].holdingRateOfReturn / 100).toFixed(2);
-    			console.log(figure);
-    			$(item).find(".pie-chart").attr('data-value', figure);
-			}
-			else {
-				//지우기
+			for(var i = 0; i < holdingList.length; i++) {
+				if($(item).find(".chart-text h6").text() == holdingList[i].companyName) {
+					$(item).find(".chart-text p").text(holdingList[i].holdingTotalMoney.toLocaleString() + "원을 투자하여"+
+							holdingList[i].holdingReturn.toLocaleString()+"원의 수익을 얻었습니다.");
+					if(holdingList[i].holdingReturn > 0) {
+						$(item).find(".chart-text p").removeClass('minus').addClass('plus');
+					}
+					else {
+						$(item).find(".chart-text p").removeClass('plus').addClass('minus');
+					}
+					break;
+				}
 			}
 		});
+	}
+	
+	/* 실시간 홀딩 데이터 업데이트(2초마다) */
+	function holdingListUpdate() {
+		if(HOLDING.flag) {
+    		$.ajax({
+    			type : "POST",
+    			url : "update",
+    			dataType : "json",
+    			contentType: "application/json; charset=utf-8",
+    			data: JSON.stringify(HOLDING.holdingList),
+    			success : function(map) {
+    				console.log(map);
+    				window.stock = map;
+    				setRateCard(map.holdingWidget.stockTotal);
+    				setHoldingTable(map.holdingWidget.holdingList);
+    				updateTotalHoldingChart(map.holdingWidget.stockTotal, HOLDING.cashTotal);
+    				setChartCard(map.holdingWidget.holdingList);
+    				//setTimeout(holdingListUpdate, 2000);
+    			},
+    			error : function(request, status, error) {
+    				console.log("code:" + request.status + "\n" + "message:"
+    						+ request.responseText + "\n" + "error:" + error);
+    			}
+    		})
+		}
 	}
 	
 	</script>
