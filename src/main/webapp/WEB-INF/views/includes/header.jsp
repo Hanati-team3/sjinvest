@@ -21,13 +21,14 @@
     //System.out.println("쿠키 최종userId = "+ userId);
     
     request.setAttribute("userId", userId);
+    
 %>
 
+<%-- <div>${userSession.userId}</div> --%>
 
 <!-- Header -->
 
 <header class="header--standard header--standard-dark" id="header--standard-2" style="width: 100%; left: 0px; padding: 0px 55px;">
-
   <div class="header-content-wrapper" >
   
     <a href="<%=application.getContextPath()%>/sns/newsfeed" class="logo" style="float: left; padding:10px; min-width: 70px;">
