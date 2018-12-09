@@ -8,6 +8,21 @@
   <jsp:include page="../includes/mypage_profile.jsp"></jsp:include>
   <!-- mypage_profile end --> 
 --%>
+
+<%
+boolean result_profile = true;
+
+if((User)(request.getSession().getAttribute("user")) != null){
+
+  if(((((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("http") || (((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("https"))){
+    result_profile = true;
+  }else{
+    result_profile = false;
+  }
+}
+%>
+
+
   
 <!-- 프로필 사진, 배경 start -->
 
@@ -28,12 +43,22 @@
           <c:when test="${user.userId ne null }">
           <div class="top-header-author">
             <a href="#" class="author-thumb" data-toggle="modal" data-target="#update-header-photo">
-            	<%if ((((User)request.getAttribute("user")).getUserPicture().split(":")[0]).equals("http") || (((User)request.getAttribute("user")).getUserPicture().split(":")[0]).equals("https")){ %>
+             
+            <c:choose>
+              <c:when test="${result_profile eq true }">
               		<img src="${user.userPicture}" width="124" height="124" alt="author">
-              <%}else{ %>
-              		<img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}" width="124" height="124" alt="author">
               
-              <%} %>
+              </c:when>
+              <c:otherwise>
+              		<img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}" width="124" height="124" alt="author">
+              </c:otherwise>
+              
+            </c:choose>
+            
+            
+            
+            
+            
             </a>
             <div class="author-content">
               <a href="#" class="h4 author-name">${user.userId }</a>
@@ -41,6 +66,7 @@
               <div class="email">${user.userEmail }</div>
             </div>
           </div>
+          
           </c:when>
           
           <c:otherwise>
