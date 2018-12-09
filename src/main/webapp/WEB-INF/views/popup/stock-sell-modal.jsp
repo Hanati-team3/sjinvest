@@ -13,8 +13,8 @@
       </div>
 
       <div class="ui-block-content">
-        <input style="display: hidden;" id="sell-modal-company-number"></input>
-        <input style="display: hidden;" id="sell-modal-company-name"></input>
+        <input hidden="true" id="sell-modal-company-number"></input>
+        <input hidden="true" id="sell-modal-company-name"></input>
         <div class="form-group label-floating">
           <label class="control-label">가격</label> 
           <input class="form-control" id="price" placeholder="" value="." type="text" readonly="readonly">
@@ -24,9 +24,14 @@
           <label class="control-label">수량</label> 
           <input class="form-control" id="amount"  placeholder="" value="" type="number" min="0">
         </div>
+        
+        <div class="form-group label-floating ">
+          <label class="control-label">현재보유수량</label> 
+          <input class="form-control" id="sell-modal-holding-amount"  placeholder="" value="." type="number" readonly="readonly">
+        </div>
 
         <div class="form-group label-floating">
-          <label class="control-label">예상 구매액</label> 
+          <label class="control-label">예상 판매액</label> 
           <input class="form-control" id="totalPrice" placeholder="" value="." type="text" readonly="readonly">
         </div>
 

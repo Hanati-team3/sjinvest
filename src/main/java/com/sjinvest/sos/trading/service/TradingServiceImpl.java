@@ -39,17 +39,22 @@ public class TradingServiceImpl implements TradingService {
 			holding.setCompanyName(trading.getCompanyName());
 			holding.setCompanyNumber(trading.getCompanyNumber());
 			holding.setUserSeq(trading.getUserSeq());
+			// 구매
 			if(trading.getTradingType()==1) {
 				data.put("userMoney", -(trading.getTradingAmount()*trading.getTradingPrice()));
 				holding.setHoldingAmount(trading.getTradingAmount());
 				holding.setHoldingTotalMoney(trading.getTradingAmount()*trading.getTradingPrice());
-			}else {
+			}
+			// 판매
+			else {
 				holding.setHoldingAmount(-trading.getTradingAmount());
 				holding.setHoldingTotalMoney(-(trading.getTradingAmount()*trading.getTradingPrice()));
 				data.put("userMoney", (trading.getTradingAmount()*trading.getTradingPrice()));
 				Holding existHolding = holdingMapper.checkByCompanyNumber(holding).get(0);
 				double perSharePrice = existHolding.getHoldingTotalMoney()/existHolding.getHoldingAmount();
 				double tradingEarningsRatio = (((trading.getTradingPrice()-perSharePrice)/perSharePrice)*100);
+				// 6자리 반올림
+				tradingEarningsRatio = (double)Math.round(tradingEarningsRatio * 1000000d) / 1000000d;
 				trading.setTradingEarningsRatio(tradingEarningsRatio);
 				userMapper.updateUserMargin(trading.getUserSeq());
 			}

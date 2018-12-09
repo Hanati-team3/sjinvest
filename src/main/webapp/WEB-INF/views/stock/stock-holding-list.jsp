@@ -262,8 +262,8 @@
   	HOLDING.eachHoldingChartElements = [];
   	
 	$(document).ready(function() {
-		console.log('user : ' + <%=(request.getSession().getAttribute("user"))%>);
-		console.log('user : ' + ${sessionScope.user});
+		console.log('user : ' + "<%=(request.getSession().getAttribute("user"))%>");
+		console.log('user : ' + "${sessionScope.user}");
 		HOLDING.cashTotal = ${holdingMap.cashTotal};
 		setHoldingList();
 		setTotalHoldingChart( ${holdingMap.stockTotal}, HOLDING.cashTotal);
@@ -277,6 +277,7 @@
 		window.tr = thisTr;
 		$(e.currentTarget).find('input[id="sell-modal-company-number"]').val(thisTr.find('.company-number a').text());
 		$(e.currentTarget).find('input[id="sell-modal-company-name"]').val(thisTr.find('.company-name a').text());
+		$(e.currentTarget).find('input[id="sell-modal-holding-amount"]').val(thisTr.find('.holding-amount a').text());
 		$(e.currentTarget).find('input[id="price"]').val(thisTr.find('.stock-price a').text());
 		$(e.currentTarget).find('input[id="amount"]').val("");
 		$(e.currentTarget).find('input[id="totalPrice"]').val("");
@@ -285,23 +286,26 @@
 	
 	/* 판매 모달에서 수량 입력 이벤트 */
 	$('#amount').keyup(function (e){
-		var price = $('#price').val().replace(",","");
-		var userMoney = ${user.userMoney};
-		var amount = $(this).val().replace(",","");
+		var price = Number($('#price').val().replace(",",""));
+		var userMoney = Number(${user.userMoney});
+		var amount = Number($(this).val());
+		var holdingAmount = Number($('#sell-modal-holding-amount').val().replace(",",""));
 		var total = 0;
-		// 잔액 초과하는 수량 입력시 구매가능 최대 수량으로..
- 		if( (userMoney - (amount * price)) < 0 ){
-			amount = ((userMoney / price) * 1).toFixed(0);
+		
+		// 보유수량 초과하는 수량 입력시 현재보유수량으로 입력수량 변경
+ 		if( amount > holdingAmount ){
+			amount = holdingAmount; 
 		}
+		
  		total = amount * price;
 		$(this).val(amount);
 		$('#totalPrice').val(total.toLocaleString());
-		$('#balance').val((userMoney - total).toLocaleString());
+		$('#balance').val((userMoney + total).toLocaleString());
 	})
 	
 	/* 판매 버튼 입력 이벤트 */
 	$('#sell-button').on('click', function (e){
-		if($('#amount').val() == "") {
+		if($('#amount').val() == "" || $('#amount').val() == 0) {
 			alert('수량을 입력해주세요');
 			return;
 		}
@@ -309,15 +313,15 @@
               type: "post", 
               url: "sell", 
               data: {
-          	  	"companyNumber" : $('#sell-modal-company-number').val(),
-              	"companyName" : $('#sell-modal-company-name').val(),
-              	"tradingAmount" : $('#amount').val().replace(",",""),
-              	"tradingPrice" : $('#price').val().replace(",","")
-			  },
+            	  	"companyNumber" : $('#sell-modal-company-number').val(),
+                  	"companyName" : $('#sell-modal-company-name').val(),
+                  	"tradingAmount" : $('#amount').val(),
+                  	"tradingPrice" : $('#price').val().replace(",","")
+    	  		},
               success: function (data) {
               	if(data.message == "true"){
-              		alert("${company.companyName} "+$('#amount').val()+"주가 판매되었습니다.");
-              		$("#stock_buy_modal").modal('hide');
+              		alert($('#sell-modal-company-name').val() + " 종목 " +$('#amount').val()+"주가 판매되었습니다.");
+              		$("#stock_sell_modal").modal('hide');
               		//location.href= '<%=application.getContextPath()%>/stock/index';
               	}
               	else {

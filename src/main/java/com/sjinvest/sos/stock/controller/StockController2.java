@@ -87,12 +87,14 @@ public class StockController2 {
 		}
 		//request.setAttribute("user", user);
 		
+		System.out.println(0);
 		List<Holding> holdingList = new ArrayList<>();					/* 보유자산 리스트 */
 		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
 		Map<String, Object> interestMap = new Hashtable<>();	/* 관심종목 Stock리스트와 Chart데이터 */
 		Map<String, Object> holdingWidgetMap = null;			/* 보유자산 total, stockTotal, cashTotal, Holding리스트 */
 		Map<String, Object> map = null;							/* stock 서비스에서 한번에 받아올 정보 : realTime, topTab, 관심종목 Stock리스트, HoldingMap  */
 		
+		System.out.println(1);
 		holdingList = holdingService.listByUser(user.getUserSeq());
 		for (Interest interest : interestService.listByUser(user.getUserSeq())) {
 			interestCompanyNumberList.add(interest.getCompanyNumber());
