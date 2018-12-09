@@ -13,4 +13,6 @@ public interface LikeService {
 	public List<Like> listByUser(int userSeq);
 	// 좋아요 여부 확인
 	public boolean check(Like like);
+	// 좋아요 개수 확인
+	public int checkCount(int feedSeq);
 }

@@ -405,6 +405,11 @@ function showFeedList(data){
 		var writeComment = $('a[name=writeComment]')
 		$(writeComment[i]).attr('title',data.feedList[i].feedSeq)
 		
+		/* 좋아요도 등록 */
+		var likeComment = $('a[name=likebyOthers]')
+		$(likeComment[i]).attr('title',data.feedList[i].feedSeq)
+		
+		
 		var feed = $('#newsfeed-items-grid').html(); 
 		if(i == 0 ){
 			$(feedCard).html(feed);
@@ -482,6 +487,30 @@ function getFollowList(){
 	})
 	
 }
+
+/* 좋아요 글 누르기 */
+function likeFeed(obj){
+	
+	var feedSeq = $(obj).attr('title');
+	$.ajax({
+		url : '/sos/like/handle',
+		type : 'post',
+		data : {
+			"userSeq" : "${user.userSeq}",
+			"feedSeq" : feedSeq
+		},
+		dataType:'json',
+		success: function(data){
+			 $(obj).find('span').text(data);
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	}) 
+}
+
+
 
 /** 
  * 나를 follower한 친구목록

@@ -64,5 +64,10 @@ public class LikeServiceImpl implements LikeService {
 		return mapper.check(like) !=null;
 	}
 
+	@Override
+	public int checkCount(int feedSeq) {
+		return mapper.checkCount(feedSeq);
+	}
+
 
 }
