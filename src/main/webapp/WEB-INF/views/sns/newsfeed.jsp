@@ -70,7 +70,7 @@
         <%-- 내 정보 위젯 --%>
         <jsp:include page="../widgets/profile-info.jsp"></jsp:include>
 
-        <c:if test="${userId ne null }">
+        <c:if test="${user.userId ne null }">
         <%-- 내 주식정보 위젯 --%>
         <jsp:include page="../widgets/twitter-feed.jsp"></jsp:include>
         </c:if>
@@ -83,7 +83,7 @@
       <!-- Right Sidebar -->
       <aside class="col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-xs-12">
         
-        <c:if test="${userId ne null }">
+        <c:if test="${user.userId ne null }">
         <%-- 관심 종목 위젯--%>
         <jsp:include page="../widgets/activity-feed.jsp"></jsp:include>
         <%-- 팔로잉, 팔로워 --%>

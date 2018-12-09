@@ -71,7 +71,7 @@ public class UserController {
 		if(user != null) {
 			
 			// session 부분
-			request.getSession().setAttribute("userSession", user);
+			request.getSession().setAttribute("user", user);
 			
 			// cookie 부분
 			Cookie cookie = new Cookie("userIdC", userId);
