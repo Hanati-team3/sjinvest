@@ -11,4 +11,5 @@ public interface LikeMapper {
 	public int deleteByFeed(int feedSeq);
 	public List<Like> listByUser(int userSeq);
 	public Like check(Like like);
+	public int checkCount(int feedSeq);
 }

@@ -1,6 +1,12 @@
 package com.sjinvest.sos.like.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +26,18 @@ public class LikeController {
 
 	private LikeService service;
 	
-	@PostMapping("/add")
-	public String add(Like like, RedirectAttributes rttr) {
-		log.info("register : "+ like);
-		service.add(like);
-		return "redirect:/interest/list";
+	@PostMapping("/handle")
+	public ResponseEntity<Integer> add(int userSeq, int feedSeq, RedirectAttributes rttr, RedirectAttributes reAttributes) {
+		Like like = new Like();
+		like.setFeedSeq(feedSeq);
+		like.setUserSeq(userSeq);
+//		유저 아닐 때 처리하는 거 없음
+		if(service.check(like)){
+			service.delete(like);
+		}else {
+			service.add(like);
+		}
+		int likeList = service.checkCount(feedSeq);
+		return new ResponseEntity<>(likeList,HttpStatus.OK);
 	}
 }
