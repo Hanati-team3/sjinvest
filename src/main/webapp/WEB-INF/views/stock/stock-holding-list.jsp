@@ -263,6 +263,7 @@
   	HOLDING.holdingList = [];
   	HOLDING.cashTotal = [];
   	HOLDING.totalHoldingChart = document.getElementById("total-holding-chart");
+
   	HOLDING.eachHoldingCharts = document.getElementsByName("each-holding-chart");
   	HOLDING.eachHoldingChartElements = [];
   	
@@ -297,7 +298,9 @@
     	</c:forEach>
 	}
 
+
 	/* 전체 자산 비율 차트 세팅 */
+
 	function setTotalHoldingChart(stock, cash) {
 	    var ctx_pc = HOLDING.totalHoldingChart.getContext("2d");
 	    var data_pc = {
@@ -329,17 +332,19 @@
 	            }
 	        }
 	    });
+
 	}
 	
-	/* 전체 자산 비율 차트 업데이트 */
+	
+	/* 현금 자산 비율 차트 업데이트 */
 	function updateTotalHoldingChart(stock, cash) {
 		console.log(HOLDING.totalHoldingChartEL.data.datasets[0].data);
 		HOLDING.totalHoldingChartEL.data.datasets[0].data = [stock, cash];
 		HOLDING.totalHoldingChartEL.update(0);
 	}
 	
-	/** 전체 자산 비율 카드 업데이트 */
-	function updateRateCard(stockTotal) {
+	/** 자산 비율 카드 세팅 */
+	function setRateCard(stockTotal) {
 		var total = HOLDING.cashTotal + stockTotal;
 		console.log("total : " + total);
 		var liList = $(".chart-with-statistic li");
@@ -355,6 +360,7 @@
 	
 	/** 홀딩 테이블 업데이트 */
 	function updateHoldingTable(holdingList) {
+
 		$("table tbody tr").each(function(index, item){
 			if(index < holdingList.length) {
     			console.log("each holdingList[index] , index : " + index);
@@ -390,6 +396,7 @@
 		});
 	}
 	
+
 	/* 각 보유종목 슬라이드 차트 세팅 */
 	function setTotalHoldingChart(holdingList) {
 		for (var i = 0; i < HOLDING.eachHoldingCharts.length; i++) {
@@ -425,7 +432,7 @@
 		    }));
 		}
 	}
-	
+
 	/* 실시간 홀딩 데이터 업데이트(2초마다) */
 	function holdingListUpdate() {
 		if(HOLDING.flag) {
@@ -442,6 +449,7 @@
     				updateHoldingTable(map.holdingWidget.holdingList);
     				updateTotalHoldingChart(map.holdingWidget.stockTotal, HOLDING.cashTotal);
     				updateChartCard(map.holdingWidget.holdingList);
+
     				//setTimeout(holdingListUpdate, 2000);
     			},
     			error : function(request, status, error) {
