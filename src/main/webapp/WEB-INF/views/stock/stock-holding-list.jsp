@@ -265,7 +265,7 @@
 		HOLDING.cashTotal = ${holdingMap.cashTotal};
 		setHoldingList();
 		setTotalHoldingChart( ${holdingMap.stockTotal}, HOLDING.cashTotal);
-		setEachHoldingCharts();
+		setSlideChart();
 		holdingListUpdate();
 	});
 	
@@ -329,7 +329,6 @@
 
 	}
 	
-	
 	/* 현금 자산 비율 차트 업데이트 */
 	function updateTotalHoldingChart(stock, cash) {
 		console.log(HOLDING.totalHoldingChartEL.data.datasets[0].data);
@@ -337,7 +336,7 @@
 		HOLDING.totalHoldingChartEL.update(0);
 	}
 	
-	/** 자산 비율 카드 세팅 */
+	/** 자산 비율 카드 업데이트 */
 	function updateRateCard(stockTotal) {
 		var total = HOLDING.cashTotal + stockTotal;
 		console.log("total : " + total);
@@ -369,8 +368,8 @@
 		});
 	}
 	
-	/** 각 보유종목 슬라이드 데이터 세팅 */
-	function updateChartCard(holdingList) {
+	/** 각 보유종목 슬라이드 데이터 및 차트 업데이트 */
+	function updateSlideCard(holdingList) {
 		// 모든 슬라이드에 대해.. (each)
 		// 슬라이드의 개수가 holdingList의 length보다 2 큼. 템플릿 js가 양쪽에 동적으로 슬라이드를 두개 붙이기 때문에
 		$(".swiper-slide").each(function(index, item){
@@ -384,6 +383,11 @@
 						$(item).find(".chart-text p").html(holdingList[i].holdingTotalMoney.toLocaleString() + "원을 투자하여 "+
 								"<span class='minus'> " + holdingList[i].holdingReturn.toLocaleString() +"</span> 원의 수익을 얻었습니다.");
 					}
+					HOLDING.eachHoldingChartElements[index].data.datasets[0].data = 
+						[HOLDING.holdingList[i].holdingAmount * HOLDING.holdingList[i].realTimePrice, 
+                		HOLDING.holdingList[i].holdingTotalMoney, 
+                		HOLDING.holdingList[i].holdingReturn];
+					HOLDING.eachHoldingChartElements[index].update(0)
 					break;
 				}
 			}
@@ -392,7 +396,7 @@
 	
 
 	/* 각 보유종목 슬라이드 차트 세팅 */
-	function setEachHoldingCharts() {
+	function setSlideChart() {
 		console.log("setEachHoldingCharts holdingList...");
 		console.log(HOLDING.holdingList);
 		for (var i = 0; i < HOLDING.eachHoldingCharts.length; i++) {
@@ -451,15 +455,21 @@
 				            }
 				        }
 				    }));
-					
 					break;
 				}
-
 			}
 
 		}
 	}
 
+	/* 각 보유종목 슬라이드 차트 업데이트 */		// 카드업데이트에서 차트업데이트도 처리함
+	/* 
+	function updateSlideChart() {
+		console.log(HOLDING.totalHoldingChartEL.data.datasets[0].data);
+		HOLDING.totalHoldingChartEL.data.datasets[0].data = [stock, cash];
+		HOLDING.totalHoldingChartEL.update(0); */
+	}
+	 */
 	/* 실시간 홀딩 데이터 업데이트(2초마다) */
 	function holdingListUpdate() {
 		if(HOLDING.flag) {
@@ -472,11 +482,16 @@
     			success : function(map) {
     				console.log(map);
     				window.stock = map;
+    				//현금자산비율 카드 업데이트
     				updateRateCard(map.holdingWidget.stockTotal);
-    				updateHoldingTable(map.holdingWidget.holdingList);
+    				//현금자산비율 차트 업데이트
     				updateTotalHoldingChart(map.holdingWidget.stockTotal, HOLDING.cashTotal);
-    				updateChartCard(map.holdingWidget.holdingList);
-
+    				//보유자산 테이블 업데이트
+    				updateHoldingTable(map.holdingWidget.holdingList);
+    				//항목별 정보 카드 업데이트
+    				updateSlideCard(map.holdingWidget.holdingList);
+    				//항목별 정보 차트 업데이트
+    				//updateSlideChart(map.holdingWidget.holdingList);
     				//setTimeout(holdingListUpdate, 2000);
     			},
     			error : function(request, status, error) {
