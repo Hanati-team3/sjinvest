@@ -24,7 +24,7 @@ import lombok.extern.log4j.Log4j;
 public class StockDao {
 	
 	public Map<String, Object> getStockTotal(String companyNumber) {
-		String apiURL = "http://54.180.117.83:8008/stock/com?";
+		String apiURL = "http://54.180.117.83:8001/stock/com?";
 		Map<String, Object> result = new HashMap<String, Object>();
 		String urlString = apiURL + "code="+companyNumber;
 		log.info(urlString);
