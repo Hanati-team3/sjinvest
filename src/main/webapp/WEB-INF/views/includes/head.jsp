@@ -335,6 +335,10 @@
   padding : 15px 5px;
 }
 
+.stock-holding-main .forums-table tbody td a{
+  color: #515365
+}
+
 .stock-holding-main .forums-table .company-number{
   width : 100px;
 }

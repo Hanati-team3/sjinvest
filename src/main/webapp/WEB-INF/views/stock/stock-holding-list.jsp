@@ -41,6 +41,9 @@
       <!-- ..realtime end -->
     </div>
     <%-- realtime row 끝 --%>
+    
+    <a onclick="stop()" href="#">요청종료</a>
+    
     <%-- 사이드 포함 row 시작 --%>
     <div class="row stock-holding-main">
       <!-- Left Sidebar -->
@@ -89,12 +92,12 @@
                         <span>
                           <span class="statistics-point bg-purple"></span>
                           <span class="rate">
-                            주식
-                            %
+                            주식 <fmt:formatNumber value="${holdingMap.stockTotal / holdingMap.total * 100}" pattern="##.##" />%
                           </span>
                         </span>
                       </div>
                       <div class="count-stat">
+                        <fmt:formatNumber value="${holdingMap.stockTotal}" type="currency" currencySymbol="￦"/> 
                       </div>
                     </li>
                     <li>
@@ -102,19 +105,20 @@
                         <span>
                           <span class="statistics-point bg-breez"></span>
                           <span class="rate">
-                            현금 
-                            %
+                            현금 <fmt:formatNumber value="${holdingMap.cashTotal / holdingMap.total * 100}" pattern="##.##" />%
                           </span>
                         </span>
                       </div>
                       <div class="count-stat">
+                        <fmt:formatNumber value="${holdingMap.cashTotal}" type="currency" currencySymbol="￦"/>
                       </div>
                     </li>
                   </ul>
     
                   <div class="chart-js chart-js-pie-color">
-                    <canvas id="pie-color-chart" width="180" height="180"></canvas>
+                    <canvas id="total-holding-chart" width="180" height="180"></canvas>
                     <div class="general-statistics">
+                      <fmt:formatNumber value="${holdingMap.total}" type="currency" currencySymbol="￦"/>
                       <span>자산총액</span>
                     </div>
                   </div>
@@ -133,7 +137,7 @@
               <div class="ui-block-content">
                 <div class="swiper-container" data-slide="fade">
                   <div class="swiper-wrapper">
-                    <c:forEach var="eachHolding" items="${holdingWidget.holdingList}" varStatus="status">
+                    <c:forEach var="eachHolding" items="${holdingMap.holdingList}" varStatus="status">
                       <div class="swiper-slide">
                         <div class="statistics-slide">
                           <div class="circle-progress circle-pie-chart">
@@ -186,35 +190,34 @@
                 </thead>
     
                 <tbody>
-                  <c:forEach var="eachHolding" items="${holdingWidget.holdingList}" varStatus="status">
+                  <c:forEach var="eachHolding" items="${holdingMap.holdingList}" varStatus="status">
                     <tr>
                       <td class="company-number">
                         <div class="forum-item">
-                          <a href="#" class="h6 count">${eachHolding.companyNumber}</a>
+                          <a href="<%=application.getContextPath()%>/stock/company/${eachHolding.companyNumber}" class="h6 count">${eachHolding.companyNumber}</a>
                         </div>
                       </td>
                       <td class="company-name">
                         <div class="author-freshness">
-                          <a href="#" class="h6 title">${eachHolding.companyName}</a>
-                          <time class="entry-date updated"
-                            datetime="2017-06-24T18:18">은행</time>
+                          <a href="<%=application.getContextPath()%>/stock/company/${eachHolding.companyNumber}" class="h6 title">${eachHolding.companyName}</a>
+                          <time class="entry-date updated">${eachHolding.fieldName}</time>
                         </div>
                       </td>
-                      <td class="stock-price"><a href="#" class="h6 count">88888</a>
+                      <td class="stock-price"><a class="h6 count">${eachHolding.realTimePrice}</a>
                       </td>
                       <td class="holding-amount">
-                        <a href="#" class="h6 count">${eachHolding.holdingAmount}</a>
+                        <a class="h6 count">${eachHolding.holdingAmount}</a>
                       </td>
                       <td class="holding-total-money">
-                        <div class="author-freshness plus">
-                          <a href="#" class="h6">
-                            <fmt:formatNumber value="${eachHolding.holdingTotalMoney}" pattern="#,###" />
+                        <div class="author-freshness">
+                          <a class="h6">
+                            <fmt:formatNumber value="${eachHolding.realTimePrice * eachHolding.holdingAmount}" pattern="#,###" />
                           </a>
                         </div>
                       </td>
                       <td class="profit-rate">
-                        <div class="author-freshness plus">
-                          <a href="#" class="h6 plus"><fmt:formatNumber value="${eachHolding.holdingRateOfReturn}" pattern="##.#" />%</a>
+                        <div class="author-freshness">
+                          <a class="h6 plus"><fmt:formatNumber value="${eachHolding.holdingRateOfReturn}" pattern="##.##" />%</a>
                         </div>
                       </td>
                       <td class="holding-sell">
@@ -254,106 +257,160 @@
   
   <%-- stock-holding-list js --%>
   <script>
+	var HOLDING = {};	//stock-holding-list 전역변수
+  	// interest update를 활성화/중지
+  	HOLDING.flag = true;
+  	HOLDING.holdingList = [];
+  	HOLDING.cashTotal = [];
+  	HOLDING.totalHoldingChart = document.getElementById("total-holding-chart");
+  	
 	$(document).ready(function() {
-		var holdingList = "${holdingWidget.holdingList}";
-		var cashTotal = "${holdingWidget.cashTotal}";
-		console.log(holdingList);
-		holdingListUpdate(holdingList);
+		HOLDING.cashTotal = ${holdingMap.cashTotal};
+		setTotalHoldingChart( ${holdingMap.stockTotal},HOLDING.cashTotal);
+		setHoldingList();
+		holdingListUpdate();
 	});
+	
+	/* holdingUpdate 요청을 중지하는 함수 */
+  	function stop() {
+  		HOLDING.flag = false;
+  		console.log('stop');
+  	}
 
-	function holdingListUpdate(holdingList, cashTotal) {
-		$.ajax({
-			type : "GET",
-			url : "update",
-			dataType : "json",
-			contentType: "application/json; charset=utf-8",
-			data : JSON.stringify({
-				"holdingList" : [
-				{
-		            "holdingSeq": 6,
-		            "companyNumber": "090430",
-		            "companyName": "아모레퍼시픽",
-		            "userSeq": 2,
-		            "holdingAmount": 701,
-		            "holdingTotalMoney": 39404,
-		            "holdingRateOfReturn": 47.7836290535892
-		        },
-		        {
-		            "holdingSeq": 7,
-		            "companyNumber": "051900",
-		            "companyName": "LG생활건강",
-		            "userSeq": 2,
-		            "holdingAmount": 25,
-		            "holdingTotalMoney": 25233,
-		            "holdingRateOfReturn": 28.487200112530125
-		        }
-		        ],
-				"cashTotal" : "500000",
-			}),
-			success : function(stockData) {
-				console.log(stockData);
-				window.stock = stockData;
-				setRateCard(stockData);
-				setHoldingTable(stockData.holdingList);
-				setChartCard(stockData.holdingList);
-				setTimeout(holdingListUpdate, 2000);
-			},
-			error : function(request, status, error) {
-				console.log("code:" + request.status + "\n" + "message:"
-						+ request.responseText + "\n" + "error:" + error);
-			}
-		})
+	/* model의 holdingMap의 holdingList를 자바스크립트 배열 HOLDING.holdingList에 저장 */
+	function setHoldingList() {
+		<c:forEach var="eachHolding" items="${holdingMap.holdingList}" varStatus="status">
+			HOLDING.holdingList.push({
+              "holdingSeq": "${eachHolding.holdingSeq}",
+              "companyNumber": "${eachHolding.companyNumber}",
+              "companyName": "${eachHolding.companyName}",
+              "userSeq": "${eachHolding.userSeq}",
+              "holdingAmount": "${eachHolding.holdingAmount}",
+              "holdingTotalMoney": "${eachHolding.holdingTotalMoney}",
+              "holdingRateOfReturn": "${eachHolding.holdingRateOfReturn}",
+              "holdingReturn": "${eachHolding.holdingReturn}",
+              "realTimePrice": "${eachHolding.realTimePrice}"
+		});
+    	</c:forEach>
+	}
+
+	/* 현금 자산 비율 차트 세팅 */
+	function setTotalHoldingChart(stock, cash) {
+	    var ctx_pc = HOLDING.totalHoldingChart.getContext("2d");
+	    var data_pc = {
+	        labels: ["주식", "현금"],
+	        datasets: [
+	            {
+	                data: [stock, cash],
+	                borderWidth: 0,
+	                backgroundColor: [
+	                    "#7c5ac2",
+	                    "#08ddc1"
+	                ]
+	            }]
+	    };
+
+	    HOLDING.totalHoldingChartEL = new Chart(ctx_pc, {
+	        type: 'doughnut',
+	        data: data_pc,
+	        options: {
+	            deferred: {           // enabled by default
+	                delay: 300        // delay of 500 ms after the canvas is considered inside the viewport
+	            },
+	            cutoutPercentage:93,
+	            legend: {
+	                display: false
+	            },
+	            animation: {
+	                animateScale: false
+	            }
+	        }
+	    });
+	}
+	
+	/* 현금 자산 비율 차트 업데이트 */
+	function updateTotalHoldingChart(stock, cash) {
+		console.log(HOLDING.totalHoldingChartEL.data.datasets[0].data);
+		HOLDING.totalHoldingChartEL.data.datasets[0].data = [stock, cash];
+		HOLDING.totalHoldingChartEL.update(0);
 	}
 	
 	/** 자산 비율 카드 세팅 */
-	function setRateCard(holdingData) {
-		console.log("total : " + holdingData.stockTotal.toLocaleString());
+	function setRateCard(stockTotal) {
+		var total = HOLDING.cashTotal + stockTotal;
+		console.log("total : " + total);
 		var liList = $(".chart-with-statistic li");
 		// 주식
-		$(liList[0]).find(".rate").text("주식 " +(holdingData.stockTotal / holdingData.total * 100).toFixed(2)+ "%");
-		$(liList[0]).find(".count-stat").text(holdingData.stockTotal.toLocaleString());
+		$(liList[0]).find(".rate").text("주식 " +(stockTotal / total * 100).toFixed(2)+ "%");
+		$(liList[0]).find(".count-stat").text("￦" + stockTotal.toLocaleString());
 		// 현금
-		$(liList[1]).find(".rate").text("현금 " +(holdingData.cashTotal / holdingData.total * 100).toFixed(2)+ "%");
-		$(liList[1]).find(".count-stat").text(holdingData.cashTotal.toLocaleString());
+		$(liList[1]).find(".rate").text("현금 " +(HOLDING.cashTotal / total * 100).toFixed(2)+ "%");
+		$(liList[1]).find(".count-stat").text("￦" + HOLDING.cashTotal.toLocaleString());
 		// 자산총액
-		$('.general-statistics').html(holdingData.stockTotal.toLocaleString() + "<span>자산총액</span>");
+		$('.general-statistics').html("￦" + total.toLocaleString() + "<span>자산총액</span>");
 	}
 	
 	/** 홀딩 테이블 세팅 */
 	function setHoldingTable(holdingList) {
-		$("table tr").each(function(index, item){
-			console.log("length" + holdingList.length);
+		$("table tbody tr").each(function(index, item){
 			if(index < holdingList.length) {
-				//원래는  return 하지 말고 밑에있는 행 지워야함. ㄱㅊ
-    			console.log("each" + holdingList[index]);
+    			console.log("each holdingList[index] , index : " + index);
+    			console.log(holdingList[index]);
     			$(item).find(".company-number a").text(holdingList[index].companyNumber);
     			$(item).find(".company-name a").text(holdingList[index].companyName);
-    			$(item).find(".stock-price a").text(holdingList[index].stockPrice);
-    			$(item).find(".holding-amount a").text(holdingList[index].holdingAmount);
-    			$(item).find(".holding-total-money a").text(holdingList[index].holdingTotalMoney );
-    			$(item).find(".profit-rate a").text(holdingList[index].holdingRateOfReturn.toFixed(2));
-			}
-			else {
-				//지우기
+    			$(item).find(".stock-price a").text(holdingList[index].realTimePrice.toLocaleString());
+    			$(item).find(".holding-amount a").text(holdingList[index].holdingAmount.toLocaleString());
+    			$(item).find(".holding-total-money a").text(holdingList[index].holdingTotalMoney.toLocaleString());
+    			$(item).find(".profit-rate a").text(holdingList[index].holdingRateOfReturn.toFixed(2) + "%");
 			}
 		});
 	}
 	
-	/** 차트 세팅 */
+	/** 각 보유종목 슬라이드 데이터 세팅 */
 	function setChartCard(holdingList) {
-		// 모든 슬라이드에 대해
+		// 모든 슬라이드에 대해.. (each)
+		// 슬라이드의 개수가 holdingList의 length보다 2 큼. 템플릿 js가 양쪽에 동적으로 슬라이드를 두개 붙이기 때문에
 		$(".swiper-slide").each(function(index, item){
-			if(index < holdingList.length) {
-				//원래는  return 하지 말고 밑에있는 행 지워야함. ㄱㅊ
-    			console.log("each" + holdingList[index]);
-    			var figure = (holdingList[index].holdingRateOfReturn / 100).toFixed(2);
-    			console.log(figure);
-    			$(item).find(".pie-chart").attr('data-value', figure);
-			}
-			else {
-				//지우기
+			for(var i = 0; i < holdingList.length; i++) {
+				if($(item).find(".chart-text h6").text() == holdingList[i].companyName) {
+					$(item).find(".chart-text p").text(holdingList[i].holdingTotalMoney.toLocaleString() + "원을 투자하여"+
+							holdingList[i].holdingReturn.toLocaleString()+"원의 수익을 얻었습니다.");
+					if(holdingList[i].holdingReturn > 0) {
+						$(item).find(".chart-text p").removeClass('minus').addClass('plus');
+					}
+					else {
+						$(item).find(".chart-text p").removeClass('plus').addClass('minus');
+					}
+					break;
+				}
 			}
 		});
+	}
+	
+	/* 실시간 홀딩 데이터 업데이트(2초마다) */
+	function holdingListUpdate() {
+		if(HOLDING.flag) {
+    		$.ajax({
+    			type : "POST",
+    			url : "update",
+    			dataType : "json",
+    			contentType: "application/json; charset=utf-8",
+    			data: JSON.stringify(HOLDING.holdingList),
+    			success : function(map) {
+    				console.log(map);
+    				window.stock = map;
+    				setRateCard(map.holdingWidget.stockTotal);
+    				setHoldingTable(map.holdingWidget.holdingList);
+    				updateTotalHoldingChart(map.holdingWidget.stockTotal, HOLDING.cashTotal);
+    				setChartCard(map.holdingWidget.holdingList);
+    				//setTimeout(holdingListUpdate, 2000);
+    			},
+    			error : function(request, status, error) {
+    				console.log("code:" + request.status + "\n" + "message:"
+    						+ request.responseText + "\n" + "error:" + error);
+    			}
+    		})
+		}
 	}
 	
 	</script>
