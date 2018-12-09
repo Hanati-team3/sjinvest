@@ -47,16 +47,16 @@
                         <!-- form으로 제출하기 때문에 클릭 사용 onclick="loginCheck()" -->
                         <div class="or"></div>
 
-                        
-                        <!-- 네이버, 다음 로그인 start -->
-                        <a class="full-width" style="width: 100%" id="kakao-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=c7ab399d372865fa6d3eedac2f2b93a6&redirect_uri=http://localhost/sos/user/kakaologin&response_type=code">
-                        	<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="100%" height="15%" align="center"/>
-                        </a>
-                        <br>
-                        <!-- 네이버, 다음 로그인 end -->                        
-						<a id="naverLoginA">
-							<img width="100%" height="15%"  src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/>
-						</a>
+                        <div class="row">
+                          <!-- 네이버, 다음 로그인 start -->
+                          <a style="width: 50%" id="kakao-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=c7ab399d372865fa6d3eedac2f2b93a6&redirect_uri=http://localhost/sos/user/kakaologin&response_type=code">
+                          	<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="88%" height="100%" style="margin-left: 10%;"/>
+                          </a>
+    						<a style="width: 50%" id="naverLoginA">
+    							<img width="88%" height="100%" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" style="margin-right: 10%;"/>
+    						</a>
+                        <!-- 네이버, 다음 로그인 end -->
+                        </div>                        
                     </div>
                 </div>
              </form>
