@@ -269,43 +269,7 @@ function searching(){
       });
 }
 
-/** 
- * 로그인 처리
- */
-function loginCheck() {
 
-  var userId = $('#loginId').val();
-  var userPw = $('#loginPw').val();
-
-  console.log("받아온userId: "+userId);
-  console.log("받아온userPw: "+userPw);
-  
-  $.ajax({
-    url : '/sos/user/login',
-    type : 'post',
-    data : {
-      "userId" : userId,
-      "userPw" : userPw
-    },
-    success : function(data) {
-      // 로그인 실패
-      if (data.message == "loginFail") {
-        $('#checkMsg').html(
-            "<p style='COLOR: red'>다시 로그인해주세요.</p>");
-      } 
-      // 로그인 성공
-      else if(data.user != null){
-    	//console.log(data.user);
-    	//console.log("여기나와야하는데????");
-    	location.href="/sos/sns/newsfeed";
-      }
-    },
-    error : function() {
-      alert("관리자에게 문의해주세요.");
-    }
-  });
-  
-} 
 
 /** 
  * 회원가입 처리
@@ -352,6 +316,21 @@ function showFeedList(data){
 		$(content[i]).text(data.feedList[i].feedContent);
 		var like = $('span[name=feedLike]')
 		$(like[i]).text(data.feedList[i].feedLikeCnt);
+		
+		
+		/* 프로필 사진 */
+		var userImage = $('img[name=userImage]');
+		var pictureName = data.userList[i].userPicture;
+		if(pictureName != null){
+			if(pictureName.split(':')[0]=='http' || pictureName.split(':')[0] == 'https'){
+				console.log(pictureName)
+				$(userImage[i]).attr('src', pictureName);
+			}else{
+				$(userImage[i]).attr('src', "/sos/resources/img/"+pictureName);
+			}
+		}else{
+			$(userImage[i]).attr('src', '/sos/resources/img/avatar10-sm.jpg');
+		}
 		
 		/* 좋아요, 공유 */
 		var commentCount = $('span[name=feedCommnetCount]')
@@ -418,7 +397,6 @@ function showFeedList(data){
 		if("${user}" != null){
 			var currentUser = "${user.userNickname}";
 			if(currentUser == data.userList[i].userNickname){
-				console.log('일치');
 				$(moreIcon[i]).css('display',"");
 			}else{
 				$(moreIcon[i]).css('display',"none");

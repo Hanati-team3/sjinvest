@@ -63,6 +63,45 @@ $(document).ready( function() {
 		});
 	});
 });
+
+/** 
+ * 로그인 처리
+ */
+function loginCheck() {
+
+  var userId = $('#loginId').val();
+  var userPw = $('#loginPw').val();
+
+  console.log("받아온userId: "+userId);
+  console.log("받아온userPw: "+userPw);
+  
+  $.ajax({
+    url : '/sos/user/login',
+    type : 'post',
+    data : {
+      "userId" : userId,
+      "userPw" : userPw
+    },
+    dataType:'json',
+    success : function(data) {
+      // 로그인 실패
+      if (data.message == "loginFail") {
+        $('#checkMsg').html(
+            "<p style='COLOR: red'>다시 로그인해주세요.</p>");
+      } 
+      // 로그인 성공
+      else if(data.user != null){
+    	//console.log(data.user);
+    	//console.log("여기나와야하는데????");
+    	location.href="/sos/sns/newsfeed";
+      }
+    },
+    error : function() {
+      alert("관리자에게 문의해주세요.");
+    }
+  });
+  
+} 
 	
 </script>
 
