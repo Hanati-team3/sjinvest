@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.sjinvest.sos.user.domain.User" %>
-<%
+<%--
 	Cookie[] cookies = request.getCookies();
 	String userId = null;
 
@@ -22,7 +22,7 @@
     
     request.setAttribute("userId", userId);
     
-%>
+--%>
 
 <%-- <div>${userSession.userId}</div> --%>
 
@@ -52,7 +52,7 @@
       <%--로그인중인지 아닌지 판별 --%>
       <c:choose>
         <%--로그인 아님 --%>
-        <c:when test="${userId eq null}">
+        <c:when test="${user.userId eq null}">
           <a id="loginModal" href="#" class="link-find-friend header-a-padding" data-toggle="modal" data-target="#login_modal">Login</a>
           <a href="#" class="link-find-friend header-a-padding" data-toggle="modal" data-target="#signup_modal">Sign up</a>
         </c:when>
@@ -389,12 +389,12 @@
 
 <script type="text/javascript">
 
-/* $(document).ready( function() {
+$(document).ready( function() {
 	
 	snsList();
 	stockList();
 
-}); */
+});
 
 /**
  * header의 sns 목록 함수

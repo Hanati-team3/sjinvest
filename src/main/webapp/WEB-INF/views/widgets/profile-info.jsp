@@ -25,7 +25,7 @@
           
           <c:choose>
           
-          <c:when test="${userId ne null }">
+          <c:when test="${user.userId ne null }">
           <div class="top-header-author">
             <a href="#" class="author-thumb" data-toggle="modal" data-target="#update-header-photo">
             	<%if ((((User)request.getAttribute("user")).getUserPicture().split(":")[0]).equals("http") || (((User)request.getAttribute("user")).getUserPicture().split(":")[0]).equals("https")){ %>
