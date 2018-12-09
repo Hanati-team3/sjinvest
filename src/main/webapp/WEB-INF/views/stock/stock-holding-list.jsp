@@ -194,31 +194,30 @@
                     <tr>
                       <td class="company-number">
                         <div class="forum-item">
-                          <a href="#" class="h6 count">${eachHolding.companyNumber}</a>
+                          <a href="<%=application.getContextPath()%>/stock/company/${eachHolding.companyNumber}" class="h6 count">${eachHolding.companyNumber}</a>
                         </div>
                       </td>
                       <td class="company-name">
                         <div class="author-freshness">
-                          <a href="#" class="h6 title">${eachHolding.companyName}</a>
-                          <time class="entry-date updated"
-                            datetime="2017-06-24T18:18">${eachHolding.fieldName}</time>
+                          <a href="<%=application.getContextPath()%>/stock/company/${eachHolding.companyNumber}" class="h6 title">${eachHolding.companyName}</a>
+                          <time class="entry-date updated">${eachHolding.fieldName}</time>
                         </div>
                       </td>
-                      <td class="stock-price"><a href="#" class="h6 count">${eachHolding.realTimePrice}</a>
+                      <td class="stock-price"><a class="h6 count">${eachHolding.realTimePrice}</a>
                       </td>
                       <td class="holding-amount">
-                        <a href="#" class="h6 count">${eachHolding.holdingAmount}</a>
+                        <a class="h6 count">${eachHolding.holdingAmount}</a>
                       </td>
                       <td class="holding-total-money">
-                        <div class="author-freshness plus">
-                          <a href="#" class="h6">
+                        <div class="author-freshness">
+                          <a class="h6">
                             <fmt:formatNumber value="${eachHolding.holdingTotalMoney}" pattern="#,###" />
                           </a>
                         </div>
                       </td>
                       <td class="profit-rate">
-                        <div class="author-freshness plus">
-                          <a href="#" class="h6 plus"><fmt:formatNumber value="${eachHolding.holdingRateOfReturn}" pattern="##.##" />%</a>
+                        <div class="author-freshness">
+                          <a class="h6 plus"><fmt:formatNumber value="${eachHolding.holdingRateOfReturn}" pattern="##.##" />%</a>
                         </div>
                       </td>
                       <td class="holding-sell">

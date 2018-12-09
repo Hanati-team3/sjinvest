@@ -76,11 +76,13 @@ public class StockController2 {
 	/** 주식 index 화면 요청*/
 	@GetMapping(value="/index", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String index(Model model, HttpServletRequest request) {
-		String userId =  (String)request.getAttribute("userId");
-		if(userId == null) {
-			userId = "suhyeon";
+		System.out.println("index....");
+		System.out.println("user : " + request.getSession().getAttribute("user"));
+		User user = (User)request.getSession().getAttribute("user");
+		if(user == null) {
+			System.out.println("user null. test user suhyeon");
+			user = userService.readById("suhyeon");
 		}
-		User user =  userService.readById(userId);
 		request.setAttribute("user", user);
 		
 		List<Holding> holdingList = new ArrayList<>();					/* 보유자산 리스트 */
@@ -175,15 +177,19 @@ public class StockController2 {
 	/** 주식 interest 화면 요청*/
 	@GetMapping(value="/interest/list", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String interest(Model model, HttpServletRequest request) {
+		System.out.println("interest list......");
+		System.out.println("user : " + request.getSession().getAttribute("user"));
+		User user = (User)request.getSession().getAttribute("user");
+		// 원래는 user null이면 관심종목 못들어옴
+		if(user == null) {
+			System.out.println("user null. test user suhyeon");
+			user = userService.readById("suhyeon");
+		}
+		request.setAttribute("user", user);
+		
 		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
 		Map<String, Object> map = null;
-		String userId = (String)request.getAttribute("userId");
-		// 로그인중아님
-		if(userId == null) {
-			return "stock/stock-index";
-		}
-		User user = userService.readById(userId);
-		request.setAttribute("user", user);
+		
 		for (Interest interest : interestService.listByUser(user.getUserSeq())) {
 			interestCompanyNumberList.add(interest.getCompanyNumber());
 		}
@@ -220,13 +226,15 @@ public class StockController2 {
 	/** 주식 holding 리스트 화면 요청*/
 	@GetMapping(value="/holding/list", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String holding(Model model, HttpServletRequest request) {
-		String userId = (String)request.getAttribute("userId");
-		// 로그인중아님
-		if(userId == null) {
-			return "stock/stock-index";
+		System.out.println("holding list......");
+		User user = (User)request.getSession().getAttribute("user");
+		// 원래는 user null이면 관심종목 못들어옴
+		if(user == null) {
+			System.out.println("user null. test user suhyeon");
+			user = userService.readById("suhyeon");
 		}
-		User user = userService.readById(userId);
 		request.setAttribute("user", user);
+		
 		List<Holding> holdingList = null;				/* 보유자산 리스트 */
 		Map<String, Object> map = null;					/* 서비스의 getHolding이 반환하는 맵을 담을 객체 */
 		Map<String, Object> holdingMap = null;			/* 보유자산 total, stockTotal, cashTotal, Holding리스트  담을 맵 */
