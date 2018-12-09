@@ -34,7 +34,7 @@ public class FollowController {
 	private UserService userService;
 	
 	// follow 추가 여기부터 시작!!!
-	@GetMapping("/add")	
+	/*@GetMapping("/add")	
 	public String add(String userSeq, HttpServletRequest request) {
 
 		log.info("add : " + userSeq);
@@ -47,8 +47,31 @@ public class FollowController {
 		boolean result = service.create(follow);
 		//System.out.println("수정된 user 결과: "+ result);
 
-		return "redirect:/sns/mypage_index";
+		return "redirect:/sns/newfeed";
 	}
+	*/
+	@ResponseBody
+	@GetMapping(value = "/add", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> add(String followUserId, int userSeq) {
+		Map<String, Object> returnData = new HashMap<String, Object>();
+		
+		
+		System.out.println("팔로잉 추가할 유저아이디: "+followUserId);
+		
+		Follow follow = new Follow();
+		
+		int followUserSeq = userService.readById(followUserId).getUserSeq();
+		
+		System.out.println("나의 seq: "+userSeq);
+		System.out.println("너의 seq: "+followUserSeq);
+		
+		follow.setFollowUserSeq(followUserSeq);
+		follow.setUserSeq(userSeq);
+		
+		returnData.put("addResult", service.create(follow));
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
+	}
+	
 	
 	@ResponseBody
 	@GetMapping(value = "/followList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
