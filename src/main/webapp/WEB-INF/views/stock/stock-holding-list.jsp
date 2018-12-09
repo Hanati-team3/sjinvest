@@ -41,6 +41,9 @@
       <!-- ..realtime end -->
     </div>
     <%-- realtime row 끝 --%>
+    
+    <a onclick="stop()" href="#">요청종료</a>
+    
     <%-- 사이드 포함 row 시작 --%>
     <div class="row stock-holding-main">
       <!-- Left Sidebar -->
@@ -89,12 +92,12 @@
                         <span>
                           <span class="statistics-point bg-purple"></span>
                           <span class="rate">
-                            주식
-                            %
+                            주식 <fmt:formatNumber value="${holdingMap.stockTotal / holdingMap.total * 100}" pattern="##.##" />%
                           </span>
                         </span>
                       </div>
                       <div class="count-stat">
+                        <fmt:formatNumber value="${holdingMap.stockTotal}" type="currency" currencySymbol="￦"/> 
                       </div>
                     </li>
                     <li>
@@ -102,12 +105,12 @@
                         <span>
                           <span class="statistics-point bg-breez"></span>
                           <span class="rate">
-                            현금 
-                            %
+                            현금 <fmt:formatNumber value="${holdingMap.cashTotal / holdingMap.total * 100}" pattern="##.##" />%
                           </span>
                         </span>
                       </div>
                       <div class="count-stat">
+                        <fmt:formatNumber value="${holdingMap.cashTotal}" type="currency" currencySymbol="￦"/>
                       </div>
                     </li>
                   </ul>
@@ -115,6 +118,7 @@
                   <div class="chart-js chart-js-pie-color">
                     <canvas id="pie-color-chart" width="180" height="180"></canvas>
                     <div class="general-statistics">
+                      <fmt:formatNumber value="${holdingMap.total}" type="currency" currencySymbol="￦"/>
                       <span>자산총액</span>
                     </div>
                   </div>
@@ -133,7 +137,7 @@
               <div class="ui-block-content">
                 <div class="swiper-container" data-slide="fade">
                   <div class="swiper-wrapper">
-                    <c:forEach var="eachHolding" items="${holdingWidget.holdingList}" varStatus="status">
+                    <c:forEach var="eachHolding" items="${holdingMap.holdingList}" varStatus="status">
                       <div class="swiper-slide">
                         <div class="statistics-slide">
                           <div class="circle-progress circle-pie-chart">
@@ -186,7 +190,7 @@
                 </thead>
     
                 <tbody>
-                  <c:forEach var="eachHolding" items="${holdingWidget.holdingList}" varStatus="status">
+                  <c:forEach var="eachHolding" items="${holdingMap.holdingList}" varStatus="status">
                     <tr>
                       <td class="company-number">
                         <div class="forum-item">
@@ -197,10 +201,10 @@
                         <div class="author-freshness">
                           <a href="#" class="h6 title">${eachHolding.companyName}</a>
                           <time class="entry-date updated"
-                            datetime="2017-06-24T18:18">은행</time>
+                            datetime="2017-06-24T18:18">${eachHolding.fieldName}</time>
                         </div>
                       </td>
-                      <td class="stock-price"><a href="#" class="h6 count">88888</a>
+                      <td class="stock-price"><a href="#" class="h6 count">${eachHolding.realTimePrice}</a>
                       </td>
                       <td class="holding-amount">
                         <a href="#" class="h6 count">${eachHolding.holdingAmount}</a>
@@ -214,7 +218,7 @@
                       </td>
                       <td class="profit-rate">
                         <div class="author-freshness plus">
-                          <a href="#" class="h6 plus"><fmt:formatNumber value="${eachHolding.holdingRateOfReturn}" pattern="##.#" />%</a>
+                          <a href="#" class="h6 plus"><fmt:formatNumber value="${eachHolding.holdingRateOfReturn}" pattern="##.##" />%</a>
                         </div>
                       </td>
                       <td class="holding-sell">
@@ -254,87 +258,96 @@
   
   <%-- stock-holding-list js --%>
   <script>
+	var HOLDING = {};	//stock-holding-list 전역변수
+  	// interest update를 활성화/중지
+  	HOLDING.flag = true;
+  	HOLDING.holdingList = [];
+  	HOLDING.cashTotal = [];
+  	
 	$(document).ready(function() {
-		var holdingList = "${holdingWidget.holdingList}";
-		var cashTotal = "${holdingWidget.cashTotal}";
-		console.log(holdingList);
-		holdingListUpdate(holdingList);
+		HOLDING.cashTotal = ${holdingMap.cashTotal};
+		console.log("ready... HOlDING.cashTotal");
+		console.log(HOLDING.cashTotal);
+		setHoldingList();
+		console.log("ready... HOlDING.holdingList");
+		console.log(HOLDING.holdingList);
+		holdingListUpdate();
 	});
+	
+	/* holdingUpdate 요청을 중지하는 함수 */
+  	function stop() {
+  		HOLDING.flag = false;
+  		console.log('stop');
+  	}
 
-	function holdingListUpdate(holdingList, cashTotal) {
-		$.ajax({
-			type : "GET",
-			url : "update",
-			dataType : "json",
-			contentType: "application/json; charset=utf-8",
-			data : JSON.stringify({
-				"holdingList" : [
-				{
-		            "holdingSeq": 6,
-		            "companyNumber": "090430",
-		            "companyName": "아모레퍼시픽",
-		            "userSeq": 2,
-		            "holdingAmount": 701,
-		            "holdingTotalMoney": 39404,
-		            "holdingRateOfReturn": 47.7836290535892
-		        },
-		        {
-		            "holdingSeq": 7,
-		            "companyNumber": "051900",
-		            "companyName": "LG생활건강",
-		            "userSeq": 2,
-		            "holdingAmount": 25,
-		            "holdingTotalMoney": 25233,
-		            "holdingRateOfReturn": 28.487200112530125
-		        }
-		        ],
-				"cashTotal" : "500000",
-			}),
-			success : function(stockData) {
-				console.log(stockData);
-				window.stock = stockData;
-				setRateCard(stockData);
-				setHoldingTable(stockData.holdingList);
-				setChartCard(stockData.holdingList);
-				setTimeout(holdingListUpdate, 2000);
-			},
-			error : function(request, status, error) {
-				console.log("code:" + request.status + "\n" + "message:"
-						+ request.responseText + "\n" + "error:" + error);
-			}
-		})
+	/* model의 holdingMap의 holdingList를 자바스크립트 배열 HOLDING.holdingList에 저장 */
+	function setHoldingList() {
+		<c:forEach var="eachHolding" items="${holdingMap.holdingList}" varStatus="status">
+			HOLDING.holdingList.push({
+              "holdingSeq": "${eachHolding.holdingSeq}",
+              "companyNumber": "${eachHolding.companyNumber}",
+              "companyName": "${eachHolding.companyName}",
+              "userSeq": "${eachHolding.userSeq}",
+              "holdingAmount": "${eachHolding.holdingAmount}",
+              "holdingTotalMoney": "${eachHolding.holdingTotalMoney}",
+              "holdingRateOfReturn": "${eachHolding.holdingRateOfReturn}",
+              "holdingReturn": "${eachHolding.holdingReturn}",
+              "realTimePrice": "${eachHolding.realTimePrice}"
+		});
+    	</c:forEach>
+	}
+	
+	function holdingListUpdate() {
+		if(HOLDING.flag) {
+    		$.ajax({
+    			type : "POST",
+    			url : "update",
+    			dataType : "json",
+    			contentType: "application/json; charset=utf-8",
+    			data: JSON.stringify(HOLDING.holdingList),
+    			success : function(map) {
+    				console.log(map);
+    				window.stock = map;
+    				setRateCard(map.holdingWidget.stockTotal);
+    				setHoldingTable(map.holdingWidget.holdingList);
+    				//setChartCard(stockData.holdingList);
+    				//setTimeout(holdingListUpdate, 2000);
+    			},
+    			error : function(request, status, error) {
+    				console.log("code:" + request.status + "\n" + "message:"
+    						+ request.responseText + "\n" + "error:" + error);
+    			}
+    		})
+		}
 	}
 	
 	/** 자산 비율 카드 세팅 */
-	function setRateCard(holdingData) {
-		console.log("total : " + holdingData.stockTotal.toLocaleString());
+	function setRateCard(stockTotal) {
+		var total = HOLDING.cashTotal + stockTotal;
+		console.log("total : " + total);
 		var liList = $(".chart-with-statistic li");
 		// 주식
-		$(liList[0]).find(".rate").text("주식 " +(holdingData.stockTotal / holdingData.total * 100).toFixed(2)+ "%");
-		$(liList[0]).find(".count-stat").text(holdingData.stockTotal.toLocaleString());
+		$(liList[0]).find(".rate").text("주식 " +(stockTotal / total * 100).toFixed(2)+ "%");
+		$(liList[0]).find(".count-stat").text("￦" + stockTotal.toLocaleString());
 		// 현금
-		$(liList[1]).find(".rate").text("현금 " +(holdingData.cashTotal / holdingData.total * 100).toFixed(2)+ "%");
-		$(liList[1]).find(".count-stat").text(holdingData.cashTotal.toLocaleString());
+		$(liList[1]).find(".rate").text("현금 " +(HOLDING.cashTotal / total * 100).toFixed(2)+ "%");
+		$(liList[1]).find(".count-stat").text("￦" + HOLDING.cashTotal.toLocaleString());
 		// 자산총액
-		$('.general-statistics').html(holdingData.stockTotal.toLocaleString() + "<span>자산총액</span>");
+		$('.general-statistics').html("￦" + total.toLocaleString() + "<span>자산총액</span>");
 	}
 	
 	/** 홀딩 테이블 세팅 */
 	function setHoldingTable(holdingList) {
-		$("table tr").each(function(index, item){
-			console.log("length" + holdingList.length);
+		$("table tbody tr").each(function(index, item){
 			if(index < holdingList.length) {
-				//원래는  return 하지 말고 밑에있는 행 지워야함. ㄱㅊ
-    			console.log("each" + holdingList[index]);
+    			console.log("each holdingList[index] , index : " + index);
+    			console.log(holdingList[index]);
     			$(item).find(".company-number a").text(holdingList[index].companyNumber);
     			$(item).find(".company-name a").text(holdingList[index].companyName);
-    			$(item).find(".stock-price a").text(holdingList[index].stockPrice);
-    			$(item).find(".holding-amount a").text(holdingList[index].holdingAmount);
-    			$(item).find(".holding-total-money a").text(holdingList[index].holdingTotalMoney );
-    			$(item).find(".profit-rate a").text(holdingList[index].holdingRateOfReturn.toFixed(2));
-			}
-			else {
-				//지우기
+    			$(item).find(".stock-price a").text(holdingList[index].realTimePrice.toLocaleString());
+    			$(item).find(".holding-amount a").text(holdingList[index].holdingAmount.toLocaleString());
+    			$(item).find(".holding-total-money a").text(holdingList[index].holdingTotalMoney.toLocaleString());
+    			$(item).find(".profit-rate a").text(holdingList[index].holdingRateOfReturn.toFixed(2) + "%");
 			}
 		});
 	}
