@@ -43,22 +43,11 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <c:when test="${user.userId ne null }">
           <div class="top-header-author">
             <a href="#" class="author-thumb" data-toggle="modal" data-target="#update-header-photo">
-             
-            <c:choose>
-              <c:when test="${result_profile eq true }">
+             	 <%if (result_profile){ %>
               		<img src="${user.userPicture}" width="124" height="124" alt="author">
-              
-              </c:when>
-              <c:otherwise>
+              	<%}else{ %>
               		<img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}" width="124" height="124" alt="author">
-              </c:otherwise>
-              
-            </c:choose>
-            
-            
-            
-            
-            
+             	<%} %>
             </a>
             <div class="author-content">
               <a href="#" class="h4 author-name">${user.userId }</a>

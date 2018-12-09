@@ -102,6 +102,7 @@ public class UserController {
 	  
 	  System.out.println(user);
 	  if(user != null) {
+		  session.setAttribute("user", user);
 		  user.setUserPw("kakao");
 		  user.setUserEmail("kakao@kakao.com");
 		  user.setUserAuthority("kakao");
@@ -318,7 +319,7 @@ public class UserController {
 	  		  if(service.readById(user.getUserId()) == null) {
 	  			  service.regist(user);
 	  		  }
-	  	
+	  		  session.setAttribute("user", user);
 	  		  session.setAttribute("login", user);
   		  
   			// 로그인 성공

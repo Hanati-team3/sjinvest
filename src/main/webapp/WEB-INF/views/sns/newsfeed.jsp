@@ -17,7 +17,7 @@
 
   <div class="header-spacer" style="height:80px"></div>
   
-  <div class="container">
+  <div class="container" style="margin-top: 20px">
     <div class="row">
       
       <!-- realtime start -->
@@ -492,6 +492,7 @@ function getFollowList(){
 function likeFeed(obj){
 	
 	var feedSeq = $(obj).attr('title');
+	console.log(feedSeq);
 	$.ajax({
 		url : '/sos/like/handle',
 		type : 'post',
@@ -598,7 +599,7 @@ function getRankingList(){
 				for(var i=0; i<data.userRanking.length; i++){
 					
 					$('#rankingList').append(
-							'<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+ data.userRanking[i].userSeq +'-sm.jpg\" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\">'+ data.userRanking[i].userId +'</a><div style=\"color:red;\">'+ data.userRanking[i].userTotalMargin +'%</div></div></li>'
+							'<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+ data.userRanking[i].userSeq +'-sm.jpg\" class=\"avatar\"></div><div class=\"author-status\" style=\"margin-left:10px;\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\">'+ data.userRanking[i].userId +'</a><div style=\"color:red;\">'+ data.userRanking[i].userTotalMargin +'%</div></div></li>'
 					);
 				}
 			}
