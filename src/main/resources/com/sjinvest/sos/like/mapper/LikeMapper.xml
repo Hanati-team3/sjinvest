@@ -51,5 +51,11 @@
 		FROM   likes 
 		WHERE  user_seq = #{userSeq}
 		AND    feed_seq = #{feedSeq}
+	</select>
+	<!-- 피드 좋아요 개수 return -->
+	<select id="checkCount" parameterType="Integer" resultType="Integer">
+		SELECT count(user_seq) clike
+		FROM   likes 
+		WHERE  feed_seq = #{feedSeq}
 	</select>	
 </mapper>

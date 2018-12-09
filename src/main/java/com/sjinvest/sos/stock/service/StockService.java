@@ -53,5 +53,6 @@ public interface StockService {
 	public Kospi getKospiData();
 	public Map<String, Object> getChartDataWithKospi(List<String> companyNumberList, int type);
 	public List<Rank> getRanking(int type);
+	public List<String[]> getField();
 	public Map<String, Object> getHolding(List<Holding> holdingList);
 }

@@ -444,4 +444,9 @@ public class StockServiceImpl implements StockService {
 		map.remove("stockList");
 		return map;
 	}
+	@Override
+	public List<String[]> getField() {
+		StockDao stockDao = new StockDao();
+		return stockDao.getField();
+	}
 }

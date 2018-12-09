@@ -63,11 +63,11 @@
 	
 	      <div class="post-additional-info inline-items">
 	
-	        <a href="#" class="post-add-icon inline-items"> <svg
-	            class="olymp-heart-icon">
-	        <use
-	              xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-heart-icon"></use>
-	      </svg> <span name="feedLike"></span>
+	        <a name="likebyOthers" class="post-add-icon inline-items" href="javascript:void(0);" onclick="likeFeed(this)"> 
+	        	<svg class="olymp-heart-icon">
+	        		<use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-heart-icon"></use>
+	      		</svg> 
+	      		<span name="feedLike"></span>
 	        </a>
 	
 	        <div class="comments-shared">

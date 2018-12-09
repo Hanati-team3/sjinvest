@@ -57,7 +57,7 @@ public class UserController {
 	
 	@ResponseBody
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> login(String userId, String userPw, HttpServletResponse response) {
+	public ResponseEntity<Map<String,Object>> login(String userId, String userPw, HttpServletRequest request, HttpServletResponse response) {
 		
 		log.info("login : "+ userId);
 		log.info("login : "+ userPw);
@@ -69,7 +69,11 @@ public class UserController {
 		
 		// 로그인 성공
 		if(user != null) {
-
+			
+			// session 부분
+			request.getSession().setAttribute("user", user);
+			
+			// cookie 부분
 			Cookie cookie = new Cookie("userIdC", userId);
 			cookie.setMaxAge(60 * 60 * 24);
 			cookie.setPath("/");
@@ -78,6 +82,7 @@ public class UserController {
 			
 			returnData.put("user", user);
 			return new ResponseEntity<>(returnData,HttpStatus.OK);
+			
 		}
 		// 로그인 실패
 		else {
@@ -146,6 +151,9 @@ public class UserController {
 				}
 			}
 		}
+		
+		// session 지우는 부분
+		request.getSession().invalidate();
 		
 		return "redirect:/sns/newsfeed";
 
@@ -280,7 +288,7 @@ public class UserController {
         
         //https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
         //redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
-        System.out.println("네이버:" + naverAuthUrl);
+        //System.out.println("네이버:" + naverAuthUrl);
         
         //네이버 
         returnData.put("url", naverAuthUrl);

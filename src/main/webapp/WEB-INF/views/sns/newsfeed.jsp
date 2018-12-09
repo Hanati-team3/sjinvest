@@ -70,7 +70,7 @@
         <%-- 내 정보 위젯 --%>
         <jsp:include page="../widgets/profile-info.jsp"></jsp:include>
 
-        <c:if test="${userId ne null }">
+        <c:if test="${user.userId ne null }">
         <%-- 내 주식정보 위젯 --%>
         <jsp:include page="../widgets/twitter-feed.jsp"></jsp:include>
         </c:if>
@@ -83,7 +83,7 @@
       <!-- Right Sidebar -->
       <aside class="col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-xs-12">
         
-        <c:if test="${userId ne null }">
+        <c:if test="${user.userId ne null }">
         <%-- 관심 종목 위젯--%>
         <jsp:include page="../widgets/activity-feed.jsp"></jsp:include>
         <%-- 팔로잉, 팔로워 --%>
@@ -405,6 +405,11 @@ function showFeedList(data){
 		var writeComment = $('a[name=writeComment]')
 		$(writeComment[i]).attr('title',data.feedList[i].feedSeq)
 		
+		/* 좋아요도 등록 */
+		var likeComment = $('a[name=likebyOthers]')
+		$(likeComment[i]).attr('title',data.feedList[i].feedSeq)
+		
+		
 		var feed = $('#newsfeed-items-grid').html(); 
 		if(i == 0 ){
 			$(feedCard).html(feed);
@@ -482,6 +487,30 @@ function getFollowList(){
 	})
 	
 }
+
+/* 좋아요 글 누르기 */
+function likeFeed(obj){
+	
+	var feedSeq = $(obj).attr('title');
+	$.ajax({
+		url : '/sos/like/handle',
+		type : 'post',
+		data : {
+			"userSeq" : "${user.userSeq}",
+			"feedSeq" : feedSeq
+		},
+		dataType:'json',
+		success: function(data){
+			 $(obj).find('span').text(data);
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	}) 
+}
+
+
 
 /** 
  * 나를 follower한 친구목록
