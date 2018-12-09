@@ -32,6 +32,7 @@ import com.sjinvest.sos.holding.service.HoldingService;
 import com.sjinvest.sos.interest.domain.Interest;
 import com.sjinvest.sos.interest.service.InterestService;
 import com.sjinvest.sos.like.service.LikeService;
+import com.sjinvest.sos.notice.domain.Notice;
 import com.sjinvest.sos.notice.service.NoticeService;
 import com.sjinvest.sos.point.service.PointService;
 import com.sjinvest.sos.setting.service.SettingService;
@@ -43,6 +44,7 @@ import com.sjinvest.sos.stock.domain.News;
 import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.domain.TimeSeries;
 import com.sjinvest.sos.stock.service.StockService;
+import com.sjinvest.sos.trading.domain.Trading;
 import com.sjinvest.sos.trading.service.TradingService;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
@@ -83,7 +85,7 @@ public class StockController2 {
 			System.out.println("user null. test user suhyeon");
 			user = userService.readById("suhyeon");
 		}
-		request.setAttribute("user", user);
+		//request.setAttribute("user", user);
 		
 		List<Holding> holdingList = new ArrayList<>();					/* 보유자산 리스트 */
 		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
@@ -185,7 +187,7 @@ public class StockController2 {
 			System.out.println("user null. test user suhyeon");
 			user = userService.readById("suhyeon");
 		}
-		request.setAttribute("user", user);
+		//request.setAttribute("user", user);
 		
 		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
 		Map<String, Object> map = null;
@@ -233,7 +235,7 @@ public class StockController2 {
 			System.out.println("user null. test user suhyeon");
 			user = userService.readById("suhyeon");
 		}
-		request.setAttribute("user", user);
+		//request.setAttribute("user", user);
 		
 		List<Holding> holdingList = null;				/* 보유자산 리스트 */
 		Map<String, Object> map = null;					/* 서비스의 getHolding이 반환하는 맵을 담을 객체 */
@@ -273,5 +275,34 @@ public class StockController2 {
 		map = service.getHolding(holdingList);			/* realtime, holdingWidgetMap 들어있는 map반환 */
 		System.out.println("holdingUpdate 에서 받은 맵 : " + map);
 		return new ResponseEntity<>( map, HttpStatus.OK);
+	}
+	
+	/** 주식 holding 업데이트 요청 */
+	@PostMapping(value="/holding/sell", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Map<String, Object>> holdingSell(String companyNumber, String companyName,
+			int tradingAmount, int tradingPrice, HttpServletRequest request) {
+		System.out.println("holdingSell :  " + companyNumber + "," + companyName + "," + tradingAmount + "," + tradingPrice);
+		Trading trading = new Trading();
+		User user = (User)request.getSession().getAttribute("user");
+		int userSeq = user.getUserSeq();
+		trading.setCompanyName(companyName);
+		trading.setCompanyNumber(companyNumber);
+		trading.setTradingAmount(tradingAmount);
+		trading.setTradingPrice(tradingPrice);
+		trading.setTradingType(2);
+		trading.setUserSeq(userSeq);
+		boolean result = tradingService.create(trading);
+		Notice notice = new Notice();
+		notice.setUserSeq(userSeq);
+		notice.setNoticeType(2);
+		notice.setNoticeLink("/stock/trade-list");
+		notice.setNoticeContent(companyNumber + " " + tradingAmount + "주가 " + tradingPrice + "원에 판매되었습니다.");
+		noticeService.create(notice);
+		Map<String, Object> returnValue = new HashMap<String, Object>();
+		returnValue.put("message", "" + result);
+		request.getSession().removeAttribute("user");
+		User newUser = userService.readBySeq(user.getUserSeq());
+		request.getSession().setAttribute("user", newUser);
+		return new ResponseEntity<>(returnValue, HttpStatus.OK);
 	}
 }

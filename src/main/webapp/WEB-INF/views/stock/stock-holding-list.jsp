@@ -262,12 +262,71 @@
   	HOLDING.eachHoldingChartElements = [];
   	
 	$(document).ready(function() {
+		console.log('user : ' + <%=(request.getSession().getAttribute("user"))%>);
+		console.log('user : ' + ${sessionScope.user});
 		HOLDING.cashTotal = ${holdingMap.cashTotal};
 		setHoldingList();
 		setTotalHoldingChart( ${holdingMap.stockTotal}, HOLDING.cashTotal);
 		setSlideChart();
 		holdingListUpdate();
 	});
+	
+	/* 판매 모달 활성화 */
+	$('#stock_sell_modal').on('show.bs.modal', function(e) {
+		var thisTr = $(e.relatedTarget.closest("tr"));
+		window.tr = thisTr;
+		$(e.currentTarget).find('input[id="sell-modal-company-number"]').val(thisTr.find('.company-number a').text());
+		$(e.currentTarget).find('input[id="sell-modal-company-name"]').val(thisTr.find('.company-name a').text());
+		$(e.currentTarget).find('input[id="price"]').val(thisTr.find('.stock-price a').text());
+		$(e.currentTarget).find('input[id="amount"]').val("");
+		$(e.currentTarget).find('input[id="totalPrice"]').val("");
+		$(e.currentTarget).find('input[id="balance"]').val( (${sessionScope.user.userMoney}).toLocaleString() );
+	});
+	
+	/* 판매 모달에서 수량 입력 이벤트 */
+	$('#amount').keyup(function (e){
+		var price = $('#price').val().replace(",","");
+		var userMoney = ${user.userMoney};
+		var amount = $(this).val().replace(",","");
+		var total = 0;
+		// 잔액 초과하는 수량 입력시 구매가능 최대 수량으로..
+ 		if( (userMoney - (amount * price)) < 0 ){
+			amount = ((userMoney / price) * 1).toFixed(0);
+		}
+ 		total = amount * price;
+		$(this).val(amount);
+		$('#totalPrice').val(total.toLocaleString());
+		$('#balance').val((userMoney - total).toLocaleString());
+	})
+	
+	/* 판매 버튼 입력 이벤트 */
+	$('#sell-button').on('click', function (e){
+		if($('#amount').val() == "") {
+			alert('수량을 입력해주세요');
+			return;
+		}
+        $.ajax({ 
+              type: "post", 
+              url: "sell", 
+              data: {
+          	  	"companyNumber" : $('#sell-modal-company-number').val(),
+              	"companyName" : $('#sell-modal-company-name').val(),
+              	"tradingAmount" : $('#amount').val().replace(",",""),
+              	"tradingPrice" : $('#price').val().replace(",","")
+			  },
+              success: function (data) {
+              	if(data.message == "true"){
+              		alert("${company.companyName} "+$('#amount').val()+"주가 판매되었습니다.");
+              		$("#stock_buy_modal").modal('hide');
+              		//location.href= '<%=application.getContextPath()%>/stock/index';
+              	}
+              	else {
+              		alert('구매실패... data : ' + data);
+              	}
+              }
+        })	
+		
+	})
 	
 	/* holdingUpdate 요청을 중지하는 함수 */
   	function stop() {
@@ -308,7 +367,6 @@
 	                ]
 	            }]
 	    };
-	    console.log(ctx_pc );
 
 	    HOLDING.totalHoldingChartEL = new Chart(ctx_pc, {
 	        type: 'doughnut',
@@ -331,7 +389,6 @@
 	
 	/* 현금 자산 비율 차트 업데이트 */
 	function updateTotalHoldingChart(stock, cash) {
-		console.log(HOLDING.totalHoldingChartEL.data.datasets[0].data);
 		HOLDING.totalHoldingChartEL.data.datasets[0].data = [stock, cash];
 		HOLDING.totalHoldingChartEL.update(0);
 	}
@@ -339,7 +396,6 @@
 	/** 자산 비율 카드 업데이트 */
 	function updateRateCard(stockTotal) {
 		var total = HOLDING.cashTotal + stockTotal;
-		console.log("total : " + total);
 		var liList = $(".chart-with-statistic li");
 		// 주식
 		$(liList[0]).find(".rate").text("주식 " +(stockTotal / total * 100).toFixed(2)+ "%");
@@ -353,11 +409,8 @@
 	
 	/** 홀딩 테이블 업데이트 */
 	function updateHoldingTable(holdingList) {
-
 		$("table tbody tr").each(function(index, item){
 			if(index < holdingList.length) {
-    			console.log("each holdingList[index] , index : " + index);
-    			console.log(holdingList[index]);
     			$(item).find(".company-number a").text(holdingList[index].companyNumber);
     			$(item).find(".company-name a").text(holdingList[index].companyName);
     			$(item).find(".stock-price a").text(holdingList[index].realTimePrice.toLocaleString());
@@ -397,14 +450,11 @@
 
 	/* 각 보유종목 슬라이드 차트 세팅 */
 	function setSlideChart() {
-		console.log("setEachHoldingCharts holdingList...");
-		console.log(HOLDING.holdingList);
 		for (var i = 0; i < HOLDING.eachHoldingCharts.length; i++) {
 			window.aaa=HOLDING.eachHoldingCharts[0];
 			for(var j = 0; j < HOLDING.holdingList.length; j++) {
 				if(HOLDING.eachHoldingCharts[i].getAttribute("target") == HOLDING.holdingList[j].companyName){
 					// 각 차트에 대해 세팅
-					console.log("같음" + HOLDING.eachHoldingCharts[i].getAttribute("target") + "," + HOLDING.holdingList[j].companyName);
 				    var ctx_ob = HOLDING.eachHoldingCharts[i].getContext("2d");
 				    var data_ob = {
 				        labels: ['전체 보유 금액', '투자금액', '수익금액'],
@@ -461,15 +511,7 @@
 
 		}
 	}
-
-	/* 각 보유종목 슬라이드 차트 업데이트 */		// 카드업데이트에서 차트업데이트도 처리함
-	/* 
-	function updateSlideChart() {
-		console.log(HOLDING.totalHoldingChartEL.data.datasets[0].data);
-		HOLDING.totalHoldingChartEL.data.datasets[0].data = [stock, cash];
-		HOLDING.totalHoldingChartEL.update(0); */
-	}
-	 */
+	
 	/* 실시간 홀딩 데이터 업데이트(2초마다) */
 	function holdingListUpdate() {
 		if(HOLDING.flag) {

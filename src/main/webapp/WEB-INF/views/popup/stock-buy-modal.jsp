@@ -36,7 +36,7 @@
 
 
 
-        <button class="btn btn-primary btn-lg full-width" id=purchase-button>구매</button>
+        <button class="btn btn-primary btn-lg full-width" id="purchase-button">구매</button>
 
       </div>
 
