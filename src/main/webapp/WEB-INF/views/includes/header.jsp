@@ -148,18 +148,12 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <!-- 개인정보 시작  -->
           <div class="author-page author vcard inline-items more">
             <div class="author-thumb">
-              
-              <c:choose>
-                <c:when test="${result eq true}">
-                
-                <!-- ((((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("http") || (((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("https")) -->
-                  <img src="${user.userPicture}" width="36" height="36" class="avatar">
-                </c:when>
-                <c:otherwise>
-                  <img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"width="36" height="36" class="avatar">
-                </c:otherwise> 
-              </c:choose>
-              
+            	<span class="icon-status online"></span>
+                	<%if (result){ %>
+                  <img alt="author" src="${user.userPicture}" width="36" height="36" class="avatar">
+                  <%}else{ %>
+                  <img alt="author" src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"width="36" height="36" class="avatar">
+                  <%} %>
               
               <!-- 마우스 오버 -->
               <div class="more-dropdown more-with-triangle">
@@ -219,6 +213,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
                 ${user.userId }
                 <svg class="olymp-dropdown-arrow-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
               </div>
+              <span class="author-subtitle"></span>
             </a>
           </div>
           <!-- 개인정보 끝  -->

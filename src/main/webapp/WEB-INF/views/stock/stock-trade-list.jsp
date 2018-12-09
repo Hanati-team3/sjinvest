@@ -16,7 +16,10 @@ companyNumberList.push("000270");
 function capture(){
 	$('#share-btn').click(function() {
 		console.log('들어옴');
-	    html2canvas($('.forums-table').parent(), {
+		html2canvas(document.body).then(function(canvas){
+			
+		});
+<%--	    html2canvas($('.forums-table').parent(), {
 	        onrendered: function(canvas) {
 	            if (typeof FlashCanvas != "undefined") {
 	                FlashCanvas.initElement(canvas);
@@ -26,7 +29,8 @@ function capture(){
 	            $("#imgForm").submit();
 	        }
 	    });
-	});	
+	}); --%>	
+})
 }
 
 
