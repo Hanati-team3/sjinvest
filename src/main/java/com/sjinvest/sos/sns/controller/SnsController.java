@@ -4,28 +4,22 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sjinvest.sos.HomeController;
-import com.sjinvest.sos.company.mapper.CompanyMapper;
 import com.sjinvest.sos.company.service.CompanyService;
-import com.sjinvest.sos.feed.domain.Feed;
-import com.sjinvest.sos.feed.mapper.FeedMapper;
-import com.sjinvest.sos.field.mapper.FieldMapper;
 import com.sjinvest.sos.field.service.FieldService;
 import com.sjinvest.sos.user.domain.User;
-import com.sjinvest.sos.user.mapper.UserMapper;
 import com.sjinvest.sos.user.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -42,9 +36,13 @@ public class SnsController {
 	private FieldService fieldService;
 
 	@GetMapping(value = "/sns/newsfeed")
-	public String newsfeed(Model model, HttpServletRequest request) {
+	public String newsfeed(HttpSession session, Model model, HttpServletRequest request) {
+		
+		System.out.println("첫홈페이지 user :"+session.getAttribute("user"));
+		
 		logger.info("newsfeed.");
 		// 쿠키확인 후 user 보내주는 부분
+		/*
 		Cookie[] cookies = request.getCookies();
 		if(cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
@@ -54,7 +52,7 @@ public class SnsController {
 					userId = cookies[i].getValue();
 					//System.out.println(userId);
 					User user = userService.readById(userId);
-	
+
 					model.addAttribute("user", user);
 					//System.out.println("user제발나와라" + user);
 				} else {
@@ -63,6 +61,7 @@ public class SnsController {
 	
 			}
 		}
+		*/
 		return "/sns/newsfeed";
 	}
 	
