@@ -140,13 +140,8 @@
                     <c:forEach var="eachHolding" items="${holdingMap.holdingList}" varStatus="status">
                       <div class="swiper-slide">
                         <div class="statistics-slide">
-                        
-                          <div class="chart-js chart-js-pie-color">
-                            <canvas name="each-holding-chart" width="180" height="180"></canvas>
-                            <div class="general-statistics">
-                              <fmt:formatNumber value="${eachHolding.holdingRateOfReturn}" pattern="##.##"/>
-                              <span>수익율</span>
-                            </div>
+                          <div class="chart-js chart-js-one-bar">
+                            <canvas name="each-holding-chart" target="${eachHolding.companyName}" width="1400" height="800"></canvas>
                           </div>
               
                           <div class="chart-text">
@@ -154,8 +149,8 @@
                             <p>
                               <fmt:formatNumber value="${eachHolding.holdingTotalMoney}" pattern="#,###" />
                               원을 투자하여 
-                              <fmt:formatNumber value="${eachHolding.holdingRateOfReturn}" pattern="##.##" />%
-                              의 수익을 얻었습니다.
+                              <fmt:formatNumber value="${eachHolding.holdingReturn}" pattern="##.##" />
+                               원의 수익을 얻었습니다.
                             </p>
                           </div>
                         </div>
@@ -261,17 +256,16 @@
   	// interest update를 활성화/중지
   	HOLDING.flag = true;
   	HOLDING.holdingList = [];
-  	HOLDING.cashTotal = [];
+  	HOLDING.cashTotal = 0;
   	HOLDING.totalHoldingChart = document.getElementById("total-holding-chart");
-
   	HOLDING.eachHoldingCharts = document.getElementsByName("each-holding-chart");
   	HOLDING.eachHoldingChartElements = [];
   	
 	$(document).ready(function() {
 		HOLDING.cashTotal = ${holdingMap.cashTotal};
-		setTotalHoldingChart( ${holdingMap.stockTotal}, HOLDING.cashTotal);
 		setHoldingList();
-		//setTotalHoldingChart();
+		setTotalHoldingChart( ${holdingMap.stockTotal}, HOLDING.cashTotal);
+		setEachHoldingCharts();
 		holdingListUpdate();
 	});
 	
@@ -300,7 +294,6 @@
 
 
 	/* 전체 자산 비율 차트 세팅 */
-
 	function setTotalHoldingChart(stock, cash) {
 	    var ctx_pc = HOLDING.totalHoldingChart.getContext("2d");
 	    var data_pc = {
@@ -315,6 +308,7 @@
 	                ]
 	            }]
 	    };
+	    console.log(ctx_pc );
 
 	    HOLDING.totalHoldingChartEL = new Chart(ctx_pc, {
 	        type: 'doughnut',
@@ -344,7 +338,7 @@
 	}
 	
 	/** 자산 비율 카드 세팅 */
-	function setRateCard(stockTotal) {
+	function updateRateCard(stockTotal) {
 		var total = HOLDING.cashTotal + stockTotal;
 		console.log("total : " + total);
 		var liList = $(".chart-with-statistic li");
@@ -382,13 +376,13 @@
 		$(".swiper-slide").each(function(index, item){
 			for(var i = 0; i < holdingList.length; i++) {
 				if($(item).find(".chart-text h6").text() == holdingList[i].companyName) {
-					$(item).find(".chart-text p").text(holdingList[i].holdingTotalMoney.toLocaleString() + "원을 투자하여"+
-							holdingList[i].holdingReturn.toLocaleString()+"원의 수익을 얻었습니다.");
 					if(holdingList[i].holdingReturn > 0) {
-						$(item).find(".chart-text p").removeClass('minus').addClass('plus');
+						$(item).find(".chart-text p").html(holdingList[i].holdingTotalMoney.toLocaleString() + "원을 투자하여 "+
+								"<span class='plus'> " + holdingList[i].holdingReturn.toLocaleString() +"</span> 원의 수익을 얻었습니다.");
 					}
 					else {
-						$(item).find(".chart-text p").removeClass('plus').addClass('minus');
+						$(item).find(".chart-text p").html(holdingList[i].holdingTotalMoney.toLocaleString() + "원을 투자하여 "+
+								"<span class='minus'> " + holdingList[i].holdingReturn.toLocaleString() +"</span> 원의 수익을 얻었습니다.");
 					}
 					break;
 				}
@@ -398,38 +392,71 @@
 	
 
 	/* 각 보유종목 슬라이드 차트 세팅 */
-	function setTotalHoldingChart(holdingList) {
+	function setEachHoldingCharts() {
+		console.log("setEachHoldingCharts holdingList...");
+		console.log(HOLDING.holdingList);
 		for (var i = 0; i < HOLDING.eachHoldingCharts.length; i++) {
-			var ctx_pc = HOLDING.eachHoldingCharts[i].getContext("2d");
-		    var data_pc = {
-		        labels: ["투자금", "수익금"],
-		        datasets: [
-		            {
-		                data: [100, 200],
-		                borderWidth: 0,
-		                backgroundColor: [
-		                    "#7c5ac2",
-		                    "#08ddc1"
-		                ]
-		            }]
-		    };
-		    
-		    HOLDING.eachHoldingChartElements.push(new Chart(ctx_pc, {
-		        type: 'doughnut',
-		        data: data_pc,
-		        options: {
-		            deferred: {           // enabled by default
-		                delay: 300        // delay of 500 ms after the canvas is considered inside the viewport
-		            },
-		            cutoutPercentage:93,
-		            legend: {
-		                display: false
-		            },
-		            animation: {
-		                animateScale: false
-		            }
-		        }
-		    }));
+			window.aaa=HOLDING.eachHoldingCharts[0];
+			for(var j = 0; j < HOLDING.holdingList.length; j++) {
+				if(HOLDING.eachHoldingCharts[i].getAttribute("target") == HOLDING.holdingList[j].companyName){
+					// 각 차트에 대해 세팅
+					console.log("같음" + HOLDING.eachHoldingCharts[i].getAttribute("target") + "," + HOLDING.holdingList[j].companyName);
+				    var ctx_ob = HOLDING.eachHoldingCharts[i].getContext("2d");
+				    var data_ob = {
+				        labels: ['전체 보유 금액', '투자금액', '수익금액'],
+				        datasets: [{
+				                backgroundColor: "#38a9ff",
+				                data: [HOLDING.holdingList[j].holdingAmount * HOLDING.holdingList[j].realTimePrice, 
+			                		HOLDING.holdingList[j].holdingTotalMoney, 
+			                		HOLDING.holdingList[j].holdingReturn
+				                	]
+				            }]
+				    };
+
+				    HOLDING.eachHoldingChartElements.push(new Chart(ctx_ob, {
+				        type: 'bar',
+				        data: data_ob,
+				        options: {
+				            deferred: {           // enabled by default
+				                delay: 200        // delay of 500 ms after the canvas is considered inside the viewport
+				            },
+				            tooltips: {
+				                enabled:true
+				            },
+				            legend: {
+				                display: false
+				            },
+				            responsive: true,
+				            scales: {
+				                xAxes: [{
+				                    stacked: true,
+				                    barPercentage:0.6,
+				                    gridLines: {
+				                        display: false
+				                    },
+				                    ticks: {
+				                        fontColor: '#888da8'
+				                    }
+				                }],
+				                yAxes: [{
+				                    stacked: true,
+				                    gridLines: {
+				                        color: "#f0f4f9"
+				                    },
+				                    ticks: {
+				                        beginAtZero:true,
+				                        fontColor: '#888da8'
+				                    }
+				                }]
+				            }
+				        }
+				    }));
+					
+					break;
+				}
+
+			}
+
 		}
 	}
 

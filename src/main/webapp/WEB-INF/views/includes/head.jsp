@@ -324,6 +324,14 @@
 
 
 /* 보유자산 */
+.stock-holding-main .statistics-slide .chart-text{
+  margin-top: 40px;
+}
+
+.stock-holding-main .statistics-slide .chart-text h6{
+  font-size: 2em;
+}
+
 .stock-holding-main .forums-table .text{
   font-size: 10px;
 }
