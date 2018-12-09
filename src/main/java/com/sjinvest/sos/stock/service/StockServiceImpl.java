@@ -434,7 +434,7 @@ public class StockServiceImpl implements StockService {
 			int holdingPrice = searchPrice(holding.getCompanyNumber(), stockList);
 			holding.setRealTimePrice(holdingPrice);
 			holding.setHoldingReturn((holdingPrice*holding.getHoldingAmount())-holding.getHoldingTotalMoney());
-			holding.setHoldingRateOfReturn(holding.getHoldingReturn()/holding.getHoldingTotalMoney());
+			holding.setHoldingRateOfReturn((holding.getHoldingReturn()/holding.getHoldingTotalMoney())*100);
 			stockTotal = stockTotal + (holdingPrice*holding.getHoldingAmount());
 		}
 		Map<String, Object> holdingWidgetMap = new Hashtable<String, Object>();

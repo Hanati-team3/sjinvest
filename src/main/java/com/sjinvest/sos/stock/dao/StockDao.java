@@ -346,6 +346,7 @@ public class StockDao {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String apiURL = "http://54.180.117.83:8000/stock?";
 		String urlString = apiURL + "code="+convertListToString(companyNumberList);
+		System.out.println(urlString);
 		try {
 			URL url = new URL(urlString);
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
