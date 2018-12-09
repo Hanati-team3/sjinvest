@@ -8,64 +8,68 @@
 <script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
 <script>
 function purchaseButton(){
-	$('#purchase-button').click(function(e){
-		if($('#amount').val() > 0){
-			  $.ajax({ 
-			        type: "post", 
-			        url: "purchase", 
-			        data: {"companyNumber" : "${company.companyNumber}",
-			        	"companyName" :"${company.companyName}",
-			        	"tradingAmount" : $('#amount').val(),
-			        	"tradingPrice" : $('#price').val(),
-			        	"userSeq" : 2},
-			        success: function (data) {
-			        	if(data.message == "true"){
-			        		alert("${company.companyName} "+$('#amount').val()+"주가 구매되었습니다.");
-			        		$("#stock_buy_modal").modal('hide');
-			        	};
-			        }
-			})	
-		}
-	  
-	})
+	<c:if test="${not empty user}">
+		$('#purchase-button').click(function(e){
+			if($('#amount').val() > 0){
+				  $.ajax({ 
+				        type: "post", 
+				        url: "purchase", 
+				        data: {"companyNumber" : "${company.companyNumber}",
+				        	"companyName" :"${company.companyName}",
+				        	"tradingAmount" : $('#amount').val(),
+				        	"tradingPrice" : $('#price').val()},
+				        success: function (data) {
+				        	if(data.message == "true"){
+				        		alert("${company.companyName} "+$('#amount').val()+"주가 구매되었습니다.");
+				        		$("#stock_buy_modal").modal('hide');
+				        	};
+				        }
+				})	
+			}
+		  
+		})		
+	</c:if>
 }
 function purchase(){
 	$('#amount').keydown(function (e){
-		if(user != null){
-			if((${user.userMoney}-($(this).val()*$('#price').val()))<0){
-				$(this).val(((${user.userMoney}/$('#price').val())*1).toFixed(0));
-			}
-			$(this).val($(this).val().replace("-",""));
-			$(this).val(($(this).val()*1).toFixed(0));
-			$('#totalPrice').val($(this).val()*$('#price').val());
-			$('#balance').val(${user.userMoney}-$('#totalPrice').val());
+	<c:if test="${not empty user}">
+		if((${user.userMoney}-($(this).val()*$('#price').val()))<0){
+			$(this).val(((${user.userMoney}/$('#price').val())*1).toFixed(0));
 		}
+		$(this).val($(this).val().replace("-",""));
+		$(this).val(($(this).val()*1).toFixed(0));
+		$('#totalPrice').val($(this).val()*$('#price').val());
+		$('#balance').val(${user.userMoney}-$('#totalPrice').val());
+	</c:if>
 	})
 }
 function addInterest(){
 	$('.bg-interest').click(function (e) {
-		e.preventDefault();
-		if($(".fa-heart").hasClass("fas")===true){
-			$.ajax({ 
-		        type: "post", 
-		        url: "addInterest", 
-		        data: {"userSeq" : 2, "companyNumber" : "${company.companyNumber}", "companyName" : "${company.companyName}"}, 
-		        success: function (data) {
-		        	$('.fa-heart').removeClass('fas');
-		        	$('.fa-heart').addClass('far');
-		        }
-		    })			
-		}else{
-			$.ajax({ 
-		        type: "post", 
-		        url: "removeInterest", 
-		        data: {"userSeq" : 2, "companyNumber" : "${company.companyNumber}", "companyName" : "${company.companyName}"}, 
-		        success: function (data) {
-		        	$('.fa-heart').removeClass('far');
-		        	$('.fa-heart').addClass('fas');
-		        }
-		    })			
+		<c:if test="${not empty user}">
+			e.preventDefault();
+			if($(".fa-heart").hasClass("fas")===true){
+				$.ajax({ 
+			        type: "post", 
+			        url: "addInterest", 
+			        data: {"userSeq" : ${user.userSeq}, "companyNumber" : "${company.companyNumber}", "companyName" : "${company.companyName}"}, 
+			        success: function (data) {
+			        	$('.fa-heart').removeClass('fas');
+			        	$('.fa-heart').addClass('far');
+			        }
+			    })			
+			}else{
+				$.ajax({ 
+			        type: "post", 
+			        url: "removeInterest", 
+			        data: {"userSeq" : ${user.userSeq}, "companyNumber" : "${company.companyNumber}", "companyName" : "${company.companyName}"}, 
+			        success: function (data) {
+			        	$('.fa-heart').removeClass('far');
+			        	$('.fa-heart').addClass('fas');
+			        }
+			    })			
+			}
 		}
+		</c:if>
 	});
 }
 
@@ -222,13 +226,16 @@ function getStockData(){
           var hour = d.getHours();
           var minutes = d.getMinutes();
           var seconds = d.getSeconds();
-          $('#price').val(data.stock.stockPrice);
-          $('#amount').attr("max",(${user.userMoney}/$('#price').val()).toFixed(0));
-  		  $('#totalPrice').val($("#amount").val()*$('#price').val());
-          $(".company-stock").text(numberWithCommas(data.stock.stockPrice));
+    	  <c:if test="${not empty user}">
+              $('#price').val(data.stock.stockPrice);
+              $('#amount').attr("max",(${user.userMoney}/$('#price').val()).toFixed(0));
+      		  $('#totalPrice').val($("#amount").val()*$('#price').val());
+          </c:if>
+  		  $(".company-stock").text(numberWithCommas(data.stock.stockPrice));
           $("#highPrice").html(numberWithCommas(data.stock.stockHigh)+"<span class='indicator positive'> 4.207</span>");
           $("#lowPrice").html(numberWithCommas(data.stock.stockLow)+"<span class='indicator positive'> 4.207</span>");
           $("#stockVolume").html(numberWithCommas(data.stock.stockVolume)+"<span class='indicator positive'> 4.207</span>");
+          $("#closingPrice").html(numberWithCommas(data.stock.stockClosingPrice)+"<span class='indicator positive'> 4.207</span>");
           hour = hour >= 10 ? hour : '0' + hour;  
           minutes = minutes >= 10 ? minutes : '0' + minutes;  
           seconds = seconds >= 10 ? seconds : '0' + seconds;  
