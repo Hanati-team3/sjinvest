@@ -630,6 +630,36 @@ function getRankingList(){
 	})
 	
 }
+
+/*
+ * userData 모달 안에서 follow버튼
+ */
+function userFollow() {
+
+	console.log("여기들어와???");
+	$.ajax({
+
+		url : '/sos/follow/add',
+		type : 'get',
+		data : {
+			"followUserId" : "tester01",
+			"userSeq" : "${user.userSeq}"
+		},
+		success : function(data) {
+			console.log("follow 결과???");
+			console.log(data.addResult);
+			//location.reload();
+		},
+		error : function() {
+			alert("follow추가 error.");
+		}
+	})
+
+}
+
+/*
+ * newfeed 닉네임 클릭시 유저 modal
+ */
 function userModal(obj){
 	$.ajax({
 		url : '/sos/user/dataNick',
@@ -659,11 +689,11 @@ function appendClickEvent(){
 // follow 친구 아이디 click시
 $('#follow_list li a').on('click', function(){
 
-//	console.log($(this).closest("ul").html());
 	$.ajax({
 		
 		url : '/sos/user/data',
 		type : 'post',
+		async : false,
 		data : {
 			"userId" : this.text
 		},
@@ -685,12 +715,14 @@ $('#follow_list li a').on('click', function(){
 
 // follower 친구 아이디 click시
 $('#follower_list li a').on('click', function(){
+	/* var index = 0;
+	console.log(index);
+	index = index+1; */
 
-//	console.log($(this).closest("ul").html());
 	$.ajax({
-		
 		url : '/sos/user/data',
 		type : 'post',
+		async : false,
 		data : {
 			"userId" : this.text
 		},

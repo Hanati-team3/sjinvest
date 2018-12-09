@@ -187,7 +187,7 @@ public class StockController {
 		notice.setUserSeq(userSeq);
 		notice.setNoticeType(2);
 		notice.setNoticeLink("/stock/trade-list");
-		notice.setNoticeContent(companyNumber + " " + tradingAmount + "주가 " + tradingPrice + "원에 구매되었습니다.");
+		notice.setNoticeContent(companyName + " " + tradingAmount + "주가 " + tradingPrice + "원에 구매되었습니다.");
 		noticeService.create(notice);
 		Map<String, Object> returnValue = new HashMap<String, Object>();
 		returnValue.put("message", "" + result);
