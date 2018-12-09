@@ -33,6 +33,23 @@ public class FollowController {
 	private FollowService service;
 	private UserService userService;
 	
+	// follow 추가 여기부터 시작!!!
+	@GetMapping("/add")	
+	public String add(String userSeq, HttpServletRequest request) {
+
+		log.info("add : " + userSeq);
+		
+		// 수정시작
+		Follow follow = new Follow();
+		//System.out.println("받아온 user 정보: "+user);
+		
+		String userId = (String) request.getAttribute("userId");
+		boolean result = service.create(follow);
+		//System.out.println("수정된 user 결과: "+ result);
+
+		return "redirect:/sns/mypage_index";
+	}
+	
 	@ResponseBody
 	@GetMapping(value = "/followList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String,Object>> followList(String userSeq) {

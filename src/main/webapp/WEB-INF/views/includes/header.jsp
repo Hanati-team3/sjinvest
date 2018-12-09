@@ -78,7 +78,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <%-- SNS 알림 시작 --%>
           <div class="control-icon more has-items">
             <svg class="olymp-happy-face-icon" onclick="snsList()"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-            <div class="label-avatar bg-blue" id="snsCnt">6</div>
+            <div class="label-avatar bg-blue" id="snsCnt"></div>
     
             <div class="more-dropdown more-with-triangle triangle-top-center">
               <div class="ui-block-title ui-block-title-small">
@@ -113,7 +113,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <div class="control-icon more has-items">
             <svg class="olymp-thunder-icon" onclick="stockList()"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-thunder-icon"></use></svg>
     
-            <div class="label-avatar bg-primary" id="stockCnt">8</div>
+            <div class="label-avatar bg-primary" id="stockCnt"></div>
     
             <div class="more-dropdown more-with-triangle triangle-top-center">
               <div class="ui-block-title ui-block-title-small">
@@ -250,7 +250,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
         <a class="nav-link" data-toggle="tab" href="#request" role="tab">
           <div class="control-icon has-items">
             <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-            <div class="label-avatar bg-blue">1</div>
+            <div class="label-avatar bg-blue" id="snsCnt"></div>
           </div>
         </a>
       </li>
@@ -259,7 +259,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
         <a class="nav-link" data-toggle="tab" href="#notification" role="tab">
           <div class="control-icon has-items">
             <svg class="olymp-thunder-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-thunder-icon"></use></svg>
-            <div class="label-avatar bg-primary">2</div>
+            <div class="label-avatar bg-primary" id="stockCnt"></div>
           </div>
         </a>
       </li>
@@ -275,23 +275,11 @@ if((User)(request.getSession().getAttribute("user")) != null){
         <div class="ui-block-title ui-block-title-small">
           <h6 class="title">SNS 알림</h6>
         </div>
-        <ul class="notification-list friend-requests">
+        <ul class="notification-list friend-requests" id="sns-list">
 
-          <li class="accepted">
-            <div class="author-thumb">
-              <img src="<%=application.getContextPath()%>/resources/img/avatar57-sm.jpg" alt="author">
-            </div>
-            <div class="notification-event">
-              Mary Jane Stark just became friends. Write on <a href="#" class="notification-link">her wall</a>.
-            </div>
-              <span class="notification-icon">
-                 <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-              </span>
-
-          </li>
- 
+        <!-- 목록 들어와야할 영역 -->
         </ul>
-        <a href="#" class="view-all bg-blue">모든 sns 알림 읽기</a>
+        <a href="#" class="view-all bg-blue">sns 알림</a>
       </div>
 
     </div>
@@ -304,39 +292,12 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <h6 class="title">STOCK 알림</h6>
         </div>
 
-        <ul class="notification-list">
-          <li>
-            <div class="author-thumb">
-              <img src="<%=application.getContextPath()%>/resources/img/avatar62-sm.jpg" alt="author">
-            </div>
-            <div class="notification-event">
-              <div><a href="#" class="h6 notification-friend">Mathilda Brinker</a> commented on your new <a href="#" class="notification-link">profile status</a>.</div>
-              <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">4 hours ago</time></span>
-            </div>
-                    <span class="notification-icon">
-                      <svg class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-                    </span>
+        <ul class="notification-list" id="stock-list">
 
-          </li>
-
-          <li class="un-read">
-            <div class="author-thumb">
-              <img src="<%=application.getContextPath()%>/resources/img/avatar63-sm.jpg" alt="author">
-            </div>
-            <div class="notification-event">
-              <div>You and <a href="#" class="h6 notification-friend">Nicholas Grissom</a> just became friends. Write on <a href="#" class="notification-link">his wall</a>.</div>
-              <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
-            </div>
-                    <span class="notification-icon">
-                      <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-                    </span>
-
-          </li>
-
-
+        <!-- 목록 들어와야할 영역 -->
         </ul>
 
-        <a href="#" class="view-all bg-primary">모든 stock 알림 읽기</a>
+        <a href="#" class="view-all bg-primary">stock 알림</a>
       </div>
 
     </div>
