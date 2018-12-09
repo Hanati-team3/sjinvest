@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -43,13 +44,12 @@ public class NoticeController {
 
 	@ResponseBody
 	@GetMapping(value = "/snsList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String, Object>> snsList(HttpServletRequest request) {
+	public ResponseEntity<Map<String, Object>> snsList(String userId, HttpServletRequest request) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 
 		// System.out.println("notice 유저번호: "+userSeq);
 		// System.out.println("notice: "+service.listByUser(userSeq));
 
-		String userId = (String) request.getAttribute("userId");
 		List<Notice> snsList = new ArrayList<>();
 		List<Notice> snsList2 = new ArrayList<>();
 
@@ -73,13 +73,11 @@ public class NoticeController {
 
 	@ResponseBody
 	@GetMapping(value = "/stockList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String, Object>> stockList(HttpServletRequest request) {
+	public ResponseEntity<Map<String, Object>> stockList(String userId, HttpServletRequest request) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 
 		// System.out.println("notice 유저번호: "+userSeq);
 		// System.out.println("notice: "+service.listByUser(userSeq));
-
-		String userId = (String) request.getAttribute("userId");
 
 		List<Notice> stockList2 = new ArrayList<>();
 		List<Notice> stockList = new ArrayList<>();
