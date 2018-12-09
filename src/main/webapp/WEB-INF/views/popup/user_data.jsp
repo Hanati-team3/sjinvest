@@ -40,7 +40,7 @@
               <img src="<%=application.getContextPath()%>/resources/img/author-main1.jpg" alt="author">
             </a>
             <div class="author-content">
-              <a href="#" id="id2" class="h4 author-name">aaa</a>
+              <a href="#" id="id2" class="h4 author-name"></a>
               <div class="email" id="email2"></div>
             </div>
           </div>
@@ -50,24 +50,9 @@
   </div>
 </div>
 
-
-                <%-- <div class="control-block-button post-control-button">
-                  <a href="#" class="btn btn-control has-i bg-interest">
-                    <c:choose>
-                        <c:when test="${isInterest eq true}">
-                          <i class="far fa-heart"></i>
-                        </c:when>
-                        <c:when test="${isInterest eq false}">
-                          <i class="fas fa-heart"></i>
-                        </c:when>
-                    </c:choose>
-                  </a>
-                </div> --%>
-
-
         <div class="control-block-button post-control-button">
   
-          <a href="/sos/follow/add" class="btn btn-control"> <svg class="olymp-like-post-icon">
+          <a href="#" class="btn btn-control" onclick="userFollow()"> <svg class="olymp-like-post-icon">
             <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-like-post-icon"></use></svg>
           </a>
   

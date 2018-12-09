@@ -33,14 +33,4 @@
 
 <!-- 프로필 사진, 배경 end -->
               
-              <!-- follow 하트 버튼, 위치가 안맞아서 -->
-              <!-- <div class="control-block-button post-control-button">
-                  <a href="#" class="btn btn-control has-i bg-interest">
-                      <i class="fas fa-heart"></i>
-                  </a>
-              </div> -->
-              
-              
-              
-              
               

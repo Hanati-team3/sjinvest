@@ -72,11 +72,11 @@ public class UserController {
 			session.setAttribute("user", user);
 
 			// cookie 부분
-			Cookie cookie = new Cookie("userIdC", userId);
+			/*Cookie cookie = new Cookie("userIdC", userId);
 			cookie.setMaxAge(60 * 60 * 24);
 			cookie.setPath("/");
 			
-			response.addCookie(cookie);
+			response.addCookie(cookie);*/
 			
 			returnData.put("user", user);
 			return new ResponseEntity<>(returnData,HttpStatus.OK);
@@ -254,29 +254,6 @@ public class UserController {
 		
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
-	
-	
-
-	/*
-	// model and view로 
-	@GetMapping("/company/{companyNumber}")
-	public String company(@PathVariable("companyNumber") String companyNumber, Model model) {
-		Company company = companyService.readByNumber(companyNumber);
-		List<News> news= service.getNewsList(company.getCompanyName()); 
-		model.addAttribute("company", company);
-		model.addAttribute("news", news);
-		return "stock/stock-company";
-	}
-	// Ajax로
-	@ResponseBody
-	@PostMapping(value = "/company/getdata", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> getData(String companyNumber, String companyName) {
-		Map<String, Object> returnData = new HashMap<String, Object>();
-		returnData.put("stockInfo", service.getStockInfo(companyNumber, companyName));
-		returnData.put("askingPrice", service.getAskingPrice(companyNumber));
-		return new ResponseEntity<>(returnData,HttpStatus.OK);
-	}
-	*/
 	
 	//로그인 첫 화면 요청 메소드
     @RequestMapping(value = "/naverlogin", method = { RequestMethod.GET, RequestMethod.POST })
