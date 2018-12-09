@@ -171,9 +171,11 @@ public class StockController {
 
 	@ResponseBody
 	@PostMapping(value = "/company/purchase", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String, Object>> purchase(int userSeq, String companyNumber, String companyName,
-			int tradingAmount, int tradingPrice) {
+	public ResponseEntity<Map<String, Object>> purchase(String companyNumber, String companyName,
+			int tradingAmount, int tradingPrice, HttpServletRequest request) {
 		Trading trading = new Trading();
+		User user = (User)request.getSession().getAttribute("user");
+		int userSeq = user.getUserSeq();
 		trading.setCompanyName(companyName);
 		trading.setCompanyNumber(companyNumber);
 		trading.setTradingAmount(tradingAmount);
@@ -189,6 +191,9 @@ public class StockController {
 		noticeService.create(notice);
 		Map<String, Object> returnValue = new HashMap<String, Object>();
 		returnValue.put("message", "" + result);
+		request.getSession().removeAttribute("user");
+		User newUser = userService.readBySeq(user.getUserSeq());
+		request.getSession().setAttribute("user", newUser);
 		return new ResponseEntity<>(returnValue, HttpStatus.OK);
 	}
 

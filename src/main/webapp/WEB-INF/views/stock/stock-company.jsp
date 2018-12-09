@@ -68,9 +68,8 @@ function addInterest(){
 			        }
 			    })			
 			}
-		}
-		</c:if>
-	});
+			</c:if>
+		});
 }
 
 function getChangeOption(){
