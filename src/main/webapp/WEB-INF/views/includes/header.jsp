@@ -64,7 +64,7 @@
           <%-- SNS 알림 시작 --%>
           <div class="control-icon more has-items">
             <svg class="olymp-happy-face-icon" onclick="snsList()"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-            <div class="label-avatar bg-blue">2</div>
+            <div class="label-avatar bg-blue" id="snsCnt">6</div>
     
             <div class="more-dropdown more-with-triangle triangle-top-center">
               <div class="ui-block-title ui-block-title-small">
@@ -72,58 +72,24 @@
               </div>
     
               <div class="mCustomScrollbar" data-mcs-theme="dark">
-                <ul class="notification-list friend-requests">
-                  <li>
-                    <div class="author-thumb">
-                      <img src="<%=application.getContextPath()%>/resources/img/avatar55-sm.jpg" alt="author">
-                    </div>
-                    <div class="notification-event">
-                      <a href="#" class="h6 notification-friend">Tamara Romanoff</a>
-                      <span class="chat-message-item">Mutual Friend: Sarah Hetfield</span>
-                    </div>
-                    <span class="notification-icon">
-                      <a href="#" class="accept-request">
-                        <span class="icon-add without-text">
-                          <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-                        </span>
-                      </a>
-    
-                      <a href="#" class="accept-request request-del">
-                        <span class="icon-minus">
-                          <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-                        </span>
-                      </a>
-    
-                    </span>
-    
-                    <div class="more">
-                      <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-                    </div>
-                  </li>
-    
+                <ul class="notification-list friend-requests" id="sns-list">
 
+                  <%-- sns 알림 sample
                   <li class="accepted">
                     <div class="author-thumb">
                       <img src="<%=application.getContextPath()%>/resources/img/avatar57-sm.jpg" alt="author">
                     </div>
                     <div class="notification-event">
-                      You and <a href="#" class="h6 notification-friend">Mary Jane Stark</a> just became friends. Write on <a href="#" class="notification-link">her wall</a>.
+                      <a href="#" class="h6 notification-friend">친구이름</a>
                     </div>
-                    <span class="notification-icon">
-                      <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-                    </span>
-    
-                    <div class="more">
-                      <svg class="olymp-three-dots-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-                      <svg class="olymp-little-delete"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-little-delete"></use></svg>
-                    </div>
-                  </li>
+                  </li> 
+                  --%>
     
     
                 </ul>
               </div>
     
-              <a href="#" class="view-all bg-blue">모든 sns 알림 읽기</a>
+              <a href="#" class="view-all bg-blue">sns 알림</a>
             </div>
           </div>
           <%-- SNS 알림 끝 --%>
@@ -133,14 +99,14 @@
           <div class="control-icon more has-items">
             <svg class="olymp-thunder-icon" onclick="stockList()"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-thunder-icon"></use></svg>
     
-            <div class="label-avatar bg-primary">3</div>
+            <div class="label-avatar bg-primary" id="stockCnt">8</div>
     
             <div class="more-dropdown more-with-triangle triangle-top-center">
               <div class="ui-block-title ui-block-title-small">
                 <h6 class="title">Stock 알림</h6>
               </div>
               <div class="mCustomScrollbar" data-mcs-theme="dark">
-                <ul class="notification-list">
+                <ul class="notification-list" id="stock-list">
                 
                   <%-- stock 알림 sample
                   <li>
@@ -156,24 +122,10 @@
                     </div>
                   </li> 
                   --%>
-                  
-                  <li>
-                    <div class="notification-event">
-                      <div><a href="#" class="h6 notification-friend">내용 나와라</a></div>
-                      <span class="notification-date">4 hours ago</time></span>
-                    </div>
-                      <span class="notification-icon">
-                        <svg class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-                      </span>
-                    <div class="more">
-                      <svg class="olymp-little-delete"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-little-delete"></use></svg>
-                    </div>
-                  </li> 
-    
 
                 </ul>
               </div>
-              <a href="#" class="view-all bg-primary">모든 stock 알림 읽기</a>
+              <a href="#" class="view-all bg-primary">stock 알림</a>
             </div>
           </div>
           <%-- 주식 알림 끝 --%>
@@ -407,13 +359,20 @@ function snsList(){
 		
 		url : '/sos/notice/snsList',
 		type : 'get',
-		data : {},
+		data : {
+			
+			"userId" : "${user.userId}"
+		},
 		success: function(data){
 			
 			
 			for(var i=0; i<data.snsList.length; i++){
 				
-				console.log("sns정보"+data.snsList[i].noticeContent);
+				//console.log("sns정보"+data.snsList[i].noticeContent);
+				$('#snsCnt').replaceWith('<div class="label-avatar bg-blue" id="snsCnt">'+ data.snsList.length +'</div>');
+				$('#sns-list').append('<li><div class="notification-event"><div><a href="#" class="h6 notification-friend">'+ data.snsList[i].noticeContent +'</a></div><span class="notification-date">'+ data.snsList[i].noticeDate +'</span></div></li>');
+			
+			
 			}			
 		},
 		error : function() {
@@ -435,13 +394,17 @@ function stockList(){
 		url : '/sos/notice/stockList',
 		type : 'get',
 		data : {
-			"userSeq" : "${user.userSeq}"
+			"userId" : "${user.userId}"
 		},
 		success: function(data){
 			
 			for(var i=0; i<data.stockList.length; i++){
 				
-				console.log("주식정보"+data.stockList[i].noticeContent);
+				//console.log("주식정보 : "+data.stockList[i].noticeContent);
+				$('#stockCnt').replaceWith('<div class="label-avatar bg-primary" id="stockCnt">'+ data.stockList.length +'</div>');
+				$('#stock-list').append('<li><div class="notification-event"><div><a href="#" class="h6 notification-friend">'+ data.stockList[i].noticeContent +'</a></div><span class="notification-date">'+ data.stockList[i].noticeDate +'</span></div></li>');	
+			
+			
 			}
 			
 		},
