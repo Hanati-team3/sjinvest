@@ -8,12 +8,14 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
 <script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/html2canvas.js"></script>
 <script>
 var companyNumberList = new Array;
 companyNumberList.push("000270");
 
-function html2canvas(){
+function capture(){
 	$('#share-btn').click(function() {
+		console.log('들어옴');
 	    html2canvas($('.forums-table').parent(), {
 	        onrendered: function(canvas) {
 	            if (typeof FlashCanvas != "undefined") {
@@ -73,8 +75,9 @@ $(document).ready(function(){
 	addPageNation();
 	typeChanged();
 	getStockData();
-	html2canvas();
+	capture();
 });
+
 </script>
 </head>
 
