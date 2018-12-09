@@ -50,9 +50,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	    <article class="hentry post">
 	
 	      <div class="post__author author vcard inline-items">
-	        <img
-	          src="<%=application.getContextPath()%>/resources/img/avatar7-sm.jpg"
-	          alt="author">
+	        <img name="userImage" src="" width="36px" height="36px" alt="author">
 	
 	        <div class="author-date">
 	          <a name="postUserNickName"  href="javascript:void(0);" onclick="userModal(this)" class="h6 post__author-name fn" data-toggle="modal" data-target="#user_data"></a>
@@ -184,9 +182,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
 
 <li name="commentLI" style="display:none">
 	  <div class="post__author author vcard inline-items">
-	    <img
-	      src="<%=application.getContextPath()%>/resources/img/avatar10-sm.jpg"
-	      alt="author">
+	    <img name="userReplyImage" src="<%=application.getContextPath()%>/resources/img/avatar10-sm.jpg" width="36px" height="36px" alt="author">
 	
 	    <div class="author-date">
 	      <a name="replyName" class="h6 post__author-name fn"
