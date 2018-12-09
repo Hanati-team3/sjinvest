@@ -353,7 +353,6 @@ function showFeedList(data){
 		var like = $('span[name=feedLike]')
 		$(like[i]).text(data.feedList[i].feedLikeCnt);
 		
-		/* 수정 삭제 url 넣기!! */
 		/* 좋아요, 공유 */
 		var commentCount = $('span[name=feedCommnetCount]')
 		$(commentCount[i]).text(data.feedList[i].feedReplyCnt);
@@ -408,6 +407,24 @@ function showFeedList(data){
 		/* 좋아요도 등록 */
 		var likeComment = $('a[name=likebyOthers]')
 		$(likeComment[i]).attr('title',data.feedList[i].feedSeq)
+		/* 수정 */
+		var editComment = $('a[name=editFeed]')
+		$(editComment[i]).attr('title',data.feedList[i].feedSeq)
+		/* 삭제 */
+		var deleteComment = $('a[name=deleteFeed]')
+		$(deleteComment[i]).attr('title',data.feedList[i].feedSeq)
+	
+		var moreIcon = $('div[name=moreIcon]');
+		if("${user}" != null){
+			var currentUser = "${user.userNickname}";
+			if(currentUser == data.userList[i].userNickname){
+				console.log('일치');
+				$(moreIcon[i]).css('display',"");
+			}else{
+				$(moreIcon[i]).css('display',"none");
+			}
+		}
+		
 		
 		
 		var feed = $('#newsfeed-items-grid').html(); 
@@ -511,7 +528,30 @@ function likeFeed(obj){
 	}) 
 }
 
+/* 글 수정 */
+function editFeed(obj){
+	var feedSeq = $(obj).attr('title');
+	var feedUser = $(obj).closest("article.hentry").find('a[name=postUserNickName]').html();
+	var user = "${user.userNickname}"
+	$.ajax({
+		url : '/sos/feed/edit',
+		type : 'post',
+		data : {
+			"userSeq" : "${user.userSeq}",
+			"feedSeq" : feedSeq
+		},
+		dataType:'json',
+		success: function(data){
+			 $(obj).find('span').text(data);
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	}) 
 
+	
+}
 
 /** 
  * 나를 follower한 친구목록

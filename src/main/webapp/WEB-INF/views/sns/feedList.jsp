@@ -1,5 +1,18 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.sjinvest.sos.user.domain.User" %>
+<%
+boolean result_profile = true;
+
+if((User)(request.getSession().getAttribute("user")) != null){
+
+  if(((((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("http") || (((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("https"))){
+    result_profile = true;
+  }else{
+    result_profile = false;
+  }
+}
+%>
 
 
           <!-- Nav tabs start -->
@@ -48,13 +61,13 @@
 	          </div>
 	        </div>
 	
-	        <div class="more">
+	        <div name="moreIcon" class="more" style="display: none">
 	          <svg class="olymp-three-dots-icon">
 	          <use
 	              xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
 	          <ul class="more-dropdown">
-	            <li><a href="#">수정</a></li>
-	            <li><a href="/sos/feed/delete">삭제</a></li>
+	            <li><a name="editFeed" href="javascript:void(0);" onclick="editFeed(this)" >수정</a></li>
+	            <li><a name="deleteFeed" href="javascript:void(0);" onclick="deleteFeed(this)">삭제</a></li>
 	          </ul>
 	        </div>
 	      </div>
@@ -119,9 +132,11 @@
 	    <form class="comment-form inline-items">
 	
 	      <div class="post__author author vcard inline-items">
-	        <img
-	          src="<%=application.getContextPath()%>/resources/img/author-page.jpg"
-	          alt="author">
+	      			<%if (result_profile){ %>
+	              		<img src="${user.userPicture}" width="36px" height="36px" alt="author">
+	              	<%}else{ %>
+	              		<img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"  width="36px" height="36px" alt="author">
+	             	<%} %>
 	
 	        <div class="form-group with-icon-right comment-div">
 	          <textarea name="commentForHere" class="form-control" placeholder="댓글을 입력해주세요"></textarea>
@@ -184,7 +199,7 @@
 	    </div>
 	
 	
-	 <div class="more">
+	 <div name="moreIconReply" class="more" style="display: none">
 	   <svg class="olymp-three-dots-icon">
 	     <use
 	       xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
