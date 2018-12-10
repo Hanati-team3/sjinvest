@@ -118,18 +118,7 @@ $(document).ready(function(){
       <div class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-9 order-md-2 col-sm-12 col-xs-12">
 
         <%-- 검색 시작 --%>
-        <div class="ui-block">
-          <form class="w-search" style="width: 100%;" action="/sos/stock/search" method="get">
-            <div class="form-group with-button is-empty">
-              <input class="form-control" type="text" name="keyword" placeholder="회사명/업종 검색...">
-              <button style="background-color: #3f4257;">
-                <svg class="olymp-magnifying-glass-icon">
-                  <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
-              </button>
-              <span class="material-input"></span>
-            </div>
-          </form>
-        </div>
+          <jsp:include page="../includes/searchBar.jsp"></jsp:include>
         <%-- 검색 끝 --%>
 
         <%-- 검색 결과 시작 --%>
