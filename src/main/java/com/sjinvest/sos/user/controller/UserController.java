@@ -175,6 +175,8 @@ public class UserController {
 			user.setUserPicture(userImage);
 			boolean result = service.updateUser(user);
 		}
+		session.removeAttribute("user");
+		session.setAttribute("user", user);
 		return "redirect:/sns/mypage_index";
 	}
 	
