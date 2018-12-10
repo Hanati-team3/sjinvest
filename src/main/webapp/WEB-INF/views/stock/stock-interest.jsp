@@ -83,7 +83,6 @@
                     <th class="company-number">종목번호</th>
                     <th class="company-name">기업명</th>
                     <th class="stock-price">현재주가</th>
-                    <th class="trading-amount">거래량</th>
                     <th class="day-before">전일대비</th>
                     <th class="day-before-rate">등락률</th>
                     <th class="add-to-interest">관심목록제거</th>
@@ -105,9 +104,6 @@
                         </div>
                       </td>
                       <td class="stock-price"><a href="#" class="h6 count">${eachInterest.stockPrice}</a>
-                      </td>
-                      <td class="trading-amount">
-                        <a href="#" class="h6 count">${eachInterest.stockVolume}</a>
                       </td>
                       <td class="day-before">
                         <div class="author-freshness plus">
@@ -132,117 +128,6 @@
         </div>
         <%-- 관심종목 목록 row 끝 --%>
         
-<%--         각 기업 그래프 row 시작
-        <div class="row">
-          각 기업 그래프 카드 시작
-          <div class="col-xl-12 order-xl-1 col-lg-12 order-lg-1 col-md-12 order-md-1 col-sm-12 col-xs-12 stock-my-interest">
-            <div class="ui-block" data-mh="pie-chart">
-              <div class="ui-block-title">
-                <div class="h6 title">나의 관심 종목</div>
-                <a href="#" class="more"><i class="far fa-question-circle"></i></a>
-              </div>
-  
-              <div class="ui-block-content">
-                <div class="swiper-container" data-slide="fade">
-                  <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="company-name" data-swiper-parallax="-500">하나금융지주</div>
-                        <div class="company-stock" data-swiper-parallax="-500">38,750</div>
-                        <span class="indicator negative"> 전일대비 + 800</span>
-    					<div class="chart-js chart-js-line-stacked">
-    						<canvas id="line-stacked-chart" width="730" height="300"></canvas>
-    					</div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="count-stat" data-swiper-parallax="-500">358</div>
-                        <div class="title" data-swiper-parallax="-100">
-                          <span class="c-primary">Olympus</span> Posts Rank
-                        </div>
-                        <div class="sub-title" data-swiper-parallax="-100">The Olympus Rank measures the quantity of comments, likes and posts.</div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="count-stat" data-swiper-parallax="-500">711</div>
-                        <div class="title" data-swiper-parallax="-100">
-                          <span class="c-primary">Olympus</span> Posts Rank
-                        </div>
-                        <div class="sub-title" data-swiper-parallax="-100">The Olympus Rank measures the quantity of comments, likes and posts.</div>
-                      </div>
-                    </div>
-                  </div>
-  
-                  <!-- If we need pagination -->
-                  <div class="swiper-pagination pagination-blue"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          각 기업 그래프 카드 끝
-        </div>
-        각 기업 그래프 row 끝
-        
-        그래프 row 시작
-        <div class="row">
-          <div class="col-lg-12 col-sm-12 col-xs-12">
-            <div class="ui-block responsive-flex">
-            
-              <div class="ui-block-title">
-                <div><h6 class="title">차트 혼합 비교</h6></div>
-                <select class="selectpicker form-control without-border" size="auto">
-                  <option value="LY">주가</option>
-                  <option value="2">거래량</option>
-                  <option value="2">전일대비</option>
-                </select>
-                <a href="#" class="more"><i class="far fa-question-circle"></i></a>
-              </div>
-    
-              <div class="ui-block-content">
-                <div class="chart-js chart-js-line-chart">
-                  <canvas id="line-chart" width="1400" height="380"></canvas>
-                </div>
-              </div>
-              
-              <hr>
-              
-              <div class="ui-block-content display-flex content-around">
-                <div class="chart-js chart-js-small-pie">
-                  <canvas id="pie-small-chart" width="90" height="90"></canvas>
-                </div>
-                <div class="points points-block">
-                  <span> <span class="statistics-point bg-breez"></span> Yearly Likes </span>
-                  <span> <span class="statistics-point bg-yellow"></span> Yearly Comments </span>
-                </div>
-                <div class="text-stat">
-                  <div class="count-stat">2.758</div>
-                  <div class="title">Total Likes</div>
-                  <div class="sub-title">This Year</div>
-                </div>
-                <div class="text-stat">
-                  <div class="count-stat">5.420,7</div>
-                  <div class="title">Average Likes</div>
-                  <div class="sub-title">By Month</div>
-                </div>
-                <div class="text-stat">
-                  <div class="count-stat">42.973</div>
-                  <div class="title">Total Comments</div>
-                  <div class="sub-title">This Year</div>
-                </div>
-                <div class="text-stat">
-                  <div class="count-stat">3.581,1</div>
-                  <div class="title">Average Comments</div>
-                  <div class="sub-title">By Month</div>
-                </div>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-        그래프 row 끝
-         --%>
         <%-- 뉴스 row 시작 --%>
         <div class="row stock-index-news">
           <div class="col-lg-12 col-sm-12 col-xs-12">
@@ -323,8 +208,7 @@
     	// index update 호출
     	console.log("interestNumberArray" + INTEREST.interestNumberArray );
     	interestUpdate();
-    	// 차트 업데이트 호출
-    	//allChartUpdate(indexParam.interestCompanyNumberList, 1);
+    	
     });
     
 	/* interestUpdate 요청을 중지하는 함수 */
@@ -332,6 +216,11 @@
   		INTEREST.flag = false;
   		console.log('stop');
   	}
+	
+	/* 판매 버튼 입력 이벤트 */
+	$('.remove-interest a').on('click', function (e){
+		Snackbar.show({text: 'Example notification text.'}); 
+	});
     
     /** 2초마다 interest 정보 업데이트 */
     function interestUpdate() {
