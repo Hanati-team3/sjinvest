@@ -90,5 +90,5 @@
     </div>
   </div>
 
-  <!-- ... user_profile modal end -->
+<!-- ... user_profile modal end -->
 

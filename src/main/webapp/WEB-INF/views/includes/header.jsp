@@ -170,7 +170,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
             </div>
             <a href="/sos/sns/mypage_index" class="author-name fn">
               <div class="author-title">
-                ${user.userId }
+                ${user.userNickname }
                 <svg class="olymp-dropdown-arrow-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
               </div>
               <span class="author-subtitle"></span>
