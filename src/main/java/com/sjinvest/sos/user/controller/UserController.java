@@ -57,7 +57,7 @@ public class UserController {
 	
 	@ResponseBody
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> login(HttpSession session, String userId, String userPw, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String,Object>> login(HttpSession session, String userId, String userPw) {
 		
 		log.info("login : "+ userId);
 		log.info("login : "+ userPw);
@@ -70,13 +70,6 @@ public class UserController {
 		if(user != null) {
 			// session 부분
 			session.setAttribute("user", user);
-
-			// cookie 부분
-			/*Cookie cookie = new Cookie("userIdC", userId);
-			cookie.setMaxAge(60 * 60 * 24);
-			cookie.setPath("/");
-			
-			response.addCookie(cookie);*/
 			
 			returnData.put("user", user);
 			return new ResponseEntity<>(returnData,HttpStatus.OK);
@@ -135,66 +128,54 @@ public class UserController {
 	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
 		log.info("logout");
-
-		Cookie[] cookies = request.getCookies();
-
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("userIdC")) {
-					
-					cookies[i].setMaxAge(0); // 유효시간을 0으로 설정
-					cookies[i].setPath("/");
-					response.addCookie(cookies[i]);
-					//System.out.println("로그아웃 쿠키남으면 안돼 : " + cookies[i].getValue());
-				}
-			}
-		}
-		
 		// session 지우는 부분
-		//request.getSession().invalidate();
-		session.invalidate();
+		session.removeAttribute("user");
 		
 		return "redirect:/sns/newsfeed";
 
 	}
 	
 	@PostMapping("/update")	
-	public String update(User user, HttpServletRequest request) {
+	public String update(User user, HttpSession session) {
 
 		log.info("update : "+ user);
 		
 		//System.out.println("받아온 user 정보: "+user);
 		
-		String userId = (String) request.getAttribute("userId");
-		User userUpdate = service.readById(userId);
-		int userSeq = userUpdate.getUserSeq();
+		User userUpdate = (User) session.getAttribute("user");
 		
-		user.setUserSeq(userSeq);
+		userUpdate.setUserNickname(user.getUserNickname());
+		userUpdate.setUserEmail(user.getUserEmail());
+		userUpdate.setUserPw(user.getUserPw());
+		userUpdate.setUserDetail(user.getUserDetail());
+		userUpdate.setUserBirth(user.getUserBirth());
+		userUpdate.setUserGender(user.getUserGender());
 		
-		boolean result = service.updateUser(user);
-		//System.out.println("수정된 user 결과: "+ result);
+		boolean result = service.updateUser(userUpdate);
+		
+		//System.out.println("수정된 user 결과: "+ userUpdate);
 
 		return "redirect:/sns/mypage_index";
 	}
 	
 	@PostMapping("/updateImage")	
-	public String updateImage(HttpServletRequest request) {
+	public String updateImage(HttpServletRequest request, HttpSession session) {
 
 		log.info("updateImage : ");
 		
-		//System.out.println("파일 :"+request.getParameter("file"));
-
-		String userId = (String) request.getAttribute("userId");
-		User user = service.readById(userId);
+		User user = (User)session.getAttribute("user");
+		String userId = user.getUserId();
 		String userImage = request.getParameter("file");
 
+		user = service.readById(userId);
+		
 		if(userImage == null) {
 			userImage = "forum7.png";
+		}else {
+			
+			user.setUserPicture(userImage);
+			boolean result = service.updateUser(user);
 		}
-		
-		user.setUserPicture(userImage);
-		boolean result = service.updateUser(user);
-		
 		return "redirect:/sns/mypage_index";
 	}
 	

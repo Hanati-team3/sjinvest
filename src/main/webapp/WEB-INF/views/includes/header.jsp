@@ -1,31 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.sjinvest.sos.user.domain.User" %>
-<%--
-	Cookie[] cookies = request.getCookies();
-	String userId = null;
-
-	if (cookies != null) {
-		for (int i = 0; i < cookies.length; i++) {
-
-			Cookie c = cookies[i];
-
-			String name = c.getName(); // 쿠키 이름 가져오기
-			String value = c.getValue(); // 쿠키 값 가져오기
-      
-            if(name.equals("userIdC")){
-              userId = value;
-            }
-		}
-	}
-    //System.out.println("쿠키 최종userId = "+ userId);
-    
-    request.setAttribute("userId", userId);
-    
---%>
-
-<%-- <div>${userSession.userId}</div> --%>
-
 
 <%
 boolean result = true;
@@ -61,23 +36,21 @@ if((User)(request.getSession().getAttribute("user")) != null){
 
     <div class="control-block " style="padding: 10px 30px;">
       
-      <%-- <c:set var="userId" value="임시아이디"/> --%>
       
-      <%--로그인중인지 아닌지 판별 --%>
+      <%--로그인 판별 --%>
       <c:choose>
         <%--로그인 아님 --%>
         <c:when test="${user.userId eq null}">
           <a id="loginModal" href="#" class="link-find-friend header-a-padding" data-toggle="modal" data-target="#login_modal">Login</a>
           <a href="#" class="link-find-friend header-a-padding" data-toggle="modal" data-target="#signup_modal">Sign up</a>
         </c:when>
+        
         <%--로그인 중 --%>
         <c:otherwise>
         
-          <%-- 알림 시작 --%>
-          
-          <%-- SNS 알림 시작 --%>
+          <%-- SNS 알림 start --%>
           <div class="control-icon more has-items">
-            <svg class="olymp-happy-face-icon" onclick="snsList()"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+            <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
             <div class="label-avatar bg-blue" id="snsCnt"></div>
     
             <div class="more-dropdown more-with-triangle triangle-top-center">
@@ -106,12 +79,12 @@ if((User)(request.getSession().getAttribute("user")) != null){
               <a href="#" class="view-all bg-blue">sns 알림</a>
             </div>
           </div>
-          <%-- SNS 알림 끝 --%>
+          <%-- ..SNS 알림 end --%>
           
     
-          <%-- 주식 알림 시작 --%>
+          <%-- stock 알림 start --%>
           <div class="control-icon more has-items">
-            <svg class="olymp-thunder-icon" onclick="stockList()"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-thunder-icon"></use></svg>
+            <svg class="olymp-thunder-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-thunder-icon"></use></svg>
     
             <div class="label-avatar bg-primary" id="stockCnt"></div>
     
@@ -122,27 +95,14 @@ if((User)(request.getSession().getAttribute("user")) != null){
               <div class="mCustomScrollbar" data-mcs-theme="dark">
                 <ul class="notification-list" id="stock-list">
                 
-                  <%-- stock 알림 sample
-                  <li>
-                    <div class="notification-event">
-                      <div><a href="#" class="h6 notification-friend">Mathilda Brinker</a> commented on your new <a href="#" class="notification-link">profile status</a>.</div>
-                      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">4 hours ago</time></span>
-                    </div>
-                      <span class="notification-icon">
-                        <svg class="olymp-comments-post-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
-                      </span>
-                    <div class="more">
-                      <svg class="olymp-little-delete"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-little-delete"></use></svg>
-                    </div>
-                  </li> 
-                  --%>
+                  <%-- stock 알림 sample --%>
 
                 </ul>
               </div>
               <a href="#" class="view-all bg-primary">stock 알림</a>
             </div>
           </div>
-          <%-- 주식 알림 끝 --%>
+          <%-- ..stock 알림 end --%>
           
           
           <!-- 개인정보 시작  -->
@@ -159,7 +119,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
               <div class="more-dropdown more-with-triangle">
                 <div class="mCustomScrollbar" data-mcs-theme="dark">
 
-                  <%-- 기업정보 시작 --%>
+                  <%-- 개인주식 start --%>
                   <div class="ui-block-title ui-block-title-small">
                     <h6 class="title">MY STOCK</h6>
                   </div>
@@ -180,7 +140,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
                       </a>
                     </li>
                   </ul>
-                  <%-- 기업정보 끝 --%>
+                  <%-- ..개인주식 end --%>
 
 
                   <%-- 계정 설정 시작 --%>
@@ -273,6 +233,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
         <ul class="notification-list friend-requests" id="sns-list">
 
         <!-- 목록 들어와야할 영역 -->
+        
         </ul>
         <a href="#" class="view-all bg-blue">sns 알림</a>
       </div>
@@ -290,6 +251,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
         <ul class="notification-list" id="stock-list">
 
         <!-- 목록 들어와야할 영역 -->
+
         </ul>
 
         <a href="#" class="view-all bg-primary">stock 알림</a>
@@ -349,7 +311,8 @@ function snsList(){
     				
     				//console.log("sns정보"+data.snsList[i].noticeContent);
     				$('#snsCnt').replaceWith('<div class="label-avatar bg-blue" id="snsCnt">'+ data.snsList.length +'</div>');
-    				$('#sns-list').append('<li><div class="notification-event"><div><a href="#" class="h6 notification-friend">'+ data.snsList[i].noticeContent +'</a></div><span class="notification-date">'+ data.snsList[i].noticeDate +'</span></div></li>');
+    				$('#sns-list').append('<li><div><a href="#" class="h6 notification-friend">'+ data.snsList[i].noticeContent +'</a></div><span class="notification-date">'+ data.snsList[i].noticeDate +'</span></li>');
+    			
     			}		
 			}
 		}
@@ -382,7 +345,8 @@ function stockList(){
 						
 						//console.log("주식정보 : "+data.stockList[i].noticeContent);
 						$('#stockCnt').replaceWith('<div class="label-avatar bg-primary" id="stockCnt">'+ data.stockList.length +'</div>');
-						$('#stock-list').append('<li><div class="notification-event"><div><a href="#" class="h6 notification-friend">'+ data.stockList[i].noticeContent +'</a></div><span class="notification-date">'+ data.stockList[i].noticeDate +'</span></div></li>');	
+						$('#stock-list').append('<li><div><a href="/sos/stock/trade-list" class="h6 notification-friend">'+ data.stockList[i].noticeContent +'</a></div><span class="notification-date">'+ data.stockList[i].noticeDate +'</span></li> ');	
+
 					}
 				}
 			}
@@ -396,8 +360,5 @@ function stockList(){
 
 
 </script>
-
-
-
 
 

@@ -43,6 +43,8 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <c:when test="${user.userId ne null }">
           <div class="top-header-author">
             <a href="#" class="author-thumb" data-toggle="modal" data-target="#update-header-photo">
+            
+            <!-- 여기때메 프로필 변경 안되는데 구분이 잘 안지어지는듯 -->
              	 <%if (result_profile){ %>
               		<img src="${user.userPicture}" width="124" height="124" alt="author">
               	<%}else{ %>
@@ -50,7 +52,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
              	<%} %>
             </a>
             <div class="author-content">
-              <a href="#" class="h4 author-name">${user.userId }</a>
+              <a href="#" class="h4 author-name">${user.userNickname }</a>
               
               <div class="email">${user.userEmail }</div>
             </div>
