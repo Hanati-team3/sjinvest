@@ -22,7 +22,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <div class="tab-content">
             <div class="tab-pane active" id="home-1" role="tabpanel"
               aria-expanded="true">
-              <form action=/sos/feed/write method="post">
+              <form method="post" onclick="writeComment(this);">
                 <div class="author-thumb">
                 	<c:choose>
 	                  <c:when test="${user.userId ne null }">

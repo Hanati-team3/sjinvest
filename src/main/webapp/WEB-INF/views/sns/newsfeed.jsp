@@ -189,9 +189,10 @@ $(document).ready( function() {
 		$.ajax({
 		    url : '/sos/feed/follow',
 		    type : 'get',
+		    dataType:'json',
 		    success : function(data) {
 		    	if(data){
-	          		console.log(data)
+	          		/* console.log(data) */
 	          		showFeedList(data);
 	            }
 		    },
@@ -206,9 +207,10 @@ $(document).ready( function() {
 		$.ajax({
 		    url : '/sos/feed/own',
 		    type : 'get',
+		    dataType:'json',
 		    success : function(data) {
 		    	if(data){
-	          		console.log(data)
+	          		/* console.log(data) */
 	          		showFeedList(data);
 	            }
 		    },
@@ -217,13 +219,6 @@ $(document).ready( function() {
 		    }
 	  });
 	}); 
-	$(function(){
-		/* 이거 뭐하려고 만들었지? */
-		$('a[name=writeComment]').on('click', function(){
-			
-		});
-	});
-
 });
 
 function writeComment(obj){
@@ -234,14 +229,13 @@ function writeComment(obj){
 	    url : '/sos/comment/writing',
 	    type : 'post',
 	    data : {
-	    	content : content,
-	    	feedSeq : feedSeq
+	    	commentContent : content,
+	    	feedSeq : feedSeq,
+	    	userSeq : "${user.userSeq}"	
 	    },
+	    dataType:'json',
 	    success : function(data) {
-	    	if(data){
-          		console.log(data)
-          		showFeedList(data);
-            }
+	    	showFeedList(data)
 	    },
 	    error : function() {
 	      alert("관리자에게 문의해주세요.");
@@ -263,7 +257,7 @@ function searching(){
           success : function(data) {
         	  	if(data){
 	          		/* console.log(data); */
-	          		showFeedList()
+	          		showFeedList(data)
 	            }
 			}
       });
@@ -286,9 +280,10 @@ function getFeedList(){
 	$.ajax({
 	    url : '/sos/feed/list',
 	    type : 'get',
+	    dataType: 'json',
 	    success : function(data) {
 	    	if(data){
-          		console.log(data)
+          		/* console.log(data) */
           		showFeedList(data);
 	    	}
 	    },
@@ -302,7 +297,7 @@ function getFeedList(){
 function showFeedList(data){
 	var feedCard = $("#makeFeed");
 	$(feedCard).html("");
-	replyCnt = 0
+	console.log(data);
 	for (var i = 0; i < data.feedList.length; i++) {
 		/* console.log(data.feedList[i]); */
 		/* var feed = "<>"; */
@@ -323,7 +318,7 @@ function showFeedList(data){
 		var pictureName = data.userList[i].userPicture;
 		if(pictureName != null){
 			if(pictureName.split(':')[0]=='http' || pictureName.split(':')[0] == 'https'){
-				console.log(pictureName)
+				/* console.log(pictureName) */
 				$(userImage[i]).attr('src', pictureName);
 			}else{
 				$(userImage[i]).attr('src', "/sos/resources/img/"+pictureName);
@@ -412,8 +407,8 @@ function showFeedList(data){
 			$(feedCard).append(feed);
 		}
 	}
-	
-	/* 댓글 망해쒀어~~~  */
+	var replyCnt = 0
+	/* 댓글 */
 	var replyUL = $('ul[name=commentListUL]');
 	for (var i = 0; i < data.feedList.length; i++) {
 		
@@ -423,15 +418,17 @@ function showFeedList(data){
 			for (var j = 0; j < data.feedList[i].feedReplyCnt; j++) {
 				var replyLI = $('li[name=commentLI]')
 				if(j==0){
-					$(replyUL[i]).html(replyLI);
+					$(replyUL[i]).html(replyLI.html());
+					
 				}else{
-					$(replyUL[i]).append(replyLI);
+					$(replyUL[i]).append(replyLI.html());
 					//console.log("왜 안 나오니");
 				}
 			}
 			var replyName = $('a[name=replyName]');
 			var replyTime = $('time[name=replyTime]');
 			var replyContent = $('p[name=replyContent]');
+			var replyImage = $('img[name=replyImage]')
 			for (var k = replyCnt; k < replyCnt + data.feedList[i].feedReplyCnt; k++){
 				//console.log("댓글");
 				var replyLI = $('li[name=commentLI]');
@@ -439,11 +436,23 @@ function showFeedList(data){
 				$(replyName[k]).text(data.replyUser[k].userNickname);
 				$(replyTime[k]).text(data.replyList[k].commentRegdate);
 				$(replyContent[k]).text(data.replyList[k].commentContent);
-				$(replyLI).css("display","");
+				if(data.replyUser[k].userPicture != null){
+					if(data.replyUser[k].userPicture.split(':')[0] == 'http' || data.replyUser[k].userPicture.split(':')[0] == 'https'){
+						console.log("뭐지");
+						$(replyImage[k]).attr('src', data.replyUser[k].userPicture)
+					}else{
+						$(replyImage[k]).attr('src', '/sos/resources/img/'+data.replyUser[k].userPicture)
+					}
+				}else{
+					$(replyImage[k]).attr('src', '/sos/resources/img/author-page.jpg')
+				}
+				/* $(replyLI[k]).css("display",""); */
 			}
 			replyCnt += data.feedList[i].feedReplyCnt;
 		}
 	}
+	/* var replyLI = $('li[name=commentLI]')
+	$(replyLI[replyCnt]).css("display", "none"); */
 }
 
 /**
@@ -487,7 +496,7 @@ function getFollowList(){
 function likeFeed(obj){
 	
 	var feedSeq = $(obj).attr('title');
-	console.log(feedSeq);
+	/* console.log(feedSeq); */
 	$.ajax({
 		url : '/sos/like/handle',
 		type : 'post',
@@ -527,10 +536,27 @@ function editFeed(obj){
 	    }
 	
 	}) 
-
-	
 }
 
+/* 글 삭제 */
+function deleteFeed(obj){
+	var feedSeq = $(obj).attr('title');
+	var user = "${user.userNickname}"
+	$.ajax({
+		url : '/sos/feed/delete',
+		type : 'post',
+		data : {
+			"feedSeq" : feedSeq
+		},
+		dataType:'json',
+		success: function(data){
+			showFeedList(data); 
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	}) 
+}
 /** 
  * 나를 follower한 친구목록
  */
@@ -672,6 +698,7 @@ function userModal(obj){
 			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
 			$('#nickName2').attr("placeholder", data.userData.userNickname);
 			$('#detail2').attr("placeholder", data.userData.userDetail);
+			$('#heartIcon').attr("title", data.userData.userNickname);
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -703,6 +730,7 @@ $('#follow_list li a').on('click', function(){
 			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
 			$('#nickName2').attr("placeholder", data.userData.userNickname);
 			$('#detail2').attr("placeholder", data.userData.userDetail);
+			$('#heartIcon').attr("title", data.userData.userNickname);
 			
 		},
 		error : function() {
@@ -732,6 +760,7 @@ $('#follower_list li a').on('click', function(){
 			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
 			$('#nickName2').attr("placeholder", data.userData.userNickname);
 			$('#detail2').attr("placeholder", data.userData.userDetail);
+			$('#heartIcon').attr("title", data.userData.userNickname);
 			
 		},
 		error : function() {
@@ -760,6 +789,7 @@ $('#rankingList li a').on('click', function(){
 			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
 			$('#nickName2').attr("placeholder", data.userData.userNickname);
 			$('#detail2').attr("placeholder", data.userData.userDetail);
+			$('#heartIcon').attr("title", data.userData.userNickname);
 			
 		},
 		error : function() {

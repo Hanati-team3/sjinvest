@@ -9,5 +9,5 @@ public interface CommentMapper {
 	public List<Comment> listByFeed(int feed_seq);
 	public int updateComment(Comment comment);
 	public int deleteComment(int commentSeq);
-	public int deleteCommentByFeed(int feedSeq);
+	public void deleteCommentByFeed(int feedSeq);
 }
