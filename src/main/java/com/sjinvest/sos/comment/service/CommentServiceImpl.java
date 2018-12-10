@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sjinvest.sos.comment.domain.Comment;
 import com.sjinvest.sos.comment.mapper.CommentMapper;
+import com.sjinvest.sos.feed.domain.Feed;
 import com.sjinvest.sos.feed.mapper.FeedMapper;
 
 import lombok.AllArgsConstructor;
@@ -64,5 +65,10 @@ public class CommentServiceImpl implements CommentService {
 			feedMapper.increaseReply(data);
 		}
 		return result;
+	}
+
+	@Override
+	public void deleteCommentByFeed(int feedSeq) {
+		feedMapper.deleteFeed(feedSeq);
 	}
 }

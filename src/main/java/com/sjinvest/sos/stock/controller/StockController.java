@@ -143,7 +143,7 @@ public class StockController {
 	@PostMapping(value = "/company/addInterest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String, Object>> addInterest(String companyNumber, String companyName,
 			HttpServletRequest request) {
-		User user = userService.readById((String) request.getAttribute("userId"));
+		User user = (User)request.getSession().getAttribute("user");
 		Interest interest = new Interest();
 		interest.setCompanyName(companyName);
 		interest.setCompanyNumber(companyNumber);
