@@ -232,6 +232,23 @@ public class StockController {
 		}
 		return mav;
 	}
+	
+//	검색 - 자동 완성기능 (hojin)
+	@ResponseBody
+	@GetMapping(value = "/searchAuto", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<List<String>> searchAutoComplete(String term) {
+//		System.out.println(term);
+		List<String> searchList = null;
+		if (term.charAt(0) == '$') {
+//			System.out.println("캐시태그 검색");
+			searchList = companyService.findCompany(term.substring(1));
+		}else if (term.charAt(0) == '@') {
+//			System.out.println("업종태그 검색");
+			searchList = fieldService.findField(term.substring(1));
+		} 
+		return new ResponseEntity<>(searchList, HttpStatus.OK);
+	}
+	
 	// 여기서부터 예겸이 작업 go
 
 }
