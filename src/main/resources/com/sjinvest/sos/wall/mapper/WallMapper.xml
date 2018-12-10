@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="com.sjinvest.sos.wall.mapper.WallMapper">
+	<resultMap type="Wall" id="wallResultMap">
+		<result column="wall_seq" property="wallSeq" />
+		<result column="user_seq" property="userSeq" />
+		<result column="wall_regdate" property="wallRegdate" />
+		<result column="wall_update_date" property="wallUpdateDate" />
+		<result column="wall_content" property="wallContent" />
+		<result column="wall_like_count" property="wallLikeCnt" />
+		<result column="wall_share_count" property="wallShareCnt" />
+		<result column="wall_reply_count" property="wallReplyCnt" />
+		<result column="wall_picture" property="wallPicture" />
+		<result column="wall_original_seq" property="wallOriginalSeq" />
+		<result column="writer_user_seq" property="writerOriginalSeq" />
+	</resultMap>
+	<!-- 담벼락 쓰기 -->
+	<insert id="write" parameterType="Wall">
+		INSERT INTO wall
+		(wall_seq,
+		 user_seq,
+		<if test="wallRegdate != null">
+			wall_regdate,
+		</if>
+		<if test="wallUpdateDate != null">
+			wall_update_date,
+		</if>
+		<if test="wallLikeCnt != 0">
+			wall_like_count,
+		</if>
+		<if test="wallShareCnt != 0">
+			wall_share_count,
+		</if>
+		<if test="feedReplyCnt != 0">
+			wall_reply_count,
+		</if>
+		<if test="wallPicture != null">
+			wall_picture,
+		</if>
+		<if test="wallOriginalSeq != 0">
+			wall_original_seq,
+		</if>
+		writerUserSeq,
+		wall_content
+		)
+		VALUES
+		(
+		wall_seq.nextval,
+		#{userSeq},
+		<if test="wallRegdate != null">
+			#{wallRegdate},
+		</if>
+		<if test="wallUpdateDate != null">
+			#{wallUpdateDate},
+		</if>
+		<if test="wallLikeCnt != 0">
+			#{wallLikeCnt},
+		</if>
+		<if test="wallShareCnt != 0">
+			#{wallShareCnt},
+		</if>
+		<if test="wallReplyCnt != 0">
+			#{wallReplyCnt},
+		</if>
+		<if test="wallPicture != null">
+			#{wallPicture},
+		</if>
+		<if test="wallOriginalSeq != 0">
+			#{wallOriginalSeq},
+		</if>
+		#{writerUserSeq},
+		#{wallContent}
+		)
+	</insert>
+	<!-- 담벼락 삭제 -->
+	<delete id="deleteWall" parameterType="Integer">
+		DELETE FROM wall
+		WHERE
+		wall_seq = #{value}
+	</delete>
+	<!-- 특정 유저 담벼락 삭제 -->
+	<delete id="deleteWallByUser" parameterType="Integer">
+		DELETE FROM wall
+		WHERE
+		user_seq = #{value}
+	</delete>
+	<!-- 담벼락 수정 -->
+	<update id="updateWall" parameterType="Wall">
+		UPDATE wall
+		<set>
+	        <if test="wallUpdateDate != null">wall_update_date = #{wallUpdateDate},</if>
+	        <if test="wallContent != null">wall_content = #{wallContent},</if>
+	        <if test="wallLikeCnt != 0">wall_like_count = #{wallLikeCnt},</if>
+	        <if test="wallShareCnt != 0">wall_share_count = #{wallShareCnt},</if>
+	        <if test="wallReplyCnt != 0">wall_reply_count = #{wallReplyCnt},</if>
+	        <if test="wallPicture != null">wall_picture = #{wallPicture},</if>
+	        <if test="wallOriginalSeq != 0">wall_original_seq = #{wallOriginalSeq},</if>
+	    </set>
+	    WHERE wall_seq = #{wallSeq}
+	</update>
+	<!-- 담벼락 좋아요 증감 -->
+	<update id="increaseLike" parameterType="Wall">
+		UPDATE wall
+		SET wall_like_count = wall_like_count + #{wallLikeCnt}
+	    WHERE wall_seq = #{wallSeq}
+	</update>
+	<!-- 담벼락 댓글 증감 -->
+	<update id="increaseReply" parameterType="Wall">
+		UPDATE wall
+		SET wall_reply_count = wall_reply_count + #{wallReplyCnt}
+	    WHERE feed_seq = #{wallSeq}
+	</update>
+	<!-- 담벼락 공유 증감 -->
+	<update id="increaseShare" parameterType="Feed">
+		UPDATE wall
+		SET wall_share_count = wall_share_count + #{wallShareCnt}
+	    WHERE wall_seq = #{wallSeq}
+	</update>	
+	<!-- 담벼락 전체 리스트 -->
+	<select id="listAll" resultType="Wall" resultMap="wallResultMap">
+		SELECT wall_seq, 
+		       user_seq, 
+		       wall_regdate,
+		       wall_update_date,
+		       wall_content,
+		       wall_like_count,
+		       wall_share_count,
+		       wall_reply_count,
+		       wall_picture,
+		       wall_original_seq,
+		       writer_user_seq 
+		FROM   wall
+		ORDER  BY wall_regdate desc
+	</select>
+</mapper>

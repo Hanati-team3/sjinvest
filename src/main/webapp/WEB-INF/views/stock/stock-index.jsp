@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -83,39 +84,43 @@
                   <ul class="statistics-list-count">
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-purple"></span><span class="fieldName">${fieldStock[0].fieldName}</span></span>
+                        <span> <span class="statistics-point bg-purple"></span><span class="fieldName">${fieldStock.get(0)[0]}</span></span>
                       </div>
-                      <div class="count-stat">${fieldStock[0].fieldAmount}</div>
+                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(0)[1] / 1000}" pattern="#,###"/>K<br></div>
+                      
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-breez"></span><span class="fieldName">${fieldStock[1].fieldName}</span></span>
+                        <span> <span class="statistics-point bg-breez"></span><span class="fieldName">${fieldStock.get(1)[0]}</span></span>
                       </div>
-                      <div class="count-stat">${fieldStock[1].fieldAmount}</div>
+                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(1)[1] / 1000}" pattern="#,###"/>K</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-primary"></span><span class="fieldName">${fieldStock[2].fieldName}</span></span>
+                        <span> <span class="statistics-point bg-primary"></span><span class="fieldName">${fieldStock.get(2)[0]}</span></span>
                       </div>
-                      <div class="count-stat">${fieldStock[2].fieldAmount}</div>
+                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(2)[1] / 1000}" pattern="#,###"/>K</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-yellow"></span><span class="fieldName">${fieldStock[3].fieldName}</span></span>
+                        <span> <span class="statistics-point bg-yellow"></span><span class="fieldName">${fieldStock.get(3)[0]}</span></span>
                       </div>
-                      <div class="count-stat">${fieldStock[3].fieldAmount}</div>
+                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(3)[1] / 1000}" pattern="#,###"/>K</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-blue"></span><span class="fieldName">${fieldStock[4].fieldName}</span></span>
+                        <span> <span class="statistics-point bg-blue"></span><span class="fieldName">${fieldStock.get(4)[0]}</span></span>
                       </div>
-                      <div class="count-stat">${fieldStock[4].fieldAmount}</div>
+                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(4)[1] / 1000}" pattern="#,###"/>K</div>
                     </li>
                   </ul>
   
                   <div class="chart-js chart-js-pie-color">
-                    <canvas id="pie-color-chart" width="180" height="180"></canvas>
-                    <div class="general-statistics"> 19.46 <span>Last Month Posts</span> </div>
+                    <canvas id="field-chart" width="180" height="180"></canvas>
+                    <div class="general-statistics"> 
+                      <fmt:formatNumber value="${ (fieldStock.get(0)[1] + fieldStock.get(1)[1] + fieldStock.get(2)[1] + fieldStock.get(3)[1] + fieldStock.get(4)[1]) / 1000}" pattern="#,###"/>K
+                      <span>5개 업종의 거래량 합</span> 
+                    </div>
                   </div>
                 </div>
               </div>
@@ -448,6 +453,8 @@
   	// index update를 활성화/중지
   	INDEX.flag = true;
   	INDEX.isEmptyInterest = false;
+  	INDEX.fieldChartEl = null;
+  	INDEX.tempNum = 1;
   	
 	$(document).ready(function() {
 		console.log('ready... model로 받은 어트리뷰트');
@@ -459,14 +466,12 @@
 		console.log('${interestMap}');
 		console.log('${holdingWidget}');
 		
-		//탭 클릭시 요청 발생
-		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-			var target = $(e.target).attr("href") // activated tab
-			console.log('탭요청 : ' + target);
-			topTabUpdate(target);
-		});
+		// 업종별 거래랑 차트 그리기
+		setFieldAmountChart();
+
 		// 코스피 차트 그리기
 		runKospiChart(getKospiFromRequest(), true);
+		
 		// 관심종목 목록이 0이면
 		if(${interestMap.interestList}.length == 0) {
 			console.log("관심종목 없음");
@@ -477,12 +482,62 @@
 		else {
 			runInterestChart(getInterestFromRequest(), true);
 		}
+
+		//탭 클릭시 요청 발생
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+			var target = $(e.target).attr("href") // activated tab
+			console.log('탭요청 : ' + target);
+			topTabUpdate(target);
+		});
+		
 		// index update 호출
 		var indexParam = setIndexParam();
 		indexUpdate(indexParam);
+		
 		// 차트 업데이트 호출
 		//allChartUpdate(indexParam.interestCompanyNumberList, 1);
+		
+		// 업종별 거래량 업데이트
+		updateField();
 	});
+	
+	/* 업종별 거래량 차트 그리기 */
+	function setFieldAmountChart() {
+		var fieldChart = document.getElementById("field-chart");
+	    var ctx_pc = fieldChart.getContext("2d");
+	    var data_pc = {
+	        labels: ["${fieldStock.get(0)[0]}", "${fieldStock.get(1)[0]}", "${fieldStock.get(2)[0]}", "${fieldStock.get(3)[0]}", "${fieldStock.get(4)[0]}"],
+	        datasets: [
+	            {
+	                data: ["${fieldStock.get(0)[1]}", "${fieldStock.get(1)[1]}", "${fieldStock.get(2)[1]}", "${fieldStock.get(3)[1]}", "${fieldStock.get(4)[1]}"],
+	                borderWidth: 0,
+	                backgroundColor: [
+	                    "#7c5ac2",
+	                    "#08ddc1",
+	                    "#ff5e3a",
+	                    "#ffdc1b",
+	                    "#38a9ff"
+	                ]
+	            }]
+	    };
+
+	    INDEX.fieldChartEl  = new Chart(ctx_pc, {
+	        type: 'doughnut',
+	        data: data_pc,
+	        options: {
+	            deferred: {           // enabled by default
+	                delay: 300        // delay of 500 ms after the canvas is considered inside the viewport
+	            },
+	            cutoutPercentage:93,
+	            legend: {
+	                display: false
+	            },
+	            animation: {
+	                animateScale: false
+	            }
+	        }
+	    });
+	}
 	
 	/* index update 요청을 중지하는 함수 */
   	function stop() {
