@@ -60,4 +60,10 @@
 		WHERE  ROWNUM <![CDATA[<=]]> #{value}
 		ORDER  BY counting.count_num DESC
 	</select>
+	<!-- 팔로우 존재 여부 -->	
+	<select id="checkFollow" parameterType="Follow" resultType="Integer">
+		SELECT count(user_seq) user_seq
+		FROM   Follow 
+		WHERE  user_seq = #{userSeq} and follow_user_seq = #{followUserSeq}
+	</select>
 </mapper>

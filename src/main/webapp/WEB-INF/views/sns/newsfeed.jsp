@@ -218,7 +218,41 @@ $(document).ready( function() {
 		      alert("관리자에게 문의해주세요.");
 		    }
 	  });
-	}); 
+	});
+	
+	/*
+	 * userData 모달 안에서 follow버튼
+	 */
+	$('#heartIcon').on('click', function(){
+		var followId = $(this).attr('title');
+		$.ajax({
+			url : '/sos/follow/handle',
+			type : 'get',
+			dataType:'json',
+			data : {
+				"userSeq" : "${user.userSeq}",
+				"followUserId" : followId
+			},
+			success : function(data) {
+				$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
+				$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
+				$('#nickName2').attr("placeholder", data.userData.userNickname);
+				$('#detail2').attr("placeholder", data.userData.userDetail);
+				$('#heartIcon').attr("title", data.userData.userId);
+				console.log(data.isFollow);
+				if(data.isFollow == 'true'){
+					console.log("팔로우");
+					$('#heartIcon').css('backgroud-color', '#ff5e3a');
+				}else{
+					console.log("no팔로우");
+					$('#heartIcon').css('backgroud-color', '#9a9fbf');
+				}
+			},
+			error : function() {
+				alert("follow추가 error.");
+			}
+		})
+	});
 });
 
 function writeComment(obj){
@@ -482,7 +516,7 @@ function getFollowList(){
 					$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userId +'</a></div></li>');
 				}
 			}
-			appendClickEvent();
+			appendFollowEvent();
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -579,7 +613,7 @@ function getFollowerList(){
 					$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userId +'</a></div></li>');
 				}
 			}
-			appendClickEvent();
+			appendFollowerEvent();
 			
 		},
 		error : function() {
@@ -647,7 +681,7 @@ function getRankingList(){
 					);
 				}
 			}
- 			appendClickEvent();
+ 			appendRankEvent();
 		},
 		error : function() {
 	        alert("관리자에게 문의에게 문의해주세요.");
@@ -658,32 +692,6 @@ function getRankingList(){
 }
 
 /*
- * userData 모달 안에서 follow버튼
- */
-function userFollow() {
-
-	console.log("여기들어와???");
-	$.ajax({
-
-		url : '/sos/follow/add',
-		type : 'get',
-		data : {
-			"followUserId" : "ccc",
-			"userSeq" : "${user.userSeq}"
-		},
-		success : function(data) {
-			console.log("follow 결과???");
-			console.log(data.addResult);
-			//location.reload();
-		},
-		error : function() {
-			alert("follow추가 error.");
-		}
-	})
-
-}
-
-/*
  * newfeed 닉네임 클릭시 유저 modal
  */
 function userModal(obj){
@@ -691,14 +699,15 @@ function userModal(obj){
 		url : '/sos/user/dataNick',
 		type : 'post',
 		data : {
-			"userNickname" : obj.text
+			"userNickname" : obj.text,
+			"followUserSeq" : "${user.userSeq}"
 		},
 		success: function(data){
 			$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
 			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
 			$('#nickName2').attr("placeholder", data.userData.userNickname);
 			$('#detail2').attr("placeholder", data.userData.userDetail);
-			$('#heartIcon').attr("title", data.userData.userNickname);
+			$('#heartIcon').attr("title", data.userData.userId);
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -711,98 +720,105 @@ function userModal(obj){
 /*
  * 유저 아이디 클릭시 data, modal
  */
-function appendClickEvent(){
-	
-// follow 친구 아이디 click시
-$('#follow_list li a').on('click', function(){
+function appendRankEvent(){
+	// ranking 유저 아이디 click시
+	$('#rankingList li a').on('click', function(){
 
-	$.ajax({
+//		console.log($(this).closest("ul").html());
+		$.ajax({
+			
+			url : '/sos/user/data',
+			type : 'post',
+			data : {
+				"userId" : this.text,
+				"followUserSeq" : "${user.userSeq}"
+			},
+			success: function(data){
+				
+				$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
+				$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
+				$('#nickName2').attr("placeholder", data.userData.userNickname);
+				$('#detail2').attr("placeholder", data.userData.userDetail);
+				$('#heartIcon').attr("title", data.userData.userId);
+				if(data.isFollow == 'true'){
+					console.log("팔로우");
+					$('#heartIcon').css('backgroud-color', '#ff5e3a');
+				}else{
+					console.log("no팔로우");
+					$('#heartIcon').css('backgroud-color', '#9a9fbf');
+				}
+			},
+			error : function() {
+		        alert("관리자에게 문의해주세요.");
+		    }
 		
-		url : '/sos/user/data',
-		type : 'post',
-		async : false,
-		data : {
-			"userId" : this.text
-		},
-		success: function(data){
-			
-			$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
-			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
-			$('#nickName2').attr("placeholder", data.userData.userNickname);
-			$('#detail2').attr("placeholder", data.userData.userDetail);
-			$('#heartIcon').attr("title", data.userData.userNickname);
-			
-		},
-		error : function() {
-	        alert("관리자에게 문의해주세요.");
-	    }
-	
-	})
-	
-})
-
-// follower 친구 아이디 click시
-$('#follower_list li a').on('click', function(){
-	/* var index = 0;
-	console.log(index);
-	index = index+1; */
-
-	$.ajax({
-		url : '/sos/user/data',
-		type : 'post',
-		async : false,
-		data : {
-			"userId" : this.text
-		},
-		success: function(data){
-			
-			$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
-			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
-			$('#nickName2').attr("placeholder", data.userData.userNickname);
-			$('#detail2').attr("placeholder", data.userData.userDetail);
-			$('#heartIcon').attr("title", data.userData.userNickname);
-			
-		},
-		error : function() {
-	        alert("관리자에게 문의해주세요.");
-	    }
-	
-	})
-	
-});
-
-
-// ranking 유저 아이디 click시
-$('#rankingList li a').on('click', function(){
-
-//	console.log($(this).closest("ul").html());
-	$.ajax({
+		})
 		
-		url : '/sos/user/data',
-		type : 'post',
-		data : {
-			"userId" : this.text
-		},
-		success: function(data){
-			
-			$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
-			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
-			$('#nickName2').attr("placeholder", data.userData.userNickname);
-			$('#detail2').attr("placeholder", data.userData.userDetail);
-			$('#heartIcon').attr("title", data.userData.userNickname);
-			
-		},
-		error : function() {
-	        alert("관리자에게 문의해주세요.");
-	    }
-	
 	})
-	
-})
-
 
 };
+function appendFollowEvent() {
+	$('#follow_list li a').on('click', function(){
 
+		$.ajax({
+			
+			url : '/sos/user/data',
+			type : 'post',
+			async : false,
+			data : {
+				"userId" : this.text,
+				"followUserSeq" : "${user.userSeq}"
+			},
+			success: function(data){
+				
+				$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
+				$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
+				$('#nickName2').attr("placeholder", data.userData.userNickname);
+				$('#detail2').attr("placeholder", data.userData.userDetail);
+				$('#heartIcon').attr("title", data.userData.userId);
+				
+			},
+			error : function() {
+		        alert("관리자에게 문의해주세요.");
+		    }
+		
+		})
+	});
+}
+
+function appendFollowerEvent(){
+	// follower 친구 아이디 click시
+	$('#follower_list li a').on('click', function(){
+		/* var index = 0;
+		console.log(index);
+		index = index+1; */
+
+		$.ajax({
+			url : '/sos/user/data',
+			type : 'post',
+			async : false,
+			data : {
+				"userId" : this.text,
+				"followUserSeq" : "${user.userSeq}"
+			},
+			success: function(data){
+				
+				$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
+				$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
+				$('#nickName2').attr("placeholder", data.userData.userNickname);
+				$('#detail2').attr("placeholder", data.userData.userDetail);
+				$('#heartIcon').attr("title", data.userData.userId);
+				
+				
+			},
+			error : function() {
+		        alert("관리자에게 문의해주세요.");
+		    }
+		
+		})
+		
+	});
+};
 
 
 </script>
