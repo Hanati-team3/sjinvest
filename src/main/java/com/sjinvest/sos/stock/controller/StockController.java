@@ -1,7 +1,9 @@
 package com.sjinvest.sos.stock.controller;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -155,6 +157,23 @@ public class StockController {
 	}
 
 	@ResponseBody
+	@PostMapping(value = "/capture", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String, Object>> capture(String image){
+		String fileName = UUID.randomUUID().toString();
+		FileOutputStream stream = null;
+		fileName = "c:\\captures\\" + fileName + ".jpeg";
+		try {
+			stream = new FileOutputStream(fileName);
+			stream.write(Base64Utils.decodeBase64ToBytes(image));
+			stream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("fileName", fileName);
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	@ResponseBody
 	@PostMapping(value = "/company/removeInterest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String, Object>> removeInterest(String companyNumber, String companyName,
 			HttpServletRequest request) {
@@ -196,42 +215,6 @@ public class StockController {
 		request.getSession().setAttribute("user", newUser);
 		return new ResponseEntity<>(returnValue, HttpStatus.OK);
 	}
-
-	@ResponseBody
-	@PostMapping(value = "/convertToImage")
-	public ModelAndView htmlToImage(HttpServletRequest request) {
-		String binaryData = request.getParameter("imgSrc");
-		FileOutputStream stream = null;
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("jsonView");
-		try {
-			System.out.println("binary file " + binaryData);
-			if (binaryData == null || binaryData == "") {
-				throw new Exception();
-			}
-			binaryData = binaryData.replaceAll("data:image/png;base64,", "");
-			byte[] file = Base64.decodeBase64(binaryData);
-			System.out.println("file :::::::: " + file + " || " + file.length);
-			String fileName = UUID.randomUUID().toString();
-			stream = new FileOutputStream("d:\\test2\\" + fileName + ".png");
-			stream.write(file);
-			stream.close();
-			System.out.println("파일 작성 완료");
-			mav.addObject("msg", "ok");
-		} catch (Exception e) {
-			System.out.println("파일이 정상적으로 넘어오지 않았습니다");
-			mav.addObject("msg", "no");
-			return mav;
-		} finally {
-			try {
-				stream.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return mav;
-	}
 	
 //	검색 - 자동 완성기능 (hojin)
 	@ResponseBody
@@ -248,7 +231,6 @@ public class StockController {
 		} 
 		return new ResponseEntity<>(searchList, HttpStatus.OK);
 	}
-	
 	// 여기서부터 예겸이 작업 go
 
 }
