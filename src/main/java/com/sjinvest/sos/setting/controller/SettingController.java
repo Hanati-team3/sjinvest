@@ -68,7 +68,6 @@ public class SettingController {
 	public String update(String setFeedNotice, String setTradeNotice, String setPrivacy, String setView, int userSeq, Setting setting) {
 		
 		log.info("setting.sns.");
-		
 		System.out.println("sns setting 유저번호?????: "+userSeq);
 		
 		int setFeedNotice2 = 2;

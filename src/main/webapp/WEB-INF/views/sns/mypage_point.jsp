@@ -73,6 +73,8 @@
 
 
 </div>
+
+<!-- 페이징처리 화면
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
     <li class="page-item disabled"><a class="page-link" href="#"
@@ -90,6 +92,8 @@
     <li class="page-item"><a class="page-link" href="#">다음</a></li>
   </ul>
 </nav>
+ -->
+
 <!--     </div> -->
 
 <!-- mypage_point end -->

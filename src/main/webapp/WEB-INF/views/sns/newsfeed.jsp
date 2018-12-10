@@ -642,7 +642,7 @@ function userFollow() {
 		url : '/sos/follow/add',
 		type : 'get',
 		data : {
-			"followUserId" : "tester01",
+			"followUserId" : "ccc",
 			"userSeq" : "${user.userSeq}"
 		},
 		success : function(data) {

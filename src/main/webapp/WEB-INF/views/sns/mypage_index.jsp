@@ -94,7 +94,7 @@ function information(){
 			$('#email').attr("value","${user.userEmail}");
 			$('#birth').attr("value","${user.userBirth}");
 			$('#money').attr("value","${user.userMoney}");
-			$('#detail').replaceWith('<textarea class="form-control" placeholder="" id="detail">${user.userDetail}</textarea>');
+			$('#detail').replaceWith('<textarea class="form-control" placeholder="" id="detail" name="userDetail">${user.userDetail}</textarea>');
 			
 			
 		},
@@ -284,13 +284,11 @@ function setting_stock(){
 
 
 
-/*
- * 유저 아이디 클릭시 data, modal
- * unfollow 클릭시 팔로잉 해제
- */
 function appendClickEvent2(){
 
-// follower 친구 아이디 click시 modal
+/* 
+ * follower 친구 아이디 click시 modal
+ */
 $('#follower_list a').on('click', function(){
 
 	console.log(this.text);
@@ -321,7 +319,9 @@ $('#follower_list a').on('click', function(){
 
 
 
-// unfollow 버튼 클릭시
+/*
+ * unfollow 클릭시 팔로잉 해제
+ */
 $('#follow_list li a').on('click', function(){
 
 	$.ajax({
@@ -329,7 +329,7 @@ $('#follow_list li a').on('click', function(){
 		url : '/sos/follow/delete',
 		type : 'get',
 		data : {
-			"followUserId" : "tester01",
+			"followUserId" : "ccc",
 			"userSeq" : "${user.userSeq}"
 		},
 		success: function(data){

@@ -92,7 +92,7 @@
 								<button type="reset" class="btn btn-secondary btn-lg full-width">되돌리기</button>
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-								<button type="button" class="btn btn-primary btn-lg full-width">저장하기</button> 
+								<button type="button" class="btn btn-primary btn-lg full-width" onclick="setting_sns_submit()">저장하기</button> 
                                 <!-- onclick="setting_sns_submit()" -->
 							</div>
 						</div>
