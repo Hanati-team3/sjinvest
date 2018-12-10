@@ -11,8 +11,6 @@ function indexUpdate(indexParam) {
 			success : function(stockData) {
 				console.log("stockData .. ");
 				console.log(stockData);
-				window.stock = stockData;
-//				setFieldCard(stockData.fieldStock);
 				if(!(INDEX.isEmptyInterest)) setInterestCard(stockData.interestList);
 				setKospiCard(stockData.kospiStock);
 				setTopTab(stockData.topTab, stockData.topTabOption);
@@ -85,36 +83,67 @@ function topTabUpdate(target) {
 function allChartUpdate(interestCompanyNumberList, kospiOption) {
 	console.log('interestCompanyNumberList : ' + interestCompanyNumberList);
 	console.log('kospiOption : ' + kospiOption);
-	$.ajax({
-		type : "POST",
-		url : "index/chart",
-		datatype: 'json',
-		traditional: true,
-		data : JSON.stringify({
-			"interestCompanyNumberList" : interestCompanyNumberList,
-			"kospiOption" : kospiOption
-		}),
-		contentType: "application/json; charset=utf-8",
-		success : function(chartData) {
-			console.log("chartData .. ");
-			console.log(chartData);
-			// 코스피 차트 그리기
-			//runKospiChart(getKospiFromRequest(), true);
-			// 관심종목 차트 그리기
-			//runInterestChart(getInterestFromRequest(), true);
-		},
-		error : function(request, status, error) {
-			console.log("code:" + request.status + "\n" + "message:"
-					+ request.responseText + "\n" + "error:" + error);
-		}
-	})
+	if(INDEX.flag) {
+		$.ajax({
+			type : "POST",
+			url : "index/chart",
+			datatype: 'json',
+			traditional: true,
+			data : JSON.stringify({
+				"interestCompanyNumberList" : interestCompanyNumberList,
+				"kospiOption" : kospiOption
+			}),
+			contentType: "application/json; charset=utf-8",
+			success : function(chartData) {
+				console.log("chartData .. ");
+				console.log(chartData);
+				// 코스피 차트 그리기
+				//runKospiChart(getKospiFromRequest(), true);
+				// 관심종목 차트 그리기
+				//runInterestChart(getInterestFromRequest(), true);
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		});
+	}
+
 }
-/** 업종별 정보 카드 데이터 설정 */
-function setFieldCard(fieldStock) {
-	$(".stock-index-trend li").each(function(index, item){
-		$(item).find(".fieldName").text(fieldStock[index].fieldName);
-		$(item).find(".count-stat").text(fieldStock[index].fieldAmount.toLocaleString())
-	});
+
+/** 업종별 거래량 카드 업데이트 */ 
+function updateField() {
+	console.log('updateField....');
+	if(INDEX.flag) {
+		$.ajax({
+			type : "GET",
+			url : "index/field",
+			datatype: 'json',
+			contentType: "application/json; charset=utf-8",
+			success : function(fieldList) {
+				console.log("fieldList .. ");
+				console.log(fieldList);
+				console.log([fieldList[0][1], fieldList[1][1], fieldList[2][1], fieldList[3][1], fieldList[4][1] ]);
+				// 파이차트 업데이트
+				INDEX.fieldChartEl.data.datasets[0].data = [ fieldList[0][1], fieldList[1][1], fieldList[2][1], fieldList[3][1], fieldList[4][1] ];
+				INDEX.fieldChartEl.update(0);
+				var sum = 0;
+				// 데이터 필드 업데이트
+				$('.stock-index-trend li').each(function(index, item){
+					var eachValue = Number(fieldList[index][1]);
+					$(item).find(".count-stat").text( numberWithCommas((eachValue / 1000).toFixed(0)) + "K");
+					sum += Number(eachValue);
+				});
+				console.log('sum : ' + sum);
+				$('.stock-index-trend .chart-js-pie-color div').html( numberWithCommas((sum / 1000).toFixed(0)) + "K <span>5개 업종의 거래량 합</span>");
+				setTimeout(updateField(), 6000);
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		})
+	};
 }
 
 /** 관심종목 카드 데이터 */
@@ -309,12 +338,6 @@ function setTopTab(topTab, topTabOption) {
 		break;
 	// 하락률 상위 5
 	case INDEX.tabList[1] :
-/*		var itemList = $(activeTab).find('.skills-item');
-		for(var i = 0; i < 5; i++) {
-			$(itemList[i]).find('.skills-item-title').text(topTab[i].stockName);
-			$(itemList[i]).find('.units').text(topTab[i].stockValue +"%");
-			$(itemList[i]).find('.skills-item-meter-active').css("width",topTab[i].stockValue+"%");
-		}*/
 		runOneBarChart(topTab, 'falling-rate-chart');
 		break;
 	// 외국인 순매수 3
@@ -336,7 +359,7 @@ function setTopTab(topTab, topTabOption) {
 	}
 }
 
-/** Top20 차트 함수 */
+/** Top10 차트 함수 */
 function runOneBarChart(topTab, id) {
 	var nameList = [];
 	var dataList = [];

@@ -41,6 +41,7 @@ import com.sjinvest.sos.stock.params.HoldingListParams;
 import com.sjinvest.sos.stock.params.IndexChartParams;
 import com.sjinvest.sos.stock.params.IndexParams;
 import com.sjinvest.sos.stock.domain.News;
+import com.sjinvest.sos.stock.domain.Rank;
 import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.domain.TimeSeries;
 import com.sjinvest.sos.stock.service.StockService;
@@ -87,14 +88,14 @@ public class StockController2 {
 		}
 		//request.setAttribute("user", user);
 		
-		System.out.println(0);
+		System.out.println("index : " + 0);
 		List<Holding> holdingList = new ArrayList<>();					/* 보유자산 리스트 */
 		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
 		Map<String, Object> interestMap = new Hashtable<>();	/* 관심종목 Stock리스트와 Chart데이터 */
 		Map<String, Object> holdingWidgetMap = null;			/* 보유자산 total, stockTotal, cashTotal, Holding리스트 */
 		Map<String, Object> map = null;							/* stock 서비스에서 한번에 받아올 정보 : realTime, topTab, 관심종목 Stock리스트, HoldingMap  */
 		
-		System.out.println(1);
+		System.out.println("index : " + 1);
 		holdingList = holdingService.listByUser(user.getUserSeq());
 		for (Interest interest : interestService.listByUser(user.getUserSeq())) {
 			interestCompanyNumberList.add(interest.getCompanyNumber());
@@ -105,38 +106,29 @@ public class StockController2 {
 		
 		map = service.getForIndex(holdingList, interestCompanyNumberList, 1);
 		
-		System.out.println(2);
-		System.out.println(3);
+		System.out.println("index : " + 2);
 		// realtime
 		model.addAttribute("realTime", map.get("realTime"));
-		System.out.println(4);
 		// 회사 목록
 		model.addAttribute("companyList", companyService.list());
-		System.out.println(5);
 		// 업종별 거래량 카드
-		model.addAttribute("fieldStock", service.stockFieldAmount());	// field될 때 수정(지금은 더미값)
-		System.out.println(6);
+		model.addAttribute("fieldStock", service.getField());
 		// 코스피 정보 카드
 		model.addAttribute("kospiMap", service.getKospiChartDate(1));
-		System.out.println(7);
 		// 상승률 상위 5종목
 		model.addAttribute("topTab", map.get("topTab"));
-		System.out.println(8);
 		// 주식 전체 뉴스
-		//model.addAttribute("news", service.stockIndexNews());
-		System.out.println(9);
+		model.addAttribute("news", service.stockIndexNews());
 
+		System.out.println("index : " + 3);
 		if(user != null) {
 			// 관심종목 정보
 			interestMap.put("interestList", map.get("interestList"));
 			model.addAttribute("interestMap", interestMap);
-			System.out.println(10);
 			// 내 보유주식 위젯
 			holdingWidgetMap = (Map<String, Object>) map.get("holdingWidget");
-			System.out.println(11);
 			holdingWidgetMap.put("chasTotal", user.getUserMoney());
 			holdingWidgetMap.put("total", user.getUserMoney() + (Integer)holdingWidgetMap.get("stockTotal"));
-			System.out.println(12);
 			model.addAttribute("holdingWidget", holdingWidgetMap);
 		}
 		// 유저 프로필 위젯
@@ -161,9 +153,9 @@ public class StockController2 {
 	/** 상위종목 tab Update 요청*/
 	//@ResponseBody
 	@PostMapping(value="/index/tab/{type}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Map<String, Object>>> tabUpdate(@PathVariable("type")int type) {
+	public ResponseEntity<List<Rank>> tabUpdate(@PathVariable("type")int type) {
 		System.out.println("tabUpdate type : " + type);
-		return new ResponseEntity<>(service.stockTop(type+""), HttpStatus.OK);
+		return new ResponseEntity<>(service.getRanking(type), HttpStatus.OK);
 	}
 	
 	/** index의 chart update 요청*/
@@ -175,6 +167,14 @@ public class StockController2 {
 		map.put("interestTimeSeries", service.getChartData(params.getInterestCompanyNumberList(), 1, 1));
 		map.put("kospiMap", service.getKospiChartDate(params.getKospiOption()));
 		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	
+	/** index의 업종별 거래량 update 요청*/
+	//@ResponseBody
+	@GetMapping(value="/index/field", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<String[]>> fieldUpdate() {
+		System.out.println("fieldUpdate .. ");
+		return new ResponseEntity<>(service.getField(), HttpStatus.OK);
 	}
 
 	
@@ -245,14 +245,12 @@ public class StockController2 {
 
 		
 		holdingList = holdingService.listByUser(user.getUserSeq());
-		System.out.println("holding 1");
 		map = service.getHolding(holdingList);			/* realtime, holdingWidgetMap 들어있는 map반환 */
 		System.out.println("holding 에서 받은 맵 : " + map);
-		System.out.println("holding 2");
+		
 		holdingMap = (Map<String, Object>)map.get("holdingWidget");
 		holdingMap.put("cashTotal", user.getUserMoney());
 		holdingMap.put("total", user.getUserMoney() + (Integer)holdingMap.get("stockTotal"));
-		System.out.println("holding 3");
 		model.addAttribute("holdingMap", holdingMap);
 		// realtime
 		model.addAttribute("realTime", map.get("realTime"));
