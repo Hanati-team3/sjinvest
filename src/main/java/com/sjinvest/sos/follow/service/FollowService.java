@@ -16,4 +16,7 @@ public interface FollowService {
 	public List<Follow> listByUserFollower(int userSeq);
 	// top 팔로우 리스트 user_seq, count_num
 	public List<Map<String, Object>> topFollow(int num);
+	// 팔로우 존재
+	public int checkFollow(Follow follow);
+	
 }

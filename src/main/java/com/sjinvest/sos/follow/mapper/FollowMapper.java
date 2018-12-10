@@ -12,4 +12,5 @@ public interface FollowMapper {
 	public List<Follow> listByUserFollow(int userSeq);
 	public List<Follow> listByUserFollower(int userSeq);
 	public List<Map<String, Object>> topFollow(int num);
+	public int checkFollow(Follow follow);
 }
