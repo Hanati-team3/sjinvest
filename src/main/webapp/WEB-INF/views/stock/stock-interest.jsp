@@ -80,6 +80,7 @@
               <table class="forums-table">
                 <thead>
                   <tr>
+                    <th class="hidden-index" hidden="true;">인덱스</th>
                     <th class="company-number">종목번호</th>
                     <th class="company-name">기업명</th>
                     <th class="stock-price">현재주가</th>
@@ -92,6 +93,7 @@
                 <tbody>
                   <c:forEach var="eachInterest" items="${interestStockList}" varStatus="status">
                     <tr>
+                      <td class="hidden-index" hidden="true;">${status.index}</td>
                       <td class="company-number">
                         <div class="forum-item">
                           <a href="<%=application.getContextPath()%>/stock/company/${eachInterest.stockCode}" class="h6 count">${eachInterest.stockCode}</a>
@@ -217,14 +219,48 @@
   		console.log('stop');
   	}
 	
-	/* 판매 버튼 입력 이벤트 */
+	/* 관심종목 제거 이벤트 */
 	$('.remove-interest a').on('click', function (e){
-		Snackbar.show({
-			text: '관심목록에서 제거했습니다.',
-			actionText: 'OK',
-			 actionTextColor: '#f66496',
-			pos: 'top-center'
-		}); 
+		var $tr = $(this).closest("tr");
+		window.tre = $tr;
+ 		$.ajax({
+			type : "POST",
+			url : "remove",
+			dataType : "json",
+	        traditional : true,
+			contentType: "application/json; charset=utf-8",
+			data : JSON.stringify({
+				"userSeq" : "${sessionScope.user.userSeq}",
+				"companyNumber" : $($tr).find('.company-number a').text(),
+				"companyName" : $($tr).find('.company-name a').text() /*,
+				"fieldName" : "" */
+			}),
+			success : function(result) {
+				console.log('result : ' + result);
+				if(result == true) {
+					Snackbar.show({
+						text: '관심목록에서 제거했습니다.',
+						actionText: 'OK',
+						actionTextColor: '#f66496',
+						pos: 'top-center'
+					}); 
+					$($tr).remove();
+					INTEREST.interestNumberArray.splice($($tr).find('.hidden-index').text(), 1);
+				}
+				else {
+					Snackbar.show({
+						text: '관심목록에서 제거에 실패했습니다.',
+						actionText: 'OK',
+						actionTextColor: '#f66496',
+						pos: 'top-center'
+					}); 
+				}
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		});
 	});
     
     /** 2초마다 interest 정보 업데이트 */
@@ -254,6 +290,7 @@
     }
   
     function setInterestData(interestData) {
+    	if(interestData.length != $(".forums-table tbody tr").length) return;
     	$(".forums-table tbody tr").each(function(index, item){
     		$(item).find(".company-number a").text(interestData[index].stockCode);
     		$(item).find(".company-name a").text(interestData[index].stockName);

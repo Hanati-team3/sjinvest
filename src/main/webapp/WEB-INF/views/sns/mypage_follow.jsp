@@ -17,11 +17,11 @@
               <img src="../resources/img/avatar15-sm.jpg" alt="author">
             </div>
             <div class="notification-event">
-              <a href="#" class="h6 notification-friend" name="followUserId">Tamara Romanoff</a>
+              <a href="#" class="h6 notification-friend" name="unfollowUser">Tamara Romanoff</a>
             </div>
             
             <span class="notification-icon">
-            <a href="/sos/follow/delete" class="accept-request">
+            <a href="#" class="accept-request" onclick="unfollow(this)">
                 <span class="icon-minus">
                   <svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
                 </span>

@@ -123,10 +123,10 @@ function follow(){
 			
 			console.log(data.followList);
 			for(var i=0; i<data.followList.length; i++){
-			$('#follow_list').append('<li><div class="author-thumb"><img src="../resources/img/avatar'+ data.followList[i].userSeq +'-sm.jpg" alt="author"></div><div class="notification-event"><a href="#" class="h6 notification-friend">'+ data.followList[i].userId +'</a></div><span class="notification-icon"><a href="#" class="accept-request"><span class="icon-minus"><svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg></span>unfollow</a></span></li> ');
+			$('#follow_list').append('<li><div class="author-thumb"><img src="../resources/img/avatar'+ data.followList[i].userSeq +'-sm.jpg" alt="author"></div><div class="notification-event"><a href="#" class="h6 notification-friend">'+ data.followList[i].userNickname +'</a></div><span class="notification-icon"><a href="#" class="accept-request" onclick="unfollow(this)"><span class="icon-minus"><svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg></span>unfollow</a></span></li> ');
 			}
 			
-			appendClickEvent2();
+			//appendClickEvent2();
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -153,10 +153,10 @@ function follower(){
 			
 			console.log(data.followerList);
 			for(var i=0; i<data.followerList.length; i++){
-			$('#follower_list').append('<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12"><div class="ui-block"><div class="birthday-item inline-items"><div class="author-thumb"><img src="../resources/img/avatar'+ data.followerList[i].userSeq +'-sm.jpg"alt="author"></div><div class="birthday-author-name"><a href="#" class="h6 author-name">'+ data.followerList[i].userId +'</a></div><a href="#"class="btn btn-sm bg-blue" data-toggle="modal" data-target="#user_data">보기</a></div></div></div>');
+			$('#follower_list').append('<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12"><div class="ui-block"><div class="birthday-item inline-items"><div class="author-thumb"><img src="../resources/img/avatar'+ data.followerList[i].userSeq +'-sm.jpg"alt="author"></div><div class="birthday-author-name"><a href="#" class="h6 author-name">'+ data.followerList[i].userNickname +'</a></div><a href="#"class="btn btn-sm bg-blue" data-toggle="modal" data-target="#user_data" onclick="followerDetail(this)">보기</a></div></div></div>');
 			}
 			
-			appendClickEvent2();
+			//appendClickEvent2();
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -252,7 +252,7 @@ function setting_sns(){
     var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_sns");
     $("#rowChange").append(review);
 }
-
+/*
 function setting_sns_submit(){
 	
 	$.ajax({
@@ -274,7 +274,8 @@ function setting_sns_submit(){
 		}
 		
 	})
-}
+} 
+*/
 
 function setting_stock(){
 	
@@ -284,23 +285,52 @@ function setting_stock(){
 }
 
 
+/*
+ * unfollow 클릭시 팔로잉 해제
+ */
+//$('#follow_list li a').on('click', function(){
 
-function appendClickEvent2(){
+function unfollow(obj){
+	
+	var unfollowUser = $(obj).closest('li').find('a.notification-friend').text();
+
+	//console.log("unfollow 클릭: "+unfollowUser);
+
+	$.ajax({
+		
+		url : '/sos/follow/delete',
+		type : 'get',
+		data : {
+			"followUserId" : unfollowUser,
+			"userSeq" : "${user.userSeq}"
+		},
+		success: function(data){
+			
+			console.log("unfollow 결과: "+data.deleteResult);
+			//history.go(0);
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+	
+}
 
 /* 
  * follower 친구 아이디 click시 modal
  */
-$('#follower_list a').on('click', function(){
-
-	console.log(this.text);
-
-	//$("#follower_list a ").closest("div").children("a");
-
+function followerDetail(obj){
+	
+	var followerDetail = $(obj).closest('div').find('a.author-name').text();
+	
+	console.log("졸려:"+followerDetail);
+	
 	$.ajax({
-		url : '/sos/user/data',
+		url : '/sos/user/dataNick',
 		type : 'post',
 		data : {
-			"userId" : "tester01"
+			"userNickname" : followerDetail
 		},
 		success: function(data){
 			
@@ -315,46 +345,8 @@ $('#follower_list a').on('click', function(){
 	    }
 	
 	})
-	
-})
 
-
-
-/*
- * unfollow 클릭시 팔로잉 해제
- */
-$('#follow_list li a').on('click', function(){
-
-	$.ajax({
-		
-		url : '/sos/follow/delete',
-		type : 'get',
-		data : {
-			"followUserId" : "ccc",
-			"userSeq" : "${user.userSeq}"
-		},
-		success: function(data){
-			
-			console.log("unfollow 결과: "+data.deleteResult);
-			location.reload();
-		},
-		error : function() {
-	        alert("관리자에게 문의해주세요.");
-	    }
-	
-	})
-	
-})	
-	
-	
-
-
-};
-
-
-
-
-
+}
 
 </script>
 
