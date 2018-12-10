@@ -23,7 +23,7 @@
                   <a href="#" class="h6 author-name">Rachel Howlett</a>
                 </div>
                 <a href="#"
-                  class="btn btn-sm bg-blue" data-toggle="modal" data-target="#user_modal">보기</a>
+                  class="btn btn-sm bg-blue" data-toggle="modal" data-target="#user_modal" onclick="followerDetail(this)">보기</a>
               </div>
             </div>
           </div> -->
