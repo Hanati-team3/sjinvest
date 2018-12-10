@@ -233,6 +233,11 @@ public class StockDao {
         return timeSeries;
 	}
 	public TimeSeries convertListTimeSeries(List<String> companyNumber, JsonNode jsonMap, int type) {
+		log.info("log info.... dao convertListTimeSeries..");
+		System.out.println("sysout.... dao convertListTimeSeries..");
+		if(companyNumber.size() == 0) {
+			return new TimeSeries();
+		}
         JsonNode com = jsonMap.get("com");
         TimeSeries timeSeries = new TimeSeries();
         Map<String, List<Double>> datas = new HashMap<String, List<Double>>();
@@ -307,6 +312,7 @@ public class StockDao {
 		String apiURL = "http://54.180.117.83:8000/stock?";
 		String urlString = apiURL + "code="+convertListToString(companyNumberList);
 		urlString = urlString+"&rank="+rank;
+		log.info("dao forIndex....");
 		System.out.println(urlString);
 		try {
 			URL url = new URL(urlString);
@@ -343,6 +349,7 @@ public class StockDao {
 		return result;
 	}
 	public Map<String, Object> forHolding(List<String> companyNumberList){
+		log.info("dao forHolding....");
 		Map<String, Object> result = new HashMap<String, Object>();
 		String apiURL = "http://54.180.117.83:8000/stock?";
 		String urlString = apiURL + "code="+convertListToString(companyNumberList);
@@ -362,6 +369,7 @@ public class StockDao {
 		return result;
 	}
 	public TimeSeries getChartData(List<String> companyNumberList, String startDate, String endDate, int type) {
+		log.info("dao forHolding...");
 		TimeSeries result = new TimeSeries();
 		String apiURL = "http://54.180.117.83:8003/stock/chart?";
 		String urlString = apiURL + "code="+convertListToString(companyNumberList)+"&startDate="+startDate+"&endDate="+endDate+"&type="+type;
