@@ -6,6 +6,7 @@
 <jsp:include page="../includes/head.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/html2canvas.js"></script>
 <script>
 function purchaseButton(){
 	<c:if test="${not empty user}">

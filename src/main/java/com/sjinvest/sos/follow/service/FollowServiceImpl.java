@@ -49,4 +49,9 @@ public class FollowServiceImpl implements FollowService {
 	public List<Map<String, Object>> topFollow(int num) {
 		return mapper.topFollow(num);
 	}
+
+	@Override
+	public int checkFollow(Follow follow) {
+		return mapper.checkFollow(follow);
+	}
 }

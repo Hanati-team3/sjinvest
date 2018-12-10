@@ -1,4 +1,13 @@
 <%@ page contentType="text/html; charset=utf-8" %>
+<style>
+.daterangepicker{
+	width: 270px;
+}
+.daterangepicker.single.ltr .calendar{
+	width: 260px;
+}
+
+</style>
     
 <!-- 개인정보 수정 start -->
      

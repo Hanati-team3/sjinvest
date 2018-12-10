@@ -26,6 +26,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.sjinvest.sos.follow.domain.Follow;
+import com.sjinvest.sos.follow.service.FollowService;
 import com.sjinvest.sos.user.domain.KakaoLogin;
 import com.sjinvest.sos.user.domain.NaverLogin;
 import com.sjinvest.sos.user.domain.User;
@@ -41,6 +43,7 @@ import lombok.extern.log4j.Log4j;
 public class UserController {
 
 	private UserService service;
+	private FollowService followService;
 	
 	@PostMapping("/regist")
 	public String regist(User user, RedirectAttributes rttr) {
@@ -199,11 +202,23 @@ public class UserController {
 	 */
 	@ResponseBody
 	@PostMapping(value = "/data", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> userData(String userId) {
+	public ResponseEntity<Map<String,Object>> userData(String userId, int followUserSeq) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
-		System.out.println("유저 이름 클릭시 아이디: "+userId);
-		returnData.put("userData", service.readById(userId));
-
+		/*System.out.println("유저 이름 클릭시 아이디: "+userId);*/
+		User user = service.readById(userId);
+		returnData.put("userData", user);
+		Follow follow = new Follow();
+		follow.setFollowUserSeq(user.getUserSeq());
+		follow.setUserSeq(followUserSeq);
+		System.out.println(followService.checkFollow(follow));
+		System.out.println(follow.getUserSeq());
+		System.out.println(follow.getFollowUserSeq());
+		if(followService.checkFollow(follow) != 0) {
+			returnData.put("isFollow", "true");
+		}else {
+			returnData.put("isFollow", "false");
+		}
+		
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
 	/**
@@ -211,10 +226,18 @@ public class UserController {
 	 */
 	@ResponseBody
 	@PostMapping(value = "/dataNick", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> userDataNickName(String userNickname) {
+	public ResponseEntity<Map<String,Object>> userDataNickName(String userNickname, int followUserSeq) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
-		returnData.put("userData", service.readByNickname(userNickname));
-
+		User user = service.readByNickname(userNickname);
+		returnData.put("userData", user);
+		Follow follow = new Follow();
+		follow.setFollowUserSeq(user.getUserSeq());
+		follow.setUserSeq(followUserSeq);
+		if(followService.checkFollow(follow) != 0) {
+			returnData.put("isFollow", "true");
+		}else {
+			returnData.put("isFollow", "false");
+		}
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
 	

@@ -20,6 +20,7 @@ import com.sjinvest.sos.follow.domain.Follow;
 import com.sjinvest.sos.follow.service.FollowService;
 import com.sjinvest.sos.notice.domain.Notice;
 import com.sjinvest.sos.notice.service.NoticeService;
+import com.sjinvest.sos.user.controller.UserController;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
 
@@ -35,6 +36,7 @@ public class FollowController {
 	private FollowService service;
 	private UserService userService;
 	private NoticeService noticeService;
+	UserController userController;
 	
 	// follow 추가 여기부터 시작!!!
 	/*@GetMapping("/add")	
@@ -54,26 +56,20 @@ public class FollowController {
 	}
 	*/
 	@ResponseBody
-	@GetMapping(value = "/add", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> add(String followUserId, int userSeq) {
+	@GetMapping(value = "/handle", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> add(Follow follow, String followUserId) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
-		
-		
-		System.out.println("팔로잉 추가할 유저아이디: "+followUserId);
-		
-		Follow follow = new Follow();
-		
-		User followUser = userService.readById(followUserId);
-		User user = userService.readBySeq(userSeq);
-		
-		System.out.println("나의 seq: "+userSeq);
-		System.out.println("너의 seq: "+followUser.getUserSeq());
-		
-		follow.setUserSeq(userSeq);
+		User followUser = userService.readById(followUserId);	//나 자신
 		follow.setFollowUserSeq(followUser.getUserSeq());
 		
-		returnData.put("addResult", service.create(follow));
-		
+		System.out.println("생성?" + service.checkFollow(follow));
+		System.out.println(follow.getUserSeq());
+		System.out.println(follow.getFollowUserSeq());
+		if(service.checkFollow(follow) != 0) {
+			service.deleteFollow(follow);
+		}else {
+			service.create(follow);
+		}
 		/*
 		Notice notice = new Notice();
 
@@ -82,7 +78,7 @@ public class FollowController {
 		notice.setNoticeContent(followUser.getUserId() +" 님이 팔로잉하셨습니다.");
 		*/
 		
-		return new ResponseEntity<>(returnData,HttpStatus.OK);
+		return userController.userData(followUser.getUserId(), follow.getUserSeq());
 	
 	}
 	
@@ -157,13 +153,5 @@ public class FollowController {
 		returnData.put("deleteResult", service.deleteFollow(follow));
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

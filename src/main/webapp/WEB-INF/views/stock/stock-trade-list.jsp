@@ -4,6 +4,7 @@
 <head>
 <title>SOS - 모의투자 거래내역</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
+<jsp:include page="../popup/sharing.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
 <script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
@@ -11,25 +12,25 @@
 <script src="<%=application.getContextPath()%>/resources/js/html2canvas.js"></script>
 <script>
 var companyNumberList = new Array;
+var modal = document.getElementById('sharing');
 companyNumberList.push("000270");
-
 function capture(){
 	$('#share-btn').click(function() {
 		console.log('들어옴');
-		html2canvas(document.body).then(function(canvas){
-			
-		});
-<%--	    html2canvas($('.forums-table').parent(), {
-	        onrendered: function(canvas) {
-	            if (typeof FlashCanvas != "undefined") {
-	                FlashCanvas.initElement(canvas);
-	            }
-	            var image = canvas.toDataURL("image/png"); 
-	            $("#imgData").val(image);
-	            $("#imgForm").submit();
-	        }
-	    });
-	}); --%>	
+  	    html2canvas(document.getElementById('container')).then(function(canvas) {
+		var base64URL = canvas.toDataURL('image/jpeg');
+        // AJAX request
+        $.ajax({
+           url: 'capture',
+           type: 'post',
+           data: {image: base64URL},
+           success: function(data){
+			  console.log(data);
+        	  console.log('Upload successfully');
+              modal.style.display = "block";
+           }
+        });
+	});
 })
 }
 
@@ -78,7 +79,7 @@ $(document).ready(function(){
 	changeType();
 	addPageNation();
 	typeChanged();
-	getStockData();
+//	getStockData();
 	capture();
 	/** DatePickerEvent등록*/
 	registDatePickerEvent();
@@ -228,7 +229,7 @@ function formatDate(date){
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
     
             <div class="ui-block">
-              <table class="forums-table">
+              <table class="forums-table" id="container">
                 <thead>
                   <tr>
                     <th class="trade-date">날짜</th>
