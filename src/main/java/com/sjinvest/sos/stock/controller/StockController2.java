@@ -227,6 +227,13 @@ public class StockController2 {
 		return new ResponseEntity<>( (List<Stock>)map.get("stockList"), HttpStatus.OK);
 	}
 	
+	/** 주식 interest 화면 요청*/
+	@PostMapping(value="/interest/remove", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Boolean> interestRemove(@RequestBody Interest interest) {
+		System.out.println("interestRemove : interest " + interest);
+		return new ResponseEntity<>( interestService.delete(interest), HttpStatus.OK);
+	}
+	
 	/** 주식 holding 리스트 화면 요청*/
 	@GetMapping(value="/holding/list", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String holding(Model model, HttpServletRequest request) {
