@@ -438,7 +438,7 @@ function showFeedList(data){
 				$(replyContent[k]).text(data.replyList[k].commentContent);
 				if(data.replyUser[k].userPicture != null){
 					if(data.replyUser[k].userPicture.split(':')[0] == 'http' || data.replyUser[k].userPicture.split(':')[0] == 'https'){
-						console.log("뭐지");
+						//console.log("뭐지");
 						$(replyImage[k]).attr('src', data.replyUser[k].userPicture)
 					}else{
 						$(replyImage[k]).attr('src', '/sos/resources/img/'+data.replyUser[k].userPicture)
