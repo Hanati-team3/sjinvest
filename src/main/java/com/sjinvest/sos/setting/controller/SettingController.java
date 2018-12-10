@@ -97,8 +97,8 @@ public class SettingController {
 		setting.setSetFeedNotice(setPrivacy2);
 		setting.setSetFeedNotice(setView2);
 		
-		service.update(setting);
-		System.out.println("sns업데이트확인"+ service.update(setting));
+		boolean result = service.update(setting);
+		System.out.println("sns업데이트확인"+ result);
 		
 		return "redirect:/sns/mypage_index";
 	}
