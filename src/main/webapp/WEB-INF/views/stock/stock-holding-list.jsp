@@ -262,7 +262,6 @@
   	HOLDING.eachHoldingChartElements = [];
   	
 	$(document).ready(function() {
-		console.log('user : ' + "<%=(request.getSession().getAttribute("user"))%>");
 		console.log('user : ' + "${sessionScope.user}");
 		HOLDING.cashTotal = ${holdingMap.cashTotal};
 		setHoldingList();
