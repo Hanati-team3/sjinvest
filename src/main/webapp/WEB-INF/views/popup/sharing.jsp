@@ -14,8 +14,8 @@ if((User)(request.getSession().getAttribute("user")) != null){
 }
 %>
 
-<div class="modal fade" id="sharing">
-  <div class="modal-dialog ui-block window-popup">
+<div class="modal bd-example-modal-lg fade" id="sharing">
+  <div class="modal-dialog modal-lg ui-block window-popup">
     <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
       <svg class="olymp-close-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-close-icon"></use></svg>
     </a>
@@ -26,27 +26,11 @@ if((User)(request.getSession().getAttribute("user")) != null){
         <div class="news-feed-form">
 
           <!-- Tab panes -->
-          <div class="tab-content">
+          <div class="tab-content" id="tab-content">
             <div class="tab-pane active" id="home-1" role="tabpanel"
               aria-expanded="true">
               <form method="post" onclick="writeComment(this);">
-                <div class="author-thumb">
-                	<c:choose>
-	                  <c:when test="${user.userId ne null }">
-	                  	<%if (result_profile){ %>
-		              		<img src="${user.userPicture}" width="36px" height="36px" alt="author">
-		              	<%}else{ %>
-		              		<img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"  width="36px" height="36px" alt="author">
-		             	<%} %>
-	                  </c:when>
-	                  <c:otherwise>
-	                  	<img  src="<%=application.getContextPath()%>/resources/img/author-page.jpg" alt="author">
-	                  </c:otherwise>
-                  </c:choose>
-                	
-                </div>
-                <div
-                  class="form-group with-icon label-floating is-empty">
+                <div class="form-group with-icon label-floating is-empty">
                   <c:choose>
 	                  <c:when test="${user.userId ne null }">
 	                  	<textarea name="feedContent" class="form-control" placeholder="주식정보를 공유하여 주세요..!"></textarea>
@@ -57,26 +41,18 @@ if((User)(request.getSession().getAttribute("user")) != null){
                   </c:choose>
                 </div>
                 <div class="add-options-message">
-                  
-                  <a href="#" class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="ADD PHOTOS"> 
-                    <svg class="olymp-camera-icon" data-toggle="modal" data-target="#update-header-photo">
-                    <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-camera-icon"></use></svg>
-                  </a> 
 					<c:choose>
 	                  <c:when test="${user.userId ne null }">
-	                  		<button class="btn btn-primary btn-md-2">글올리기</button>
+	                  		<button id="write-feed" class="btn btn-primary btn-md-2">글올리기</button>
 	                  </c:when>
 	                  <c:otherwise>
 	                  		<button class="btn btn-primary btn-md-2" disabled="disabled">글올리기</button>
 	                  </c:otherwise>
                   </c:choose>
-                  
-
                 </div>
-
               </form>
+            
             </div>
-
           </div>
         </div>
       </div>
