@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -65,10 +66,13 @@ public class SettingController {
 
 	// call stack size 오류.. 
 	@GetMapping("/update")	
-	public String update(String setFeedNotice, String setTradeNotice, String setPrivacy, String setView, int userSeq, Setting setting) {
+	public String update(HttpSession session, Setting setting) {
 		
 		log.info("setting.sns.");
-		System.out.println("sns setting 유저번호?????: "+userSeq);
+		System.out.println("sns setting 유저번호?????: "+session.getAttribute("user"));
+		
+		User user = (User)session.getAttribute("user");
+		int userSeq = user.getUserSeq();
 		
 		int setFeedNotice2 = 2;
 		int setTradeNotice2 = 2;
@@ -76,7 +80,10 @@ public class SettingController {
 		int setView2 = 2;
 		
 		
-		if(setFeedNotice == "ON") {
+		System.out.println("setting : "+setting);
+		
+		
+		/*if(setting.setFeedNotice == "ON") {
 			setFeedNotice2 = 1;
 		}
 		
@@ -90,7 +97,7 @@ public class SettingController {
 		
 		if(setView == "ON") {
 			setView2 = 1;
-		}
+		}*/
 		
 		setting.setSetFeedNotice(setFeedNotice2);
 		setting.setSetFeedNotice(setTradeNotice2);
@@ -98,7 +105,7 @@ public class SettingController {
 		setting.setSetFeedNotice(setView2);
 		
 		boolean result = service.update(setting);
-		System.out.println("sns업데이트확인"+ result);
+		System.out.println("sns업데이트확인"+ setting);
 		
 		return "redirect:/sns/mypage_index";
 	}

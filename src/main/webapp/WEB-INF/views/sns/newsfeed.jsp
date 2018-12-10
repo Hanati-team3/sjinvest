@@ -513,7 +513,7 @@ function getFollowList(){
 			}else{
 				//console.log(data.followList);
 				for(var i=0; i<data.followList.length; i++){
-					$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userId +'</a></div></li>');
+					$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userNickname +'</a></div></li>');
 				}
 			}
 			appendFollowEvent();
@@ -610,7 +610,7 @@ function getFollowerList(){
 			}else{
 				//console.log(data.followerList);
 				for(var i=0; i<data.followerList.length; i++){
-					$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userId +'</a></div></li>');
+					$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userNickname +'</a></div></li>');
 				}
 			}
 			appendFollowerEvent();
@@ -691,8 +691,9 @@ function getRankingList(){
 	
 }
 
+
 /*
- * newfeed 닉네임 클릭시 유저 modal
+ * newsfeed 닉네임 클릭시 유저 modal
  */
 function userModal(obj){
 	$.ajax({
@@ -724,9 +725,7 @@ function appendRankEvent(){
 	// ranking 유저 아이디 click시
 	$('#rankingList li a').on('click', function(){
 
-//		console.log($(this).closest("ul").html());
 		$.ajax({
-			
 			url : '/sos/user/data',
 			type : 'post',
 			data : {
@@ -761,7 +760,6 @@ function appendFollowEvent() {
 	$('#follow_list li a').on('click', function(){
 
 		$.ajax({
-			
 			url : '/sos/user/data',
 			type : 'post',
 			async : false,
@@ -785,7 +783,6 @@ function appendFollowEvent() {
 		})
 	});
 }
-
 function appendFollowerEvent(){
 	// follower 친구 아이디 click시
 	$('#follower_list li a').on('click', function(){
