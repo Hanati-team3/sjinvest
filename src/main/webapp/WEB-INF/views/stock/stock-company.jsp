@@ -179,8 +179,6 @@ function runChart(){
                 </c:forEach>
 				]
 	    };
-	    
-	    
 	    config = {
 		        type: 'line',
 		        data: data_lc,
@@ -239,6 +237,11 @@ function getStockData(){
           minutes = minutes >= 10 ? minutes : '0' + minutes;  
           seconds = seconds >= 10 ? seconds : '0' + seconds;  
           $(".trading-time").text(hour+"-"+minutes+"-"+seconds)
+          var realTimeList = $("ul#scroll li a");
+          for(var i = 0; i < realTimeList.length; i++){
+        	  realTimeList.eq(i).text((i+1)+"  "+data.realTime[i].stockName+" "+numberWithCommas(data.realTime[i].total));
+        	  realTimeList.eq(i).attr('href','company/'+data.realTime[i].stockCode);
+          }
 		  var trList = $(".company-today-table tr");
           for(var i = 1; i < 11; i++){
         	 	trList.eq(i).find(".stock-price a").text(numberWithCommas(data.askingPriceList[i-1].price));
