@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sjinvest.sos.stock.domain.AskingPrice;
 import com.sjinvest.sos.stock.domain.Kospi;
+import com.sjinvest.sos.stock.domain.News;
 import com.sjinvest.sos.stock.domain.Rank;
 import com.sjinvest.sos.stock.domain.Stock;
 import com.sjinvest.sos.stock.domain.StockMini;
@@ -457,6 +458,10 @@ public class StockDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public List<News> getStockEachNews(List<String> companyNumberList){
+		StockEachNewsCrawler senr = new StockEachNewsCrawler();
+		return senr.getNews(companyNumberList);
 	}
 	public static void main(String[] args) {
 		StockDao stockDao = new StockDao();

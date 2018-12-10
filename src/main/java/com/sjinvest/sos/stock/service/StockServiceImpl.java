@@ -449,4 +449,9 @@ public class StockServiceImpl implements StockService {
 		StockDao stockDao = new StockDao();
 		return stockDao.getField();
 	}
+	@Override
+	public List<News> getEachCompanyNews(List<String> companyNumberList) {
+		StockDao stockDao = new StockDao();
+		return stockDao.getStockEachNews(companyNumberList);
+	}
 }
