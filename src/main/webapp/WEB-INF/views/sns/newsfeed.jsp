@@ -242,10 +242,10 @@ $(document).ready( function() {
 				console.log(data.isFollow);
 				if(data.isFollow == 'true'){
 					console.log("팔로우");
-					$('#heartIcon').css('backgroud-color', '#ff5e3a');
+					$('#heartIcon').css('background-color', '#ff5e3a');
 				}else{
+					$('#heartIcon').css('background-color', '');
 					console.log("no팔로우");
-					$('#heartIcon').css('backgroud-color', '#9a9fbf');
 				}
 			},
 			error : function() {
@@ -708,6 +708,13 @@ function userModal(obj){
 			$('#nickName2').attr("placeholder", data.userData.userNickname);
 			$('#detail2').attr("placeholder", data.userData.userDetail);
 			$('#heartIcon').attr("title", data.userData.userId);
+			if(data.isFollow == 'true'){
+				console.log("팔로우");
+				$('#heartIcon').css('background-color', '#ff5e3a');
+			}else{
+				$('#heartIcon').css('background-color', '');
+				console.log("no팔로우");
+			}
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -742,10 +749,10 @@ function appendRankEvent(){
 				$('#heartIcon').attr("title", data.userData.userId);
 				if(data.isFollow == 'true'){
 					console.log("팔로우");
-					$('#heartIcon').css('backgroud-color', '#ff5e3a');
+					$('#heartIcon').css('background-color', '#ff5e3a');
 				}else{
+					$('#heartIcon').css('background-color', '');
 					console.log("no팔로우");
-					$('#heartIcon').css('backgroud-color', '#9a9fbf');
 				}
 			},
 			error : function() {
@@ -776,7 +783,13 @@ function appendFollowEvent() {
 				$('#nickName2').attr("placeholder", data.userData.userNickname);
 				$('#detail2').attr("placeholder", data.userData.userDetail);
 				$('#heartIcon').attr("title", data.userData.userId);
-				
+				if(data.isFollow == 'true'){
+					console.log("팔로우");
+					$('#heartIcon').css('background-color', '#ff5e3a');
+				}else{
+					$('#heartIcon').css('background-color', '');
+					console.log("no팔로우");
+				}
 			},
 			error : function() {
 		        alert("관리자에게 문의해주세요.");
@@ -808,7 +821,13 @@ function appendFollowerEvent(){
 				$('#nickName2').attr("placeholder", data.userData.userNickname);
 				$('#detail2').attr("placeholder", data.userData.userDetail);
 				$('#heartIcon').attr("title", data.userData.userId);
-				
+				if(data.isFollow == 'true'){
+					console.log("팔로우");
+					$('#heartIcon').css('background-color', '#ff5e3a');
+				}else{
+					$('#heartIcon').css('background-color', '');
+					console.log("no팔로우");
+				}
 				
 			},
 			error : function() {
