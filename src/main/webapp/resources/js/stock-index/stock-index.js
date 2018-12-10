@@ -11,9 +11,19 @@ function indexUpdate(indexParam) {
 			success : function(stockData) {
 				console.log("stockData .. ");
 				console.log(stockData);
+				
 				if(!(INDEX.isEmptyInterest)) setInterestCard(stockData.interestList);
 				setKospiCard(stockData.kospiStock);
-				setTopTab(stockData.topTab, stockData.topTabOption);
+				
+				// 차트가 세팅되어있으면 차트 업데이트
+				if(INDEX.eachTabChartElements[stockData.topTabOption -1]) {
+					updateTopTabChart(stockData.topTab, Number(stockData.topTabOption) -1);
+				}
+				// 차트가 없으면 차트 세팅
+				else {
+					setTopTab(stockData.topTab, Number(stockData.topTabOption) -1);
+				}
+				//updateTobTab()		//set 대신 update로
 				setTimeout(indexUpdate(setIndexParam()), 2000);
 			},
 			error : function(request, status, error) {
@@ -22,6 +32,24 @@ function indexUpdate(indexParam) {
 			}
 		});
 	}
+}
+
+/* top tab의 차트를 업데이트하는 함수 */
+function updateTopTabChart(rankList, index) {
+	console.log('updateTopTabChart... index : ' + index);
+	console.log('ranklist...')
+	console.log(rankList);
+    var stockNames = [];
+    var stockValues = [];
+    
+    for(var i = 0; i < 10; i++){
+    	stockNames[i] = rankList[i].stockName;
+    	stockValues[i] = rankList[i].stockValue;
+    }
+    
+	INDEX.eachTabChartElements[index].data.labels = stockNames;
+	INDEX.eachTabChartElements[index].data.datasets[0].data = stockValues;
+	INDEX.eachTabChartElements[index].update(0);
 }
 
 /* tab을 클릭하면 발생하는 일회성 데이터 요청 */
@@ -63,13 +91,22 @@ function topTabUpdate(target) {
 	
 	$.ajax({
 		type : "POST",
-		url : "index/tab/"+tabOption,
+		url : "index/tab/" + tabOption,
 		dataType : "json",
 		contentType: "application/json; charset=utf-8",
-		success : function(topData) {
-			console.log("topData .. ");
-			console.log(topData);
-			setTopTab(topData, tabOption);
+		success : function(rankList) {
+			console.log("topTabUpdate rankList .. ");
+			console.log(rankList);
+			
+			// 차트가 세팅되어있으면 차트 업데이트
+			if(INDEX.eachTabChartElements[tabOption -1]) {
+				updateTopTabChart(rankList, Number(tabOption) -1);
+			}
+			// 차트가 없으면 차트 세팅
+			else {
+				setTopTab(rankList, Number(tabOption) -1);
+			}
+			//setTopTab(topData, tabOption);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n" + "message:"
@@ -320,103 +357,5 @@ function runKospiChart(kospiTimeSeries, isFirst) {
 	    else {
 	    	lineChartEl.update();
 	    }
-	}
-}
-
-/** 상위 종목 카드 설정 함수 */
-function setTopTab(topTab, topTabOption) {
-	var activeTab = $(".stock-top-tab .tab-content").find('.active');
-	if($(activeTab).attr('id') != INDEX.tabList[topTabOption - 1]) {
-		console.log('다른 탭 요청 들어옴');
-		return;
-	}
-	// 활성화된 탭 검사
-	switch($(activeTab).attr('id')) {
-	//상승률 상위 5
-	case INDEX.tabList[0] :
-		runOneBarChart(topTab, 'rising-rate-chart');
-		break;
-	// 하락률 상위 5
-	case INDEX.tabList[1] :
-		runOneBarChart(topTab, 'falling-rate-chart');
-		break;
-	// 외국인 순매수 3
-	case INDEX.tabList[2] :
-		runOneBarChart(topTab, 'foreigner-chart');
-		break;
-	// 기관 순매수 3
-	case INDEX.tabList[3] :
-		runOneBarChart(topTab, 'institution-chart');
-		break;
-	// 거래량 20
-	case INDEX.tabList[4] :
-		runOneBarChart(topTab, 'trading-amount-chart');
-		break;
-	// 시가총액 20
-	case INDEX.tabList[5] :
-		runOneBarChart(topTab, 'total-money-chart');
-		break;
-	}
-}
-
-/** Top10 차트 함수 */
-function runOneBarChart(topTab, id) {
-	var nameList = [];
-	var dataList = [];
-	for(var i = 0; i < topTab.length; i++) {
-		nameList.push(topTab[i].stockName);
-		dataList.push(topTab[i].stockValue);
-	}
-	var oneBarChart = document.getElementById(id);
-	if (oneBarChart !== null) {
-	    var ctx_ob = oneBarChart.getContext("2d");
-	    var data_ob = {
-	        labels: nameList,
-	        datasets: [
-	            {
-	                backgroundColor: "#38a9ff",
-	                data: dataList
-	            }]
-	    };
-
-	    var oneBarEl = new Chart(ctx_ob, {
-	        type: 'bar',
-	        data: data_ob,
-
-	        options: {
-	            deferred: {           // enabled by default
-	                delay: 200        // delay of 500 ms after the canvas is considered inside the viewport
-	            },
-	            tooltips: {
-	                enabled:true
-	            },
-	            legend: {
-	                display: false
-	            },
-	            responsive: true,
-	            scales: {
-	                xAxes: [{
-	                    stacked: true,
-	                    barPercentage:0.6,
-	                    gridLines: {
-	                        display: false
-	                    },
-	                    ticks: {
-	                        fontColor: '#888da8'
-	                    }
-	                }],
-	                yAxes: [{
-	                    stacked: true,
-	                    gridLines: {
-	                        color: "#f0f4f9"
-	                    },
-	                    ticks: {
-	                        beginAtZero:true,
-	                        fontColor: '#888da8'
-	                    }
-	                }]
-	            }
-	        }
-	    });
 	}
 }

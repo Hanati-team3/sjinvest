@@ -266,7 +266,7 @@
             
                       <div class="ui-block-content">
                         <div class="chart-js chart-js-one-bar">
-                          <canvas id="rising-rate-chart" width="1400" height="380"></canvas>
+                          <canvas id="rising-rate-chart" name="tab-charts" width="1400" height="380"></canvas>
                         </div>
                       </div>
                     </div>
@@ -283,7 +283,7 @@
             
                       <div class="ui-block-content">
                         <div class="chart-js chart-js-one-bar">
-                          <canvas id="falling-rate-chart" width="1400" height="380"></canvas>
+                          <canvas id="falling-rate-chart" name="tab-charts" width="1400" height="380"></canvas>
                         </div>
                       </div>
                     </div>
@@ -301,7 +301,7 @@
                       
                       <div class="ui-block-content">
                         <div class="chart-js chart-js-one-bar">
-                          <canvas id="foreigner-chart" width="1400" height="380"></canvas>
+                          <canvas id="foreigner-chart" name="tab-charts" width="1400" height="380"></canvas>
                         </div>
                       </div>
                     </div>
@@ -319,7 +319,7 @@
                       </div>
                       <div class="ui-block-content">
                         <div class="chart-js chart-js-one-bar">
-                          <canvas id="institution-chart" width="1400" height="380"></canvas>
+                          <canvas id="institution-chart" name="tab-charts" width="1400" height="380"></canvas>
                         </div>
                       </div>
                     </div>
@@ -340,7 +340,7 @@
                 
                           <div class="ui-block-content">
                             <div class="chart-js chart-js-one-bar">
-                              <canvas id="trading-amount-chart" width="1400" height="380"></canvas>
+                              <canvas id="trading-amount-chart" name="tab-charts" width="1400" height="380"></canvas>
                             </div>
                           </div>
                           
@@ -364,7 +364,7 @@
                 
                           <div class="ui-block-content">
                             <div class="chart-js chart-js-one-bar">
-                              <canvas id="total-money-chart" width="1400" height="380"></canvas>
+                              <canvas id="total-money-chart" name="tab-charts" width="1400" height="380"></canvas>
                             </div>
                           </div>
                           
@@ -447,6 +447,8 @@
   <!-- End Include js -->
   <%-- stock-index js --%>
   <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index.js"></script>
+  
+  
   <script>
   	var INDEX = {};	//stock-index 전역변수
   	INDEX.tabList = ["rising-rate", "falling-rate", "foreigner", "institution", "trading-amount", "total-value"];
@@ -454,7 +456,8 @@
   	INDEX.flag = true;
   	INDEX.isEmptyInterest = false;
   	INDEX.fieldChartEl = null;
-  	INDEX.tempNum = 1;
+  	INDEX.tabCharts = document.getElementsByName("tab-charts");
+  	INDEX.eachTabChartElements = [false, false, false, false, false, false];	// 차트 처음 만들어지면 차트element 넣기. false이면 처음 만들어질 때.
   	
 	$(document).ready(function() {
 		console.log('ready... model로 받은 어트리뷰트');
@@ -472,8 +475,19 @@
 		// 코스피 차트 그리기
 		runKospiChart(getKospiFromRequest(), true);
 		
+		// 상위 목록 탭 차트 설정
+		var rankList = [];
+		<c:forEach var="eachRank" items="${topTab}" varStatus="status">
+			rankList.push({
+              "stockCode": "${eachRank.stockCode}",
+              "stockName": "${eachRank.stockName}",
+              "stockValue": "${eachRank.stockValue}"
+		});
+    	</c:forEach>
+		setTopTab(rankList, 0);
+		
 		// 관심종목 목록이 0이면
-		if(${interestMap.interestList}.length == 0) {
+		if(${interestMap.interestList.size()} == 0) {
 			console.log("관심종목 없음");
 			INDEX.isEmptyInterest = false;
 			$('.stock-my-interest .ui-block-content ').html('<div style="text-align:center;">보유관심종목이 없습니다.</div>');
@@ -483,6 +497,8 @@
 			runInterestChart(getInterestFromRequest(), true);
 		}
 
+		
+		
 		//탭 클릭시 요청 발생
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 			var target = $(e.target).attr("href") // activated tab
@@ -492,7 +508,7 @@
 		
 		// index update 호출
 		var indexParam = setIndexParam();
-		indexUpdate(indexParam);
+		setTimeout(indexUpdate(indexParam), 1000);
 		
 		// 차트 업데이트 호출
 		//allChartUpdate(indexParam.interestCompanyNumberList, 1);
@@ -500,6 +516,70 @@
 		// 업종별 거래량 업데이트
 		updateField();
 	});
+	
+	
+	/** 상위 목록 탭 차트 처음 뜰 때 설정 */
+	function setTopTab(rankList, index) {
+		console.log('ranklist...');
+		console.log(rankList);
+		console.log('index...');
+		console.log(index);
+	    var ctx_ob =  INDEX.tabCharts[index].getContext("2d");
+	    var stockNames = [];
+	    var stockValues = [];
+	    
+	    for(var i = 0; i < 10; i++){
+	    	stockNames[i] = rankList[i].stockName;
+	    	stockValues[i] = rankList[i].stockValue;
+	    }
+	    
+	    var data_ob = {
+	        labels: stockNames,
+	        datasets: [{
+	                backgroundColor: "#38a9ff",
+	                data: stockValues
+	            }]
+	    };
+
+		INDEX.eachTabChartElements[index] = new Chart(ctx_ob, {
+	        type: 'bar',
+	        data: data_ob,
+	        options: {
+	            deferred: {           // enabled by default
+	                delay: 200        // delay of 500 ms after the canvas is considered inside the viewport
+	            },
+	            tooltips: {
+	                enabled:true
+	            },
+	            legend: {
+	                display: false
+	            },
+	            responsive: true,
+	            scales: {
+	                xAxes: [{
+	                    stacked: true,
+	                    barPercentage:0.6,
+	                    gridLines: {
+	                        display: false
+	                    },
+	                    ticks: {
+	                        fontColor: '#888da8'
+	                    }
+	                }],
+	                yAxes: [{
+	                    stacked: true,
+	                    gridLines: {
+	                        color: "#f0f4f9"
+	                    },
+	                    ticks: {
+	                        beginAtZero:true,
+	                        fontColor: '#888da8'
+	                    }
+	                }]
+	            }
+	        }
+	    });
+	}
 	
 	/* 업종별 거래량 차트 그리기 */
 	function setFieldAmountChart() {

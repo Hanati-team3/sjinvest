@@ -325,7 +325,7 @@
               		location.href= '<%=application.getContextPath()%>/stock/stock-holding-list';
               	}
               	else {
-              		alert('구매실패... data : ' + data);
+              		alert('판매실패... data : ' + data);
               	}
               }
         })	
