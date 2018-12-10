@@ -117,6 +117,8 @@ public class TradingServiceImpl implements TradingService {
 		}
 		return mapper.countByUser(map);
 	}
-
-	
+	@Override
+	public boolean deleteTradingByUser(int userSeq) {
+		return (mapper.deleteTradingByUser(userSeq)>-1);
+	}
 }

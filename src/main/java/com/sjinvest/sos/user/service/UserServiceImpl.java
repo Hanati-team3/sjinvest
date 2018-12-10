@@ -12,10 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sjinvest.sos.follow.mapper.FollowMapper;
 import com.sjinvest.sos.holding.mapper.HoldingMapper;
+import com.sjinvest.sos.holding.service.HoldingService;
 import com.sjinvest.sos.interest.mapper.InterestMapper;
 import com.sjinvest.sos.like.mapper.LikeMapper;
 import com.sjinvest.sos.notice.mapper.NoticeMapper;
 import com.sjinvest.sos.setting.mapper.SettingMapper;
+import com.sjinvest.sos.trading.mapper.TradingMapper;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.mapper.UserMapper;
 
@@ -41,6 +43,9 @@ public class UserServiceImpl implements UserService {
 	private HoldingMapper holdingMapper;
 	@Inject
 	private NoticeMapper noticeMapper;
+	@Inject
+	private TradingMapper tradingMapper;
+	
 	
 	@Transactional
 	@Override
@@ -81,45 +86,39 @@ public class UserServiceImpl implements UserService {
 		data.put("userPw", userPw);
 		return userMapper.certify(data);
 	}
-
 	@Override
 	public boolean isExistId(String userId) {
 		return (userMapper.isExistId(userId) == null);
 	}
-
 	@Override
 	public boolean isExistNickname(String userNickname) {
 		return (userMapper.isExistNickname(userNickname) == null);
 	}
-
 	@Override
 	public User readById(String userId) {
 		return userMapper.readById(userId);
 	}
-
 	@Override
 	public User readBySeq(int userSeq) {
 		return userMapper.readBySeq(userSeq);
 	}
-
 	@Override
 	public boolean updateUser(User user) {
 		return (userMapper.updateUser(user)==1);
 	}
-
 	@Override
 	public boolean resetMoney(int userSeq) {
 		User user = new User();
 		user.setUserSeq(userSeq);
 		user.setUserMoney(50000000);
+		holdingMapper.deleteHoldingByUser(userSeq);
+		tradingMapper.deleteTradingByUser(userSeq);
 		return (userMapper.updateUser(user)==1);
 	}
-
 	@Override
 	public List<User> readBySeqList(List<Integer> userSeqList) {
 		return userMapper.readBySeqList(userSeqList);
 	}
-
 	@Override
 	public List<User> pointTop(int num) {
 		return userMapper.pointTop(num);
@@ -132,17 +131,14 @@ public class UserServiceImpl implements UserService {
 	public int searchUser(String text) {
 		return userMapper.searchUser(text);
 	}
-
 	@Override
 	public boolean updateUserMargin(int userSeq) {
 		return (userMapper.updateUserMargin(userSeq)==1);
 	}
-
 	@Override
 	public List<User> totalMarginTop(int num) {
 		return userMapper.totalMarginTop(num);
 	}
-	
 	@Override
 	public User readByNickname(String userNickname) {
 		return userMapper.readByNickname(userNickname);

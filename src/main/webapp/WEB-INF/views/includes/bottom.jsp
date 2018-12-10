@@ -47,6 +47,8 @@
 
 <script type="text/javascript">
 $(document).ready( function() {
+	
+	
 	$('#loginModal').on('click', function() {
 		$.ajax({
 		    url : '/sos/user/naverlogin',

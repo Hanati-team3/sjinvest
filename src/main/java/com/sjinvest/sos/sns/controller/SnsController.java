@@ -41,28 +41,18 @@ public class SnsController {
 		System.out.println("첫홈페이지 user :"+session.getAttribute("user"));
 		
 		logger.info("newsfeed.");
-		// 쿠키확인 후 user 보내주는 부분
-		/*
-		Cookie[] cookies = request.getCookies();
-		if(cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("userIdC")) {
-					String userId = null;
-	
-					userId = cookies[i].getValue();
-					//System.out.println(userId);
-					User user = userService.readById(userId);
 
-					model.addAttribute("user", user);
-					//System.out.println("user제발나와라" + user);
-				} else {
-					//System.out.println("쿠키없을시 그냥 홈페이지 ㄱㄱ");
-				}
-	
-			}
-		}
-		*/
 		return "/sns/newsfeed";
+	}
+	
+	@GetMapping(value = "/sns/personal")
+	public String personal(HttpSession session) {
+		
+		System.out.println("개인홈페이지 :"+session.getAttribute("user"));
+		
+		logger.info("personal.");
+
+		return "/sns/personal";
 	}
 	
 	@GetMapping(value = "/sns/mypage_index")

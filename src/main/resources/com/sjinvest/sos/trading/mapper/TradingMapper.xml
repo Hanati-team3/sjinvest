@@ -124,4 +124,10 @@
 			WHERE  ROWNUM <![CDATA[<=]]> #{value} 
 			ORDER  BY earnings_ratio DESC
 	</select>
+	<!-- 특정 유저 보유주식 삭제 -->
+	<delete id="deleteTradingByUser" parameterType="Integer">
+		DELETE FROM trading
+		WHERE
+		user_seq = #{value}
+	</delete>
 </mapper>

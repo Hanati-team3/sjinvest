@@ -14,4 +14,6 @@ public interface TradingService {
 	public List<Map<String, Object>> earningRatio(int num);
 	// 
 	public int countByUser(int userSeq, int tradingType, String startDate, String endDate, int startNum, int endNum);
+	//
+	public boolean deleteTradingByUser(int userSeq);
 }

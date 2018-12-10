@@ -10,4 +10,5 @@ public interface TradingMapper {
 	public List<Trading> listByUser(Map<String, Object> map);
 	public int countByUser(Map<String, Object> map);
 	public List<Map<String, Object>> earningRatio(int num);
+	public int deleteTradingByUser(int userSeq);
 }

@@ -51,14 +51,16 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <%-- SNS 알림 start --%>
           <div class="control-icon more has-items">
             <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-            <div class="label-avatar bg-blue" id="snsCnt"></div>
+
+            <div id="snsCnt"></div>
+
     
             <div class="more-dropdown more-with-triangle triangle-top-center">
               <div class="ui-block-title ui-block-title-small">
                 <h6 class="title">SNS 알림</h6>
               </div>
     
-              <div class="mCustomScrollbar" data-mcs-theme="dark">
+              <div class="mCustomScrollbar" data-mcs-theme="dark" >
                 <ul class="notification-list friend-requests" id="sns-list">
 
                   <%-- sns 알림 sample
@@ -85,8 +87,9 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <%-- stock 알림 start --%>
           <div class="control-icon more has-items">
             <svg class="olymp-thunder-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-thunder-icon"></use></svg>
-    
-            <div class="label-avatar bg-primary" id="stockCnt"></div>
+
+            <div id="stockCnt"></div>
+
     
             <div class="more-dropdown more-with-triangle triangle-top-center">
               <div class="ui-block-title ui-block-title-small">
@@ -108,13 +111,12 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <!-- 개인정보 시작  -->
           <div class="author-page author vcard inline-items more">
             <div class="author-thumb">
-            	<span class="icon-status online"></span>
-                	<%if (result){ %>
+                <%if (result == true){ %>
                   <img alt="author" src="${user.userPicture}" width="36" height="36" class="avatar">
-                  <%}else{ %>
+                  <%}else if(result == false){ %>
                   <img alt="author" src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"width="36" height="36" class="avatar">
-                  <%} %>
-              
+                  <%}%>
+                  
               <!-- 마우스 오버 -->
               <div class="more-dropdown more-with-triangle">
                 <div class="mCustomScrollbar" data-mcs-theme="dark">
@@ -170,7 +172,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
             </div>
             <a href="/sos/sns/mypage_index" class="author-name fn">
               <div class="author-title">
-                ${user.userId }
+                ${user.userNickname }
                 <svg class="olymp-dropdown-arrow-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
               </div>
               <span class="author-subtitle"></span>
@@ -307,15 +309,16 @@ function snsList(){
 		success: function(data){
 			if(!data.fail){
     			if(data.snsList.length != null){	
-    			for(var i=0; i<data.snsList.length; i++){
+    				for(var i=0; i<data.snsList.length; i++){
     				
     				//console.log("sns정보"+data.snsList[i].noticeContent);
     				$('#snsCnt').replaceWith('<div class="label-avatar bg-blue" id="snsCnt">'+ data.snsList.length +'</div>');
     				$('#sns-list').append('<li><div><a href="#" class="h6 notification-friend">'+ data.snsList[i].noticeContent +'</a></div><span class="notification-date">'+ data.snsList[i].noticeDate +'</span></li>');
-    			
-    			}		
+
+    				}		
+				}
+
 			}
-		}
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
