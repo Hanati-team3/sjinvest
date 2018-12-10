@@ -115,13 +115,12 @@ public class UserController {
 			response.addCookie(cookie);
 			reAttributes.addFlashAttribute("user", user);
 			
-			return "redirect:/sns/newsfeed";
 		}
 		// 로그인 실패
 		else {
 			reAttributes.addFlashAttribute("message","loginFail");
-			return "redirect:/sns/newsfeed";
 		}
+	  return "redirect:/sns/newsfeed";
 	}
 	
 	@GetMapping("/logout")

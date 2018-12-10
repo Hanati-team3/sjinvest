@@ -130,24 +130,44 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	    <form class="comment-form inline-items">
 	
 	      <div class="post__author author vcard inline-items">
+	      		<c:choose>
+	                  <c:when test="${user.userId ne null }">
 	      			<%if (result_profile){ %>
 	              		<img src="${user.userPicture}" width="36px" height="36px" alt="author">
 	              	<%}else{ %>
 	              		<img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"  width="36px" height="36px" alt="author">
 	             	<%} %>
-	
+					</c:when>
+	                  <c:otherwise>
+	                  	<img  src="<%=application.getContextPath()%>/resources/img/author-page.jpg" alt="author">
+	                  </c:otherwise>
+                  </c:choose>
 	        <div class="form-group with-icon-right comment-div">
-	          <textarea name="commentForHere" class="form-control" placeholder="댓글을 입력해주세요"></textarea>
+	        	<c:choose>
+	                  <c:when test="${user.userId ne null }">
+	          			<textarea name="commentForHere" class="form-control" placeholder="댓글을 입력해주세요"></textarea>
+	          		  </c:when>
+          			  <c:otherwise>
+	          			<textarea name="commentForHere" class="form-control" placeholder="로그인 후 이용해주세요" disabled="disabled"></textarea>
+	                  </c:otherwise>
+                  </c:choose>
+	          	
 	          <div class="add-options-message">
-	            <a name="writeComment" onclick="writeComment(this);" class="options-message" title=""> <svg
-	                class="olymp-camera-icon">
-	                    <use
-	                  xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-check-icon"></use></svg>
-	            </a>
+	          <c:choose>
+	                  <c:when test="${user.userId ne null }">
+	                  	<a name="writeComment" onclick="writeComment(this);" class="options-message" title=""> 
+	                  		<svg class="olymp-camera-icon">
+		                    	<use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-check-icon"></use>
+		                    </svg>
+			            </a>
+	          		  </c:when>
+          			  <c:otherwise>
+	                  </c:otherwise>
+                  </c:choose>
+	            
 	          </div>
 	        </div>
 	      </div>
-	
 	    </form>
 	
 	  </div>
@@ -173,7 +193,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
 
     <div id="collapseOne" class="collapse show" role="tabpanel"
       aria-labelledby="headingOne">
-      <ul name="commentListUL" class="comments-list"></ul>
+      <ul name="commentListUL" class="comments-list" style="padding: 15px;"></ul>
       
     </div>
 
@@ -182,7 +202,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
 
 <li name="commentLI" style="display:none">
 	  <div class="post__author author vcard inline-items">
-	    <img name="userReplyImage" src="<%=application.getContextPath()%>/resources/img/avatar10-sm.jpg" width="36px" height="36px" alt="author">
+	    <img name="replyImage" src="<%=application.getContextPath()%>/resources/img/avatar10-sm.jpg" width="36px" height="36px" alt="author">
 	
 	    <div class="author-date">
 	      <a name="replyName" class="h6 post__author-name fn"
