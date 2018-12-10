@@ -1,6 +1,8 @@
 package com.sjinvest.sos.stock.dao;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,7 +54,12 @@ public class StockNewsCrawler {
 	public List<News> getCompanyNews(String companyNumber) {
 		List<News> result = new ArrayList<News>();
 //		String URL = "https://finance.naver.com/item/news.nhn?code="+companyNumber;
-		String URL = "https://search.naver.com/search.naver?query=%ED%95%98%EB%82%98%EA%B8%88%EC%9C%B5%EC%A7%80%EC%A3%BC&where=news&ie=utf8&sm=nws_hty";
+		String URL = "http://www.edaily.co.kr/stock/stocks/StockNews.asp?searchStr=현대차";
+		try {
+			URL = URLEncoder.encode("http://www.edaily.co.kr/stock/stocks/StockNews.asp?searchStr=현대차", "utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
 		System.out.println(URL);
 		try {
 			Connection.Response response = Jsoup.connect(URL)
