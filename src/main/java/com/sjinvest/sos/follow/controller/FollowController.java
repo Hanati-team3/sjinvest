@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sjinvest.sos.follow.domain.Follow;
 import com.sjinvest.sos.follow.service.FollowService;
+import com.sjinvest.sos.notice.domain.Notice;
+import com.sjinvest.sos.notice.service.NoticeService;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
 
@@ -32,6 +34,7 @@ public class FollowController {
 
 	private FollowService service;
 	private UserService userService;
+	private NoticeService noticeService;
 	
 	// follow 추가 여기부터 시작!!!
 	/*@GetMapping("/add")	
@@ -60,16 +63,27 @@ public class FollowController {
 		
 		Follow follow = new Follow();
 		
-		int followUserSeq = userService.readById(followUserId).getUserSeq();
+		User followUser = userService.readById(followUserId);
+		User user = userService.readBySeq(userSeq);
 		
 		System.out.println("나의 seq: "+userSeq);
-		System.out.println("너의 seq: "+followUserSeq);
+		System.out.println("너의 seq: "+followUser.getUserSeq());
 		
-		follow.setFollowUserSeq(followUserSeq);
 		follow.setUserSeq(userSeq);
+		follow.setFollowUserSeq(followUser.getUserSeq());
 		
 		returnData.put("addResult", service.create(follow));
+		
+		/*
+		Notice notice = new Notice();
+
+		notice.setUserSeq(user.getUserSeq());
+		notice.setNoticeType(1);
+		notice.setNoticeContent(followUser.getUserId() +" 님이 팔로잉하셨습니다.");
+		*/
+		
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
+	
 	}
 	
 	
