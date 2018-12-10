@@ -51,7 +51,9 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <%-- SNS 알림 start --%>
           <div class="control-icon more has-items">
             <svg class="olymp-happy-face-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
+
             <div id="snsCnt"></div>
+
     
             <div class="more-dropdown more-with-triangle triangle-top-center">
               <div class="ui-block-title ui-block-title-small">
@@ -85,7 +87,9 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <%-- stock 알림 start --%>
           <div class="control-icon more has-items">
             <svg class="olymp-thunder-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-thunder-icon"></use></svg>
+
             <div id="stockCnt"></div>
+
     
             <div class="more-dropdown more-with-triangle triangle-top-center">
               <div class="ui-block-title ui-block-title-small">
@@ -310,9 +314,10 @@ function snsList(){
     				//console.log("sns정보"+data.snsList[i].noticeContent);
     				$('#snsCnt').replaceWith('<div class="label-avatar bg-blue" id="snsCnt">'+ data.snsList.length +'</div>');
     				$('#sns-list').append('<li><div><a href="#" class="h6 notification-friend">'+ data.snsList[i].noticeContent +'</a></div><span class="notification-date">'+ data.snsList[i].noticeDate +'</span></li>');
-    			
+
     				}		
 				}
+
 			}
 		},
 		error : function() {
