@@ -25,9 +25,9 @@
           <input class="form-control" id="amount"  placeholder="" value="" type="number" min="0">
         </div>
         
-        <div class="form-group label-floating ">
+        <div class="form-group label-floating">
           <label class="control-label">현재보유수량</label> 
-          <input class="form-control" id="sell-modal-holding-amount"  placeholder="" value="." type="number" readonly="readonly">
+          <input class="form-control" id="sell-modal-holding-amount"  placeholder="" value="0" type="number" readonly="readonly">
         </div>
 
         <div class="form-group label-floating">

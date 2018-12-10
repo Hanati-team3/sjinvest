@@ -320,9 +320,9 @@
     	  		},
               success: function (data) {
               	if(data.message == "true"){
-              		alert($('#sell-modal-company-name').val() + " 종목 " +$('#amount').val()+"주가 판매되었습니다.");
+              		alert($('#sell-modal-company-name').val() + " " +$('#amount').val()+"주가 판매되었습니다.");
               		$("#stock_sell_modal").modal('hide');
-              		//location.href= '<%=application.getContextPath()%>/stock/index';
+              		location.href= '<%=application.getContextPath()%>/stock/stock-holding-list';
               	}
               	else {
               		alert('구매실패... data : ' + data);
@@ -538,7 +538,7 @@
     				updateSlideCard(map.holdingWidget.holdingList);
     				//항목별 정보 차트 업데이트
     				//updateSlideChart(map.holdingWidget.holdingList);
-    				//setTimeout(holdingListUpdate, 2000);
+    				setTimeout(holdingListUpdate, 2000);
     			},
     			error : function(request, status, error) {
     				console.log("code:" + request.status + "\n" + "message:"

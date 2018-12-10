@@ -184,10 +184,10 @@ public class StockController2 {
 		System.out.println("interest list......");
 		System.out.println("user : " + request.getSession().getAttribute("user"));
 		User user = (User)request.getSession().getAttribute("user");
-		// 원래는 user null이면 관심종목 못들어옴
+		// user null이면 관심종목 못들어옴
 		if(user == null) {
-			System.out.println("user null. test user suhyeon");
-			user = userService.readById("suhyeon");
+			System.out.println("user null");
+			return "sns/newsfeed";
 		}
 		//request.setAttribute("user", user);
 		
@@ -232,10 +232,10 @@ public class StockController2 {
 	public String holding(Model model, HttpServletRequest request) {
 		System.out.println("holding list......");
 		User user = (User)request.getSession().getAttribute("user");
-		// 원래는 user null이면 관심종목 못들어옴
+		// user null이면 관심종목 못들어옴
 		if(user == null) {
-			System.out.println("user null. test user suhyeon");
-			user = userService.readById("suhyeon");
+			System.out.println("user null");
+			return "sns/newsfeed";
 		}
 		//request.setAttribute("user", user);
 		
@@ -275,7 +275,7 @@ public class StockController2 {
 		}*/
 		
 		map = service.getHolding(holdingList);			/* realtime, holdingWidgetMap 들어있는 map반환 */
-		System.out.println("holdingUpdate 에서 받은 맵 : " + map);
+		System.out.println("holdingUpdate 에서 받은 holdingWidgetMap : " + map.get("holdingWidget"));
 		return new ResponseEntity<>( map, HttpStatus.OK);
 	}
 	
