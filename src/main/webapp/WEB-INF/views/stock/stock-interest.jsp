@@ -219,7 +219,12 @@
 	
 	/* 판매 버튼 입력 이벤트 */
 	$('.remove-interest a').on('click', function (e){
-		Snackbar.show({text: 'Example notification text.'}); 
+		Snackbar.show({
+			text: '관심목록에서 제거했습니다.',
+			actionText: 'OK',
+			 actionTextColor: '#f66496',
+			pos: 'top-center'
+		}); 
 	});
     
     /** 2초마다 interest 정보 업데이트 */
