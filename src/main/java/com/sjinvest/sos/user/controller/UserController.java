@@ -177,6 +177,7 @@ public class UserController {
 		}
 		session.removeAttribute("user");
 		session.setAttribute("user", user);
+
 		return "redirect:/sns/mypage_index";
 	}
 	

@@ -80,8 +80,55 @@ $(document).ready(function(){
 	typeChanged();
 	getStockData();
 	capture();
+	/** DatePickerEvent등록*/
+	registDatePickerEvent();
 });
 
+/** datepicker 이벤트 발생 처리*/
+function registDatePickerEvent() {
+	/* DatePicker */
+    $("#datepicker").daterangepicker({
+    	showDropdowns: true,
+    	timePicker: false,
+    	maxDate: moment(),
+    	format: 'YYYY-MM-DD',
+    	locale: {
+            applyLabel: 'Submit',
+            fromLabel: 'From',
+            toLabel: 'To',
+            customRangeLabel: 'Custom Range',
+            daysOfWeek: ['일', '월', '화', '수', '목', '금','토'],
+            monthNames: ['1월', '2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            firstDay: 0
+        }
+        /* showMonthAfterYear: true,
+    	dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
+        dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
+        monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+        
+       onSelect: function(selectedDate){
+    	   locale: {
+    		      format: 'M/DD hh:mm A'
+    		    }
+       } */
+   })
+   
+   $("#datepicker").keydown(function (event) {
+       event.preventDefault();
+   })
+}
+/** datepicker에서 선택된 날짜를 필요한 형식으로 변환하는 함수 */
+function formatDate(date){
+ 	var d = new Date(date),
+     month = '' + (d.getMonth() + 1),
+     day = '' + d.getDate(),
+     year = d.getFullYear();
+ 	
+ 	if (month.length < 2) month = '0' + month;
+ 	if (day.length < 2) day = '0' + day;
+ 	return [year, month, day].join('-');
+ }
 </script>
 </head>
 
@@ -148,20 +195,32 @@ $(document).ready(function(){
         <%-- 검색 끝 --%>
         <%-- tradelist 필터 시작 --%>
         <div class="ui-block">
-          <form class="w-search" style="width: 100%;" action="#" method >
-            <div class="w-select form-group with-button is-empty">
-              <select class="W- type-select" name = "trade-type">
-                <option value="0">ALL</option>
-                <option value="1">SELL</option>
-                <option value="2">BUY</option>
-              </select>
-              <button style="background-color: #3f4257;">
-                <svg class="olymp-magnifying-glass-icon">
-                  <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
-              </button>
-              <span class="material-input"></span>
-            </div>
-          </form>
+        	<div class="row">
+        		<div  class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">
+        			<input type="text" id="datepicker"
+                              data-language="en" data-range="true"
+                              placeholder="기간을 선택해 주세요" 
+                              class="datepicker-here form-control" style="height: 100%"
+                              required />
+        		</div>
+        	
+        		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
+		          <form class="w-search" style="width: 100%;" action="#" method >
+		            <div class="w-select form-group with-button is-empty">
+		              <select class="W- type-select" name = "trade-type">
+		                <option value="0">ALL</option>
+		                <option value="1">SELL</option>
+		                <option value="2">BUY</option>
+		              </select>
+		              <button style="background-color: #3f4257;">
+		                <svg class="olymp-magnifying-glass-icon">
+		                  <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
+		              </button>
+		              <span class="material-input"></span>
+		            </div>
+		          </form>
+	          </div>
+          </div>
         </div>
         <%-- tradelist 필터 끝 --%>
         <%-- 검색 결과 시작 --%>
