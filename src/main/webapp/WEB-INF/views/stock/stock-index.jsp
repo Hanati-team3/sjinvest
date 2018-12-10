@@ -447,8 +447,18 @@
   	INDEX.tabList = ["rising-rate", "falling-rate", "foreigner", "institution", "trading-amount", "total-value"];
   	// index update를 활성화/중지
   	INDEX.flag = true;
+  	INDEX.isEmptyInterest = false;
   	
 	$(document).ready(function() {
+		console.log('ready... model로 받은 어트리뷰트');
+		console.log('${realTime}');
+		console.log('${companyList}');
+		console.log('${fieldStock}');
+		console.log('${kospiMap}');
+		console.log('${topTab}');
+		console.log('${interestMap}');
+		console.log('${holdingWidget}');
+		
 		//탭 클릭시 요청 발생
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 			var target = $(e.target).attr("href") // activated tab
@@ -457,8 +467,16 @@
 		});
 		// 코스피 차트 그리기
 		runKospiChart(getKospiFromRequest(), true);
-		// 관심종목 차트 그리기
-		runInterestChart(getInterestFromRequest(), true);
+		// 관심종목 목록이 0이면
+		if(${interestMap.interestList}.length == 0) {
+			console.log("관심종목 없음");
+			INDEX.isEmptyInterest = false;
+			$('.stock-my-interest .ui-block-content ').html('<div style="text-align:center;">보유관심종목이 없습니다.</div>');
+		}
+		// 0이 아니면 관심종목 차트 그리기
+		else {
+			runInterestChart(getInterestFromRequest(), true);
+		}
 		// index update 호출
 		var indexParam = setIndexParam();
 		indexUpdate(indexParam);
@@ -474,9 +492,13 @@
   	
   	/* request에서 interestMap의 차트 데이터를 찾아서 자바스크립트 객체로 반환하는 함수 */
   	function getInterestFromRequest() {
-  		var interestChartLabel = ${interestMap.interestChart.label};
+   		var interestChartLabel = [];
   		var interestName = [];
   		var interestDataList = [];
+  		
+		<c:forEach var="label" items="${interestMap.interestChart.label}" varStatus="status">
+		interestChartLabel.push("${label}");
+    	</c:forEach>
   		
 		<c:forEach var="key" items="${interestMap.interestChart.data.keySet()}" varStatus="status">
 		interestName.push("${key}");

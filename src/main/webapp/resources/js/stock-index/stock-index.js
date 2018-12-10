@@ -13,7 +13,7 @@ function indexUpdate(indexParam) {
 				console.log(stockData);
 				window.stock = stockData;
 //				setFieldCard(stockData.fieldStock);
-				setInterestCard(stockData.interestList);
+				if(!(INDEX.isEmptyInterest)) setInterestCard(stockData.interestList);
 				setKospiCard(stockData.kospiStock);
 				setTopTab(stockData.topTab, stockData.topTabOption);
 				setTimeout(indexUpdate(setIndexParam()), 2000);
