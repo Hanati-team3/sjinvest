@@ -12,11 +12,11 @@
 <script src="<%=application.getContextPath()%>/resources/js/html2canvas.js"></script>
 <script>
 var companyNumberList = new Array;
-var modal = document.getElementById('sharing');
 companyNumberList.push("000270");
+var imageLocation
+
 function capture(){
 	$('#share-btn').click(function() {
-		console.log('들어옴');
   	    html2canvas(document.getElementById('container')).then(function(canvas) {
   		document.getElementById('tab-content').appendChild(canvas);
   		$('#tab-content').css("display","grid");
@@ -29,18 +29,30 @@ function capture(){
            type: 'post',
            data: {image: base64URL},
            success: function(data){
-			  console.log(data);
-        	  console.log('Upload successfully');
-        	  $('#shareImage').attr("src","data");
+        	  imageLocation = data.fileName;
+//        	  $('#shareImage').attr("src","data");
               $('#sharing').modal('toggle');
            }
         });
 	});
 })
 }
+function research(){
+	$('#reSearch').click(function() {
+		var date = $('#datepicker').datepicker().val();
+		window.location.href ='trade-list?type='+$('.type-select').children('option:selected').attr('value')+'&date='+date;
+})
+}
 function writeFeed(){
-	$('button#write-feed').click(function(){
-		console.log('아아');
+	$('button#write-wall').click(function(){
+        $.ajax({
+            url: 'write-wall',
+            type: 'post',
+            data: {'imageLocation': imageLocation,
+            		'content' : $('textarea.form-control').val()},
+            success: function(data){
+            }
+         });
 	})
 }
 
@@ -65,7 +77,7 @@ function getStockData(){
 function addPageNation(){
 	if(${pageTotalNum}<11){
 		for(var i = 1; i < ${pageTotalNum}+1; i++){
-			$('ul.pagination').append('<li class="page-item"><a class="page-link" href="trade-list?page='+1+'">'+i+'</a></li>')
+			$('ul.pagination').append('<li class="page-item"><a class="page-link" href="trade-list?page='+i+'">'+i+'</a></li>')
 		}		
 	}else{
 		$('ul.pagination').append('<li class="page-item"><a class="page-link" href="trade-list?page='+i+'">'+이전으로+'</a></li>')
@@ -77,21 +89,32 @@ function addPageNation(){
 }
 function changeType(){
 	$('.type-select').val("${type}").prop("selected",true);
+	$('#datepicker').datepicker().val("${getDate}");
 }
 function typeChanged(){	
 	$('.type-select').change(function(){
+		console.log($('#datepicker').datepicker().val());
 		window.location.href ='trade-list?type='+$(this).children("option:selected").attr("value");
+		
 	});
 }
 
+function dateChaged(){
+	$('#datepicker').change(function(){
+		console.log($('#datepicker').datepicker().val());
+	})
+}
 $(document).ready(function(){
 	changeType();
 	addPageNation();
-	typeChanged();
+//	typeChanged();
 //	getStockData();
 	capture();
 	/** DatePickerEvent등록*/
 	registDatePickerEvent();
+	writeFeed()
+//	dateChaged()
+	research()
 });
 
 /** datepicker 이벤트 발생 처리*/
@@ -110,18 +133,22 @@ function registDatePickerEvent() {
             daysOfWeek: ['일', '월', '화', '수', '목', '금','토'],
             monthNames: ['1월', '2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
             firstDay: 0
-        }
+        },
         /* showMonthAfterYear: true,
     	dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
         dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
         monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
         monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-        
+  		*/    
+  		/*
        onSelect: function(selectedDate){
-    	   locale: {
-    		      format: 'M/DD hh:mm A'
-    		    }
-       } */
+    	   console.log('들어옴');
+		   console.log('선택됨 : '+ selectedDate);
+       }
+        */
+        onSelect: function(dateText, inst) {
+            $("input[name='something']").val(dateText);
+          }
    })
    
    $("#datepicker").keydown(function (event) {
@@ -213,22 +240,21 @@ function formatDate(date){
                               class="datepicker-here form-control" style="height: 100%"
                               required />
         		</div>
-        	
         		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
-		          <form class="w-search" style="width: 100%;" action="#" method >
+<!-- 		          <form class="w-search" style="width: 100%;" action="#" method > -->
 		            <div class="w-select form-group with-button is-empty">
 		              <select class="W- type-select" name = "trade-type">
 		                <option value="0">ALL</option>
 		                <option value="1">SELL</option>
 		                <option value="2">BUY</option>
 		              </select>
-		              <button style="background-color: #3f4257;">
+		              <button style="background-color: #3f4257;" id="reSearch">
 		                <svg class="olymp-magnifying-glass-icon">
 		                  <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
 		              </button>
 		              <span class="material-input"></span>
 		            </div>
-		          </form>
+<!-- 		          </form>  -->
 	          </div>
           </div>
         </div>
@@ -308,14 +334,15 @@ function formatDate(date){
                   </c:forEach>
                 </tbody>
               </table>
-                 <div class="printBtnZone" align="right" >
-			        <a id="share-btn" class="btn bg-gray small w-auto">다운로드</a>
-			    </div>
+
 			    <form name="imgForm" id="imgForm" action="/convertToImage" method="post">
 			        <input type="hidden" id="imgData" name="imgData">
 			    </form>
+          <div class="printBtnZone" align="right" >
+              <a id="share-btn" class="btn bg-gray small w-auto">공유하기</a>
+          </div>
             </div>
-               <nav aria-label="Page navigation example">
+            <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
               </ul>
             </nav>

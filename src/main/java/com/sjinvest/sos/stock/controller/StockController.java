@@ -1,9 +1,7 @@
 package com.sjinvest.sos.stock.controller;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,8 +10,9 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.apache.commons.codec.binary.Base64;
+import org.apache.http.HttpResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.sjinvest.sos.company.domain.Company;
 import com.sjinvest.sos.company.service.CompanyService;
@@ -44,6 +42,8 @@ import com.sjinvest.sos.trading.domain.Trading;
 import com.sjinvest.sos.trading.service.TradingService;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
+import com.sjinvest.sos.wall.domain.Wall;
+import com.sjinvest.sos.wall.service.WallService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -64,6 +64,7 @@ public class StockController {
 	private SettingService settingService;
 	private TradingService tradingService;
 	private UserService userService;
+	private WallService wallService;
 
 	// company, search, trade-list 남수현
 
@@ -118,26 +119,35 @@ public class StockController {
 
 	@RequestMapping(value = "/trade-list", method = { RequestMethod.GET, RequestMethod.POST })
 	public String tradeList(Model model, HttpServletRequest request) {
-//		User user = (User)request.getSession().getAttribute("user");
-		User user = userService.readBySeq(2);
+		User user = (User)request.getSession().getAttribute("user");
 		int type = 0;
 		if (request.getParameter("type") != null) {
 			type = Integer.parseInt(request.getParameter("type"));
 		}
-		int count = tradingService.countByUser(user.getUserSeq(), type, null, null, 0, 0);
+		String getDate = request.getParameter("date");
+		String startDate = null;
+		String endDate = null;
+		if(getDate != null) {
+			String[] date = getDate.split(" - ");
+			String[] startDates = date[0].split("/");
+			String[] endDates = date[1].split("/");
+			startDate = startDates[2]+"-"+startDates[0]+"-"+startDates[1];
+			endDate = endDates[2]+"-"+endDates[0]+"-"+endDates[1];
+		}
+		int count = tradingService.countByUser(user.getUserSeq(), type, startDate, endDate, 0, 0);
 		int amount = 10;
 		int page = 0;
 		if (request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
-			System.out.println(page);
 		}
 		int pageTotalNum = (int) Math.ceil((1.0 * count) / (1.0 * 10));
 		model.addAttribute("thisPage", page);
 		model.addAttribute("pageTotalNum", pageTotalNum);
 		model.addAttribute("type", type);
-		model.addAttribute("tradingList", tradingService.listByUser(user.getUserSeq(), type, null, null,
+		model.addAttribute("tradingList", tradingService.listByUser(user.getUserSeq(), type, startDate, endDate,
 				((page - 1) * amount) + 1, page * amount));
 		model.addAttribute("user", user);
+		model.addAttribute("getDate",getDate);
 		return "stock/stock-trade-list";
 	}
 
@@ -171,6 +181,21 @@ public class StockController {
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("fileName", fileName);
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/write-wall", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String, Object>> writeWall(HttpSession session, String imageLocation, String content){
+		Wall wall = new Wall();
+		User thisUser = ((User)session.getAttribute("user"));
+		wall.setUserSeq(thisUser.getUserSeq());
+		wall.setWallContent(content);
+		wall.setWallPicture(imageLocation);
+		wall.setWriterUserSeq(thisUser.getUserSeq());
+		System.out.println("월 서비스" + wallService);
+		wallService.write(wall);
+		Map<String, Object> map = new HashMap<String, Object>();
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	@ResponseBody

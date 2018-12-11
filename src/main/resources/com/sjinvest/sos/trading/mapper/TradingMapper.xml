@@ -77,7 +77,7 @@
 						AND trading_type = #{tradingType}
 					</if>
 					<if test="startDate != null and endDate != null">
-						AND trading_time <![CDATA[>=]]> #{startDate} AND trading_Time <![CDATA[<]]> #{endDate}
+						AND trading_time <![CDATA[>=]]> TO_DATE(#{startDate},'YYYY-MM-DD') AND trading_Time <![CDATA[<]]> TO_DATE(#{endDate},'YYYY-MM-DD')
 					</if>
 				</where>
 		       ORDER  BY trading_time DESC) A 
@@ -101,7 +101,7 @@
 					AND trading_type = #{tradingType}
 				</if>
 				<if test="startDate != null and endDate != null">
-					AND trading_time <![CDATA[>=]]> #{startDate} AND trading_Time <![CDATA[<]]> #{endDate}
+					AND trading_time <![CDATA[>=]]> TO_DATE(#{startDate},'YYYY-MM-DD') AND trading_Time <![CDATA[<]]> TO_DATE(#{endDate},'YYYY-MM-DD')
 				</if>
 			  </where>
 	</select>
