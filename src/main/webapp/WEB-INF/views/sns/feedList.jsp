@@ -64,7 +64,6 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	          <use
 	              xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
 	          <ul class="more-dropdown">
-	            <li><a name="editFeed" href="javascript:void(0);" onclick="editFeed(this)" >수정</a></li>
 	            <li><a name="deleteFeed" href="javascript:void(0);" onclick="deleteFeed(this)">삭제</a></li>
 	          </ul>
 	        </div>
@@ -219,9 +218,8 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	   <svg class="olymp-three-dots-icon">
 	     <use
 	       xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg>
-	   <ul class="more-dropdown">
-	     <li><a href="#">댓글수정</a></li>
-	     <li><a href="/sos/feed/delete">댓글삭제</a></li>
+	   <ul class="more-dropdown" style="height: 50px; padding: 15px 20px" >
+	     <li style="padding: 0px; background-color:#fff;"><a href="/sos/feed/delete">댓글삭제</a></li>
 	   </ul>
 	 </div>
 
