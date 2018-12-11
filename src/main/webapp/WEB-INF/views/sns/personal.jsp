@@ -72,7 +72,7 @@
 		<div class="col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-xs-12">
 
         <%-- 팔로잉, 팔로워 --%>
-        <jsp:include page="../widgets/follow.jsp"></jsp:include>
+        <jsp:include page="../widgets/personal-follow.jsp"></jsp:include>
         
 		</div>
 
@@ -139,6 +139,99 @@ $(document).ready( function(){
 	
 });
 </script>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	getFollowList();
+	getFollowerList();
+	
+});
+
+
+/** 
+ * 내가 following한 친구목록
+ */
+function getFollowList(){
+	
+	//console.log("유저seq: ${user.userSeq}");
+	$.ajax({
+		
+		url : '/sos/follow/followList',
+		type : 'get',
+		data : {
+			
+			// header에 있는 유저가 아닌 프로필에 있는 유저아이디 가져와야
+			"userSeq" : "${onlyOne.userSeq}"
+		},
+		success: function(data){
+			if(data.fail != null){
+				$('#follow_list').html('유저가 없습니다.')
+			}else{
+				//console.log(data.followList);
+				for(var i=0; i<data.followList.length; i++){
+					if(i == 0){
+						$('#follow_list').html('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userId +'</a></div></li>');
+					}else{
+						$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userId +'</a></div></li>');
+					}
+				}
+			}
+			//appendFollowEvent();
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+	
+}
+
+
+/** 
+ * 나를 follower한 친구목록
+ */
+function getFollowerList(){
+	
+	//console.log("유저seq: ${user.userSeq}");
+	$.ajax({
+		
+		url : '/sos/follow/followerList',
+		type : 'get',
+		data : {
+			
+			// header에 있는 유저가 아닌 프로필에 있는 유저아이디 가져와야
+			"userSeq" : "${onlyOne.userSeq}"
+		},
+		success: function(data){
+			if(data.fail != null){
+				$('#follower_list').html('유저가 없습니다.')
+			}else{
+				//console.log(data.followerList);
+				for(var i=0; i<data.followerList.length; i++){
+					if (i == 0){
+    					$('#follower_list').html('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userId +'</a></div></li>');
+					}else{
+						$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userId +'</a></div></li>');
+					}
+				}
+			}
+			//appendFollowerEvent();
+			
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+	
+}
+
+</script>
+
+
 
 </body>
 </html>

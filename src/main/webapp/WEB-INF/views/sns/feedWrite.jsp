@@ -65,16 +65,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
                     <svg class="olymp-camera-icon" data-toggle="modal" data-target="#update-header-photo">
                     <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-camera-icon"></use></svg>
                   </a> 
-                  <%-- 
-                  <a href="#" class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="TAG YOUR FRIENDS"> 
-                    <svg class="olymp-computer-icon">
-                    <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-computer-icon"></use></svg>
-                  </a> 
-                  
-                  <a href="#" class="options-message" data-toggle="tooltip" data-placement="top" data-original-title="ADD LOCATION"> 
-                     <svg class="olymp-small-pin-icon">
-                     <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-small-pin-icon"></use></svg>
-                  </a> --%>
+
 					<c:choose>
 	                  <c:when test="${user.userId ne null }">
 	                  		<button class="btn btn-primary btn-md-2">글올리기</button>
@@ -92,3 +83,5 @@ if((User)(request.getSession().getAttribute("user")) != null){
           </div>
         </div>
       </div>
+      
+      
