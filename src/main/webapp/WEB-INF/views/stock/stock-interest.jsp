@@ -156,22 +156,21 @@
                 </c:if>
                 
                 <li style="padding:35px 0px;">
-                <div class="container">
-                  <div class="row">
-                    <div id="loader">
+                  <div class="container">
+                    <div class="row">
+                      <div id="loader">
+                          <div class="dot"></div>
                         <div class="dot"></div>
-                      <div class="dot"></div>
-                      <div class="dot"></div>
-                      <div class="dot"></div>
-                      <div class="dot"></div>
-                      <div class="dot"></div>
-                      <div class="dot"></div>
-                      <div class="dot"></div>
-                      <div class="lading"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="lading"></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                
                 </li>
               </ul>
     
@@ -218,7 +217,7 @@
   <script>
 	var INTEREST = {};	//stock-interest 전역변수
   	// interest update를 활성화/중지
-  	INTEREST.flag = true;
+  	INTEREST.flag = false;
   	INTEREST.interestNumberArray = [];
   	
     $(document).ready(function() {
@@ -241,7 +240,7 @@
 	    	// index update 호출
 	    	interestUpdate();
         	// news 가져오기 호출
-        	getNews();
+        	//getNews();
     	}
     	
     });
@@ -312,7 +311,7 @@
     				console.log("interestData .. ");
     				console.log(interestData);
     				setInterestData(interestData);
-    				setTimeout(interestUpdate(), 2000);
+    				setTimeout(interestUpdate, 2000);
     			},
     			error : function(request, status, error) {
     				console.log("code:" + request.status + "\n" + "message:"
