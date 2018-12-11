@@ -352,7 +352,7 @@ function followerDetail(obj){
 	
 	var followerDetail = $(obj).closest('div').find('a.author-name').text();
 	
-	console.log("sss:"+followerDetail);
+	//console.log("sss:"+followerDetail);
 	
 	$.ajax({
 		url : '/sos/user/data',

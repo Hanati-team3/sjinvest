@@ -427,7 +427,7 @@ $(document).ready(function(){
                     <div class="h6">코스피</div>
                     <div class="title">시장구분</div>
                   </a> <a href="#" class="friend-count-item">
-                    <div class="h6">코스피 27위</div>
+                    <div class="h6">코스피</div>
                     <div class="title">시가총액</div>
                   </a>
                 </div>
@@ -552,7 +552,7 @@ $(document).ready(function(){
                     <tr>
 <!--                        <th class="company-name">증감</th>  -->
                       <th class="stock-price">매도잔량</th>
-                      <th class="trading-time" colspan="2">10:01:23</th>
+                      <th class="trading-time" colspan="2"></th>
                       <th class="day-before">매수잔량</th>
 <!--                        <th class="day-before-rate">증감</th> -->
                     </tr>
@@ -568,7 +568,7 @@ $(document).ready(function(){
                       </td>
                       <td class="day-before">
                         <div class="transition-rate plus">
-                          <a href="#" class="h6 title">+ 0.65</a>
+                          <a href="#" class="h6 title"></a>
                         </div>
                       </td>
                       <td class="day-before">
@@ -742,7 +742,7 @@ $(document).ready(function(){
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="ui-block" data-mh="pie-chart">
               <div class="ui-block-title">
-                <div class="h6 title">비재무정보</div>
+                <div class="h6 title">재무정보</div>
                 <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
     
@@ -755,8 +755,8 @@ $(document).ready(function(){
                           xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
                     </a>
     
-                    <div class="monthly-count">
-                      9.855 <span class="period">최대 주주 지분율</span>
+                    <div class="monthly-count" id="bfsales">
+                      9.855 <span class="period">전분기 매출액</span>
                     </div>
                   </div>
     
@@ -767,8 +767,8 @@ $(document).ready(function(){
                           xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
                     </a>
     
-                    <div class="monthly-count">
-                      6.721 <span class="period">직원평균 연봉</span>
+                    <div class="monthly-count" id="bfnetincomwe">
+                      6.721 <span class="period">전분기 순이익</span>
                     </div>
                   </div>
     
@@ -779,8 +779,8 @@ $(document).ready(function(){
                           xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
                     </a>
     
-                    <div class="monthly-count">
-                      2.047 <span class="period">복리후생비</span>
+                    <div class="monthly-count" id="salert">
+                      2.047 <span class="period">전년도 매출액</span>
                     </div>
                   </div>
     
@@ -791,8 +791,8 @@ $(document).ready(function(){
                           xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-happy-face-icon"></use></svg>
                     </a>
     
-                    <div class="monthly-count">
-                      1.536 <span class="period">남녀 급여 비율</span>
+                    <div class="monthly-count" id="netrt">
+                      1.536 <span class="period">전년도 순이익</span>
                     </div>
                   </div>
                   <div class="monthly-indicator">
@@ -803,7 +803,7 @@ $(document).ready(function(){
                     </a>
     
                     <div class="monthly-count">
-                      1.536 <span class="period">비정규직 비율</span>
+                      1.536 <span class="period">평균 근속연수</span>
                     </div>
                   </div>
     
@@ -813,6 +813,7 @@ $(document).ready(function(){
                         <use
                           xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-comments-post-icon"></use></svg>
                     </a>
+    
     
                     <div class="monthly-count">
                        30.94배<span class="period">임직원 임금격차</span>

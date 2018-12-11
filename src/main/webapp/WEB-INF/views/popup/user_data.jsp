@@ -37,7 +37,7 @@
           </div>
           <div class="top-header-author">
             <a href="#" class="author-thumb">
-              <img src="<%=application.getContextPath()%>/resources/img/author-main1.jpg" alt="author">
+              <img id="userProfileData" src="<%=application.getContextPath()%>/resources/img/author-main1.jpg" width="120px" height="120px" alt="author">
             </a>
             <div class="author-content">
               <a href="#" id="id2" class="h4 author-name"></a>
@@ -73,12 +73,12 @@
 
               <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <a class="btn btn-secondary btn-lg full-width" style="color:white; padding:0px 0px; padding-top: 10px; padding-bottom: 10px">
-                주식정보보기
+                	주식정보보기
                 </a>
               </div>
               <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                <a href="javascript:void(0);" class="btn btn-secondary btn-lg full-width" onclick="showPersonal()" style="color:white; padding:0px 0px; padding-top: 10px; padding-bottom: 10px">
-                뉴스피드보기
+                <a  href="#" id="goPersonal" class="btn btn-secondary btn-lg full-width" style="color:white; padding:0px 0px; padding-top: 10px; padding-bottom: 10px">
+                	뉴스피드보기
                 </a>
               </div>
 
