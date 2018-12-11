@@ -42,8 +42,8 @@ if((User)(request.getSession().getAttribute("user")) != null){
                 </div>
                 <div class="add-options-message">
 					<c:choose>
-	                  <c:when test="${user.userId ne null }">
-	                  		<button id="write-feed" class="btn btn-primary btn-md-2">글올리기</button>
+	                  <c:when test="${user.userId ne null}">
+	                  		<button id="write-wall" class="btn btn-primary btn-md-2">글올리기</button>
 	                  </c:when>
 	                  <c:otherwise>
 	                  		<button class="btn btn-primary btn-md-2" disabled="disabled">글올리기</button>
