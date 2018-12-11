@@ -311,7 +311,7 @@
     				console.log("interestData .. ");
     				console.log(interestData);
     				setInterestData(interestData);
-    				setTimeout(interestUpdate(), 2000);
+    				setTimeout(interestUpdate, 2000);
     			},
     			error : function(request, status, error) {
     				console.log("code:" + request.status + "\n" + "message:"

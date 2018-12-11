@@ -134,7 +134,7 @@ public class StockController2 {
 		model.addAttribute("companyList", companyService.list());
 		// 업종별 거래량 카드
 		System.out.println("index : " + 3);
-		//model.addAttribute("fieldStock", service.getField());
+		model.addAttribute("fieldStock", service.getField());
 		System.out.println("index : " + 4);
 		// 코스피 정보 카드
 		model.addAttribute("kospiMap", service.getKospiChartDate(1));

@@ -506,7 +506,7 @@
 		
 		// index update 호출
 		var indexParam = setIndexParam();
-		setTimeout(indexUpdate(indexParam), 1000);
+		//setTimeout(indexUpdate(indexParam), 1000);
 		
 		// 차트 업데이트 호출
 		//allChartUpdate(indexParam.interestCompanyNumberList, 1);
