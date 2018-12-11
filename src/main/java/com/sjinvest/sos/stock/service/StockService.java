@@ -55,4 +55,6 @@ public interface StockService {
 	public List<Rank> getRanking(int type);
 	public List<String[]> getField();
 	public Map<String, Object> getHolding(List<Holding> holdingList);
+	// 회사 목록에서 뉴스 가져오기
+	public List<News> getEachCompanyNews(List<String> companyNumberList);
 }

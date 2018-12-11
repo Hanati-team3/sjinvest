@@ -18,8 +18,12 @@ function capture(){
 	$('#share-btn').click(function() {
 		console.log('들어옴');
   	    html2canvas(document.getElementById('container')).then(function(canvas) {
-		var base64URL = canvas.toDataURL('image/jpeg');
-        // AJAX request
+  		document.getElementById('tab-content').appendChild(canvas);
+  		$('#tab-content').css("display","grid");
+  		$('#tab-content').find('canvas').css("margin","0px auto").css("overflow-y","auto");
+//  		$('#sharing').css("width","1000px");
+	    var base64URL = canvas.toDataURL('image/jpeg');
+		// AJAX request
         $.ajax({
            url: 'capture',
            type: 'post',
@@ -27,13 +31,18 @@ function capture(){
            success: function(data){
 			  console.log(data);
         	  console.log('Upload successfully');
-              modal.style.display = "block";
+        	  $('#shareImage').attr("src","data");
+              $('#sharing').modal('toggle');
            }
         });
 	});
 })
 }
-
+function writeFeed(){
+	$('button#write-feed').click(function(){
+		console.log('아아');
+	})
+}
 
 
 function getStockData(){
