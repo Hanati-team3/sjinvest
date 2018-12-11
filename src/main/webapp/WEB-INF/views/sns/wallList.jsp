@@ -12,33 +12,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
     result_profile = false;
   }
 }
-%>
-
-
-          <!-- Nav tabs start -->
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
-              <a id="showAll" class="nav-link active inline-items" data-toggle="tab" href="#home-1" role="tab" aria-expanded="true">
-
-                <span>All</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a id="showFollwer" class="nav-link inline-items" data-toggle="tab" href="#profile-1" role="tab" aria-expanded="false">
-
-                <span>Follower</span>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a id="showOwn" class="nav-link inline-items" data-toggle="tab" href="#blog" role="tab" aria-expanded="false">
-
-                <span>My</span>
-              </a>
-            </li>
-          </ul>
-          <!-- ...Nav tabs end -->      
-
+%> 
 <%-- 피드 목록 start --%>
 <div id="makeFeed">
 	<!-- for문으로 피드 글 보여주기  -->

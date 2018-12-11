@@ -265,8 +265,6 @@ $(document).ready( function() {
 		      alert("관리자에게 문의해주세요.");
 		    }
 	  });
-		
-		
 	});
 });
 

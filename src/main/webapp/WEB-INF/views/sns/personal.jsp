@@ -16,7 +16,7 @@
 	<div class="fixed-sidebar-right sidebar--small" id="sidebar-right-responsive">
 
 		<a href="#" class="olympus-chat inline-items js-chat-open">
-			<svg class="olymp-chat---messages-icon"><use xlink:href="icons/icons.svg#olymp-chat---messages-icon"></use></svg>
+			<svg class="olymp-chat---messages-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-chat---messages-icon"></use></svg>
 		</a>
 
 	</div>
@@ -42,9 +42,12 @@
 
 		<div class="col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12">
 
+		<%-- 글 작성 start --%>
+	    <jsp:include page="wallWrite.jsp"></jsp:include>      
+	    <%-- 글 작성 end --%> 
 
         <%-- feed list start --%>
-        <jsp:include page="feedList.jsp"></jsp:include>
+        <jsp:include page="wallList.jsp"></jsp:include>
         <%-- ... feed list end --%> 
 
 
@@ -101,7 +104,41 @@
   <!-- user data start-->
   <jsp:include page="../popup/user_data.jsp"></jsp:include>
   <!-- ... end user data -->
-
+	<script>
+$(document).ready( function(){
+	/* console.log("${onlyOne}") */
+	var userPicture = "${onlyOne.userPicture}";
+	/* console.log(userPicture); */
+	if(userPicture.split(':')[0]=='http' || userPicture.split(':')[0] == 'https'){
+		console.log("api");
+		$('#userPicture').attr('src', userPicture);
+	}
+	
+	$("#writeForm").on("submit", function(event) {
+		event.preventDefault();
+		var wallContent = $('#wallContentT')
+		/* console.log("내용!!! "+comment); */
+		$.ajax({
+		    url : '/sos/wall/write',
+		    type : 'post',
+		    data : {
+		    	userSeq : "${onlyOne.userSeq}",
+		    	wallContent : wallContent.val()
+		    },
+		    dataType:'json',
+		    success : function(data) {
+		    	console.log(data)
+		    	$('#feedContentT').val("");
+		    	showFeedList(data)
+		    },
+		    error : function() {
+		      alert("관리자에게 문의해주세요.");
+		    }
+	  });
+	});
+	
+});
+</script>
 
 </body>
 </html>
