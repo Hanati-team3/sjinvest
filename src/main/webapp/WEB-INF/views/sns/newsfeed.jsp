@@ -892,7 +892,7 @@ function showPersonal(){
 		url : '/sos/sns/personal',
 		type : 'get',
 		data : {
-			userId :this.text
+			
 		},
 		success: function(data){
 
