@@ -12,7 +12,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sjinvest.sos.company.domain.Company;
 import com.sjinvest.sos.company.service.CompanyService;
+import com.sjinvest.sos.feed.domain.Feed;
+import com.sjinvest.sos.feed.service.FeedService;
 import com.sjinvest.sos.field.service.FieldService;
 import com.sjinvest.sos.holding.service.HoldingService;
 import com.sjinvest.sos.interest.domain.Interest;
@@ -65,6 +66,7 @@ public class StockController {
 	private TradingService tradingService;
 	private UserService userService;
 	private WallService wallService;
+	private FeedService feedService;
 
 	// company, search, trade-list 남수현
 
@@ -72,7 +74,9 @@ public class StockController {
 	public String company(@PathVariable("companyNumber") String companyNumber, Model model,
 			HttpServletRequest request) {
 		Company company = companyService.readByNumber(companyNumber);
-		List<News> news = service.getNewsList(company.getCompanyName());
+		List<String> companyNumberList = new ArrayList<String>();
+		companyNumberList.add(companyNumber);
+		List<News> news = service.getEachCompanyNews(companyNumberList);
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
 			model.addAttribute("isInterest", interestService.check(user.getUserSeq(), companyNumber));
@@ -109,11 +113,19 @@ public class StockController {
 
 	@RequestMapping(value = "/search", method = { RequestMethod.GET, RequestMethod.POST })
 	public String search(String keyword, Model model, HttpServletRequest request) {
-		User user = (User) request.getSession().getAttribute("userId");
-		if (user != null) {
-			model.addAttribute("interestList", interestService.listByUser(user.getUserSeq()));
+		if(keyword.substring(0, 1).equals("$")) {
+			return "redirect:company/"+companyService.readByName(keyword.substring(1)).getCompanyNumber();
+		}else if(keyword.substring(0,1).equals("@")) {
+			List<Company> companyList = companyService.readByFieldName(keyword.substring(1));
+			model.addAttribute(companyList);
+		}else {
+			model.addAttribute("companyList", companyService.search(keyword));
 		}
-		model.addAttribute("companyList", companyService.search(keyword));
+		User user = (User) request.getSession().getAttribute("user");
+		if (user != null) {
+			List<Interest> interestList = interestService.listByUser(user.getUserSeq());
+			model.addAttribute("interestList", interestList);
+		}
 		return "stock/stock-search-result";
 	}
 
@@ -195,6 +207,18 @@ public class StockController {
 		wall.setWriterUserSeq(thisUser.getUserSeq());
 		System.out.println("월 서비스" + wallService);
 		wallService.write(wall);
+		Map<String, Object> map = new HashMap<String, Object>();
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	@ResponseBody
+	@PostMapping(value = "/write-feed", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String, Object>> writeFeed(HttpSession session, String imageLocation, String content){
+		Feed feed = new Feed();
+		User thisUser = ((User)session.getAttribute("user"));
+		feed.setUserSeq(thisUser.getUserSeq());
+		feed.setFeedContent(content);
+		feed.setFeedPicture(imageLocation);
+		feedService.write(feed);
 		Map<String, Object> map = new HashMap<String, Object>();
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}

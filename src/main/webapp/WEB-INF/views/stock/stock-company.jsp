@@ -230,10 +230,11 @@ function getStockData(){
       		  $('#totalPrice').val($("#amount").val()*$('#price').val());
           </c:if>
   		  $(".company-stock").text(numberWithCommas(data.stock.stockPrice));
-          $("#highPrice").html(numberWithCommas(data.stock.stockHigh)+"<span class='indicator positive'> 4.207</span>");
-          $("#lowPrice").html(numberWithCommas(data.stock.stockLow)+"<span class='indicator positive'> 4.207</span>");
-          $("#stockVolume").html(numberWithCommas(data.stock.stockVolume)+"<span class='indicator positive'> 4.207</span>");
-          $("#closingPrice").html(numberWithCommas(data.stock.stockClosingPrice)+"<span class='indicator positive'> 4.207</span>");
+//          $("#highPrice").html(numberWithCommas(data.stock.stockHigh)+"<span class='indicator positive'> 4.207</span>");
+		  $("#highPrice").html(numberWithCommas(data.stock.stockHigh));
+          $("#lowPrice").html(numberWithCommas(data.stock.stockLow));
+          $("#stockVolume").html(numberWithCommas(data.stock.stockVolume));
+          $("#closingPrice").html(numberWithCommas(data.stock.stockClosingPrice));
           hour = hour >= 10 ? hour : '0' + hour;  
           minutes = minutes >= 10 ? minutes : '0' + minutes;  
           seconds = seconds >= 10 ? seconds : '0' + seconds;  
@@ -309,19 +310,8 @@ $(document).ready(function(){
       <div class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-9 order-md-2 col-sm-12 col-xs-12">
 
         <%-- 검색 시작 --%>
-        <div class="ui-block">
-          <form class="w-search" style="width: 100%;">
-            <div class="form-group with-button is-empty">
-              <input class="form-control" type="text" placeholder="회사명/업종 검색...">
-              <button style="background-color: #3f4257;">
-                <svg class="olymp-magnifying-glass-icon">
-                  <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
-              </button>
-              <span class="material-input"></span>
-            </div>
-          </form>
-        </div>
-        <%-- 검색 시작 --%>
+          <jsp:include page="../includes/searchBar.jsp"></jsp:include>
+        <%-- 검색 끝 --%>
 
         <%-- 회사 메인 카드 row 시작 --%>
         <div class="row">

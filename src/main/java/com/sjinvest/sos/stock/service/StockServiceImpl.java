@@ -13,6 +13,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.sjinvest.sos.field.service.FieldService;
 import com.sjinvest.sos.holding.domain.Holding;
 import com.sjinvest.sos.stock.dao.StockDao;
 import com.sjinvest.sos.stock.dao.StockNewsCrawler;
@@ -447,7 +448,13 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public List<String[]> getField() {
 		StockDao stockDao = new StockDao();
-		return stockDao.getField();
+		List<String> fieldNameList = new ArrayList<String>();
+		fieldNameList.add("IT/게임");
+		fieldNameList.add("은행");
+		fieldNameList.add("화장품");
+		fieldNameList.add("쇼핑/백화점");
+		fieldNameList.add("자동차");
+		return stockDao.getField(fieldNameList);
 	}
 	@Override
 	public List<News> getEachCompanyNews(List<String> companyNumberList) {
