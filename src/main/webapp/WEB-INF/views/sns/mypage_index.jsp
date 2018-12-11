@@ -215,7 +215,7 @@ function setting_sns(){
 			//console.log("ddd"+data.setView);
 
 			/*
-			 * 유저의 sns setting 기본 설정값 넘어오는 부분 
+			 * 유저의 sns setting 기본 설정값 넘어오는 부분(ON->DB숫자) 
 			 */
 			if(data.setFeedNotice == "ON"){
 				$('#setFeedNotice').attr("checked", "${setFeedNotice}");
@@ -252,7 +252,8 @@ function setting_sns(){
     var review = $('<div id="new_tag" class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12"><div>').load("<%=application.getContextPath()%>/sns/mypage_sns");
     $("#rowChange").append(review);
 }
-/*
+
+
 function setting_sns_submit(){
 	
 	$.ajax({
@@ -268,6 +269,35 @@ function setting_sns_submit(){
 		},
 		success: function(data){
 			console.log("설정변환제출 영역..");
+			
+			/*
+			 * 유저의 sns setting 기본 설정값 넘어오는 부분(DB 숫자-> ON mapping)
+			 */
+			if(data.setFeedNotice == "ON"){
+				$('#setFeedNotice').attr("checked", "${setFeedNotice}");
+			}else{
+				$('#setFeedNotice').replaceWith('<input type="checkbox" name="setFeedNotice" id="setFeedNotice">');
+			}
+			
+			if(data.setTradeNotice == "ON"){
+				$('#setTradeNotice').attr("checked", "${setTradeNotice}");
+			}else{
+				$('#setTradeNotice').replaceWith('<input type="checkbox" name="setTradeNotice" id="setTradeNotice">');
+			}
+			
+			if(data.setPrivacy == "ON"){
+				$('#setPrivacy').attr("checked", "${setPrivacy}");
+			}else{
+				$('#setPrivacy').replaceWith('<input type="checkbox" name="setPrivacy" id="setPrivacy">');
+			}
+			
+			if(data.setView == "ON"){
+				$('#setView').attr("checked", "${setView}");
+			}else{
+				$('#setView').replaceWith('<input type="checkbox" name="setView" id="setView">');
+			}
+			
+			setting_sns();
 		},
 		error : function(){
 			alert("관리자에게 문의해주세요.");
@@ -275,7 +305,7 @@ function setting_sns_submit(){
 		
 	})
 } 
-*/
+
 
 function setting_stock(){
 	
@@ -288,8 +318,6 @@ function setting_stock(){
 /*
  * unfollow 클릭시 팔로잉 해제
  */
-//$('#follow_list li a').on('click', function(){
-
 function unfollow(obj){
 	
 	var unfollowUser = $(obj).closest('li').find('a.notification-friend').text();
@@ -307,7 +335,6 @@ function unfollow(obj){
 		success: function(data){
 			
 			console.log("unfollow 결과: "+data.deleteResult);
-			//history.go(0);
 			follow();
 		},
 		error : function() {
@@ -324,8 +351,6 @@ function unfollow(obj){
 function followerDetail(obj){
 	
 	var followerDetail = $(obj).closest('div').find('a.author-name').text();
-	
-	console.log("졸려:"+followerDetail);
 	
 	$.ajax({
 		url : '/sos/user/data',
