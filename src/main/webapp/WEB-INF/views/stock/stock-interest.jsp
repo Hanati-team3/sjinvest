@@ -149,13 +149,11 @@
               </div>
     
               <ul class="notification-list">
-                <c:choose>
-                  <c:when test="${interestNumberList.size() == 0}">
+                  <c:if test="${interestNumberList.size() == 0}">
                     <li style="text-align: center;">
                       관심종목관련 뉴스가 없습니다.
                     </li>
-                  </c:when>
-                  <c:otherwise>
+                  </c:if>
                     <c:forEach var="item" items="${news}" varStatus="status">
                       <li>
                         <div class="author-thumb">
@@ -170,8 +168,7 @@
                         </span>
                       </li>
                     </c:forEach>
-                  </c:otherwise>
-                </c:choose>
+
               </ul>
     
             </div>
@@ -351,6 +348,26 @@
 			success : function(newsList) {
 				console.log("getNews .. ");
 				console.log(newsList);
+				for(var i = 0; i < newsList.length; i++) {
+					var $tempLi = $('<li></li>');
+					var $imgDiv = $(
+							"<div class=\"author-thumb\">\r\n" + 
+							"  <img src=\"<%=application.getContextPath()%>/resources/img/avatar"+(i+1)+"-sm.jpg\" alt=\"author\">\r\n" + 
+							"</div>");
+					var $titleDiv = $(
+							"<div class=\"notification-event\">\r\n" + 
+							"  <a href=\""+newsList[i].link+"\" class=\"h6 notification-friend\">"+newsList[i].source+"</a>\r\n" + 
+							"  <a href=\""+newsList[i].link+"\" target=\"_blank\" class=\"news-title\" >"+newsList[i].title+"</a>\r\n" + 
+							"</div>");
+					var $dateSpan = $(
+							"<span class=\"notification-icon\">\r\n" + 
+							"  <span class=\"notification-date\"><time class=\"entry-date updated\" datetime=\"2004-07-24T18:18\">"+newsList[i].date+"</time></span>\r\n" + 
+							"</span>");
+					$($tempLi).append($imgDiv);
+					$($tempLi).append($titleDiv);
+					$($tempLi).append($dateSpan);
+					$('.stock-index-news ul').append($tempLi);
+				}
 			},
 			error : function(request, status, error) {
 				console.log("code:" + request.status + "\n" + "message:"
