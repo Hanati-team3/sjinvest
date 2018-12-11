@@ -147,4 +147,9 @@ public class FeedServiceImpl implements FeedService {
 		return feedMapper.listBySearchPageByUser(map);
 	}
 
+	@Override
+	public boolean decreaseReply(int feedSeq) {
+		return feedMapper.decreaseReply(feedSeq);
+	}
+
 }

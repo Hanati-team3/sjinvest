@@ -463,6 +463,7 @@ function showFeedList(data){
 			var replyTime = $('time[name=replyTime]');
 			var replyContent = $('p[name=replyContent]');
 			var replyImage = $('img[name=replyImage]')
+			var deleteComment = $('a[name=deleteComment]')
 			
 			var moreIconReply = $('div[name=moreIconReply]')
 			for (var k = replyCnt; k < replyCnt + data.feedList[i].feedReplyCnt; k++){
@@ -487,6 +488,8 @@ function showFeedList(data){
 					var currentUser = "${user.userNickname}";
 					if(currentUser == data.replyUser[k].userNickname){
 						$(moreIconReply[k]).css('display',"");
+						$(deleteComment[k]).attr('id', data.replyList[k].commentSeq);
+						$(deleteComment[k]).attr('title', data.replyList[k].feedSeq);
 					}else{
 						$(moreIconReply[k]).css('display',"none");
 					}
@@ -501,10 +504,6 @@ function showFeedList(data){
 	$(replyLI[replyCnt]).css("display", "none"); */
 }
 
-/**
- * 댓글쓰기
- */
- 
  
 /** 
  * 내가 following한 친구목록
@@ -607,6 +606,29 @@ function deleteFeed(obj){
 	    }
 	}) 
 }
+/* 댓글 삭제 */
+function deleteComment(obj){
+	var commentSeq = $(obj).attr('id');
+	var feedSeq = $(obj).attr('title');
+	$.ajax({
+		url : '/sos/comment/delete',
+		type : 'post',
+		data : {
+			"commentSeq" : commentSeq,
+			"feedSeq" : feedSeq
+		},
+		dataType:'json',
+		success: function(data){
+			showFeedList(data); 
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	}) 
+}
+
+
+
 /** 
  * 나를 follower한 친구목록
  */

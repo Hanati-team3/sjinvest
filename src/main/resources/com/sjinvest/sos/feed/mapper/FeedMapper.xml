@@ -104,6 +104,12 @@
 		SET feed_reply_count = feed_reply_count + #{feedReplyCnt}
 	    WHERE feed_seq = #{feedSeq}
 	</update>
+	<!-- 피드 댓글 삭제 시 -->
+	<update id="decreaseReply" parameterType="Integer">
+		UPDATE feed
+		SET feed_reply_count = feed_reply_count - 1
+	    WHERE feed_seq = #{value}
+	</update>
 	<!-- 피드 공유 증감 -->
 	<update id="increaseShare" parameterType="Feed">
 		UPDATE feed
