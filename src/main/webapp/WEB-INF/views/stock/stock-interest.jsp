@@ -91,37 +91,46 @@
                 </thead>
     
                 <tbody>
-                  <c:forEach var="eachInterest" items="${interestStockList}" varStatus="status">
-                    <tr>
-                      <td class="hidden-index" hidden="true;">${status.index}</td>
-                      <td class="company-number">
-                        <div class="forum-item">
-                          <a href="<%=application.getContextPath()%>/stock/company/${eachInterest.stockCode}" class="h6 count">${eachInterest.stockCode}</a>
-                        </div>
-                      </td>
-                      <td class="company-name">
-                        <div class="author-freshness">
-                          <a href="<%=application.getContextPath()%>/stock/company/${eachInterest.stockCode}" class="h6 title">${eachInterest.stockName}</a>
-                          <time class="entry-date updated">${eachInterest.fieldName}</time>
-                        </div>
-                      </td>
-                      <td class="stock-price"><a href="#" class="h6 count">${eachInterest.stockPrice}</a>
-                      </td>
-                      <td class="day-before">
-                        <div class="author-freshness plus">
-                          <a href="#" class="h6 title">${eachInterest.stockChange}</a>
-                        </div>
-                      </td>
-                      <td class="day-before-rate">
-                        <div class="author-freshness plus">
-                          <a href="#" class="h6 title">${eachInterest.stockDiff}</a>
-                        </div>
-                      </td>
-                      <td class="remove-interest">
-                          <a href="#" class="more"><i class="fas fa-heart"></i></a>
-                      </td>
-                    </tr>
-                  </c:forEach>
+                  <c:choose>
+                    <c:when test="${interestNumberList.size() == 0}">
+                      <tr>
+                        <td colspan="7">관심종목이 없습니다.</td>
+                      </tr>
+                    </c:when>
+                    <c:otherwise>
+                      <c:forEach var="eachInterest" items="${interestStockList}" varStatus="status">
+                        <tr>
+                          <td class="hidden-index" hidden="true;">${status.index}</td>
+                          <td class="company-number">
+                            <div class="forum-item">
+                              <a href="<%=application.getContextPath()%>/stock/company/${eachInterest.stockCode}" class="h6 count">${eachInterest.stockCode}</a>
+                            </div>
+                          </td>
+                          <td class="company-name">
+                            <div class="author-freshness">
+                              <a href="<%=application.getContextPath()%>/stock/company/${eachInterest.stockCode}" class="h6 title">${eachInterest.stockName}</a>
+                              <time class="entry-date updated">${eachInterest.fieldName}</time>
+                            </div>
+                          </td>
+                          <td class="stock-price"><a href="#" class="h6 count">${eachInterest.stockPrice}</a>
+                          </td>
+                          <td class="day-before">
+                            <div class="author-freshness plus">
+                              <a href="#" class="h6 title">${eachInterest.stockChange}</a>
+                            </div>
+                          </td>
+                          <td class="day-before-rate">
+                            <div class="author-freshness plus">
+                              <a href="#" class="h6 title">${eachInterest.stockDiff}</a>
+                            </div>
+                          </td>
+                          <td class="remove-interest">
+                              <a href="#" class="more"><i class="fas fa-heart"></i></a>
+                          </td>
+                        </tr>
+                      </c:forEach>
+                    </c:otherwise>
+                  </c:choose>
                 </tbody>
               </table>
             </div>
@@ -203,13 +212,16 @@
   	INTEREST.interestNumberArray = [];
   	
     $(document).ready(function() {
+    	console.log("${interestStockList}");
     	<c:forEach var="number" items="${interestNumberList}" varStatus="status">
     	INTEREST.interestNumberArray.push("${number}");
     	</c:forEach>
+    	console.log("interestNumberArray : " + INTEREST.interestNumberArray );
     	
     	// index update 호출
-    	console.log("interestNumberArray" + INTEREST.interestNumberArray );
-    	interestUpdate();
+    	if(INTEREST.interestNumberArray.length != 0) {
+	    	interestUpdate();
+    	}
     	
     });
     
