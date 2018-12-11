@@ -51,10 +51,9 @@ public class SnsController {
 	
 	@GetMapping(value = "/personal/{id}")
 	public String personal(@PathVariable("id")String id, Model model) {
-		
+		System.out.println(id);
 		logger.info("personal.");
 		model.addAttribute("onlyOne",userService.readById(id));
-		System.out.println(id);
 		return "/sns/personal";
 	}
 	

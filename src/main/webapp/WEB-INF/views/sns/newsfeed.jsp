@@ -243,11 +243,40 @@ $(document).ready( function() {
 			}
 		})
 	});
+	
+	$("#writeForm").on("submit", function(event) {
+		event.preventDefault();
+		var feedContent = $('#feedContentT')
+		console.log(feedContent.val())
+		/* console.log("내용!!! "+comment); */
+		$.ajax({
+		    url : '/sos/feed/write',
+		    type : 'post',
+		    data : {
+		    	feedContent : feedContent.val()
+		    },
+		    dataType:'json',
+		    success : function(data) {
+		    	console.log(data)
+		    	$('#feedContentT').val("");
+		    	showFeedList(data)
+		    },
+		    error : function() {
+		      alert("관리자에게 문의해주세요.");
+		    }
+	  });
+		
+		
+	});
 });
 
+
 function writeComment(obj){
+	console.log("뭐지");
 	var feedSeq = $(obj).attr('title');
 	var content = $(obj).closest("div.comment-div").find('textarea').val()
+	console.log(feedSeq);
+	console.log(content);
 	/* console.log("내용!!! "+comment); */
 	$.ajax({
 	    url : '/sos/comment/writing',
@@ -830,7 +859,7 @@ function modal(data){
 	$('#nickName2').attr("placeholder", data.userData.userNickname);
 	$('#detail2').attr("placeholder", data.userData.userDetail);
 	$('#heartIcon').attr("title", data.userData.userId);
-	$('#goPersonal').attr('href', '/sos/sns/personal?id='+data.userData.userId);
+	$('#goPersonal').attr('href', '/sos/sns/personal/'+data.userData.userId);
 	var pictureData = data.userData.userPicture
 	if(pictureData != null){
 		if(pictureData.split(':')[0]=='http' || pictureData.split(':')[0] == 'https'){
