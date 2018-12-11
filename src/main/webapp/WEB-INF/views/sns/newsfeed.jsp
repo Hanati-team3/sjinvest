@@ -246,6 +246,7 @@ $(document).ready( function() {
 					$('#heartIcon').css('background-color', '');
 					/* console.log("no팔로우"); */
 				}
+				console.log("follow update 필요");
 				getFollowList();
 			},
 			error : function() {
@@ -520,7 +521,7 @@ function getFollowList(){
 		},
 		success: function(data){
 			if(data.fail != null){
-				/* 값이 없는 경우 */
+				$('#follow_list').html('유저가 없습니다.')
 			}else{
 				//console.log(data.followList);
 				for(var i=0; i<data.followList.length; i++){
@@ -648,7 +649,11 @@ function getFollowerList(){
 			}else{
 				//console.log(data.followerList);
 				for(var i=0; i<data.followerList.length; i++){
-					$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userId +'</a></div></li>');
+					if (i == 0){
+    					$('#follower_list').html('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userId +'</a></div></li>');
+					}else{
+						$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userId +'</a></div></li>');
+					}
 				}
 			}
 			appendFollowerEvent();
