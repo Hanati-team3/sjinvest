@@ -149,26 +149,30 @@
               </div>
     
               <ul class="notification-list">
-                  <c:if test="${interestNumberList.size() == 0}">
-                    <li style="text-align: center;">
-                      관심종목관련 뉴스가 없습니다.
-                    </li>
-                  </c:if>
-                    <c:forEach var="item" items="${news}" varStatus="status">
-                      <li>
-                        <div class="author-thumb">
-                          <img src="<%=application.getContextPath()%>/resources/img/avatar${status.index+1}-sm.jpg" alt="author">
-                        </div>
-                        <div class="notification-event">
-                          <a href="${item.link}" class="h6 notification-friend">${item.source}</a>
-                          <a href="${item.link}" target="_blank" class="news-title" >${item.title}</a>
-                        </div>
-                        <span class="notification-icon">
-                          <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
-                        </span>
-                      </li>
-                    </c:forEach>
-
+                <c:if test="${interestNumberList.size() == 0}">
+                  <li style="text-align: center;">
+                    관심종목관련 뉴스가 없습니다.
+                  </li>
+                </c:if>
+                
+                <li style="padding:50px 0px;">
+                <div class="container">
+                  <div class="row">
+                    <div id="loader">
+                        <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="lading"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                </li>
               </ul>
     
             </div>
@@ -348,7 +352,11 @@
 			success : function(newsList) {
 				console.log("getNews .. ");
 				console.log(newsList);
-				for(var i = 0; i < newsList.length; i++) {
+				$('.stock-index-news .ui-block ul').empty();
+				// 최대 10개의 뉴스 표시
+				var max = 10;
+				if(newsList.length < 10) max = newsList.length;
+				for(var i = 0; i < max; i++) {
 					var $tempLi = $('<li></li>');
 					var $imgDiv = $(
 							"<div class=\"author-thumb\">\r\n" + 
@@ -366,7 +374,7 @@
 					$($tempLi).append($imgDiv);
 					$($tempLi).append($titleDiv);
 					$($tempLi).append($dateSpan);
-					$('.stock-index-news ul').append($tempLi);
+					$('.stock-index-news .ui-block ul').append($tempLi);
 				}
 			},
 			error : function(request, status, error) {

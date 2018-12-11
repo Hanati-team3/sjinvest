@@ -45,6 +45,7 @@ public class SleepFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     	try {
 			Thread.sleep(1000);
+			System.out.println("지연됨");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
