@@ -186,19 +186,30 @@ function updateField() {
 /** 관심종목 카드 데이터 */
 function setInterestCard(interestList) {
 	$(".stock-my-interest .swiper-wrapper .swiper-slide").each(function(index, item){
+		var icon = "";
 		for (var i = 0; i < interestList.length; i++) {
 			if($(item).find(".company-name a").text() == interestList[i].stockName) {
-				$(item).find(".company-stock").text(interestList[i].stockPrice.toLocaleString());
 				$(item).find(".indicator").html("전일대비 " + interestList[i].stockChange.toLocaleString() + 
 						"&nbsp;&nbsp;" + interestList[i].stockDiff +"%");
+				// 전일대비 올랐음
 				if(interestList[i].stockDiff > 0) {
+	    			icon = "<i class='fas fa-caret-up' style='font-size:25px;'></i>&nbsp;"
 					$(item).find(".company-stock").removeClass('minus').addClass('plus');
 					$(item).find(".indicator").removeClass('minus').addClass('plus');
 				}
-				else {
+				// 전일대비 내렸음
+				else if(interestList[i].stockDiff < 0) {
+	    			icon = "<i class='fas fa-caret-down' style='font-size:25px;'></i>&nbsp;"
 					$(item).find(".company-stock").removeClass('plus').addClass('minus');
 					$(item).find(".indicator").removeClass('plus').addClass('minus');
 				}
+				// 전일과 동일
+				else {
+	    			icon = "";
+					$(item).find(".company-stock").removeClass('plus').removeClass('minus');
+					$(item).find(".indicator").removeClass('plus').removeClass('minus');
+				}
+				$(item).find(".company-stock").html(icon + interestList[i].stockPrice.toLocaleString());
 				break;
 			}
 		}
