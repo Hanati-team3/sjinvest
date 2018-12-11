@@ -281,6 +281,9 @@
 .stock-interest-main .forums-table .remove-interest{
   width : 100px;
 }
+.stock-interest-main .forums-table .remove-interest i{
+  color : #f9708d;
+}
 
 
 /* 거래목록 */

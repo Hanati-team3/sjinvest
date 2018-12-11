@@ -155,7 +155,7 @@
                   </li>
                 </c:if>
                 
-                <li style="padding:50px 0px;">
+                <li style="padding:35px 0px;">
                 <div class="container">
                   <div class="row">
                     <div id="loader">
@@ -224,10 +224,18 @@
     $(document).ready(function() {
     	console.log("${interestStockList}");
     	<c:forEach var="number" items="${interestNumberList}" varStatus="status">
-    	INTEREST.interestNumberArray.push("${number}");
+  		INTEREST.interestNumberArray.push("${number}");
     	</c:forEach>
     	console.log("interestNumberArray : " + INTEREST.interestNumberArray );
     	
+    	// 관심종목 제거 버튼 마우스 오버 이벤트
+        $('.remove-interest i').mouseenter(function(){
+         	$(this).removeClass('fas').addClass('far');
+        });
+        $('.remove-interest i').mouseleave(function(){
+         	$(this).removeClass('far').addClass('fas');
+        });
+    		  
     	
     	if(INTEREST.interestNumberArray.length != 0) {
 	    	// index update 호출
@@ -314,27 +322,43 @@
     	}
     }
   
+    /** interest table의 데이터 설정 */
     function setInterestData(interestData) {
     	if(interestData.length != $(".forums-table tbody tr").length) return;
     	$(".forums-table tbody tr").each(function(index, item){
     		$(item).find(".company-number a").text(interestData[index].stockCode);
     		$(item).find(".company-name a").text(interestData[index].stockName);
     		$(item).find(".company-name time").text(interestData[index].fieldName);
-    		$(item).find(".stock-price a").text(interestData[index].stockPrice.toLocaleString());
+    		
+    		var prevPrice = Number($(item).find(".stock-price a").text().replace(",", ""));
+    		var currentPrice = Number(interestData[index].stockPrice);
+    		var icon = "";
+    		
     		$(item).find(".trading-amount a").text(interestData[index].stockVolume.toLocaleString());
     		$(item).find(".day-before a").text(interestData[index].stockChange);
     		$(item).find(".day-before-rate a").text(interestData[index].stockDiff);
 			
+    		// 등락률에 따라 빨간색 파란색
     		if(interestData[index].stockDiff > 0) {
+    			icon = "<i class='fas fa-caret-up'></i>&nbsp;"
 				$(item).find(".stock-price a").removeClass('minus').addClass('plus');
 				$(item).find(".day-before a").removeClass('minus').addClass('plus');
 				$(item).find(".day-before-rate a").removeClass('minus').addClass('plus');
 			}
-			else {
+			else if(interestData[index].stockDiff < 0){
+    			icon = "<i class='fas fa-caret-down'></i>&nbsp;"
 				$(item).find(".stock-price a").removeClass('plus').addClass('minus');
 				$(item).find(".day-before a").removeClass('plus').addClass('minus');
 				$(item).find(".day-before-rate a").removeClass('plus').addClass('minus');
 			}
+			else {
+    			icon = "";
+				$(item).find(".stock-price a").removeClass('plus').removeClass('minus');
+				$(item).find(".day-before a").removeClass('plus').removeClass('minus');
+				$(item).find(".day-before-rate a").removeClass('plus').removeClass('minus');
+			}
+    		
+  	    	$(item).find(".stock-price a").html(icon + interestData[index].stockPrice.toLocaleString());
     	});
     }
     
