@@ -6,8 +6,32 @@
 <head>
 <title>SOS - 모의투자</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
+<!-- 로딩중 -->
+<style>
+#loading {
+ width: 100%;  
+ height: 100%;  
+ top: 0px;
+ left: 0px;
+ position: fixed;  
+ display: block;  
+ opacity: 0.7;  
+ background-color: #fff;  
+ z-index: 99;  
+ text-align: center; 
+ } 
+  
+#loading-image {  
+ position: absolute;  
+ top: 50%;  
+ left: 50%; 
+ z-index: 100; 
+ }
+
+</style>
 </head>
 <body class="stock">
+
   <%-- 우리한테 필요 없는 고정 양측 사이드바 --%>
   <!-- Fixed Sidebar Left -->
   <%-- <jsp:include page="includes/fixed-sidebar-left.jsp"></jsp:include> --%>
@@ -450,6 +474,9 @@
   
   
   <script>
+  	$(window).load(function() {     
+	  
+	 }); 
   	var INDEX = {};	//stock-index 전역변수
   	INDEX.tabList = ["rising-rate", "falling-rate", "foreigner", "institution", "trading-amount", "total-value"];
   	// index update를 활성화/중지
@@ -468,6 +495,8 @@
 		console.log('${topTab}');
 		console.log('${interestMap}');
 		console.log('${holdingWidget}');
+		
+		    
 		
 		// 업종별 거래랑 차트 그리기
 		setFieldAmountChart();
@@ -496,8 +525,6 @@
 		else {
 			runInterestChart(getInterestFromRequest(), true);
 		}
-
-		
 		
 		//탭 클릭시 요청 발생
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
@@ -715,6 +742,5 @@
 		return indexParam;
 	}
   </script>
-
 </body>
 </html>

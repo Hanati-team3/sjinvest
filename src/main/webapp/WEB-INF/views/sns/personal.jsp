@@ -31,7 +31,7 @@
   <!-- header end -->
 
   <!-- mypage_profile start -->
-  <jsp:include page="../widgets/profile-info.jsp"></jsp:include>
+  <jsp:include page="../widgets/profile-info_personal.jsp"></jsp:include>
   <!-- mypage_profile end -->
 
 

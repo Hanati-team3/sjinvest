@@ -44,14 +44,18 @@ public class FeedController {
 	private CommentService commentService;
 	private FollowService service;
 	
-	@PostMapping(value = "/write")
-	public String write(HttpSession session, Feed feed, RedirectAttributes rttr, HttpServletRequest request) {
+	@ResponseBody
+	@PostMapping(value = "/write", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> write(HttpSession session, Feed feed, HttpServletRequest request) {
 		if(session.getAttribute("user") != null) {
 //			System.out.println("네이버 로그인?");
 			feed.setUserSeq(((User)session.getAttribute("user")).getUserSeq());
-			feedService.write(feed);
+			/*System.out.println(feed.getFeedContent());*/
+			if(feed.getFeedContent() != "") {
+				feedService.write(feed);
+			}
 		}
-		return "redirect:/sns/newsfeed";
+		return listAll();
 	}
 	
 	@ResponseBody

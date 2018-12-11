@@ -14,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sjinvest.sos.HomeController;
 import com.sjinvest.sos.company.service.CompanyService;
@@ -27,6 +30,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
+@RequestMapping("/sns/*")
 @AllArgsConstructor
 public class SnsController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -35,7 +39,7 @@ public class SnsController {
 	private CompanyService companyService;
 	private FieldService fieldService;
 
-	@GetMapping(value = "/sns/newsfeed")
+	@GetMapping(value = "/newsfeed")
 	public String newsfeed(HttpSession session, Model model, HttpServletRequest request) {
 		
 		System.out.println("첫홈페이지 user :"+session.getAttribute("user"));
@@ -45,17 +49,15 @@ public class SnsController {
 		return "/sns/newsfeed";
 	}
 	
-	@GetMapping(value = "/sns/personal")
-	public String personal(HttpSession session) {
-		
-		System.out.println("개인홈페이지 :"+session.getAttribute("user"));
-		
+	@GetMapping(value = "/personal/{id}")
+	public String personal(@PathVariable("id")String id, Model model) {
+		System.out.println(id);
 		logger.info("personal.");
-
+		model.addAttribute("onlyOne",userService.readById(id));
 		return "/sns/personal";
 	}
 	
-	@GetMapping(value = "/sns/mypage_index")
+	@GetMapping(value = "/mypage_index")
 	public String mypageIndex(Model model, HttpServletRequest request) {
 		logger.info("mypageIndex.");
 		System.out.println("mypage 메인 컨트롤러입니다.");
@@ -88,7 +90,7 @@ public class SnsController {
 
 //	검색 - 자동 완성기능 (hojin)
 	@ResponseBody
-	@GetMapping(value = "/sns/searchAuto", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(value = "/searchAuto", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<List<String>> searchAutoComplete(String term) {
 		logger.info("newsfeed.");
 //		System.out.println(term);

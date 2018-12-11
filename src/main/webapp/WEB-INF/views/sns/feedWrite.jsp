@@ -15,6 +15,16 @@ if((User)(request.getSession().getAttribute("user")) != null){
 }
 %>
 
+<style>
+#tagColor{
+	border: 2px solid #01DF01;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+
+</style>
+
 <div class="ui-block">
         <div class="news-feed-form">
 
@@ -22,7 +32,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <div class="tab-content">
             <div class="tab-pane active" id="home-1" role="tabpanel"
               aria-expanded="true">
-              <form method="post" onclick="writeComment(this);">
+             <form id="writeForm">
                 <div class="author-thumb">
                 	<c:choose>
 	                  <c:when test="${user.userId ne null }">
@@ -42,10 +52,10 @@ if((User)(request.getSession().getAttribute("user")) != null){
                   class="form-group with-icon label-floating is-empty">
                   <c:choose>
 	                  <c:when test="${user.userId ne null }">
-	                  	<textarea name="feedContent" class="form-control" placeholder="주식정보를 공유하여 주세요..!"></textarea>
+	                  	<textarea id="feedContentT" name="feedContentT" class="form-control" placeholder="주식정보를 공유하여 주세요..!"></textarea>
 	                  </c:when>
 	                  <c:otherwise>
-	                  	<textarea name="feedContent" class="form-control" placeholder="로그인이 필요합니다." readonly="readonly"></textarea>
+	                  	<textarea class="form-control" placeholder="로그인이 필요합니다." readonly="readonly"></textarea>
 	                  </c:otherwise>
                   </c:choose>
                 </div>
@@ -76,8 +86,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
                   
 
                 </div>
-
-              </form>
+				</form>
             </div>
 
           </div>
