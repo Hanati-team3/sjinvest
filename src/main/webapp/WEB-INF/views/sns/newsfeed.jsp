@@ -648,7 +648,7 @@ function getFollowerList(){
 			}else{
 				//console.log(data.followerList);
 				for(var i=0; i<data.followerList.length; i++){
-					$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userNickname +'</a></div></li>');
+					$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userId +'</a></div></li>');
 				}
 			}
 			appendFollowerEvent();
@@ -764,10 +764,9 @@ function userModal(obj){
 	
 
 /*
- * 유저 아이디 클릭시 data, modal
+ * ranking 유저 click시 modal
  */
 function appendRankEvent(){
-	// ranking 유저 아이디 click시
 	$('#rankingList li a').on('click', function(){
 
 		$.ajax({
@@ -784,6 +783,7 @@ function appendRankEvent(){
 				$('#nickName2').attr("placeholder", data.userData.userNickname);
 				$('#detail2').attr("placeholder", data.userData.userDetail);
 				$('#heartIcon').attr("title", data.userData.userId);
+				
 				if(data.isFollow == 'true'){
 					console.log("팔로우");
 					$('#heartIcon').css('background-color', '#ff5e3a');
@@ -801,6 +801,10 @@ function appendRankEvent(){
 	})
 
 };
+
+/*
+ * follow 유저 click시 modal
+ */
 function appendFollowEvent() {
 	$('#follow_list li a').on('click', function(){
 
@@ -834,12 +838,12 @@ function appendFollowEvent() {
 		})
 	});
 }
+
+/*
+ * follower 친구 아이디 click시 modal
+ */
 function appendFollowerEvent(){
-	// follower 친구 아이디 click시
 	$('#follower_list li a').on('click', function(){
-		/* var index = 0;
-		console.log(index);
-		index = index+1; */
 
 		$.ajax({
 			url : '/sos/user/data',

@@ -41,7 +41,7 @@ public class CommentController {
 	
 	@PostMapping("/delete")
 	public ResponseEntity<Map<String,Object>> delete(HttpServletRequest request, Comment comment) {
-		System.out.println(comment.getCommentSeq());
+		/*System.out.println(comment.getCommentSeq());*/
 		service.deleteComment(comment);
 		/*return "redirect:/comment/list";*/
 		return feedController.listAll();
