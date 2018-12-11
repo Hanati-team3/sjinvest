@@ -234,18 +234,7 @@ $(document).ready( function() {
 				"followUserId" : followId
 			},
 			success : function(data) {
-				$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
-				$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
-				$('#nickName2').attr("placeholder", data.userData.userNickname);
-				$('#detail2').attr("placeholder", data.userData.userDetail);
-				$('#heartIcon').attr("title", data.userData.userId);
-				if(data.isFollow == 'true'){
-					/* console.log("팔로우"); */
-					$('#heartIcon').css('background-color', '#ff5e3a');
-				}else{
-					$('#heartIcon').css('background-color', '');
-					/* console.log("no팔로우"); */
-				}
+				modal(data);
 				console.log("follow update 필요");
 				getFollowList();
 			},
@@ -747,18 +736,7 @@ function userModal(obj){
 			"followUserSeq" : "${user.userSeq}"
 		},
 		success: function(data){
-			$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
-			$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
-			$('#nickName2').attr("placeholder", data.userData.userNickname);
-			$('#detail2').attr("placeholder", data.userData.userDetail);
-			$('#heartIcon').attr("title", data.userData.userId);
-			if(data.isFollow == 'true'){
-				console.log("팔로우");
-				$('#heartIcon').css('background-color', '#ff5e3a');
-			}else{
-				$('#heartIcon').css('background-color', '');
-				console.log("no팔로우");
-			}
+			modal(data);
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -782,20 +760,7 @@ function appendRankEvent(){
 				"followUserSeq" : "${user.userSeq}"
 			},
 			success: function(data){
-				
-				$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
-				$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
-				$('#nickName2').attr("placeholder", data.userData.userNickname);
-				$('#detail2').attr("placeholder", data.userData.userDetail);
-				$('#heartIcon').attr("title", data.userData.userId);
-				
-				if(data.isFollow == 'true'){
-					console.log("팔로우");
-					$('#heartIcon').css('background-color', '#ff5e3a');
-				}else{
-					$('#heartIcon').css('background-color', '');
-					console.log("no팔로우");
-				}
+				modal(data);
 			},
 			error : function() {
 		        alert("관리자에게 문의해주세요.");
@@ -822,19 +787,7 @@ function appendFollowEvent() {
 				"followUserSeq" : "${user.userSeq}"
 			},
 			success: function(data){
-				
-				$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
-				$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
-				$('#nickName2').attr("placeholder", data.userData.userNickname);
-				$('#detail2').attr("placeholder", data.userData.userDetail);
-				$('#heartIcon').attr("title", data.userData.userId);
-				if(data.isFollow == 'true'){
-					console.log("팔로우");
-					$('#heartIcon').css('background-color', '#ff5e3a');
-				}else{
-					$('#heartIcon').css('background-color', '');
-					console.log("no팔로우");
-				}
+				modal(data)
 			},
 			error : function() {
 		        alert("관리자에게 문의해주세요.");
@@ -859,20 +812,7 @@ function appendFollowerEvent(){
 				"followUserSeq" : "${user.userSeq}"
 			},
 			success: function(data){
-				
-				$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
-				$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
-				$('#nickName2').attr("placeholder", data.userData.userNickname);
-				$('#detail2').attr("placeholder", data.userData.userDetail);
-				$('#heartIcon').attr("title", data.userData.userId);
-				if(data.isFollow == 'true'){
-					console.log("팔로우");
-					$('#heartIcon').css('background-color', '#ff5e3a');
-				}else{
-					$('#heartIcon').css('background-color', '');
-					console.log("no팔로우");
-				}
-				
+				modal(data)
 			},
 			error : function() {
 		        alert("관리자에게 문의해주세요.");
@@ -883,27 +823,32 @@ function appendFollowerEvent(){
 	});
 };
 
-function showPersonal(){
-	
-	console.log("담벼락시작");
-	
-	$.ajax({
-		
-		url : '/sos/sns/personal',
-		type : 'get',
-		data : {
-			userId :this.text
-		},
-		success: function(data){
-
- 			console.log("성공이냐?");
-		},
-		error : function() {
-	        alert("관리자에게 문의에게 문의해주세요.");
-	    }
-	
-	})
+function modal(data){
+	$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
+	$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
+	$('#nickName2').attr("placeholder", data.userData.userNickname);
+	$('#detail2').attr("placeholder", data.userData.userDetail);
+	$('#heartIcon').attr("title", data.userData.userId);
+	$('#goPersonal').attr('href', '/sos/sns/personal?id='+data.userData.userId);
+	var pictureData = data.userData.userPicture
+	if(pictureData != null){
+		if(pictureData.split(':')[0]=='http' || pictureData.split(':')[0] == 'https'){
+			$('#userProfileData').attr('src', pictureData);
+		}else{
+			$('#userProfileData').attr('src', "/sos/resources/img/"+pictureData);
+		}
+	}else{
+		$('#userProfileData').attr('src', "/sos/resources/img/author-main1.jpg")
+	}
+	if(data.isFollow == 'true'){
+		console.log("팔로우");
+		$('#heartIcon').css('background-color', '#ff5e3a');
+	}else{
+		$('#heartIcon').css('background-color', '');
+		console.log("no팔로우");
+	}
 }
+
 
 </script>
 
