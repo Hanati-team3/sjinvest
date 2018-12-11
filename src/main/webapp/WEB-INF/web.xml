@@ -36,7 +36,14 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>SleepFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/sns/newsfeed</url-pattern>
+		<url-pattern>/sns/personal</url-pattern>
+		<url-pattern>/stock/index</url-pattern>
+		<url-pattern>/stock/interest/list</url-pattern>
+		<url-pattern>/stock/holding/list</url-pattern>
+		<url-pattern>/stock/company/*</url-pattern>
+		<url-pattern>/stock/search</url-pattern>
+		<url-pattern>/stock/trade-list</url-pattern>
 	</filter-mapping>
 	<!-- Spring Security Filter 설정 -->
 	<!-- 
