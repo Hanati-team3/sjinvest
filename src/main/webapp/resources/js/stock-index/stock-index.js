@@ -23,7 +23,6 @@ function indexUpdate(indexParam) {
 				else {
 					setTopTab(stockData.topTab, Number(stockData.topTabOption) -1);
 				}
-				//updateTobTab()		//set 대신 update로
 				setTimeout(indexUpdate(setIndexParam()), 2000);
 			},
 			error : function(request, status, error) {

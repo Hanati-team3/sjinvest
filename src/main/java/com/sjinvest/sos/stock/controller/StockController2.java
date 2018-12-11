@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.html.HTMLEditorKit.InsertHTMLTextAction;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -71,6 +72,26 @@ public class StockController2 {
 	private TradingService tradingService;
 	private UserService userService;
 	
+	
+	
+	
+	private class InterestChartThread implements Runnable {	
+		Map<String, Object> interestMap;	 
+		List<String> interestCompanyNumberList;
+		
+		@Override
+		public void run(){
+			TimeSeries interestTimeSeries = service.getChartData(interestCompanyNumberList, 1, 1);
+			interestMap.put("interestChart", interestTimeSeries);
+		}
+		public InterestChartThread(Map<String, Object> interestMap, List<String> interestCompanyNumberList) {
+			this.interestMap = interestMap;
+			this.interestCompanyNumberList = interestCompanyNumberList;
+		}
+	}
+	
+	
+	
 	@GetMapping(value="/realtime", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<Stock>> realtime() {
 		return new ResponseEntity<>(service.stockRealtime(),HttpStatus.OK);
@@ -82,27 +103,27 @@ public class StockController2 {
 		System.out.println("index....");
 		System.out.println("user : " + request.getSession().getAttribute("user"));
 		User user = (User)request.getSession().getAttribute("user");
-		if(user == null) {
-			System.out.println("user null. test user suhyeon");
-			user = userService.readById("suhyeon");
-		}
-		//request.setAttribute("user", user);
 		
 		System.out.println("index : " + 0);
-		List<Holding> holdingList = new ArrayList<>();					/* 보유자산 리스트 */
-		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
-		Map<String, Object> interestMap = new Hashtable<>();	/* 관심종목 Stock리스트와 Chart데이터 */
-		Map<String, Object> holdingWidgetMap = null;			/* 보유자산 total, stockTotal, cashTotal, Holding리스트 */
-		Map<String, Object> map = null;							/* stock 서비스에서 한번에 받아올 정보 : realTime, topTab, 관심종목 Stock리스트, HoldingMap  */
+		List<Holding> holdingList = new ArrayList<>();					 /* 보유자산 리스트 */
+		List<String> interestCompanyNumberList = new ArrayList<>();		 /* 관심종목에 있는 종목 번호 리스트  */
+		Map<String, Object> interestMap = new Hashtable<>();	 /* 관심종목 Stock리스트와 Chart데이터  */
+		Map<String, Object> holdingWidgetMap = null;			 /* 보유자산 total, stockTotal, cashTotal, Holding리스트  */
+		Map<String, Object> map = null;							 /* stock 서비스에서 한번에 받아올 정보 : realTime, topTab, 관심종목 Stock리스트, HoldingMap  */ 
+		
+		//new Thread(new InterestChartThread(interestMap, interestCompanyNumberList)).start();
 		
 		System.out.println("index : " + 1);
-		holdingList = holdingService.listByUser(user.getUserSeq());
-		for (Interest interest : interestService.listByUser(user.getUserSeq())) {
-			interestCompanyNumberList.add(interest.getCompanyNumber());
+		if(user != null) {
+			holdingList = holdingService.listByUser(user.getUserSeq());
+			for (Interest interest : interestService.listByUser(user.getUserSeq())) {
+				interestCompanyNumberList.add(interest.getCompanyNumber());
+			}
+			
+			TimeSeries interestTimeSeries = service.getChartData(interestCompanyNumberList, 1, 1);
+			interestMap.put("interestChart", interestTimeSeries);
 		}
-		
-		TimeSeries interestTimeSeries = service.getChartData(interestCompanyNumberList, 1, 1);
-		interestMap.put("interestChart", interestTimeSeries);
+
 		
 		map = service.getForIndex(holdingList, interestCompanyNumberList, 1);
 		
@@ -112,7 +133,9 @@ public class StockController2 {
 		// 회사 목록
 		model.addAttribute("companyList", companyService.list());
 		// 업종별 거래량 카드
-		model.addAttribute("fieldStock", service.getField());
+		System.out.println("index : " + 3);
+		//model.addAttribute("fieldStock", service.getField());
+		System.out.println("index : " + 4);
 		// 코스피 정보 카드
 		model.addAttribute("kospiMap", service.getKospiChartDate(1));
 		// 상승률 상위 5종목
@@ -120,7 +143,7 @@ public class StockController2 {
 		// 주식 전체 뉴스
 		model.addAttribute("news", service.stockIndexNews());
 
-		System.out.println("index : " + 3);
+		System.out.println("index : " + 5);
 		if(user != null) {
 			// 관심종목 정보
 			interestMap.put("interestList", map.get("interestList"));
@@ -134,8 +157,65 @@ public class StockController2 {
 		// 유저 프로필 위젯
 		// 유저 랭킹 위젯
 		// 관심종목카드
-		System.out.println(map);
+		//System.out.println(map);
 		return "stock/stock-index";
+	}
+	
+	/** 주식 index 화면 요청*/
+	@GetMapping(value="/index/first", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Map<String, Object>>  indexFirst(Model model, HttpServletRequest request) {
+		System.out.println("index....");
+		System.out.println("user : " + request.getSession().getAttribute("user"));
+		User user = (User)request.getSession().getAttribute("user");
+		
+		System.out.println("index : " + 0);
+		List<Holding> holdingList = new ArrayList<>();					/* 보유자산 리스트 */
+		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
+		Map<String, Object> interestMap = new Hashtable<>();			/* 관심종목 Stock리스트와 Chart데이터 */
+		Map<String, Object> holdingWidgetMap = null;					/* 보유자산 total, stockTotal, cashTotal, Holding리스트 */
+		Map<String, Object> map = null;									/* stock 서비스에서 한번에 받아올 정보 : realTime, topTab, 관심종목 Stock리스트, HoldingMap  */
+		
+		System.out.println("indexFirst : " + 1);
+		if(user != null) {
+			holdingList = holdingService.listByUser(user.getUserSeq());
+			for (Interest interest : interestService.listByUser(user.getUserSeq())) {
+				interestCompanyNumberList.add(interest.getCompanyNumber());
+			}
+			
+			TimeSeries interestTimeSeries = service.getChartData(interestCompanyNumberList, 1, 1);
+			interestMap.put("interestChart", interestTimeSeries);
+		}
+
+		// map : realTime, topTab, interestList, holdingWidget
+		map = service.getForIndex(holdingList, interestCompanyNumberList, 1);
+		// 회사 목록
+		map.put("companyList", companyService.list());
+		// 업종별 거래량 카드
+		map.put("fieldStock", service.getField());
+		// 코스피 정보 카드
+		map.put("kospiMap", service.getKospiChartDate(1));
+		// 주식 전체 뉴스
+		map.put("news", service.stockIndexNews());
+		System.out.println("index : " + 3);
+		
+		if(user != null) {
+			// 관심종목 정보
+			interestMap.put("interestList", map.get("interestList"));
+			map.put("interestMap", interestMap);
+			map.remove("interestList");
+			
+			// 내 보유주식 위젯
+			holdingWidgetMap = (Map<String, Object>) map.get("holdingWidget");
+			holdingWidgetMap.put("chasTotal", user.getUserMoney());
+			holdingWidgetMap.put("total", user.getUserMoney() + (Integer)holdingWidgetMap.get("stockTotal"));
+			map.remove("holdingWidget");
+			map.put("holdingWidget", holdingWidgetMap);
+		}
+		// 유저 프로필 위젯
+		// 유저 랭킹 위젯
+		// 관심종목카드
+		System.out.println(map);
+		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	
 	/** 주식 index Update 요청*/
@@ -325,4 +405,5 @@ public class StockController2 {
 		request.getSession().setAttribute("user", newUser);
 		return new ResponseEntity<>(returnValue, HttpStatus.OK);
 	}
+
 }

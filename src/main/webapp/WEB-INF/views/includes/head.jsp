@@ -487,7 +487,7 @@
     background: #ff0095 none repeat scroll 0 0;
 }
 #loader .lading {
-    background-image: url("../images/loading.gif");
+    /*background-image: url("/sos/resources/img/hanati_small.png");*/
     background-position: 50% 50%;
     background-repeat: no-repeat;
     bottom: -40px;

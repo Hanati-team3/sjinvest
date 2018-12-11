@@ -77,11 +77,13 @@
         <%-- 자산 및 수익률 row 시작 --%>
         <div class="row">
           <%-- 자산 카드 시작 --%>
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 total-amount-card">
             <div class="ui-block" data-mh="pie-chart">
               <div class="ui-block-title">
                 <div class="h6 title">보유 자산</div>
-                <a href="#" class="more"><i class="far fa-question-circle"></i></a>
+                <a href="#" class="more">
+                  <i class="far fa-question-circle" data-toggle="tooltip"></i>
+                </a>
               </div>
               
               <div class="ui-block-content">
@@ -250,11 +252,13 @@
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
   <!-- End Include js -->
   
+  <div id='#total-amount-tooltip'>툴팁테스트</div>
+  
   <%-- stock-holding-list js --%>
   <script>
 	var HOLDING = {};	//stock-holding-list 전역변수
   	// interest update를 활성화/중지
-  	HOLDING.flag = true;
+  	HOLDING.flag = false;
   	HOLDING.holdingList = [];
   	HOLDING.cashTotal = 0;
   	HOLDING.totalHoldingChart = document.getElementById("total-holding-chart");
@@ -262,6 +266,15 @@
   	HOLDING.eachHoldingChartElements = [];
   	
 	$(document).ready(function() {
+		
+		/** 각 i 아이콘의 툴팁 설정 */
+		$('.stock-holding-main .total-amount-card .fa-question-circle').tooltip({
+	      html:true,
+	      placement:"bottom",
+	      template : 'aaaaaaa'
+	    });
+		window.item = $('.stock-holding-main .total-amount-card .fa-question-circle');
+		
 		console.log('user : ' + "${sessionScope.user}");
 		HOLDING.cashTotal = ${holdingMap.cashTotal};
 		setHoldingList();
@@ -269,6 +282,7 @@
 		setSlideChart();
 		holdingListUpdate();
 	});
+
 	
 	/* 판매 모달 활성화 */
 	$('#stock_sell_modal').on('show.bs.modal', function(e) {
