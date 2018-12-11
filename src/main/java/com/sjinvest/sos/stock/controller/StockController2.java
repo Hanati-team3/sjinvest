@@ -214,10 +214,10 @@ public class StockController2 {
 		return "stock/stock-interest";
 	}
 	
-	/** 주식 interest 화면 요청*/
+	/** 주식 interest 업데이트 요청*/
 	@GetMapping(value="/interest/update", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<Stock>> interestUpdate(String[] interestCompanyNumberArray) {
-		System.out.println("interestUpdate : array " + interestCompanyNumberArray[0]);
+		System.out.println("interestUpdate : array[0] " + interestCompanyNumberArray[0]);
 		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
 		Map<String, Object> map = new HashMap<>();
 		for (String string : interestCompanyNumberArray) {
@@ -225,6 +225,19 @@ public class StockController2 {
 		}
 		map = service.getForSearchResult(interestCompanyNumberList);
 		return new ResponseEntity<>( (List<Stock>)map.get("stockList"), HttpStatus.OK);
+	}
+	
+	/** 주식 interest 뉴스 요청*/
+	@GetMapping(value="/interest/news", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<News>> interestNews(String[] interestCompanyNumberArray) {
+		System.out.println("interestNews : array[0] " + interestCompanyNumberArray[0]);
+		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
+		List<News> newsList = null;
+		for (String string : interestCompanyNumberArray) {
+			interestCompanyNumberList.add(string);
+		}
+		newsList = service.getEachCompanyNews(interestCompanyNumberList);
+		return new ResponseEntity<>( newsList, HttpStatus.OK);
 	}
 	
 	/** 주식 interest 화면 요청*/
