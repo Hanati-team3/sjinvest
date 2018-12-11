@@ -29,7 +29,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <div class="tab-content" id="tab-content">
             <div class="tab-pane active" id="home-1" role="tabpanel"
               aria-expanded="true">
-              <form method="post" onclick="writeComment(this);">
+              <form method="post">
                 <div class="form-group with-icon label-floating is-empty">
                   <c:choose>
 	                  <c:when test="${user.userId ne null }">
