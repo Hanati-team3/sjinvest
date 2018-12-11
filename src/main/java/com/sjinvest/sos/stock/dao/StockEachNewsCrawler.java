@@ -93,6 +93,9 @@ public class StockEachNewsCrawler {
 		companyNumberList.add("068270");
 		companyNumberList.add("215600");
 		companyNumberList.add("000660");
+		companyNumberList.add("000660");
+		companyNumberList.add("000660");
+		companyNumberList.add("000660");
 		StockEachNewsCrawler senr = new StockEachNewsCrawler();
 		List<News> news = senr.getNews(companyNumberList);
 		for(News thiss : news) {
