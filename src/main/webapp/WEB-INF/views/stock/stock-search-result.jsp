@@ -37,7 +37,7 @@ function getStockData(){
 function addInterest(){
 		$('.add-interest').click(function (e) {
 			e.preventDefault();
-			<c:if test="${not empty userId}">
+			<c:if test="${not empty user}">
     			var thisTag = $(this);
     			if($(this).find("i").hasClass("far")===true){
     				$.ajax({ 
