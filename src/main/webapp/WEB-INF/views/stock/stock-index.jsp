@@ -474,9 +474,6 @@
   
   
   <script>
-  	$(window).load(function() {     
-	  
-	 }); 
   	var INDEX = {};	//stock-index 전역변수
   	INDEX.tabList = ["rising-rate", "falling-rate", "foreigner", "institution", "trading-amount", "total-value"];
   	// index update를 활성화/중지
