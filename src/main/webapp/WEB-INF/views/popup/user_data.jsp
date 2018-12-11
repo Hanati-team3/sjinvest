@@ -77,7 +77,7 @@
                 </a>
               </div>
               <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                <a class="btn btn-secondary btn-lg full-width" style="color:white; padding:0px 0px; padding-top: 10px; padding-bottom: 10px">
+                <a href="javascript:void(0);" class="btn btn-secondary btn-lg full-width" onclick="showPersonal()" style="color:white; padding:0px 0px; padding-top: 10px; padding-bottom: 10px">
                 뉴스피드보기
                 </a>
               </div>

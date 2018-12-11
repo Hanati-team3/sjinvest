@@ -63,11 +63,12 @@ public class SettingController {
 
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
+	
+	@ResponseBody
+	@GetMapping(value = "/update", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> update(HttpSession session, String setFeedNotice, String setTradeNotice, String setPrivacy, String setView) {
+		Map<String, Object> returnData = new HashMap<String, Object>();
 
-	// 다 else 로 빠지는 문제
-	@GetMapping("/update")	
-	public String update(HttpSession session, String setFeedNotice, String setTradeNotice, String setPrivacy, String setView) {
-		
 		log.info("setting.sns.");
 		System.out.println("sns setting 유저번호: "+session.getAttribute("user"));
 		
@@ -105,7 +106,12 @@ public class SettingController {
 		
 		System.out.println("setting업데이트확인 : "+setting);
 		
-		return "redirect:/sns/mypage_index";
+		returnData.put("setFeedNotice", setFeedNotice);
+		returnData.put("setTradeNotice", setTradeNotice);
+		returnData.put("setPrivacy", setPrivacy);
+		returnData.put("setView", setView);
+
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
 	
 	@PostMapping("/reset")	

@@ -526,9 +526,9 @@ function getFollowList(){
 				//console.log(data.followList);
 				for(var i=0; i<data.followList.length; i++){
 					if(i == 0){
-						$('#follow_list').html('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userNickname +'</a></div></li>');
+						$('#follow_list').html('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userId +'</a></div></li>');
 					}else{
-						$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userNickname +'</a></div></li>');
+						$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userId +'</a></div></li>');
 					}
 				}
 			}
@@ -645,7 +645,7 @@ function getFollowerList(){
 		},
 		success: function(data){
 			if(data.fail != null){
-				/* 값이 없는 경우 */
+				$('#follower_list').html('유저가 없습니다.')
 			}else{
 				//console.log(data.followerList);
 				for(var i=0; i<data.followerList.length; i++){
@@ -883,6 +883,27 @@ function appendFollowerEvent(){
 	});
 };
 
+function showPersonal(){
+	
+	console.log("담벼락시작");
+	
+	$.ajax({
+		
+		url : '/sos/sns/personal',
+		type : 'get',
+		data : {
+			userId :this.text
+		},
+		success: function(data){
+
+ 			console.log("성공이냐?");
+		},
+		error : function() {
+	        alert("관리자에게 문의에게 문의해주세요.");
+	    }
+	
+	})
+}
 
 </script>
 
