@@ -149,20 +149,29 @@
               </div>
     
               <ul class="notification-list">
-                <c:forEach var="item" items="${news}" varStatus="status">
-                  <li>
-                    <div class="author-thumb">
-                      <img src="<%=application.getContextPath()%>/resources/img/avatar${status.index+1}-sm.jpg" alt="author">
-                    </div>
-                    <div class="notification-event">
-                      <a href="${item.link}" class="h6 notification-friend">${item.source}</a>
-                      <a href="${item.link}" target="_blank" class="news-title" >${item.title}</a>
-                    </div>
-                    <span class="notification-icon">
-                      <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
-                    </span>
-                  </li>
-                </c:forEach>
+                <c:choose>
+                  <c:when test="${interestNumberList.size() == 0}">
+                    <li style="text-align: center;">
+                      관심종목관련 뉴스가 없습니다.
+                    </li>
+                  </c:when>
+                  <c:otherwise>
+                    <c:forEach var="item" items="${news}" varStatus="status">
+                      <li>
+                        <div class="author-thumb">
+                          <img src="<%=application.getContextPath()%>/resources/img/avatar${status.index+1}-sm.jpg" alt="author">
+                        </div>
+                        <div class="notification-event">
+                          <a href="${item.link}" class="h6 notification-friend">${item.source}</a>
+                          <a href="${item.link}" target="_blank" class="news-title" >${item.title}</a>
+                        </div>
+                        <span class="notification-icon">
+                          <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
+                        </span>
+                      </li>
+                    </c:forEach>
+                  </c:otherwise>
+                </c:choose>
               </ul>
     
             </div>
@@ -218,9 +227,12 @@
     	</c:forEach>
     	console.log("interestNumberArray : " + INTEREST.interestNumberArray );
     	
-    	// index update 호출
+    	
     	if(INTEREST.interestNumberArray.length != 0) {
+	    	// index update 호출
 	    	interestUpdate();
+        	// news 가져오기 호출
+        	getNews();
     	}
     	
     });
@@ -323,6 +335,28 @@
 				$(item).find(".day-before-rate a").removeClass('plus').addClass('minus');
 			}
     	});
+    }
+    
+    /* 관심종목 관련 뉴스 가져오기 */
+    function getNews() {
+		$.ajax({
+			type : "GET",
+			url : "news",
+			dataType : "json",
+	        traditional : true,
+			contentType: "application/json; charset=utf-8",
+			data : { 
+				"interestCompanyNumberArray" : INTEREST.interestNumberArray
+			},
+			success : function(newsList) {
+				console.log("getNews .. ");
+				console.log(newsList);
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		});
     }
   </script>
 
