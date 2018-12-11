@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sjinvest.sos.comment.domain.Comment;
 import com.sjinvest.sos.comment.service.CommentService;
 import com.sjinvest.sos.feed.controller.FeedController;
+import com.sjinvest.sos.feed.service.FeedService;
 import com.sjinvest.sos.user.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -28,13 +29,21 @@ public class CommentController {
 	
 	private CommentService service;
 	private FeedController feedController;
+	private FeedService feedService;
 	
 	@PostMapping("/writing")
-	public ResponseEntity<Map<String,Object>> writing(RedirectAttributes rttr, HttpServletRequest request, Comment comment) {
+	public ResponseEntity<Map<String,Object>> writing(HttpServletRequest request, Comment comment) {
 		log.info("register : "+comment);
 		service.Write(comment);
 		/*return "redirect:/comment/list";*/
 		return feedController.listAll();
 	}
 	
+	@PostMapping("/delete")
+	public ResponseEntity<Map<String,Object>> delete(HttpServletRequest request, Comment comment) {
+		/*System.out.println(comment.getCommentSeq());*/
+		service.deleteComment(comment);
+		/*return "redirect:/comment/list";*/
+		return feedController.listAll();
+	}
 }

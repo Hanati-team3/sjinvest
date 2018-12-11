@@ -37,7 +37,7 @@
       <div class="ui-block">
         <div class="w-search" style="width: 100%;">
           <div class="form-group with-button is-empty">
-            <input id="autocompleteText" class="form-control" type="text" placeholder="캐시/태그/업종/다른유저" onkeypress="if(event.keyCode==13) {searching(); return false;}">
+            <input id="autocompleteText" class="form-control" type="text" placeholder="캐시태그($)/업종(@)/다른유저 검색하기" onkeypress="if(event.keyCode==13) {searching(); return false;}">
             <button id="searchYours" style="background-color: #3f4257;">
               <svg class="olymp-magnifying-glass-icon">
                 <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
@@ -239,14 +239,14 @@ $(document).ready( function() {
 				$('#nickName2').attr("placeholder", data.userData.userNickname);
 				$('#detail2').attr("placeholder", data.userData.userDetail);
 				$('#heartIcon').attr("title", data.userData.userId);
-				console.log(data.isFollow);
 				if(data.isFollow == 'true'){
-					console.log("팔로우");
-					$('#heartIcon').css('backgroud-color', '#ff5e3a');
+					/* console.log("팔로우"); */
+					$('#heartIcon').css('background-color', '#ff5e3a');
 				}else{
-					console.log("no팔로우");
-					$('#heartIcon').css('backgroud-color', '#9a9fbf');
+					$('#heartIcon').css('background-color', '');
+					/* console.log("no팔로우"); */
 				}
+				getFollowList();
 			},
 			error : function() {
 				alert("follow추가 error.");
@@ -463,6 +463,9 @@ function showFeedList(data){
 			var replyTime = $('time[name=replyTime]');
 			var replyContent = $('p[name=replyContent]');
 			var replyImage = $('img[name=replyImage]')
+			var deleteComment = $('a[name=deleteComment]')
+			
+			var moreIconReply = $('div[name=moreIconReply]')
 			for (var k = replyCnt; k < replyCnt + data.feedList[i].feedReplyCnt; k++){
 				//console.log("댓글");
 				var replyLI = $('li[name=commentLI]');
@@ -480,6 +483,18 @@ function showFeedList(data){
 				}else{
 					$(replyImage[k]).attr('src', '/sos/resources/img/author-page.jpg')
 				}
+				
+				if("${user}" != null){
+					var currentUser = "${user.userNickname}";
+					if(currentUser == data.replyUser[k].userNickname){
+						$(moreIconReply[k]).css('display',"");
+						$(deleteComment[k]).attr('id', data.replyList[k].commentSeq);
+						$(deleteComment[k]).attr('title', data.replyList[k].feedSeq);
+					}else{
+						$(moreIconReply[k]).css('display',"none");
+					}
+				}
+				
 				/* $(replyLI[k]).css("display",""); */
 			}
 			replyCnt += data.feedList[i].feedReplyCnt;
@@ -489,10 +504,6 @@ function showFeedList(data){
 	$(replyLI[replyCnt]).css("display", "none"); */
 }
 
-/**
- * 댓글쓰기
- */
- 
  
 /** 
  * 내가 following한 친구목록
@@ -513,7 +524,11 @@ function getFollowList(){
 			}else{
 				//console.log(data.followList);
 				for(var i=0; i<data.followList.length; i++){
-					$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userId +'</a></div></li>');
+					if(i == 0){
+						$('#follow_list').html('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userNickname +'</a></div></li>');
+					}else{
+						$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userNickname +'</a></div></li>');
+					}
 				}
 			}
 			appendFollowEvent();
@@ -591,6 +606,29 @@ function deleteFeed(obj){
 	    }
 	}) 
 }
+/* 댓글 삭제 */
+function deleteComment(obj){
+	var commentSeq = $(obj).attr('id');
+	var feedSeq = $(obj).attr('title');
+	$.ajax({
+		url : '/sos/comment/delete',
+		type : 'post',
+		data : {
+			"commentSeq" : commentSeq,
+			"feedSeq" : feedSeq
+		},
+		dataType:'json',
+		success: function(data){
+			showFeedList(data); 
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	}) 
+}
+
+
+
 /** 
  * 나를 follower한 친구목록
  */
@@ -709,6 +747,13 @@ function userModal(obj){
 			$('#nickName2').attr("placeholder", data.userData.userNickname);
 			$('#detail2').attr("placeholder", data.userData.userDetail);
 			$('#heartIcon').attr("title", data.userData.userId);
+			if(data.isFollow == 'true'){
+				console.log("팔로우");
+				$('#heartIcon').css('background-color', '#ff5e3a');
+			}else{
+				$('#heartIcon').css('background-color', '');
+				console.log("no팔로우");
+			}
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -741,10 +786,10 @@ function appendRankEvent(){
 				
 				if(data.isFollow == 'true'){
 					console.log("팔로우");
-					$('#heartIcon').css('backgroud-color', '#ff5e3a');
+					$('#heartIcon').css('background-color', '#ff5e3a');
 				}else{
+					$('#heartIcon').css('background-color', '');
 					console.log("no팔로우");
-					$('#heartIcon').css('backgroud-color', '#9a9fbf');
 				}
 			},
 			error : function() {
@@ -778,7 +823,13 @@ function appendFollowEvent() {
 				$('#nickName2').attr("placeholder", data.userData.userNickname);
 				$('#detail2').attr("placeholder", data.userData.userDetail);
 				$('#heartIcon').attr("title", data.userData.userId);
-				
+				if(data.isFollow == 'true'){
+					console.log("팔로우");
+					$('#heartIcon').css('background-color', '#ff5e3a');
+				}else{
+					$('#heartIcon').css('background-color', '');
+					console.log("no팔로우");
+				}
 			},
 			error : function() {
 		        alert("관리자에게 문의해주세요.");
@@ -809,7 +860,13 @@ function appendFollowerEvent(){
 				$('#nickName2').attr("placeholder", data.userData.userNickname);
 				$('#detail2').attr("placeholder", data.userData.userDetail);
 				$('#heartIcon').attr("title", data.userData.userId);
-				
+				if(data.isFollow == 'true'){
+					console.log("팔로우");
+					$('#heartIcon').css('background-color', '#ff5e3a');
+				}else{
+					$('#heartIcon').css('background-color', '');
+					console.log("no팔로우");
+				}
 				
 			},
 			error : function() {

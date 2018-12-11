@@ -210,9 +210,9 @@ public class UserController {
 		Follow follow = new Follow();
 		follow.setFollowUserSeq(user.getUserSeq());
 		follow.setUserSeq(followUserSeq);
-		System.out.println(followService.checkFollow(follow));
+		/*System.out.println(followService.checkFollow(follow));
 		System.out.println(follow.getUserSeq());
-		System.out.println(follow.getFollowUserSeq());
+		System.out.println(follow.getFollowUserSeq());*/
 		if(followService.checkFollow(follow) != 0) {
 			returnData.put("isFollow", "true");
 		}else {

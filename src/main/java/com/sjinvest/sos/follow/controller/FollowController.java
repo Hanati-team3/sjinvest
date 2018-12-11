@@ -62,9 +62,9 @@ public class FollowController {
 		User followUser = userService.readById(followUserId);	//나 자신
 		follow.setFollowUserSeq(followUser.getUserSeq());
 		
-		System.out.println("생성?" + service.checkFollow(follow));
+		/*System.out.println("생성?" + service.checkFollow(follow));
 		System.out.println(follow.getUserSeq());
-		System.out.println(follow.getFollowUserSeq());
+		System.out.println(follow.getFollowUserSeq());*/
 		if(service.checkFollow(follow) != 0) {
 			service.deleteFollow(follow);
 		}else {
