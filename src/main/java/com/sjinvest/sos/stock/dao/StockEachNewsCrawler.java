@@ -24,6 +24,7 @@ public class StockEachNewsCrawler {
 		List<News> result = new ArrayList<News>();
 		for (int i = 0; i < companyList.size(); i++) {
 			String companyNumber = companyList.get(i);
+			try {
 			JsonNode company = jsonMap.get(companyNumber);
 			List<News> eachCompanyNewsList = new ArrayList<News>();
 			for (JsonNode objNode : company) {
@@ -36,6 +37,9 @@ public class StockEachNewsCrawler {
 				eachCompanyNewsList.add(news);
 			}
 			result = union(result, eachCompanyNewsList);
+			}catch (Exception e) {
+				break;
+			}
 		}
 		Collections.sort(result, new Comparator<News>() {
 			@Override
@@ -92,9 +96,6 @@ public class StockEachNewsCrawler {
 		companyNumberList.add("008350");
 		companyNumberList.add("068270");
 		companyNumberList.add("215600");
-		companyNumberList.add("000660");
-		companyNumberList.add("000660");
-		companyNumberList.add("000660");
 		companyNumberList.add("000660");
 		StockEachNewsCrawler senr = new StockEachNewsCrawler();
 		List<News> news = senr.getNews(companyNumberList);

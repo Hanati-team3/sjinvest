@@ -47,6 +47,7 @@
 		       notice_type 
 		FROM   notice 
 		WHERE  user_seq = #{value}
+		ORDER BY notice_date DESC
 	</select>
 	<!-- 특정 유저 알림 삭제 -->
 	<delete id="deleteNoticeByUser" parameterType="Integer">

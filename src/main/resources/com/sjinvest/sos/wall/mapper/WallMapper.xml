@@ -34,7 +34,7 @@
 		<if test="wallShareCnt != 0">
 			wall_share_count,
 		</if>
-		<if test="feedReplyCnt != 0">
+		<if test="wallReplyCnt != 0">
 			wall_reply_count,
 		</if>
 		<if test="wallPicture != null">
@@ -43,7 +43,7 @@
 		<if test="wallOriginalSeq != 0">
 			wall_original_seq,
 		</if>
-		writerUserSeq,
+		writer_user_seq,
 		wall_content
 		)
 		VALUES
@@ -111,10 +111,10 @@
 	<update id="increaseReply" parameterType="Wall">
 		UPDATE wall
 		SET wall_reply_count = wall_reply_count + #{wallReplyCnt}
-	    WHERE feed_seq = #{wallSeq}
+	    WHERE wall_seq = #{wallSeq}
 	</update>
 	<!-- 담벼락 공유 증감 -->
-	<update id="increaseShare" parameterType="Feed">
+	<update id="increaseShare" parameterType="Wall">
 		UPDATE wall
 		SET wall_share_count = wall_share_count + #{wallShareCnt}
 	    WHERE wall_seq = #{wallSeq}
@@ -134,5 +134,47 @@
 		       writer_user_seq 
 		FROM   wall
 		ORDER  BY wall_regdate desc
+	</select>
+	<!-- 피드 검색 및 페이징 처리 -->
+	<select id="listByUser" parameterType="Map" resultType="Wall" resultMap="wallResultMap">
+		SELECT B.wall_seq, 
+               B.user_seq, 
+               B.wall_regdate, 
+               B.wall_update_date, 
+	           B.wall_content, 
+	           B.wall_like_count, 
+	           B.wall_share_count, 
+	           B.wall_reply_count, 
+	           B.wall_picture, 
+	           B.wall_original_seq, 
+		       B.writer_user_seq  
+		FROM  (SELECT /*+INDEX_DESC(A wall_seq)*/ ROWNUM AS rnum, 
+		                                          A.wall_seq, 
+		                                          A.user_seq, 
+		                                          A.wall_regdate, 
+		                                          A.wall_update_date, 
+		                                          A.wall_content, 
+		                                          A.wall_like_count, 
+		                                          A.wall_share_count, 
+		                                          A.wall_reply_count, 
+		                                          A.wall_picture, 
+		                                          A.wall_original_seq, 
+		                                          A.writer_user_seq 
+		       FROM  (SELECT wall_seq, 
+		                     user_seq, 
+		                     wall_regdate, 
+		                     wall_update_date, 
+		                     wall_content, 
+		                     wall_like_count, 
+		                     wall_share_count, 
+		                     wall_reply_count, 
+		                     wall_picture, 
+		                     wall_original_seq, 
+		                     writer_user_seq 
+		              FROM   wall 
+		              WHERE  user_seq = #{userSeq}
+		              ORDER  BY wall_seq DESC) A 
+		       WHERE  ROWNUM <![CDATA[<=]]> #{endNum}) B 
+		WHERE  B.rnum <![CDATA[>=]]> #{startNum} 
 	</select>
 </mapper>

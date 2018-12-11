@@ -823,6 +823,7 @@ function appendFollowerEvent(){
 	});
 };
 
+
 function modal(data){
 	$('#id2').replaceWith('<a href="#" id="id2" class="h4 author-name">'+ data.userData.userId +'</a>');
 	$('#email2').replaceWith('<div class="email" id="email2">'+ data.userData.userEmail +'</div>');
@@ -847,7 +848,30 @@ function modal(data){
 		$('#heartIcon').css('background-color', '');
 		console.log("no팔로우");
 	}
-}
+};
+
+/* function showPersonal(){
+	
+	console.log("담벼락시작");
+	
+	$.ajax({
+		
+		url : '/sos/sns/personal',
+		type : 'get',
+		data : {
+			
+		},
+		success: function(data){
+
+ 			console.log("성공이냐?");
+		},
+		error : function() {
+	        alert("관리자에게 문의에게 문의해주세요.");
+	    }
+	
+	})
+
+} */
 
 
 </script>

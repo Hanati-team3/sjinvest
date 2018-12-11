@@ -149,26 +149,30 @@
               </div>
     
               <ul class="notification-list">
-                  <c:if test="${interestNumberList.size() == 0}">
-                    <li style="text-align: center;">
-                      관심종목관련 뉴스가 없습니다.
-                    </li>
-                  </c:if>
-                    <c:forEach var="item" items="${news}" varStatus="status">
-                      <li>
-                        <div class="author-thumb">
-                          <img src="<%=application.getContextPath()%>/resources/img/avatar${status.index+1}-sm.jpg" alt="author">
-                        </div>
-                        <div class="notification-event">
-                          <a href="${item.link}" class="h6 notification-friend">${item.source}</a>
-                          <a href="${item.link}" target="_blank" class="news-title" >${item.title}</a>
-                        </div>
-                        <span class="notification-icon">
-                          <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
-                        </span>
-                      </li>
-                    </c:forEach>
-
+                <c:if test="${interestNumberList.size() == 0}">
+                  <li style="text-align: center;">
+                    관심종목관련 뉴스가 없습니다.
+                  </li>
+                </c:if>
+                
+                <li style="padding:35px 0px;">
+                <div class="container">
+                  <div class="row">
+                    <div id="loader">
+                        <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="lading"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                </li>
               </ul>
     
             </div>
@@ -220,10 +224,18 @@
     $(document).ready(function() {
     	console.log("${interestStockList}");
     	<c:forEach var="number" items="${interestNumberList}" varStatus="status">
-    	INTEREST.interestNumberArray.push("${number}");
+  		INTEREST.interestNumberArray.push("${number}");
     	</c:forEach>
     	console.log("interestNumberArray : " + INTEREST.interestNumberArray );
     	
+    	// 관심종목 제거 버튼 마우스 오버 이벤트
+        $('.remove-interest i').mouseenter(function(){
+         	$(this).removeClass('fas').addClass('far');
+        });
+        $('.remove-interest i').mouseleave(function(){
+         	$(this).removeClass('far').addClass('fas');
+        });
+    		  
     	
     	if(INTEREST.interestNumberArray.length != 0) {
 	    	// index update 호출
@@ -310,27 +322,43 @@
     	}
     }
   
+    /** interest table의 데이터 설정 */
     function setInterestData(interestData) {
     	if(interestData.length != $(".forums-table tbody tr").length) return;
     	$(".forums-table tbody tr").each(function(index, item){
     		$(item).find(".company-number a").text(interestData[index].stockCode);
     		$(item).find(".company-name a").text(interestData[index].stockName);
     		$(item).find(".company-name time").text(interestData[index].fieldName);
-    		$(item).find(".stock-price a").text(interestData[index].stockPrice.toLocaleString());
+    		
+    		var prevPrice = Number($(item).find(".stock-price a").text().replace(",", ""));
+    		var currentPrice = Number(interestData[index].stockPrice);
+    		var icon = "";
+    		
     		$(item).find(".trading-amount a").text(interestData[index].stockVolume.toLocaleString());
     		$(item).find(".day-before a").text(interestData[index].stockChange);
     		$(item).find(".day-before-rate a").text(interestData[index].stockDiff);
 			
+    		// 등락률에 따라 빨간색 파란색
     		if(interestData[index].stockDiff > 0) {
+    			icon = "<i class='fas fa-caret-up'></i>&nbsp;"
 				$(item).find(".stock-price a").removeClass('minus').addClass('plus');
 				$(item).find(".day-before a").removeClass('minus').addClass('plus');
 				$(item).find(".day-before-rate a").removeClass('minus').addClass('plus');
 			}
-			else {
+			else if(interestData[index].stockDiff < 0){
+    			icon = "<i class='fas fa-caret-down'></i>&nbsp;"
 				$(item).find(".stock-price a").removeClass('plus').addClass('minus');
 				$(item).find(".day-before a").removeClass('plus').addClass('minus');
 				$(item).find(".day-before-rate a").removeClass('plus').addClass('minus');
 			}
+			else {
+    			icon = "";
+				$(item).find(".stock-price a").removeClass('plus').removeClass('minus');
+				$(item).find(".day-before a").removeClass('plus').removeClass('minus');
+				$(item).find(".day-before-rate a").removeClass('plus').removeClass('minus');
+			}
+    		
+  	    	$(item).find(".stock-price a").html(icon + interestData[index].stockPrice.toLocaleString());
     	});
     }
     
@@ -348,7 +376,11 @@
 			success : function(newsList) {
 				console.log("getNews .. ");
 				console.log(newsList);
-				for(var i = 0; i < newsList.length; i++) {
+				$('.stock-index-news .ui-block ul').empty();
+				// 최대 10개의 뉴스 표시
+				var max = 10;
+				if(newsList.length < 10) max = newsList.length;
+				for(var i = 0; i < max; i++) {
 					var $tempLi = $('<li></li>');
 					var $imgDiv = $(
 							"<div class=\"author-thumb\">\r\n" + 
@@ -366,7 +398,7 @@
 					$($tempLi).append($imgDiv);
 					$($tempLi).append($titleDiv);
 					$($tempLi).append($dateSpan);
-					$('.stock-index-news ul').append($tempLi);
+					$('.stock-index-news .ui-block ul').append($tempLi);
 				}
 			},
 			error : function(request, status, error) {

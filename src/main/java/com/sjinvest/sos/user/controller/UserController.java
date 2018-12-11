@@ -62,8 +62,8 @@ public class UserController {
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String,Object>> login(HttpSession session, String userId, String userPw) {
 		
-		log.info("login : "+ userId);
-		log.info("login : "+ userPw);
+		//log.info("login : "+ userId);
+		//log.info("login : "+ userPw);
 		
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		
@@ -204,7 +204,8 @@ public class UserController {
 	@PostMapping(value = "/data", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String,Object>> userData(String userId, int followUserSeq) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
-		/*System.out.println("유저 이름 클릭시 아이디: "+userId);*/
+		//System.out.println("유저 이름 클릭시 아이디: "+userId);
+		//System.out.println("유저 이름 클릭시 seq: "+followUserSeq);
 		User user = service.readById(userId);
 		returnData.put("userData", user);
 		Follow follow = new Follow();

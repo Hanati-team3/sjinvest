@@ -69,16 +69,16 @@ textScroll.prototype.start = function() {
 
 <!-- li 엘리먼트들이 position:absolute 되므로 ul 엘리먼트에는 height 값이 있어야 합니다 --> 
 <ul id="scroll">
-    <li><a href="">1 &nbsp; &nbsp; 삼성전자</a></li>
-    <li><a href="">2 &nbsp; &nbsp; SK하이닉스</a></li>
-    <li><a href="">3 &nbsp; &nbsp; 하나금융지주</a></li>
-    <li><a href="">4 &nbsp; &nbsp; 대한항공</a></li>
-    <li><a href="">5 &nbsp; &nbsp; NAVER</a></li>
-    <li><a href="">6 &nbsp; &nbsp; 현대자동차</a></li>
-    <li><a href="">7 &nbsp; &nbsp; LG디스플레이</a></li>
-    <li><a href="">8 &nbsp; &nbsp; 한국전력</a></li>
-    <li><a href="">9 &nbsp; &nbsp; KT</a></li>
-    <li><a href="">10 &nbsp; &nbsp; 한화</a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
 </ul>
 
 <script type="text/javascript">

@@ -77,31 +77,32 @@ public class SettingController {
 		
 		Setting setting = new Setting();
 		
-		if(setFeedNotice == "ON") {
+		if(setFeedNotice != null) {
 			setting.setSetFeedNotice(1);
 		}else {
 			setting.setSetFeedNotice(2);
 		}
 
-		if(setTradeNotice == "ON") {
+		if(setTradeNotice != null) {
 			setting.setSetTradeNotice(1);			
 		}else {
 			setting.setSetTradeNotice(2);			
 		}
 		
-		if(setPrivacy == "ON") {
+		if(setPrivacy != null) {
 			setting.setSetPrivacy(1);
 		}else{
 			setting.setSetPrivacy(2);
 		}
 		
-		if(setView == "ON") {
+		if(setView != null) {
 			setting.setSetView(1);
 		}else {
 			setting.setSetView(2);
 		}
 		
 		setting.setUserSeq(userSeq);
+		
 		service.update(setting);
 		
 		System.out.println("setting업데이트확인 : "+setting);
@@ -111,6 +112,7 @@ public class SettingController {
 		returnData.put("setPrivacy", setPrivacy);
 		returnData.put("setView", setView);
 
+		// 리턴값을 어디로 보내줘야 그값을 그대로 화면에 보여줄지?
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
 	

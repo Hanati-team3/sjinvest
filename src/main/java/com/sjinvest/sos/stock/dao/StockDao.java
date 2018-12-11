@@ -163,16 +163,13 @@ public class StockDao {
         }
         return stockMiniList;
 	}
-	public List<String[]> convertField(JsonNode jsonMap){
-        JsonNode fields = jsonMap.get("field");
+	public List<String[]> convertField(JsonNode jsonMap, List<String> fieldNameList){
         List<String[]> fieldList = new ArrayList<String[]>();
-        if(fields.isArray()) {
-        	for(JsonNode objNode : fields) {
-        		String[] temp = new String[2];
-        		temp[0] = (objNode.get("name").asText());
-        		temp[1] = (objNode.get("volume").asText());
-        		fieldList.add(temp);
-        	}
+        for(String fieldName : fieldNameList) {
+    		String[] temp = new String[2];
+    		temp[0] = fieldName;
+    		temp[1] = jsonMap.get(fieldName).asText();
+    		fieldList.add(temp);
         }
         return fieldList;
 	}
@@ -442,7 +439,7 @@ public class StockDao {
 		}
 		return null;
 	}
-	public List<String[]> getField() {
+	public List<String[]> getField(List<String> fieldNameList) {
 		String apiURL = "http://54.180.117.83:8005/stock/field";
 		String urlString = apiURL + "";
 		System.out.println(urlString);
@@ -453,7 +450,7 @@ public class StockDao {
             InputStream in = urlConnection.getInputStream();
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonMap = mapper.readTree(in);
-            return convertField(jsonMap);
+            return convertField(jsonMap, fieldNameList);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -469,7 +466,15 @@ public class StockDao {
 		companyList.add("086790");
 		companyList.add("004170");
 //		System.out.println(stockDao.getChartDataWithKospi(companyList, "20181208", "20181208", 1,"20181201","20181208",2));
-		List<String[]> fields = stockDao.getField();
-		System.out.println(fields.get(0)[0] + " " + fields.get(0)[1]);
+		List<String> fieldNameList = new ArrayList<String>();
+		fieldNameList.add("IT/게임");
+		fieldNameList.add("은행");
+		fieldNameList.add("화장품");
+		fieldNameList.add("쇼핑/백화점");
+		fieldNameList.add("자동차");
+		List<String[]> fields = stockDao.getField(fieldNameList);
+		for(String[] temp : fields) {
+			System.out.println(temp[0] + " " + temp[1]);
+		}
 	}
 }
