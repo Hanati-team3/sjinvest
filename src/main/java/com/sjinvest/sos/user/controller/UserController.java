@@ -62,8 +62,8 @@ public class UserController {
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String,Object>> login(HttpSession session, String userId, String userPw) {
 		
-		log.info("login : "+ userId);
-		log.info("login : "+ userPw);
+		//log.info("login : "+ userId);
+		//log.info("login : "+ userPw);
 		
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		
