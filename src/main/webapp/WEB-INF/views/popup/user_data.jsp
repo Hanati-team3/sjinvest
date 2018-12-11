@@ -52,10 +52,8 @@
 
         <div class="control-block-button post-control-button">
   
-          <a id="heartIcon" class="btn btn-control"> 
-          	<svg class="olymp-like-post-icon">
-            	<use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-like-post-icon"></use>
-            </svg>
+          <a name="heartIcon" href="#" class="btn btn-control" onclick="userFollow()"> <svg class="olymp-like-post-icon">
+            <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-like-post-icon"></use></svg>
           </a>
   
         </div>

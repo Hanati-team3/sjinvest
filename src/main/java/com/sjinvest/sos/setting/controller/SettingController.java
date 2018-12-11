@@ -64,48 +64,46 @@ public class SettingController {
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
 
-	// call stack size 오류.. 
+	// 다 else 로 빠지는 문제
 	@GetMapping("/update")	
-	public String update(HttpSession session, Setting setting) {
+	public String update(HttpSession session, String setFeedNotice, String setTradeNotice, String setPrivacy, String setView) {
 		
 		log.info("setting.sns.");
-		System.out.println("sns setting 유저번호?????: "+session.getAttribute("user"));
+		System.out.println("sns setting 유저번호: "+session.getAttribute("user"));
 		
 		User user = (User)session.getAttribute("user");
 		int userSeq = user.getUserSeq();
 		
-		int setFeedNotice2 = 2;
-		int setTradeNotice2 = 2;
-		int setPrivacy2 = 2;
-		int setView2 = 2;
+		Setting setting = new Setting();
 		
-		
-		System.out.println("setting : "+setting);
-		
-		
-		/*if(setting.setFeedNotice == "ON") {
-			setFeedNotice2 = 1;
+		if(setFeedNotice == "ON") {
+			setting.setSetFeedNotice(1);
+		}else {
+			setting.setSetFeedNotice(2);
 		}
-		
+
 		if(setTradeNotice == "ON") {
-			setTradeNotice2 = 1;
+			setting.setSetTradeNotice(1);			
+		}else {
+			setting.setSetTradeNotice(2);			
 		}
 		
 		if(setPrivacy == "ON") {
-			setPrivacy2 = 1;
+			setting.setSetPrivacy(1);
+		}else{
+			setting.setSetPrivacy(2);
 		}
 		
 		if(setView == "ON") {
-			setView2 = 1;
-		}*/
+			setting.setSetView(1);
+		}else {
+			setting.setSetView(2);
+		}
 		
-		setting.setSetFeedNotice(setFeedNotice2);
-		setting.setSetFeedNotice(setTradeNotice2);
-		setting.setSetFeedNotice(setPrivacy2);
-		setting.setSetFeedNotice(setView2);
+		setting.setUserSeq(userSeq);
+		service.update(setting);
 		
-		boolean result = service.update(setting);
-		System.out.println("sns업데이트확인"+ setting);
+		System.out.println("setting업데이트확인 : "+setting);
 		
 		return "redirect:/sns/mypage_index";
 	}
