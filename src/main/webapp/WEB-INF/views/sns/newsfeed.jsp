@@ -363,6 +363,19 @@ function showFeedList(data){
 		$(nickname[i]).attr('href', 'temp'+i)	/* 변경 필요 */
 		var time = $('time[name=postWriteDate]');
 		$(time[i]).text(data.feedList[i].feedRegdate);
+		var content = $('p[name=feedContent]');
+		$(content[i]).text(data.feedList[i].feedContent);
+		var like = $('span[name=feedLike]')
+		$(like[i]).text(data.feedList[i].feedLikeCnt);
+		var feedImage = $('img[name=feedImage]')
+		if(data.feedList[i].feedPicture != null){
+			$(feedImage[i]).attr('src', "/sos/resources/img/"+data.feedList[i].feedPicture);
+			$(feedImage[i]).css('display', "");
+		}else{
+			$(feedImage[i]).attr('src', "");
+			$(feedImage[i]).css('display', "none");
+			
+		}
 		
 		var content = $('div[name=feedContent]');
 		var newContent = data.feedList[i].feedContent;

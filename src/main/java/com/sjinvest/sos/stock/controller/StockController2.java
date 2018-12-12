@@ -143,7 +143,19 @@ public class StockController2 {
 	
 	/** 주식 index 화면 요청(모델 없이 화면만 전달)*/
 	@GetMapping(value="/indexs", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public String indexSimple(Model model, HttpServletRequest request) {
+	public String indexSimple(HttpServletRequest request, Model model) {
+		// 관심종목 슬라이드 세팅을 위해 관심종목 길이만 전달
+		User user = (User)request.getSession().getAttribute("user");
+		if(user != null) {
+			model.addAttribute("interestList", interestService.listByUser(user.getUserSeq()));
+		}
+		return "temp/stock-index-test";
+	}
+	
+	/** 주식 index 화면에 필요한 초기 데이터 요청*/
+	@GetMapping(value="/indexs/first", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Map<String, Object>> indexSimpleFirst(HttpServletRequest request) {
+		
 		System.out.println("index....");
 		System.out.println("user : " + request.getSession().getAttribute("user"));
 		User user = (User)request.getSession().getAttribute("user");
@@ -153,56 +165,143 @@ public class StockController2 {
 		List<String> interestCompanyNumberList = new ArrayList<>();		 /* 관심종목에 있는 종목 번호 리스트  */
 		Map<String, Object> interestMap = new Hashtable<>();	 /* 관심종목 Stock리스트와 Chart데이터  */
 		Map<String, Object> holdingWidgetMap = null;			 /* 보유자산 total, stockTotal, cashTotal, Holding리스트  */
-		Map<String, Object> map = null;							 /* stock 서비스에서 한번에 받아올 정보 : realTime, topTab, 관심종목 Stock리스트, HoldingMap  */ 
-		
-		//new Thread(new InterestChartThread(interestMap, interestCompanyNumberList)).start();
+		Map<String, Object> map = null;							 /* stock 서비스에서 한번에 받아올 정보 : realTime, topTab, 관심종목 Stock리스트, HoldingMap  */
+		Map<String, Object> returnMap = new HashMap<String,Object>();
+		Thread chartThread = null;
+		Thread forIndexThread = null;
+		Thread fieldThread = null;
 		
 		System.out.println("index : " + 1);
+		returnMap.put("companyList", companyService.list());
+		returnMap.put("kospiMap", service.getKospiChartDate(1));
+		System.out.println("index : " + 2);
+		
 		if(user != null) {
+			System.out.println("index : " + 2.1);
 			holdingList = holdingService.listByUser(user.getUserSeq());
 			for (Interest interest : interestService.listByUser(user.getUserSeq())) {
 				interestCompanyNumberList.add(interest.getCompanyNumber());
 			}
-			
-			TimeSeries interestTimeSeries = service.getChartData(interestCompanyNumberList, 1, 1);
-			interestMap.put("interestChart", interestTimeSeries);
 		}
-
 		
-		map = service.getForIndex(holdingList, interestCompanyNumberList, 1);
-		
-		System.out.println("index : " + 2);
-		// realtime
-		model.addAttribute("realTime", map.get("realTime"));
-		// 회사 목록
-		model.addAttribute("companyList", companyService.list());
-		// 업종별 거래량 카드
+		chartThread = new Thread(new ChartThread(interestMap, interestCompanyNumberList, returnMap));
+		chartThread.start();
 		System.out.println("index : " + 3);
-		model.addAttribute("fieldStock", service.getField());
+		
+		forIndexThread = new Thread(new ForIndexThreadS(returnMap, map, holdingList, interestCompanyNumberList,interestMap, holdingWidgetMap, user));
+		System.out.println("index : " + 3.5);
+		fieldThread = new Thread(new FieldThreadS(returnMap));
+		
+		
 		System.out.println("index : " + 4);
-		// 코스피 정보 카드
-		model.addAttribute("kospiMap", service.getKospiChartDate(1));
-		// 상승률 상위 5종목
-		model.addAttribute("topTab", map.get("topTab"));
-		// 주식 전체 뉴스
-		//model.addAttribute("news", service.stockIndexNews());
-
+		forIndexThread.start();
 		System.out.println("index : " + 5);
-		if(user != null) {
-			// 관심종목 정보
-			interestMap.put("interestList", map.get("interestList"));
-			model.addAttribute("interestMap", interestMap);
-			// 내 보유주식 위젯
-			holdingWidgetMap = (Map<String, Object>) map.get("holdingWidget");
-			holdingWidgetMap.put("chasTotal", user.getUserMoney());
-			holdingWidgetMap.put("total", user.getUserMoney() + (Integer)holdingWidgetMap.get("stockTotal"));
-			model.addAttribute("holdingWidget", holdingWidgetMap);
+		fieldThread.start();
+		System.out.println("index : " + 6);
+		
+		try {
+			fieldThread.join();
+			System.out.println("index : " + 7);
+			forIndexThread.join();
+			System.out.println("index : " + 8);
+			chartThread.join();
+			System.out.println("index : " + 9);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		// 유저 프로필 위젯
-		// 유저 랭킹 위젯
-		// 관심종목카드
-		//System.out.println(map);
-		return "temp/stock-index-test";
+		System.out.println("index : " + 8);
+		
+		// 모델에 다 들어감
+		System.out.println("returnMap : " + returnMap);
+		
+		
+		return new ResponseEntity<>(returnMap, HttpStatus.OK);
+	}
+	
+	/** 관심종목의 차트를 interestChartMap에 담는 쓰레드 */
+	private class ChartThread implements Runnable {	
+		Map<String, Object> interestMap;	 
+		List<String> interestCompanyNumberList;
+		Map<String, Object> resultMap;
+		
+		@Override
+		public void run(){
+			if(interestCompanyNumberList.size() == 0) {
+				interestMap.put("interestChart", new TimeSeries());
+			}
+			else {
+				Map<String, Object> chartMap = service.getChartDataWithKospi(interestCompanyNumberList, 1);
+				interestMap.put("interestChart", chartMap.get("chart"));
+				resultMap.put("kospiChart", chartMap.get("kospiChart"));
+			}
+			System.out.println("InterestChartThread END...");
+		}
+		public ChartThread(Map<String, Object> interestMap, List<String> interestCompanyNumberList, Map<String, Object> resultMap ) {
+			this.interestMap = interestMap;
+			this.interestCompanyNumberList = interestCompanyNumberList;
+			this.resultMap = resultMap;
+		}
+	}
+	
+	/** 업종정보 쓰레드 */
+	private class FieldThreadS implements Runnable {
+		Map<String, Object> returnMap;
+		
+		@Override
+		public void run(){
+			returnMap.put("fieldStock", service.getField());
+			System.out.println("FieldThread END...");
+			System.out.println("FieldThread returnMap : " + returnMap);
+		}
+		public FieldThreadS(Map<String, Object> map) {
+			this.returnMap = map;
+		}
+	}
+	
+	/** 관심종목의 차트를 interestChartMap에 담는 쓰레드 */
+	private class ForIndexThreadS implements Runnable {	
+		Map<String, Object> returnMap;
+		Map<String, Object> map = null;
+		List<Holding> holdingList = new ArrayList<>();					 /* 보유자산 리스트 */
+		List<String> interestCompanyNumberList = new ArrayList<>();		 /* 관심종목에 있는 종목 번호 리스트  */
+		Map<String, Object> interestMap = new Hashtable<>();	 /* 관심종목 Stock리스트와 Chart데이터  */
+		Map<String, Object> holdingWidgetMap = null;			 /* 보유자산 total, stockTotal, cashTotal, Holding리스트  */
+		User user;
+		
+		@Override
+		public void run(){
+			System.out.println("ForIndexThreadS 1");
+			map = service.getForIndex(holdingList, interestCompanyNumberList, 1);
+			returnMap.put("realTime", map.get("realTime"));
+			returnMap.put("topTab", map.get("topTab"));
+
+			System.out.println("ForIndexThreadS 2");
+			if(user != null) {
+				System.out.println("ForIndexThreadS 3");
+				interestMap.put("interestList", map.get("interestList"));
+				returnMap.put("interestMap",interestMap);
+				
+				holdingWidgetMap = (Map<String, Object>) map.get("holdingWidget");
+				holdingWidgetMap.put("chasTotal", user.getUserMoney());
+				holdingWidgetMap.put("total", user.getUserMoney() + (Integer)holdingWidgetMap.get("stockTotal"));
+				returnMap.put("holdingWidget", holdingWidgetMap);
+				System.out.println("ForIndexThreadS 4");
+			}
+			
+			System.out.println("ForIndexThread returnMap : " + returnMap);
+			System.out.println("ForIndexThread END...");
+			
+		}
+		public ForIndexThreadS(Map<String, Object> returnMap, Map<String, Object> map, List<Holding> holdingList, List<String> interestCompanyNumberList,Map<String, Object> interestMap, Map<String, Object> holdingWidgetMap, User user) {
+			this.returnMap = returnMap;
+			this.map = map;
+			this.holdingList = holdingList;
+			this.interestCompanyNumberList = interestCompanyNumberList;
+			this.interestMap = interestMap;
+			this.holdingWidgetMap = holdingWidgetMap;
+			this.user = user;
+		}
 	}
 	
 	/** 관심종목의 차트를 interestChartMap에 담는 쓰레드 */
@@ -221,7 +320,7 @@ public class StockController2 {
 			this.interestCompanyNumberList = interestCompanyNumberList;
 		}
 	}
-	
+
 	/** 업종정보 쓰레드 */
 	private class FieldThread implements Runnable {
 		Model model;
@@ -252,7 +351,7 @@ public class StockController2 {
 			map = service.getForIndex(holdingList, interestCompanyNumberList, 1);
 			model.addAttribute("realTime", map.get("realTime"));
 			model.addAttribute("topTab", map.get("topTab"));
-
+			
 			if(user != null) {
 				interestMap.put("interestList", map.get("interestList"));
 				model.addAttribute("interestMap",interestMap);

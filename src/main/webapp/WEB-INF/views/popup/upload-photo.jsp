@@ -24,6 +24,10 @@
       <svg class="olymp-photos-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-photos-icon"></use></svg>
       <h6>주식정보공유</h6>
       <span>Choose from my stock</span>
+<form action="/sos/feed/updateImage" method="post">
+    <input type="file" value="파일선택" name="file2"/>
+    <input type="submit" value="공유하기" />
+</form>      
     </a>
   </div>
 </div>

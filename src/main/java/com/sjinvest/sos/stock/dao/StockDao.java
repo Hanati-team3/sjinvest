@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -137,6 +138,16 @@ public class StockDao {
         }
         return result;
 	}
+	public Kospi convertKospiInpo(JsonNode jsonMap) {
+        JsonNode kospiNode = jsonMap.get("kospi");
+        Kospi kospi = new Kospi();
+        kospi.setHigh(kospiNode.get(0).get("high").asDouble());
+        kospi.setPrice(kospiNode.get(0).get("price").asDouble());
+        kospi.setLow(kospiNode.get(0).get("low").asDouble());
+        kospi.setLastPrice(kospiNode.get(0).get("lastPrice").asDouble());
+        kospi.setVolume(kospiNode.get(0).get("volume").asInt());
+        return kospi;
+	}
 	public List<Stock> convertStockList(JsonNode jsonMap,String nodeName){
         JsonNode ownStock = jsonMap.get(nodeName);
         List<Stock> stockList = new ArrayList<Stock>();
@@ -239,24 +250,49 @@ public class StockDao {
         JsonNode com = jsonMap.get("com");
         TimeSeries timeSeries = new TimeSeries();
         Map<String, List<Double>> datas = new HashMap<String, List<Double>>();
-        boolean first =true;
         int index = 0;
         for(JsonNode objNode : com) {
         	System.out.println(objNode);
             List<String> dataName = new ArrayList<String>();
-        	List<Double> data = new ArrayList<Double>();
+            List<String> label = new ArrayList<String>();
+            List<Double> data = new ArrayList<Double>();
+        	int innerIndex = 0;
         	for(JsonNode objInNode : objNode) {
         		data.add(objInNode.get("close").asDouble());
         		if(type == 1) {
-            		dataName.add(objInNode.get("date").asText().substring(0,4));
-        		}else {
-            		dataName.add(objInNode.get("date").asText());
+            		dataName.add("'"+objInNode.get("date").asText().substring(0,2)+":"+objInNode.get("date").asText().substring(2,3)+"0'");
+            		if(innerIndex%5 == 0) {
+                		label.add("'"+objInNode.get("date").asText().substring(0,2)+":"+objInNode.get("date").asText().substring(2,3)+"0'");
+            		}else {
+            			label.add("");
+            		}
+        		}else if(type == 2){
+            		dataName.add("'"+objInNode.get("date").asText().substring(4, 6)+"월"+objInNode.get("date").asText().substring(6, 8)+"일'");
+            		label.add("'"+objInNode.get("date").asText().substring(4, 6)+"월"+objInNode.get("date").asText().substring(6, 8)+"일'");
+        		}else if(type == 3){
+        			String YYYY = objInNode.get("date").asText().substring(0, 4);
+        			String MM = objInNode.get("date").asText().substring(4, 6);
+        			String DD = objInNode.get("date").asText().substring(6, 8);
+        			int year = Integer.parseInt(YYYY);
+        			int month = Integer.parseInt(MM)-1;
+        			int day = Integer.parseInt(DD);
+        			Calendar cal = Calendar.getInstance();
+        			cal.set(year,month,day);
+        			int week = cal.get(Calendar.WEEK_OF_MONTH);
+        			dataName.add("'"+MM+"월 "+week+"주차"+"'");
+            		label.add("'"+MM+"월 "+week+"주차"+"'");
+        		}else if(type == 4){
+        			String YYYY = objInNode.get("date").asText().substring(2, 4);
+        			String MM = objInNode.get("date").asText().substring(4, 6);
+        			dataName.add("'"+YYYY+"년 "+MM+"월"+"'");
+            		label.add("'"+YYYY+"년 "+MM+"월"+"'");
         		}
+        		innerIndex = innerIndex +1;
         	}
         	datas.put(companyNumber.get(index),data);
         	index = index +1;
             timeSeries.setDataName(dataName);
-            timeSeries.setLabel(dataName);
+            timeSeries.setLabel(label);
         }
         timeSeries.setData(datas);
         System.out.println(timeSeries);
@@ -322,6 +358,7 @@ public class StockDao {
             result.put("realTime", convertStockMiniList(jsonMap, "realTime"));
             result.put("topTab", convertStockTop(jsonMap));
             result.put("stockList", convertStockList(jsonMap,"OwnStock"));
+            result.put("kospi", convertKospiInpo(jsonMap));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -472,9 +509,10 @@ public class StockDao {
 		fieldNameList.add("화장품");
 		fieldNameList.add("쇼핑/백화점");
 		fieldNameList.add("자동차");
-		List<String[]> fields = stockDao.getField(fieldNameList);
-		for(String[] temp : fields) {
-			System.out.println(temp[0] + " " + temp[1]);
-		}
+//		List<String[]> fields = stockDao.getField(fieldNameList);
+//		for(String[] temp : fields) {
+//			System.out.println(temp[0] + " " + temp[1]);
+//		}
+		System.out.println(stockDao.forIndex(companyList, 1).get("kospi"));
 	}
 }

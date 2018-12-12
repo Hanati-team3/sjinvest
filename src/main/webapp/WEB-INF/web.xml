@@ -41,7 +41,7 @@
 		<url-pattern>/stock/index</url-pattern>
 		<url-pattern>/stock/interest/list</url-pattern>
 		<url-pattern>/stock/holding/list</url-pattern>
-		<url-pattern>/stock/company/*</url-pattern>
+		<url-pattern>/stock/company</url-pattern>
 		<url-pattern>/stock/search</url-pattern>
 		<url-pattern>/stock/trade-list</url-pattern>
 	</filter-mapping>

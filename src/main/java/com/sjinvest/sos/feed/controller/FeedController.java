@@ -243,5 +243,27 @@ public class FeedController {
 		map.put("replyUser", replyUser);
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
+	
+	@PostMapping("/updateImage")	
+	public String updateImage(HttpServletRequest request, HttpSession session) {
+
+		log.info("updateImage : ");
+		
+		User user = (User)session.getAttribute("user");
+		int userSeq = user.getUserSeq();
+		String feedImage = request.getParameter("file2");
+
+		Feed feed = new Feed();
+		
+		feed.setUserSeq(userSeq);
+		feed.setFeedPicture(feedImage);
+		
+		boolean result = feedService.updateFeed(feed);
+		
+/*		session.removeAttribute("user");
+		session.setAttribute("user", user);
+*/
+		return "redirect:/sns/newfeed";
+	}
 
 }
