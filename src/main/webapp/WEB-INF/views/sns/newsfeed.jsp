@@ -77,7 +77,7 @@
 
         <c:if test="${user.userId ne null }">
         <%-- 내 주식정보 위젯 --%>
-        <jsp:include page="../widgets/twitter-feed.jsp"></jsp:include>
+        <jsp:include page="../widgets/mystock-info.jsp"></jsp:include>
         </c:if>
         
         <%-- 모의 투자 랭킹 위젯 --%>
@@ -803,7 +803,7 @@ function getInterestList(){
 				/* 값이 없는 경우 */
 			}else{
 				for(var i=0; i<data.interestList.length; i++){
-					$('#interest_list').append('<tr><td class="company-name"><div class="author-freshness"><a href="#" class="h6 title">'+ data.interestList[i].companyName +'</a></div></td><td class="stock-price"><a href="#" class="h6 count">38,750</a></td><td class="day-before-rate"><div class="author-freshness plus"><a href="#" class="h6 title">+ 1.90 %</a></div></td></tr>');
+					$('#interest_list').append('<tr><td class="field-name"><div class="author-freshness"><a href="#" class="h6 title">'+ data.interestList[i].companyName +'</a></div></td><td class="now-price"><a href="#" class="h6 count">30,500</a></td><td class="chang-percent"><div class="author-freshness plus"><a href="#" class="h6 title">+0.38%</a></div></td></tr>');
 
 				}
 			}

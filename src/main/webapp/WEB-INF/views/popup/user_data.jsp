@@ -37,7 +37,7 @@
           </div>
           <div class="top-header-author">
             <a href="#" class="author-thumb">
-              <img id="userProfileData" src="<%=application.getContextPath()%>/resources/img/author-main1.jpg" width="120px" height="120px" alt="author">
+              <img id="userProfileData" src="<%=application.getContextPath()%>/resources/img/${user.userPicture}" width="120px" height="120px" alt="author">
             </a>
             <div class="author-content">
               <a href="#" id="id2" class="h4 author-name"></a>
