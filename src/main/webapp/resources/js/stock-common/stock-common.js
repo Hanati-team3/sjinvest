@@ -20,8 +20,8 @@ function capture(location){
 	$('#share-btn').click(function() {
   	    html2canvas(document.getElementById(location)).then(function(canvas) {
   		document.getElementById('tab-content-sharing').appendChild(canvas);
-  		$('#tab-content-sharing').css("display","grid");
-  		$('#tab-content-sharing').find('canvas').css("margin","0px auto").css("overflow-y","auto");
+  		//$('#tab-content-sharing').css("display","grid");
+  		$('#tab-content-sharing').find('canvas').css("margin","0px auto").css("overflow-y","auto").css("width","100%");
 //  		$('#sharing').css("width","1000px");
 	    var base64URL = canvas.toDataURL('image/jpeg');
 		// AJAX request
@@ -40,8 +40,8 @@ function capture(location){
 	$('#boast-btn').click(function() {
   	    html2canvas(document.getElementById('container')).then(function(canvas) {
   		document.getElementById('tab-content-boast').appendChild(canvas);
-  		$('#tab-content-boast').css("display","grid");
-  		$('#tab-content-boast').find('canvas').css("margin","0px auto").css("overflow-y","auto");
+  		//$('#tab-content-boast').css("display","grid");
+  		$('#tab-content-boast').find('canvas').css("margin","0px auto").css("overflow-y","auto").css("width","100%");
 //  		$('#sharing').css("width","1000px");
 	    var base64URL = canvas.toDataURL('image/jpeg');
 		// AJAX request

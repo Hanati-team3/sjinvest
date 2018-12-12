@@ -14,7 +14,8 @@ if((User)(request.getSession().getAttribute("user")) != null){
 %>
 
 <div class="modal bd-example-modal-lg fade" id="sharing">
-  <div class="modal-dialog modal-lg ui-block window-popup">
+  <div class="modal-dialog modal-lg">
+  <div class=" ui-block window-popup">
     <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
       <svg class="olymp-close-icon"><use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-close-icon"></use></svg>
     </a>
@@ -25,7 +26,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
         <div class="news-feed-form">
 
           <!-- Tab panes -->
-          <div class="tab-content" id="tab-content-sharing">
+          <div class="tab-content" id="tab-content-sharing" style='width : -webkit-fill-available;'>
             <div class="tab-pane active" id="home-1" role="tabpanel"
               aria-expanded="true">
               <form method="post">
@@ -39,13 +40,13 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	                  </c:otherwise>
                   </c:choose>
                 </div>
-                <div class="add-options-message">
+                <div class="add-options-message" style='text-align: center; float: none'>
 					<c:choose>
 	                  <c:when test="${user.userId ne null}">
-	                  		<button id="write-feed" class="btn btn-primary btn-md-2">글올리기</button>
+	                  		<button id="write-feed" class="btn btn-primary btn-md-2" style='float: none; margin: 0 auto;'>글올리기</button>
 	                  </c:when>
 	                  <c:otherwise>
-	                  		<button class="btn btn-primary btn-md-2" disabled="disabled">글올리기</button>
+	                  		<button class="btn btn-primary btn-md-2" disabled="disabled"  style='float: none; margin: 0 auto;'>글올리기</button>
 	                  </c:otherwise>
                   </c:choose>
                 </div>
@@ -55,5 +56,6 @@ if((User)(request.getSession().getAttribute("user")) != null){
           </div>
         </div>
       </div>
+    </div>
   </div>
 </div>
