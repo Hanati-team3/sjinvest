@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +29,8 @@ import com.sjinvest.sos.feed.domain.SearchParam;
 import com.sjinvest.sos.feed.service.FeedService;
 import com.sjinvest.sos.follow.domain.Follow;
 import com.sjinvest.sos.follow.service.FollowService;
-import com.sjinvest.sos.like.domain.Like;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
-import com.sjinvest.sos.wall.domain.Wall;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -53,11 +53,46 @@ public class FeedController {
 //			System.out.println("네이버 로그인?");
 			feed.setUserSeq(((User)session.getAttribute("user")).getUserSeq());
 			/*System.out.println(feed.getFeedContent());*/
-			if(feed.getFeedContent() != "") {
-				feedService.write(feed);
-			}
+			
+//			해시태그 추출하기
+			/*String content = feed.getFeedContent();
+		    Pattern p = Pattern.compile("\\#([0-9a-zA-Z가-힣]*)"); 
+		    Matcher m = p.matcher(content);
+		    String extractHashTag = null;
+		    while(m.find()) {
+		    	extractHashTag = sepcialCharacter_replace(m.group());
+		    	content = content.replace("#"+extractHashTag, "<a src=\\\"\\\" style=\\\"color:black\\\"><span class=\"hashtag\">#"+extractHashTag+"</span></a>");
+//		    	if(extractHashTag != null) {
+//		    		System.out.println("최종 추출 해시태그 : "+ extractHashTag);
+//		    	}
+		    }
+		    p = Pattern.compile("\\@([0-9a-zA-Z가-힣]*)"); 
+		    m = p.matcher(content);
+		    while(m.find()) {
+		    	extractHashTag = sepcialCharacter_replace(m.group());
+		    	content = content.replace("@"+extractHashTag, "<a src=\"\" style=\"color:black\"><span class=\"hashtag\">@"+extractHashTag+"</span></a>");
+		    }
+		    p = Pattern.compile("\\$([0-9a-zA-Z가-힣]*)"); 
+		    m = p.matcher(content);
+		    while(m.find()) {
+		    	extractHashTag = sepcialCharacter_replace(m.group());
+		    	content = content.replace("$"+extractHashTag, "<a src=\\\"\\\" style=\\\"color:black\\\"><span class=\"hashtag\">$"+extractHashTag+"</span></a>");
+		    }
+		    if(content != "") {
+		    	feed.setFeedContent(content);
+		    }
+		    System.out.println(feed);*/
+		    feedService.write(feed);
 		}
 		return listAll();
+	}
+		
+	public String sepcialCharacter_replace(String str) {
+	    str = StringUtils.replaceChars(str, "-_+=!@#$%^&*()[]{}|\\;:'\"<>,.?/~`） ","");
+	    if(str.length() < 1) {
+	    	return null;
+	    }
+	    return str;
 	}
 	
 	@ResponseBody

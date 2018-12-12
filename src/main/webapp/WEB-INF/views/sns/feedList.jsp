@@ -69,8 +69,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	        </div>
 	      </div>
 	
-  
-	      <p name="feedContent"></p>
+	      <div name="feedContent"></div>
           <img name="feedImage" src=""  width="450px" height="200px" alt="picture">
 	
 	      <div class="post-additional-info inline-items">
@@ -97,6 +96,8 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	
 	            <span name="feedShare"></span>
 	          </a>
+	          <!-- <a class="post-add-icon inline-items"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+	          <a class="post-add-icon inline-items"><i class="fa fa-instagram" aria-hidden="true"></i></a> -->
 	        </div>
 	
 	

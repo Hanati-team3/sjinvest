@@ -1,13 +1,18 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
 <head>
 <title>Newsfeed</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-
+<style>
+.hashtag{
+  border: 1px solid #AAF0D1;
+  border-radius: 25px;
+  background-color: #AAF0D1;
+}
+</style>
 </head>
 <body>
 
@@ -372,7 +377,46 @@ function showFeedList(data){
 			
 		}
 		
-		
+		var content = $('div[name=feedContent]');
+		var newContent = data.feedList[i].feedContent;
+		var splitArray = newContent.split(' ');
+		console.log(splitArray)
+		var fullText = ""
+		/* for(var word in splitArray){
+		   console.log(word)
+			
+		   if(word.indexOf('#') == 0 || word.indexOf('$') == 0 || word.indexOf('@') == 0) // # 문자를 찾는다.
+		   {
+		      word = '<a href="#"><span class=\"hashtag\">'+word+'</span></a>'; 
+		   }
+		   fullText += word+' ';
+		} */
+		for(var j = 0; j< splitArray.length; j++){
+			var newWord = splitArray[j].split('\n')
+			console.log(newWord);
+			if(newWord.length > 2){
+				console.log('뭐지?')
+				var tempText = ""
+				for(var k=0; k <newWord.length; k++){
+					if(newWord[k].indexOf('#') == 0 || newWord[k].indexOf('$') == 0 || newWord[k].indexOf('@') == 0) // # 문자를 찾는다.
+					   {
+						newWord[k] = '<a href="#"><span class=\"hashtag\">'+ newWord[k] +'</span></a>'; 
+					   }
+					tempText += newWord[k] + ' ';
+				}
+				fullText += tempText + ' ';
+			}else{
+				if(splitArray[j].indexOf('#') == 0 || splitArray[j].indexOf('$') == 0 || splitArray[j].indexOf('@') == 0) // # 문자를 찾는다.
+				   {
+					splitArray[j] = '<a href="#"><span class=\"hashtag\">'+splitArray[j]+'</span></a>'; 
+				   }
+				   fullText += splitArray[j]+' ';
+			}
+		}
+		$(content[i]).html(fullText);
+
+		var like = $('span[name=feedLike]');
+		$(like[i]).text(data.feedList[i].feedLikeCnt);
 		
 		/* 프로필 사진 */
 		var userImage = $('img[name=userImage]');
@@ -538,9 +582,9 @@ function showFeedList(data){
 	}
 	/* var replyLI = $('li[name=commentLI]')
 	$(replyLI[replyCnt]).css("display", "none"); */
+	
+	
 }
-
- 
 /** 
  * 내가 following한 친구목록
  */
