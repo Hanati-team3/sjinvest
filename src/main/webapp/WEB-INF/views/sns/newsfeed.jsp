@@ -23,17 +23,17 @@
   <div class="header-spacer" style="height:80px"></div>
   
   <div class="container" style="margin-top: 20px">
-    <div class="row">
-      
+    <%-- realtime row 시작 --%>
+    <div class="row realtime">
       <!-- realtime start -->
       <div class="col-xl-12 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12" style="float:right">
       <jsp:include page="../includes/realtime.jsp"></jsp:include>
       </div>
       <!-- ..realtime end -->
     </div>
+    <%-- realtime row 끝 --%>
 
     <div class="row">
-
       <!-- Main Content -->
 
       <main class="col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12">
@@ -141,6 +141,7 @@ $(document).ready( function() {
 	getInterestList();
 	getRankingList();
 	getHoldingList();
+	getRealTime();
 	
     $('#loginForm').submit(function (e) {
 	    e.preventDefault();
@@ -1263,6 +1264,54 @@ function modal(data){
 		$('#heartIcon').css('background-color', '');
 		console.log("no팔로우");
 	}
+};
+
+/*
+ * follower 친구 아이디 click시 modal
+ */
+function appendFollowerEvent(){
+	$('#follower_list li a').on('click', function(){
+
+		$.ajax({
+			url : '/sos/user/dataNick',
+			type : 'post',
+			async : false,
+			data : {
+				"userNickname" : this.text,
+				"followUserSeq" : "${user.userSeq}"
+			},
+			success: function(data){
+				modal(data)
+			},
+			error : function() {
+		        alert("관리자에게 문의해주세요.");
+		    }
+		
+		})
+		
+	});
+};
+
+/*
+ * realtime
+ */
+function getRealTime(){
+	$.ajax({
+		url : '/sos/stock/realtime',
+		type : 'get',
+		success: function(data){
+          var realTimeList = $("ul#scroll li a");
+          for(var i = 0; i < realTimeList.length; i++){
+        	  realTimeList.eq(i).text((i+1)+"  "+data[i].stockName+" "+numberWithCommas(data[i].total));
+        	  realTimeList.eq(i).attr('href','company/'+data[i].stockCode);
+          }
+          setTimeout(getRealTime, 2000);
+		},
+		error : function() {
+	        
+	    }
+	
+	})
 };
 
 

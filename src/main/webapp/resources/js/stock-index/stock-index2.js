@@ -615,7 +615,7 @@ function updateField() {
 					sum += Number(eachValue);
 				});
 				$('.stock-index-trend .chart-js-pie-color div').html( numberWithCommas((sum / 1000).toFixed(0)) + "K <span>5개 업종의 거래량 합</span>");
-				setTimeout(updateField, 2000);
+				setTimeout(updateField, 3000);
 			},
 			error : function(request, status, error) {
 				console.log("code:" + request.status + "\n" + "message:"
