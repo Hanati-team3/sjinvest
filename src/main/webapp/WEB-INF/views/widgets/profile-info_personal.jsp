@@ -59,18 +59,3 @@
 <!-- 프로필 사진, 배경 end -->
 
 </div>
-
-<script>
-$(document).ready( function(){
-	console.log("${onlyOne}")
-	var userPicture = "${onlyOne.userPicture}";
-	console.log(userPicture);
-	if(userPicture.split(':')[0]=='http' || userPicture.split(':')[0] == 'https'){
-		console.log("api");
-		$('#userPicture').attr('src', userPicture);
-	}
-	
-});
-
-
-</script>

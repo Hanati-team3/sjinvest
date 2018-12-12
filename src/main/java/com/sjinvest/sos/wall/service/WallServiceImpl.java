@@ -39,4 +39,10 @@ public class WallServiceImpl implements WallService {
 		return wallMapper.listByUser(map);
 	}
 
+	@Override
+	public void delete(int wallSeq) {
+		wallMapper.deleteWall(wallSeq);
+		return;
+	}
+
 }

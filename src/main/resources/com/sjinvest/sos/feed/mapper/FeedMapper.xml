@@ -225,4 +225,20 @@
 		       WHERE  ROWNUM <![CDATA[<=]]> #{endNum}) B 
 		WHERE  B.rnum <![CDATA[>=]]> #{startNum} 
 	</select>
+	
+	<!-- 피드 가져오기 -->
+	<select id="getOne" parameterType="Integer" resultType="Feed" resultMap="feedResultMap">
+		SELECT feed_seq, 
+		       user_seq, 
+		       feed_regdate, 
+		       feed_content, 
+		       feed_like_count, 
+		       feed_update_date, 
+		       feed_reply_count,
+		       feed_share_count, 
+		       feed_picture, 
+		       feed_original_seq 
+		FROM   feed
+		WHERE  feed_seq = #{value}
+	</select>
 </mapper>

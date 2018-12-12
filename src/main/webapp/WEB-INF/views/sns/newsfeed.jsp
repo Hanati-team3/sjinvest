@@ -265,19 +265,17 @@ $(document).ready( function() {
 		      alert("관리자에게 문의해주세요.");
 		    }
 	  });
-		
-		
 	});
 });
 
 
-function writeComment(obj){
+/* function writeComment(obj){
 	console.log("뭐지");
 	var feedSeq = $(obj).attr('title');
 	var content = $(obj).closest("div.comment-div").find('textarea').val()
 	console.log(feedSeq);
 	console.log(content);
-	/* console.log("내용!!! "+comment); */
+	console.log("내용!!! "+comment);
 	$.ajax({
 	    url : '/sos/comment/writing',
 	    type : 'post',
@@ -294,7 +292,7 @@ function writeComment(obj){
 	      alert("관리자에게 문의해주세요.");
 	    }
   });
-}
+} */
 
 
 
@@ -383,8 +381,16 @@ function showFeedList(data){
 		/* 좋아요, 공유 */
 		var commentCount = $('span[name=feedCommnetCount]')
 		$(commentCount[i]).text(data.feedList[i].feedReplyCnt);
-		var share = $('span[name=feedShare]');
-		$(share[i]).text(data.feedList[i].feedShareCnt);
+		var shareFeed = $('span[name=feedShare]');
+		$(shareFeed[i]).text(data.feedList[i].feedShareCnt);
+		/* 공유 */
+		var shareFeed = $('a[name=shareFeed]')
+		$(shareFeed[i]).attr('title', data.feedList[i].feedSeq)
+		if("${user.userSeq}" == data.feedList[i].userSeq){
+			$(shareFeed[i]).attr("onclick", "")
+		}else{
+			$(shareFeed[i]).attr("onclick", "shareFeed(this)")
+		}
 		
 		/* 댓글 */
 		var commentCard = $("div[name=makeComment]")
@@ -440,9 +446,10 @@ function showFeedList(data){
 		/* 삭제 */
 		var deleteComment = $('a[name=deleteFeed]')
 		$(deleteComment[i]).attr('title',data.feedList[i].feedSeq)
+		
 	
 		var moreIcon = $('div[name=moreIcon]');
-		if("${user}" != null){
+		if("${user.userSeq}" != null){
 			var currentUser = "${user.userNickname}";
 			if(currentUser == data.userList[i].userNickname){
 				$(moreIcon[i]).css('display',"");
@@ -625,6 +632,28 @@ function deleteFeed(obj){
 	    }
 	}) 
 }
+
+/* 글 공유 */
+function shareFeed(obj){
+	var feedSeq = $(obj).attr('title');
+	$.ajax({
+		url : '/sos/wall/share',
+		type : 'post',
+		data : {
+			"feedSeq" : feedSeq,
+			"wantedSeq" : "${user.userSeq}"
+		},
+		dataType:'json',
+		success: function(data){
+			showFeedList(data);
+			alert('공유 되었습니다.');
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	}) 
+}
+
 /* 댓글 삭제 */
 function deleteComment(obj){
 	var commentSeq = $(obj).attr('id');

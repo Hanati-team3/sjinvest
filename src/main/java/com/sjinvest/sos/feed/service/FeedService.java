@@ -28,4 +28,5 @@ public interface FeedService {
 	// 피드 검색(유저 리스트로 검색)
 	public List<Feed> listBySearchPageByFieldName(int startNum, int endNum, List<Integer> userSeqList);
 	public boolean decreaseReply(int feedSeq);
+	public Feed getOne(int feedSeq);
 }

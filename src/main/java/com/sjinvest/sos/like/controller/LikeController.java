@@ -27,7 +27,7 @@ public class LikeController {
 	private LikeService service;
 	
 	@PostMapping("/handle")
-	public ResponseEntity<Integer> add(int userSeq, int feedSeq, RedirectAttributes rttr, RedirectAttributes reAttributes) {
+	public ResponseEntity<Integer> add(int userSeq, int feedSeq, RedirectAttributes rttr) {
 		System.out.println(userSeq);
 		Like like = new Like();
 		like.setFeedSeq(feedSeq);

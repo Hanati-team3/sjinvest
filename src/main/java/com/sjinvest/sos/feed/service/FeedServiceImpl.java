@@ -151,4 +151,9 @@ public class FeedServiceImpl implements FeedService {
 		return feedMapper.decreaseReply(feedSeq);
 	}
 
+	@Override
+	public Feed getOne(int feedSeq) {
+		return feedMapper.getOne(feedSeq);
+	}
+
 }
