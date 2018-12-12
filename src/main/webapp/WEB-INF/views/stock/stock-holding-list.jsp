@@ -242,7 +242,6 @@
           <div class="printBtnZone" align="right">
               <a id="boast-btn" class="btn bg-gray small w-auto">자랑하기</a>
           </div>
-            </div>
     <%-- 사이드 포함 row 끝 --%>
   </div>
 
@@ -339,9 +338,18 @@
     	  		},
               success: function (data) {
               	if(data.message == "true"){
-              		alert($('#sell-modal-company-name').val() + " " +$('#amount').val()+"주가 판매되었습니다.");
               		$("#stock_sell_modal").modal('hide');
-              		location.href= '<%=application.getContextPath()%>/stock/stock-holding-list';
+					Snackbar.show({
+						text: $('#sell-modal-company-name').val() + " " +$('#amount').val()+"주가 판매되었습니다.",
+						actionText: 'OK',
+						actionTextColor: '#f66496',
+						pos: 'top-center',
+						duration : 2000,
+					    onClose: function(element) {
+						  location.href= '<%=application.getContextPath()%>/stock/holding/list';
+					    } 
+					}); 
+              		
               	}
               	else {
               		alert('판매실패... data : ' + data);
