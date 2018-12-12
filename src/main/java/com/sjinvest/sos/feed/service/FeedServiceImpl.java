@@ -46,7 +46,6 @@ public class FeedServiceImpl implements FeedService {
 		}
 		return true;
 	}
-
 	@Transactional
 	@Override
 	public boolean deleteFeed(int feedSeq) {
