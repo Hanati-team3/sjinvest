@@ -1,12 +1,37 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>SOS - 모의투자</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
-</head>
+<!-- 로딩중 -->
+<style>
+#loading {
+ width: 100%;  
+ height: 100%;  
+ top: 0px;
+ left: 0px;
+ position: fixed;  
+ display: block;  
+ opacity: 0.7;  
+ background-color: #fff;  
+ z-index: 99;  
+ text-align: center; 
+ } 
+  
+#loading-image {  
+ position: absolute;  
+ top: 50%;  
+ left: 50%; 
+ z-index: 100; 
+ }
 
+</style>
+</head>
 <body class="stock">
+
   <%-- 우리한테 필요 없는 고정 양측 사이드바 --%>
   <!-- Fixed Sidebar Left -->
   <%-- <jsp:include page="includes/fixed-sidebar-left.jsp"></jsp:include> --%>
@@ -23,8 +48,24 @@
   </jsp:include>
   <!-- ... end Header -->
   <div class="header-spacer header-spacer-small"></div>
-
-  <div class="container">
+  
+<!--     <div class="container" id="loading-container">
+      <div class="row">
+        <div id="loader">
+            <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="lading"></div>
+        </div>
+      </div>
+    </div> -->
+    
+  <div class="container" id="real-container">
     <%-- realtime row 시작 --%>
     <div class="row realtime">
       <!-- realtime start -->
@@ -34,6 +75,10 @@
       <!-- ..realtime end -->
     </div>
     <%-- realtime row 끝 --%>
+    
+    
+    <a onclick="stop()" href="#">요청종료</a>
+    
     
     <%-- 사이드 포함 row 시작 --%>
     <div class="row stock-index-main">
@@ -79,39 +124,43 @@
                   <ul class="statistics-list-count">
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-purple"></span><span class="fieldName">${fieldStock[0].fieldName}</span></span>
+                        <span> <span class="statistics-point bg-purple"></span><span class="fieldName">${fieldStock.get(0)[0]}</span></span>
                       </div>
-                      <div class="count-stat">${fieldStock[0].fieldAmount}</div>
+                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(0)[1] / 1000}" pattern="#,###"/>K<br></div>
+                      
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-breez"></span><span class="fieldName">${fieldStock[1].fieldName}</span></span>
+                        <span> <span class="statistics-point bg-breez"></span><span class="fieldName">${fieldStock.get(1)[0]}</span></span>
                       </div>
-                      <div class="count-stat">${fieldStock[1].fieldAmount}</div>
+                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(1)[1] / 1000}" pattern="#,###"/>K</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-primary"></span><span class="fieldName">${fieldStock[2].fieldName}</span></span>
+                        <span> <span class="statistics-point bg-primary"></span><span class="fieldName">${fieldStock.get(2)[0]}</span></span>
                       </div>
-                      <div class="count-stat">${fieldStock[2].fieldAmount}</div>
+                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(2)[1] / 1000}" pattern="#,###"/>K</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-yellow"></span><span class="fieldName">${fieldStock[3].fieldName}</span></span>
+                        <span> <span class="statistics-point bg-yellow"></span><span class="fieldName">${fieldStock.get(3)[0]}</span></span>
                       </div>
-                      <div class="count-stat">${fieldStock[3].fieldAmount}</div>
+                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(3)[1] / 1000}" pattern="#,###"/>K</div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-blue"></span><span class="fieldName">${fieldStock[4].fieldName}</span></span>
+                        <span> <span class="statistics-point bg-blue"></span><span class="fieldName">${fieldStock.get(4)[0]}</span></span>
                       </div>
-                      <div class="count-stat">${fieldStock[4].fieldAmount}</div>
+                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(4)[1] / 1000}" pattern="#,###"/>K</div>
                     </li>
                   </ul>
   
                   <div class="chart-js chart-js-pie-color">
-                    <canvas id="pie-color-chart" width="180" height="180"></canvas>
-                    <div class="general-statistics"> 19.46 <span>Last Month Posts</span> </div>
+                    <canvas id="field-chart" width="180" height="180"></canvas>
+                    <div class="general-statistics"> 
+                      <fmt:formatNumber value="${ (fieldStock.get(0)[1] + fieldStock.get(1)[1] + fieldStock.get(2)[1] + fieldStock.get(3)[1] + fieldStock.get(4)[1]) / 1000}" pattern="#,###"/>K
+                      <span>5개 업종의 거래량 합</span> 
+                    </div>
                   </div>
                 </div>
               </div>
@@ -130,34 +179,20 @@
               <div class="ui-block-content">
                 <div class="swiper-container" data-slide="fade">
                   <div class="swiper-wrapper">
-                     <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="company-name" data-swiper-parallax="-500">가짜회사</div>
-                        <div class="company-stock" data-swiper-parallax="-500">50000</div>
-                        <span class="indicator"> 전일대비 5000 5%</span>
-    					<div class="chart-js chart-js-line-stacked">
-    						<canvas id="line-stacked-chart" width="730" height="300"></canvas>
-    					</div>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="count-stat" data-swiper-parallax="-500">358</div>
-                        <div class="title" data-swiper-parallax="-100">
-                          <span class="c-primary">Olympus</span> Posts Rank
+                    <c:forEach var="eachInterest" items="${interestMap.interestList}" varStatus="status">
+                      <div class="swiper-slide">
+                        <div class="statistics-slide">
+                          <div class="company-name" data-swiper-parallax="-500">
+                            <a href="<%=application.getContextPath()%>/stock/company/${eachInterest.stockCode}">${eachInterest.stockName}</a>
+                          </div>
+                          <div class="company-stock" data-swiper-parallax="-500">${eachInterest.stockPrice}</div>
+                          <span class="indicator">전일대비 ${eachInterest.stockChange}  +${eachInterest.stockDiff}%</span>
+                          <div class="chart-js chart-js-line-stacked">
+                            <canvas name="interest-line-stacked-chart" target="${eachInterest.stockCode}" width="730" height="300"></canvas>
+                          </div>
                         </div>
-                        <div class="sub-title" data-swiper-parallax="-100">The Olympus Rank measures the quantity of comments, likes and posts.</div>
                       </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="statistics-slide">
-                        <div class="count-stat" data-swiper-parallax="-500">711</div>
-                        <div class="title" data-swiper-parallax="-100">
-                          <span class="c-primary">Olympus</span> Posts Rank
-                        </div>
-                        <div class="sub-title" data-swiper-parallax="-100">The Olympus Rank measures the quantity of comments, likes and posts.</div>
-                      </div>
-                    </div>
+                    </c:forEach>
                   </div>
   
                   <!-- If we need pagination -->
@@ -172,7 +207,7 @@
         
         <%-- 그래프 row 시작 --%>
         <div class="row">
-          <div class="col-lg-12 col-sm-12 col-xs-12">
+          <div class="col-lg-12 col-sm-12 col-xs-12 stock-kospi-card">
             <div class="ui-block responsive-flex">
             
               <div class="ui-block-title">
@@ -189,7 +224,7 @@
     
               <div class="ui-block-content">
                 <div class="chart-js chart-js-line-chart">
-                  <canvas id="line-chart" width="1400" height="380"></canvas>
+                  <canvas id="kospi-line-chart" width="1400" height="380"></canvas>
                 </div>
               </div>
               
@@ -197,29 +232,29 @@
               
               <div class="ui-block-content display-flex content-around">
                 <div class="text-stat">
-                  <div class="count-stat">2.758</div>
+                  <div class="count-stat">${kospiMap.kospi.price}</div>
                   <div class="title">시가</div>
-                  <div class="sub-title">전일대비 등락률</div>
+                  <div class="sub-title">현재주가</div>
                 </div>
                 <div class="text-stat">
-                  <div class="count-stat">5.420,7</div>
+                  <div class="count-stat">${kospiMap.kospi.high}</div>
                   <div class="title">고가</div>
-                  <div class="sub-title">전일고가</div>
+                  <div class="sub-title">오늘고가</div>
                 </div>
                 <div class="text-stat">
-                  <div class="count-stat">42.973</div>
+                  <div class="count-stat">${kospiMap.kospi.low}</div>
                   <div class="title">저가</div>
-                  <div class="sub-title">전일저가</div>
+                  <div class="sub-title">오늘저가</div>
                 </div>
                 <div class="text-stat">
-                  <div class="count-stat">3.581,1</div>
-                  <div class="title">전일지수</div>
-                  <div class="sub-title">By Month</div>
+                  <div class="count-stat">${kospiMap.kospi.lastPrice}</div>
+                  <div class="title">종가</div>
+                  <div class="sub-title">어제 마감시가</div>
                 </div>
                 <div class="text-stat">
-                  <div class="count-stat">3.581,1</div>
+                  <div class="count-stat">${kospiMap.kospi.volume}</div>
                   <div class="title">거래량</div>
-                  <div class="sub-title">(천주)</div>
+                  <div class="sub-title">코스피 전체 거래량</div>
                 </div>
               </div>
               
@@ -230,15 +265,15 @@
         
         <%-- 자세한 정보 row 시작 --%>
         <div class="row stock-index-tab">
-          <div class="col-lg-12 col-sm-12 col-xs-12">
+          <div class="col-lg-12 col-sm-12 col-xs-12 stock-top-tab">
             <div class="ui-block">
               <div class="news-feed-form">
                 <!-- Nav tabs -->
-                <ul class="nav nav-tabs stock-index-ul" role="tablist">
+                <ul class="nav nav-tabs stock-index-ul" role="tablist" >
                   <li class="nav-item" ><a class="nav-link active inline-items" data-toggle="tab"
                     href="#rising-rate" role="tab" aria-expanded="true"> <span>상승률 상위</span>
                   </a></li>
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
+                  <li class="nav-item" ><a class="nav-link  inline-items" data-toggle="tab" 
                     href="#falling-rate" role="tab" aria-expanded="false"><span>하락률 상위</span>
                   </a></li>
         
@@ -250,11 +285,11 @@
                     href="#institution" role="tab" aria-expanded="false"><span>기관 순매수</span>
                   </a></li>
         
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
+                  <li class="nav-item" ><a class="nav-link  inline-items" data-toggle="tab" 
                     href="#trading-amount" role="tab" aria-expanded="false"><span>거래량</span>
                   </a></li>
         
-                  <li class="nav-item" ><a class="nav-link inline-items" data-toggle="tab" 
+                  <li class="nav-item" ><a class="nav-link  inline-items" data-toggle="tab" 
                     href="#total-value" role="tab" aria-expanded="false"><span>시가총액</span>
                   </a></li>
                 </ul>
@@ -262,79 +297,16 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                   <%-- rising-rate탭 시작 --%>
-                  <div class="tab-pane active" id="rising-rate" role="tabpanel" aria-expanded="true">
+                  <div class="tab-pane active " id="rising-rate" role="tabpanel" aria-expanded="true">
                     <div class="ui-block" data-mh="pie-chart" style="border-top: none;">
                       <div class="ui-block-title">
-                        <div class="h6 title">상승률 상위 5 종목</div>
+                        <div class="h6 title">상승률 상위 10 종목</div>
                         <a href="#" class="more"><i class="far fa-question-circle"></i></a>
                       </div>
             
                       <div class="ui-block-content">
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Orange Gradient Progress</span>
-                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">62%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-primary" style="width: 62%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Violet Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="46" data-from="0"></span><span
-                              class="units">46%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-purple"
-                              style="width: 46%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Blue Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="79" data-from="0"></span><span
-                              class="units">79%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-blue"
-                              style="width: 79%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Aqua Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="34" data-from="0"></span><span
-                              class="units">34%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-breez"
-                              style="width: 34%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Yellow Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="95" data-from="0"></span><span
-                              class="units">95%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-yellow"
-                              style="width: 95%"></span>
-                          </div>
+                        <div class="chart-js chart-js-one-bar">
+                          <canvas id="rising-rate-chart" name="tab-charts" width="1400" height="380"></canvas>
                         </div>
                       </div>
                     </div>
@@ -344,139 +316,34 @@
                   <div class="tab-pane" id="falling-rate" role="tabpanel" aria-expanded="true">
                     <div class="ui-block" data-mh="pie-chart" style="border-top: none;">
                       <div class="ui-block-title">
-                        <div class="h6 title">하락률 상위 5 종목</div>
+                        <div class="h6 title">하락률 상위 10 종목</div>
                         <a href="#" class="more"><svg class="olymp-three-dots-icon">
                             <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                       </div>
             
                       <div class="ui-block-content">
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Orange Gradient Progress</span>
-                            <span class="skills-item-count"><span class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="62" data-from="0"></span><span class="units">62%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-primary" style="width: 62%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Violet Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="46" data-from="0"></span><span
-                              class="units">46%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-purple"
-                              style="width: 46%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Blue Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="79" data-from="0"></span><span
-                              class="units">79%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-blue"
-                              style="width: 79%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Aqua Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="34" data-from="0"></span><span
-                              class="units">34%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-breez"
-                              style="width: 34%"></span>
-                          </div>
-                        </div>
-            
-                        <div class="skills-item">
-                          <div class="skills-item-info">
-                            <span class="skills-item-title">Yellow Progress</span> <span
-                              class="skills-item-count"><span
-                              class="count-animate" data-speed="1000"
-                              data-refresh-interval="50" data-to="95" data-from="0"></span><span
-                              class="units">95%</span></span>
-                          </div>
-                          <div class="skills-item-meter">
-                            <span class="skills-item-meter-active bg-yellow"
-                              style="width: 95%"></span>
-                          </div>
+                        <div class="chart-js chart-js-one-bar">
+                          <canvas id="falling-rate-chart" name="tab-charts" width="1400" height="380"></canvas>
                         </div>
                       </div>
                     </div>
                   </div>
                   <%-- falling-rate 끝 --%>
                   <%-- foreigner 탭 시작 --%>
-                  <div class="tab-pane" id="foreigner" role="tabpanel" aria-expanded="true">
+                  <div class="tab-pane"  id="foreigner" role="tabpanel" aria-expanded="true">
                     <div class="ui-block">
                     
                       <div class="ui-block-title">
-                        <div class="h6 title">외국인 매수 상위 3 종목</div>
+                        <div class="h6 title">외국인 매수 상위 10 종목</div>
                         <a href="#" class="more"><svg class="olymp-three-dots-icon">
                             <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                       </div>
                       
-                      <div class="row">
-                      
-                        <div class="col-xl-4 order-xl-1 col-lg-4 order-lg-1 col-md-4 order-md-1 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.68" data-startcolor="#38a9ff" data-endcolor="#317cb6">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                
-                            <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>68% of friends that visit your profile comment on your posts.</p>
-                            </div>
-                          </div>
+                      <div class="ui-block-content">
+                        <div class="chart-js chart-js-one-bar">
+                          <canvas id="foreigner-chart" name="tab-charts" width="1400" height="380"></canvas>
                         </div>
-                        
-                        <div class="col-xl-4 order-xl-2 col-lg-4 order-lg-2 col-md-4 order-md-2 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.50" data-startcolor="#38a9ff" data-endcolor="#317cb6">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                            <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>50% of friends that visit your profile comment on your posts.</p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="col-xl-4 order-xl-3 col-lg-4 order-lg-3 col-md-4 order-md-3 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.83" data-startcolor="#38a9ff" data-endcolor="#317cb6">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                            <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>83% of friends that visit your profile comment on your posts.</p>
-                            </div>
-                          </div>
-                        </div>
-                        
                       </div>
-                      <%-- row 끝 --%>
                     </div>
                   </div>
                   <%-- foreigner 탭 끝 --%>
@@ -486,80 +353,34 @@
                     <div class="ui-block">
                     
                       <div class="ui-block-title">
-                        <div class="h6 title">기관 매수 상위 3 종목</div>
+                        <div class="h6 title">기관 매수 상위 10 종목</div>
                         <a href="#" class="more"><svg class="olymp-three-dots-icon">
                             <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                       </div>
-                      
-                      <div class="row">
-                      
-                        <div class="col-xl-4 order-xl-1 col-lg-4 order-lg-1 col-md-4 order-md-1 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.68" data-startcolor="#ffc109e0" data-endcolor="#ff8400">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                
-                            <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>68% of friends that visit your profile comment on your posts.</p>
-                            </div>
-                          </div>
+                      <div class="ui-block-content">
+                        <div class="chart-js chart-js-one-bar">
+                          <canvas id="institution-chart" name="tab-charts" width="1400" height="380"></canvas>
                         </div>
-                        
-                        <div class="col-xl-4 order-xl-2 col-lg-4 order-lg-2 col-md-4 order-md-2 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.50" data-startcolor="#ffc109e0" data-endcolor="#ff8400">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                            <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>50% of friends that visit your profile comment on your posts.</p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="col-xl-4 order-xl-3 col-lg-4 order-lg-3 col-md-4 order-md-3 col-sm-12 col-xs-12">
-                          <div class="ui-block-content">
-                            <div class="circle-progress circle-pie-chart">
-                              <div class="pie-chart" data-value="0.83" data-startcolor="#ffc109e0" data-endcolor="#ff8400">
-                                <div class="content"> <span>%</span> </div>
-                              </div>
-                            </div>
-                            <div class="chart-text">
-                              <h6>Friends Comments</h6>
-                              <p>83% of friends that visit your profile comment on your posts.</p>
-                            </div>
-                          </div>
-                        </div>
-                        
                       </div>
-                      <%-- row 끝 --%>
                     </div>
                   </div>
                   <%-- institution 탭 끝 --%>
                   
                   <%-- trading-amount 탭 시작 --%>
-                  <div class="tab-pane" id="trading-amount" role="tabpanel" aria-expanded="true">
+                  <div class="tab-pane " id="trading-amount" role="tabpanel" aria-expanded="true">
                     <div class="row">
                       <div class="col-lg-12 col-sm-12 col-xs-12">
                         <div class="ui-block responsive-flex">
                         
                           <div class="ui-block-title">
-                            <div class="h6 title">상위 거래량 그래프</div>
-                            <select class="selectpicker form-control without-border" size="auto">
-                              <option value="LY">LAST YEAR (2016)</option>
-                              <option value="CUR">CURRENT YEAR (2017)</option>
-                            </select> <a href="#" class="more"><svg class="olymp-three-dots-icon">
+                            <div class="h6 title">거래량 상위 10 종목</div>
+                            <a href="#" class="more"><svg class="olymp-three-dots-icon">
                                 <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                           </div>
                 
                           <div class="ui-block-content">
                             <div class="chart-js chart-js-one-bar">
-                              <canvas id="one-bar-chart" width="1400" height="380"></canvas>
+                              <canvas id="trading-amount-chart" name="tab-charts" width="1400" height="380"></canvas>
                             </div>
                           </div>
                           
@@ -576,17 +397,14 @@
                         <div class="ui-block responsive-flex">
                         
                           <div class="ui-block-title">
-                            <div class="h6 title">상위 시가총액 그래프</div>
-                            <select class="selectpicker form-control without-border" size="auto">
-                              <option value="LY">LAST YEAR (2016)</option>
-                              <option value="CUR">CURRENT YEAR (2017)</option>
-                            </select> <a href="#" class="more"><svg class="olymp-three-dots-icon">
+                            <div class="h6 title">시가총액 상위 10 종목</div>
+                            <a href="#" class="more"><svg class="olymp-three-dots-icon">
                                 <use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon"></use></svg></a>
                           </div>
                 
                           <div class="ui-block-content">
                             <div class="chart-js chart-js-one-bar">
-                              <canvas id="one-bar-chart" width="1400" height="380"></canvas>
+                              <canvas id="total-money-chart" name="tab-charts" width="1400" height="380"></canvas>
                             </div>
                           </div>
                           
@@ -611,68 +429,25 @@
                 <h6 class="title">News</h6>
                 <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
-    
+              
               <ul class="notification-list">
+                <c:forEach var="item" items="${news}" varStatus="status">
                 <li>
                   <div class="author-thumb">
-                    <img src="<%=application.getContextPath()%>/resources/img/avatar1-sm.jpg" alt="author">
+                    <img src="<%=application.getContextPath()%>/resources/img/avatar${status.index+1}-sm.jpg" alt="author">
                   </div>
                   <div class="notification-event">
-                    <a href="#" class="h6 notification-friend">서울경제</a>
-                    오전 11:30 현재 코스피는 50:50으로 보합세, 매수강세 업종은 철강..
+                    <a href="${item.link}" class="h6 notification-friend">${item.source}</a>
+                    <a href="${item.link}" target="_blank" class="news-title" >${item.title}</a>
                   </div>
                   <span class="notification-icon">
-                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
+                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
                   </span>
                 </li>
-    
-                <li class="un-read">
-                  <div class="author-thumb">
-                    <img src="<%=application.getContextPath()%>/resources/img/avatar2-sm.jpg" alt="author">
-                  </div>
-                  <div class="notification-event">
-                    <a href="#" class="h6 notification-friend">한국경제 </a>
-                    코스피, 외국인·기관 '팔자'에 약보합세…5G 기대 통신株 '강세'
-                  </div>
-                  <span class="notification-icon">
-                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
-                  </span>
-                </li>
-                
-                <li class="un-read">
-                  <div class="author-thumb">
-                    <img src="<%=application.getContextPath()%>/resources/img/avatar3-sm.jpg" alt="author">
-                  </div>
-                  <div class="notification-event">
-                    <a href="#" class="h6 notification-friend">IBK투자증권 </a>
-                    [Start with IBKS]KOSPI는 기관과 외국인의 순매수로 상승함
-                  </div>
-                  <span class="notification-icon">
-                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">9 hours ago</time></span>
-                  </span>
-                </li>
- 
+                </c:forEach>
               </ul>
     
             </div>
-            <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-center">
-                <li class="page-item disabled"><a class="page-link"
-                  href="#" tabindex="-1">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1
-                    <div class="ripple-container">
-                      <div class="ripple ripple-on ripple-out"
-                        style="left: -10.3833px; top: -16.8333px; background-color: rgb(255, 255, 255); transform: scale(16.7857);"></div>
-                    </div>
-                </a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                <li class="page-item"><a class="page-link" href="#">12</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a>
-                </li>
-              </ul>
-            </nav>
           </div>
         </div>
         <%-- 뉴스 row 끝 --%>
@@ -689,11 +464,285 @@
   <jsp:include page="../popup/popup-chat.jsp"></jsp:include>
   <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
 
-  
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
   <!-- End Include js -->
   <%-- stock-index js --%>
   <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index2.js"></script>
+  
+  
+  <script>
+  	var INDEX = {};	//stock-index 전역변수
+  	INDEX.tabList = ["rising-rate", "falling-rate", "foreigner", "institution", "trading-amount", "total-value"];
+  	// index update를 활성화/중지
+  	INDEX.flag = true;
+  	INDEX.isEmptyInterest = false;
+  	INDEX.fieldChartEl = null;
+  	INDEX.tabCharts = document.getElementsByName("tab-charts");
+  	INDEX.eachTabChartElements = [false, false, false, false, false, false];	// 차트 처음 만들어지면 차트element 넣기. false이면 처음 만들어질 때.
+  	
+	$(document).ready(function() {
+		console.log('ready... model로 받은 어트리뷰트');
+		console.log('${realTime}');
+		console.log('${companyList}');
+		console.log('${fieldStock}');
+		console.log('${kospiMap}');
+		console.log('${topTab}');
+		console.log('${interestMap}');
+		console.log('${holdingWidget}');
+		
+		    
+		
+		// 업종별 거래랑 차트 그리기
+		setFieldAmountChart();
+
+		// 코스피 차트 그리기
+		runKospiChart(getKospiFromRequest(), true);
+		
+		// 상위 목록 탭 차트 설정
+		var rankList = [];
+		<c:forEach var="eachRank" items="${topTab}" varStatus="status">
+			rankList.push({
+              "stockCode": "${eachRank.stockCode}",
+              "stockName": "${eachRank.stockName}",
+              "stockValue": "${eachRank.stockValue}"
+		});
+    	</c:forEach>
+		setTopTab(rankList, 0);
+		
+		// 관심종목 목록이 0이면
+		if("${interestMap.interestList.size()}" == "0" || "${interestMap.interestList.size()}" == "") {
+			console.log("관심종목 없음");
+			INDEX.isEmptyInterest = false;
+			$('.stock-my-interest .ui-block-content ').html('<div style="text-align:center;">보유관심종목이 없습니다.</div>');
+		}
+		// 0이 아니면 관심종목 차트 그리기
+		else {
+			runInterestChart(getInterestFromRequest(), true);
+		}
+		
+		//탭 클릭시 요청 발생
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+			var target = $(e.target).attr("href") // activated tab
+			console.log('탭요청 : ' + target);
+			topTabUpdate(target);
+		});
+		
+		// index update 호출
+		var indexParam = setIndexParam();
+		//setTimeout(indexUpdate(indexParam), 1000);
+		
+		// 차트 업데이트 호출
+		//allChartUpdate(indexParam.interestCompanyNumberList, 1);
+		
+		// 업종별 거래량 업데이트
+		updateField();
+	});
+	
+	
+	/** 상위 목록 탭 차트 처음 뜰 때 설정 */
+	function setTopTab(rankList, index) {
+		console.log('ranklist...');
+		console.log(rankList);
+		console.log('index...');
+		console.log(index);
+	    var ctx_ob =  INDEX.tabCharts[index].getContext("2d");
+	    var stockNames = [];
+	    var stockValues = [];
+	    
+	    for(var i = 0; i < 10; i++){
+	    	stockNames[i] = rankList[i].stockName;
+	    	stockValues[i] = rankList[i].stockValue;
+	    }
+	    
+	    var data_ob = {
+	        labels: stockNames,
+	        datasets: [{
+	                backgroundColor: "#38a9ff",
+	                data: stockValues
+	            }]
+	    };
+
+		INDEX.eachTabChartElements[index] = new Chart(ctx_ob, {
+	        type: 'bar',
+	        data: data_ob,
+	        options: {
+	            deferred: {           // enabled by default
+	                delay: 200        // delay of 500 ms after the canvas is considered inside the viewport
+	            },
+	            tooltips: {
+	                enabled:true
+	            },
+	            legend: {
+	                display: false
+	            },
+	            responsive: true,
+	            scales: {
+	                xAxes: [{
+	                    stacked: true,
+	                    barPercentage:0.6,
+	                    gridLines: {
+	                        display: false
+	                    },
+	                    ticks: {
+	                        fontColor: '#888da8'
+	                    }
+	                }],
+	                yAxes: [{
+	                    stacked: true,
+	                    gridLines: {
+	                        color: "#f0f4f9"
+	                    },
+	                    ticks: {
+	                        beginAtZero:true,
+	                        fontColor: '#888da8'
+	                    }
+	                }]
+	            }
+	        }
+	    });
+	}
+	
+	/* 업종별 거래량 차트 그리기 */
+	function setFieldAmountChart() {
+		var fieldChart = document.getElementById("field-chart");
+	    var ctx_pc = fieldChart.getContext("2d");
+	    var data_pc = {
+	        labels: ["${fieldStock.get(0)[0]}", "${fieldStock.get(1)[0]}", "${fieldStock.get(2)[0]}", "${fieldStock.get(3)[0]}", "${fieldStock.get(4)[0]}"],
+	        datasets: [
+	            {
+	                data: ["${fieldStock.get(0)[1]}", "${fieldStock.get(1)[1]}", "${fieldStock.get(2)[1]}", "${fieldStock.get(3)[1]}", "${fieldStock.get(4)[1]}"],
+	                borderWidth: 0,
+	                backgroundColor: [
+	                    "#7c5ac2",
+	                    "#08ddc1",
+	                    "#ff5e3a",
+	                    "#ffdc1b",
+	                    "#38a9ff"
+	                ]
+	            }]
+	    };
+
+	    INDEX.fieldChartEl  = new Chart(ctx_pc, {
+	        type: 'doughnut',
+	        data: data_pc,
+	        options: {
+	            deferred: {           // enabled by default
+	                delay: 300        // delay of 500 ms after the canvas is considered inside the viewport
+	            },
+	            cutoutPercentage:93,
+	            legend: {
+	                display: false
+	            },
+	            animation: {
+	                animateScale: false
+	            }
+	        }
+	    });
+	}
+	
+	/* index update 요청을 중지하는 함수 */
+  	function stop() {
+  		INDEX.flag = false;
+  		console.log('stop');
+  	}
+  	
+  	/* request에서 interestMap의 차트 데이터를 찾아서 자바스크립트 객체로 반환하는 함수 */
+  	function getInterestFromRequest() {
+   		var interestChartLabel = [];
+  		var interestName = [];
+  		var interestDataList = [];
+  		
+		<c:forEach var="label" items="${interestMap.interestChart.label}" varStatus="status">
+		interestChartLabel.push("${label}");
+    	</c:forEach>
+  		
+		<c:forEach var="key" items="${interestMap.interestChart.data.keySet()}" varStatus="status">
+		interestName.push("${key}");
+		interestDataList.push(${interestMap.interestChart.data.get(key)});
+    	</c:forEach>
+    	
+		var interestListChart = {
+			label : interestChartLabel,
+			nameList : interestName,
+			dataList : interestDataList
+		};
+		return interestListChart;
+  	}
+	
+  	/* request에서 kospi 차트 데이터를 찾아서 자바스크립트 객체로 반환하는 함수 */
+	function getKospiFromRequest() {
+		var kospiChartLabel = [];
+		var kospiChartData = [];
+		
+		<c:forEach var="label" items="${kospiMap.kospiChart.label}" varStatus="status">
+		kospiChartLabel.push("${label}");
+    	</c:forEach>
+		<c:forEach var="data" items="${kospiMap.kospiChart.data.kospi}" varStatus="status">
+		kospiChartData.push("${data}");
+    	</c:forEach>
+    	
+		var kospiChart = {
+			label : kospiChartLabel,
+			data : kospiChartData
+		};
+		return kospiChart;
+	}
+	
+	/* 첫 화면 출력 후 indexUpdate를 요청하기 위해 요청 파라미터를 설정하여 반환하는 함수 */
+	function setIndexParam() {
+		var indexParam = {};
+		// 유저 아이디 설정
+		// 탭 옵션 설정
+		var activeTabId = $(".stock-top-tab .tab-content").find('.active').attr('id');
+		switch(activeTabId) {
+		//상승률 상위 5
+		case INDEX.tabList[0] :
+			indexParam.tabOption = 1;
+			break;
+		// 하락률 상위 5
+		case INDEX.tabList[1] :
+			indexParam.tabOption = 2;
+			break;
+		// 외국인 순매수 3
+		case INDEX.tabList[2] :
+			indexParam.tabOption = 3;
+			break;
+		// 기관 순매수 3
+		case INDEX.tabList[3] :
+			indexParam.tabOption = 4;
+			break;
+		// 거래량 20
+		case INDEX.tabList[4] :
+			indexParam.tabOption = 5;
+			break;
+		// 시가총액 20
+		case INDEX.tabList[5] :
+			indexParam.tabOption = 6;
+			break;
+		}
+		// 코스피옵션 설정
+		indexParam.kospiOption = 1;
+		// 보유자산 리스트 설정
+		indexParam.holdingList = [];
+		<c:forEach var="eachHolding" items="${holdingWidget.holdingList}" varStatus="status">
+		indexParam.holdingList.push({
+            "holdingSeq": "${eachHolding.holdingSeq}",
+            "companyNumber": "${eachHolding.companyNumber}",
+            "companyName": "${eachHolding.companyName}",
+            "userSeq": "${eachHolding.userSeq}",
+            "holdingAmount": "${eachHolding.holdingAmount}",
+            "holdingTotalMoney": "${eachHolding.holdingTotalMoney}",
+            "holdingRateOfReturn": "${eachHolding.holdingRateOfReturn}"
+		});
+    	</c:forEach>
+		// 관심종목 회사번호 설정
+		indexParam.interestCompanyNumberList = [];
+		<c:forEach var="eachInterest" items="${interestMap.interestList}" varStatus="status">
+		indexParam.interestCompanyNumberList.push("${eachInterest.stockCode}");
+    	</c:forEach>
+		return indexParam;
+	}
+  </script>
 </body>
 </html>
