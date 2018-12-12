@@ -192,6 +192,9 @@ function setMyInterestCard(interestMap) {
     			// 차트 설정
 		  		// false면 처음 설정하는 것임
 		  		if(!INDEX.interestChartEls[index]) {
+					for(var j = 0; j < interestChartData.label.length; j++){
+						interestChartData.label[i] = interestChartData.label[i].replace("'","").replace("'","");
+					}
 	    			var interestChart = interestCharts[index];
 	    			var ctx_ls = interestChart.getContext("2d");
 	    			var eachData = interestChartData.data[interestList[i].stockCode];
@@ -290,91 +293,12 @@ function setInterestData(interestList) {
 	});
 }
 
-/** 상위 10개 탭 세팅 */
-function setTopTab(rankList, index) {
-	console.log('ranklist...');
-	console.log(rankList);
-	console.log('index...');
-	console.log(index);
-	
-	if(INDEX.tabList[index] != $(".stock-top-tab .tab-content").find('.active').attr('id').replace('#','')) {
-		console.log('다른탭 요청');
-		return;
-	}
-	
-    var stockNames = [];
-    var stockValues = [];
-    
-    for(var i = 0; i < 10; i++){
-    	stockNames[i] = rankList[i].stockName;
-    	stockValues[i] = rankList[i].stockValue;
-    }
-
-	// 첫 설정
-	if(INDEX.eachTabChartEls[index] == false) {
-		var ctx_ob = document.getElementsByName("tab-charts")[index].getContext("2d");
-	    var data_ob = {
-		        labels: stockNames,
-		        datasets: [{
-		                backgroundColor: "#38a9ff",
-		                data: stockValues
-		            }]
-	    };
-
-		INDEX.eachTabChartEls[index] = new Chart(ctx_ob, {
-	        type: 'bar',
-	        data: data_ob,
-	        options: {
-	            deferred: {           // enabled by default
-	                delay: 200        // delay of 500 ms after the canvas is considered inside the viewport
-	            },
-	            tooltips: {
-	                enabled:true
-	            },
-	            legend: {
-	                display: false
-	            },
-	            responsive: true,
-	            scales: {
-	                xAxes: [{
-	                    stacked: true,
-	                    barPercentage:0.6,
-	                    gridLines: {
-	                        display: false
-	                    },
-	                    ticks: {
-	                        fontColor: '#888da8'
-	                    }
-	                }],
-	                yAxes: [{
-	                    stacked: true,
-	                    gridLines: {
-	                        color: "#f0f4f9"
-	                    },
-	                    ticks: {
-	                        beginAtZero:true,
-	                        fontColor: '#888da8'
-	                    }
-	                }]
-	            }
-	        }
-	    });
-	}
-	
-	// 업데이트
-	else {
-		INDEX.eachTabChartEls[index].data.labels = stockNames;
-		INDEX.eachTabChartEls[index].data.datasets[0].data = stockValues;
-		INDEX.eachTabChartEls[index].update(0);
-	}
-}
-
 /** 나의 관심종목 차트 업데이트 */
 function updateInterestChart(interestMap) {
 	var interestList = interestMap.interestList;
 	var interestChartData = interestMap.interestChart;
 
-	console.log("first set my interest card");
+	console.log("update interest card");
 	var interestCharts = document.getElementsByName("interest-line-stacked-chart");
 	
 	$(".stock-my-interest .swiper-wrapper .swiper-slide").each(function(index, item){
@@ -477,6 +401,88 @@ function updateInterestChart(interestMap) {
 		}
 	});
 }
+
+
+
+/** 상위 10개 탭 세팅 */
+function setTopTab(rankList, index) {
+	console.log('ranklist...');
+	console.log(rankList);
+	console.log('index...');
+	console.log(index);
+	
+	if(INDEX.tabList[index] != $(".stock-top-tab .tab-content").find('.active').attr('id').replace('#','')) {
+		console.log('다른탭 요청');
+		return;
+	}
+	
+    var stockNames = [];
+    var stockValues = [];
+    
+    for(var i = 0; i < 10; i++){
+    	stockNames[i] = rankList[i].stockName;
+    	stockValues[i] = rankList[i].stockValue;
+    }
+
+	// 첫 설정
+	if(INDEX.eachTabChartEls[index] == false) {
+		var ctx_ob = document.getElementsByName("tab-charts")[index].getContext("2d");
+	    var data_ob = {
+		        labels: stockNames,
+		        datasets: [{
+		                backgroundColor: "#38a9ff",
+		                data: stockValues
+		            }]
+	    };
+
+		INDEX.eachTabChartEls[index] = new Chart(ctx_ob, {
+	        type: 'bar',
+	        data: data_ob,
+	        options: {
+	            deferred: {           // enabled by default
+	                delay: 200        // delay of 500 ms after the canvas is considered inside the viewport
+	            },
+	            tooltips: {
+	                enabled:true
+	            },
+	            legend: {
+	                display: false
+	            },
+	            responsive: true,
+	            scales: {
+	                xAxes: [{
+	                    stacked: true,
+	                    barPercentage:0.6,
+	                    gridLines: {
+	                        display: false
+	                    },
+	                    ticks: {
+	                        fontColor: '#888da8'
+	                    }
+	                }],
+	                yAxes: [{
+	                    stacked: true,
+	                    gridLines: {
+	                        color: "#f0f4f9"
+	                    },
+	                    ticks: {
+	                        beginAtZero:true,
+	                        fontColor: '#888da8'
+	                    }
+	                }]
+	            }
+	        }
+	    });
+	}
+	
+	// 업데이트
+	else {
+		INDEX.eachTabChartEls[index].data.labels = stockNames;
+		INDEX.eachTabChartEls[index].data.datasets[0].data = stockValues;
+		INDEX.eachTabChartEls[index].update(0);
+	}
+}
+
 
 /** 업종별 거래량 카드 설정 */
 function setFieldAmountCard(fieldStock) {
