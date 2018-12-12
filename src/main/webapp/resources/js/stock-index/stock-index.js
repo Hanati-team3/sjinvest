@@ -23,8 +23,8 @@ function indexUpdate(indexParam) {
 				else {
 					setTopTab(stockData.topTab, Number(stockData.topTabOption) -1);
 				}
-				//updateTobTab()		//set 대신 update로
-				setTimeout(indexUpdate(setIndexParam), 6000);
+				//setTimeout(indexUpdate, 2000);
+
 			},
 			error : function(request, status, error) {
 				console.log("code:" + request.status + "\n" + "message:"
@@ -173,6 +173,7 @@ function updateField() {
 				});
 				console.log('sum : ' + sum);
 				$('.stock-index-trend .chart-js-pie-color div').html( numberWithCommas((sum / 1000).toFixed(0)) + "K <span>5개 업종의 거래량 합</span>");
+				
 				console.log('업데이트 필드');
 				setTimeout(updateField, 6000);
 			},

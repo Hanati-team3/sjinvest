@@ -48,8 +48,24 @@
   </jsp:include>
   <!-- ... end Header -->
   <div class="header-spacer header-spacer-small"></div>
-
-  <div class="container">
+  
+<!--     <div class="container" id="loading-container">
+      <div class="row">
+        <div id="loader">
+            <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="lading"></div>
+        </div>
+      </div>
+    </div> -->
+    
+  <div class="container" id="real-container">
     <%-- realtime row 시작 --%>
     <div class="row realtime">
       <!-- realtime start -->
@@ -432,24 +448,6 @@
               </ul>
     
             </div>
-            <!-- <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-center">
-                <li class="page-item disabled"><a class="page-link"
-                  href="#" tabindex="-1">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1
-                    <div class="ripple-container">
-                      <div class="ripple ripple-on ripple-out"
-                        style="left: -10.3833px; top: -16.8333px; background-color: rgb(255, 255, 255); transform: scale(16.7857);"></div>
-                    </div>
-                </a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                <li class="page-item"><a class="page-link" href="#">12</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a>
-                </li>
-              </ul>
-            </nav> -->
           </div>
         </div>
         <%-- 뉴스 row 끝 --%>
@@ -532,7 +530,7 @@
 		
 		// index update 호출
 		var indexParam = setIndexParam();
-		setTimeout(indexUpdate(indexParam), 1000);
+		//setTimeout(indexUpdate(indexParam), 1000);
 		
 		// 차트 업데이트 호출
 		//allChartUpdate(indexParam.interestCompanyNumberList, 1);
@@ -687,7 +685,6 @@
 	function setIndexParam() {
 		var indexParam = {};
 		// 유저 아이디 설정
-		indexParam.userId = "suhyeon";
 		// 탭 옵션 설정
 		var activeTabId = $(".stock-top-tab .tab-content").find('.active').attr('id');
 		switch(activeTabId) {
