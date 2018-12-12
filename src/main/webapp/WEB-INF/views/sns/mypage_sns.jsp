@@ -88,13 +88,13 @@
 								</div>
 							</div>
 
-							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 								<button type="reset" class="btn btn-secondary btn-lg full-width">되돌리기</button>
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 								<button type="submit" class="btn btn-primary btn-lg full-width">저장하기</button> 
-                                <!-- onclick="setting_sns_submit()" -->
-							</div>
+                                onclick="setting_sns_submit()"
+							</div> -->
 						</div>
 					</form>
 				</div>
