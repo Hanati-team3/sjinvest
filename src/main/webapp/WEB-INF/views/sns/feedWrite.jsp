@@ -53,6 +53,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
                   <c:choose>
 	                  <c:when test="${user.userId ne null }">
                     
+
                     <textarea id="feedContentT" name="feedContentT" class="form-control" placeholder="주식정보를 공유하여 주세요..!"></textarea>
                   
                     <%-- <div contentEditable="true">

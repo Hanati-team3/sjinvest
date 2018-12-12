@@ -69,6 +69,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	        </div>
 	      </div>
 	
+
 	      <div name="feedContent"></div>
           <img name="feedImage" src=""  width="450px" height="200px" alt="picture">
 	

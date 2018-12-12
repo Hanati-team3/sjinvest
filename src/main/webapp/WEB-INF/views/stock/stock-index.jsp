@@ -48,23 +48,23 @@
   <!-- ... end Header -->
   <div class="header-spacer header-spacer-small"></div>
   
-<!--     <div class="container" id="loading-container">
-      <div class="row">
-        <div id="loader">
-            <div class="dot"></div>
+   <div class="container" id="loading-container">
+    <div class="row">
+      <div id="loader">
           <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="lading"></div>
-        </div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="lading"></div>
       </div>
-    </div> -->
+    </div>
+  </div>
     
-  <div class="container" id="real-container">
+  <div class="container" id="real-container" >
     <%-- realtime row 시작 --%>
     <div class="row realtime">
       <!-- realtime start -->
