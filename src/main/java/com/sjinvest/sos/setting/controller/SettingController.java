@@ -113,7 +113,7 @@ public class SettingController {
 		returnData.put("setView", setView);
 
 		// 리턴값을 어디로 보내줘야 그값을 그대로 화면에 보여줄지?
-		return new ResponseEntity<>(returnData,HttpStatus.OK);
+		return read(user.getUserSeq());
 	}
 	
 	@PostMapping("/reset")	

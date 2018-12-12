@@ -68,7 +68,7 @@
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <input class="form-control" id="nickName2" placeholder="" type="text" style="text-align:center; background: white" readonly>
-                <input class="form-control" id="detail2" placeholder="" type="text" style="text-align:center; background: white" readonly>
+                <textarea class="form-control" id="detail2" placeholder="" type="text" style="text-align:center; background: white" readonly></textarea>
             </div>
 
               <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">

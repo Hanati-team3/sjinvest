@@ -123,7 +123,7 @@ function follow(){
 			
 			console.log(data.followList);
 			for(var i=0; i<data.followList.length; i++){
-			$('#follow_list').append('<li><div class="author-thumb"><img src="../resources/img/avatar'+ data.followList[i].userSeq +'-sm.jpg" alt="author"></div><div class="notification-event"><a href="#" class="h6 notification-friend">'+ data.followList[i].userNickname +'</a></div><span class="notification-icon"><a href="#" class="accept-request" onclick="unfollow(this)"><span class="icon-minus"><svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg></span>unfollow</a></span></li> ');
+			$('#follow_list').append('<li><div class="author-thumb"><img src="../resources/img/avatar'+ data.followList[i].userSeq +'-sm.jpg" alt="author"></div><div class="notification-event"><a href="#" class="h6 notification-friend">'+ data.followList[i].userId +'</a></div><span class="notification-icon"><a href="#" class="accept-request" onclick="unfollow(this)"><span class="icon-minus"><svg class="olymp-happy-face-icon"><use xlink:href="../resources/icons/icons.svg#olymp-happy-face-icon"></use></svg></span>unfollow</a></span></li> ');
 			}
 			
 			//appendClickEvent2();
@@ -255,7 +255,7 @@ function setting_sns(){
 
 
 function setting_sns_submit(){
-	
+	alert('저장되었습니다');
 	$.ajax({
 		
 		url : '/sos/setting/update',
@@ -297,7 +297,7 @@ function setting_sns_submit(){
 				$('#setView').replaceWith('<input type="checkbox" name="setView" id="setView">');
 			}
 			
-			setting_sns();
+			//setting_sns();
 		},
 		error : function(){
 			alert("관리자에게 문의해주세요.");
