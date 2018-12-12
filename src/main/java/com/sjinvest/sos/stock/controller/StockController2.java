@@ -44,6 +44,7 @@ import com.sjinvest.sos.stock.params.IndexParams;
 import com.sjinvest.sos.stock.domain.News;
 import com.sjinvest.sos.stock.domain.Rank;
 import com.sjinvest.sos.stock.domain.Stock;
+import com.sjinvest.sos.stock.domain.StockMini;
 import com.sjinvest.sos.stock.domain.TimeSeries;
 import com.sjinvest.sos.stock.service.StockService;
 import com.sjinvest.sos.trading.domain.Trading;
@@ -73,8 +74,11 @@ public class StockController2 {
 	private UserService userService;
 	
 	@GetMapping(value="/realtime", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Stock>> realtime() {
-		return new ResponseEntity<>(service.stockRealtime(),HttpStatus.OK);
+	public ResponseEntity<List<StockMini>> realtime() {
+		List<String> tempList = new ArrayList<>();
+		tempList.add("000270");
+		Map<String,Object> tempMap = service.getForSearchResult(tempList);
+		return new ResponseEntity<>((List<StockMini>)tempMap.get("realTime"),HttpStatus.OK);
 	}
 	
 	/** 주식 index 화면 요청*/

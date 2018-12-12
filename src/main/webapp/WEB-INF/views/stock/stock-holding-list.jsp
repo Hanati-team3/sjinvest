@@ -44,8 +44,6 @@
     </div>
     <%-- realtime row 끝 --%>
     
-    <a onclick="stop()" href="#">요청종료</a>
-    
     <%-- 사이드 포함 row 시작 --%>
     <div class="row stock-holding-main">
       <!-- Left Sidebar -->
@@ -249,11 +247,6 @@
   </div>
 
   <!-- ... end Widget Weather -->
-
-
-  <!-- Window-popup-CHAT for responsive min-width: 768px -->
-  <jsp:include page="../popup/popup-chat.jsp"></jsp:include>
-  <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
   
   <!-- 판매 modal start -->
   <jsp:include page="../popup/stock-sell-modal.jsp"></jsp:include>
@@ -270,7 +263,7 @@
     var imageLocation
 	var HOLDING = {};	//stock-holding-list 전역변수
   	// interest update를 활성화/중지
-  	HOLDING.flag = false;
+  	HOLDING.flag = true;
   	HOLDING.holdingList = [];
   	HOLDING.cashTotal = 0;
   	HOLDING.totalHoldingChart = document.getElementById("total-holding-chart");

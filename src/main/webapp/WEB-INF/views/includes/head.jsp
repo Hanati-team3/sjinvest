@@ -71,13 +71,18 @@
 
 /* 주식 전체 적용 */
 .stock .realtime{
-  margin-top: 10px;
+  margin-top: 30px;
 }
 
 /*주식 index*/
+#real-container {
+  //margin-top: 35px;
+}
+
 .stock-index-main .stock-my-interest a {
   color : #515365;
 }
+
 .stock-index-main .stock-my-interest a :hover{
   color: #ff5e3a;
 }

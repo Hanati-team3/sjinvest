@@ -29,7 +29,6 @@
  }
 
 </style>
-</script>
 </head>
 <body class="stock">
   
