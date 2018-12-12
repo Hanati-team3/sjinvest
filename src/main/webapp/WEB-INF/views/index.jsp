@@ -85,8 +85,10 @@
       <!--nav icon end-->
       
       <ul id="nav-top" class="nav navbar-nav navbar-right">
-        <li><a href="/sos/sns/newsfeed" class="page-scroll">SNS</a></li>
-        <li><a href="/sos/stock/index" class="page-scroll">STOCK</a></li>
+        <li><a href="/sos/sns/newsfeed" class="page-scroll">SNS 하러 가기</a></li>
+        <li><a href="/sos/stock/index" class="page-scroll">모의 주식 하러 가기</a></li>
+        <li><a href="#" class="page-scroll">회원가입</a></li>
+        <li><a id="loginModal" href="#" class="page-scroll" data-toggle="modal" data-target="#login_modal">로그인</a></li>
       </ul>        
           <!--search form-->         
           <!-- <form method="get" action="/search" id="search">
@@ -282,12 +284,12 @@
     <div class="row text-center">
       <div class="col-md-12 wow fadeInDown">
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="c-block"><i class="fa fa-heart-o"></i><span class="counter">1606</span>
+          <div class="c-block"><i class="fa fa-building-o"></i><span class="counter">1606</span>
             <p>기업</p>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="c-block"><i class="fa fa-envelope-o"></i><span class="counter">23</span>
+          <div class="c-block"><i class="fa fa-user"></i><span class="counter">23</span>
             <p>유저</p>
           </div>
         </div>
@@ -297,8 +299,8 @@
           </div>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="c-block"><i class="fa fa-coffee"></i><span class="counter">456</span>
-            <p>Coffee</p>
+          <div class="c-block"><i class="fa fa-shopping-cart"></i><span class="counter">456</span>
+            <p>거래량</p>
           </div>
         </div>
       </div>
@@ -393,6 +395,10 @@
   </div>
 </footer>
 
+  <!-- login modal start-->
+  <jsp:include page="popup/login.jsp"></jsp:include>
+  <!-- ... end login modal -->
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
 <!-- Include all compiled plugins (below), or include individual files as needed --> 
@@ -415,6 +421,178 @@
 </script> 
 <script>
 new WOW().init();
+$(document).ready( function() {
+	snsList();
+	stockList();
+	
+	$(document).ready( function() {
+		
+		
+		$('#loginModal').on('click', function() {
+			$.ajax({
+			    url : '/sos/user/naverlogin',
+			    type : 'get',
+			    dataType: "json",
+			    success : function(data) {
+			    	console.log(data.url)
+			    	$('#naverLoginA').attr('href',data.url);
+			    	$('#login_modal').show();
+			    },
+			    error : function() {
+			      alert("관리자에게 문의해주세요.");
+			    }
+			});
+		});
+	});
+
+	/** 
+	 * 로그인 처리
+	 */
+	function loginCheck() {
+
+	  var userId = $('#loginId').val();
+	  var userPw = $('#loginPw').val();
+
+	  console.log("받아온userId: "+userId);
+	  console.log("받아온userPw: "+userPw);
+	  
+	  $.ajax({
+	    url : '/sos/user/login',
+	    type : 'post',
+	    data : {
+	      "userId" : userId,
+	      "userPw" : userPw
+	    },
+	    dataType:'json',
+	    success : function(data) {
+	      // 로그인 실패
+	      if (data.message == "loginFail") {
+	        $('#checkMsg').html(
+	            "<p style='COLOR: red'>다시 로그인해주세요.</p>");
+	      } 
+	      // 로그인 성공
+	      else if(data.user != null){
+	    	//console.log(data.user);
+	    	//console.log("여기나와야하는데????");
+	    	location.href="/sos/sns/newsfeed";
+	      }
+	    },
+	    error : function() {
+	      alert("관리자에게 문의해주세요.");
+	    }
+	  });
+	  
+	} 
+});
+
+/** 
+ * 로그인 처리
+ */
+function loginCheck() {
+
+  var userId = $('#loginId').val();
+  var userPw = $('#loginPw').val();
+
+  console.log("받아온userId: "+userId);
+  console.log("받아온userPw: "+userPw);
+  
+  $.ajax({
+    url : '/sos/user/login',
+    type : 'post',
+    data : {
+      "userId" : userId,
+      "userPw" : userPw
+    },
+    dataType:'json',
+    success : function(data) {
+      // 로그인 실패
+      if (data.message == "loginFail") {
+        $('#checkMsg').html(
+            "<p style='COLOR: red'>다시 로그인해주세요.</p>");
+      } 
+      // 로그인 성공
+      else if(data.user != null){
+    	//console.log(data.user);
+    	//console.log("여기나와야하는데????");
+    	location.href="/sos/sns/newsfeed";
+      }
+    },
+    error : function() {
+      alert("관리자에게 문의해주세요.");
+    }
+  });
+  
+} 
+
+/**
+ * header의 sns 목록 함수
+ */
+function snsList(){
+	
+	//console.log("sns리스트 시작.");
+	$.ajax({
+		url : '/sos/notice/snsList',
+		type : 'get',
+		data : {
+			
+			"userId" : "${user.userId}"
+		},
+		success: function(data){
+			if(!data.fail){
+    			if(data.snsList.length != null){	
+    				for(var i=0; i<data.snsList.length; i++){
+    				
+    				//console.log("sns정보"+data.snsList[i].noticeContent);
+    				$('#snsCnt').replaceWith('<div class="label-avatar bg-blue" id="snsCnt">'+ data.snsList.length +'</div>');
+    				$('#sns-list').append('<li><div><a href="#" class="h6 notification-friend">'+ data.snsList[i].noticeContent +'</a></div><span class="notification-date">'+ data.snsList[i].noticeDate +'</span></li>');
+
+    				}		
+				}
+
+			}
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+}
+
+/**
+ * header의 stock 목록 함수
+ */
+function stockList(){
+	
+	//console.log("stock리스트 시작.");
+	
+	$.ajax({
+		
+		url : '/sos/notice/stockList',
+		type : 'get',
+		data : {
+			"userId" : "${user.userId}"
+		},
+		success: function(data){
+			if(!data.fail){
+				if(data.stockList.length != null){	
+					for(var i=0; i<data.stockList.length; i++){
+						
+						//console.log("주식정보 : "+data.stockList[i].noticeContent);
+						$('#stockCnt').replaceWith('<div class="label-avatar bg-primary" id="stockCnt">'+ data.stockList.length +'</div>');
+						$('#stock-list').append('<li><div><a href="/sos/stock/trade-list" class="h6 notification-friend">'+ data.stockList[i].noticeContent +'</a></div><span class="notification-date">'+ data.stockList[i].noticeDate +'</span></li> ');	
+
+					}
+				}
+			}
+		},
+		error : function() {
+	       alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+}
+
+
 </script>
 </body>
 </html>
