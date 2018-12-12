@@ -84,7 +84,7 @@ public class WallController {
 		System.out.println(feed);
 		Wall wall = new Wall();
 		wall.setUserSeq(wantedSeq);
-		wall.setWallContent("<p>"+userService.readBySeq(feed.getUserSeq()).getUserNickname()+"님의 글을 공유했습니다</p>\n"+"<p>"+feed.getFeedContent()+"</p>");
+		wall.setWallContent("<p>["+userService.readBySeq(feed.getUserSeq()).getUserNickname()+"님의 글을 공유했습니다]</p>\n"+"<p>"+feed.getFeedContent()+"</p>");
 		wall.setWriterUserSeq(wantedSeq);
 		if(wall.getWallContent() != "") {
 			service.write(wall);
