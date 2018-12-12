@@ -257,7 +257,8 @@ public class UserController {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		List<User> userList = service.totalMarginTop(num);
 		
-		//System.out.println(userList);
+		
+		System.out.println("ranking"+userList);
 		returnData.put("userRanking",service.totalMarginTop(num));
 		
 		return new ResponseEntity<>(returnData,HttpStatus.OK);

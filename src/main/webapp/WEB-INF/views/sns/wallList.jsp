@@ -44,6 +44,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	      </div>
 	
 	      <div name="feedContent"></div>
+
 	
 	      <div class="post-additional-info inline-items">
 	

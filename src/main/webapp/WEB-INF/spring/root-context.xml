@@ -49,6 +49,7 @@
 	<mybatis-spring:scan base-package="com.sjinvest.sos.notice.mapper"/>
 	<mybatis-spring:scan base-package="com.sjinvest.sos.setting.mapper"/>
 	<mybatis-spring:scan base-package="com.sjinvest.sos.wall.mapper"/>
+	<mybatis-spring:scan base-package="com.sjinvest.sos.NonFinancial.mapper"/>
 	<!-- 트랜잭션 매니저 설정 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
 		<property name="dataSource" ref="dataSource"/>

@@ -35,7 +35,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
              <form id="writeForm">
                 <div class="author-thumb">
                 	<c:choose>
-	                  <c:when test="${user.userId ne null }">
+	                  <c:when test="${user.userPicture ne null }">
 	                  	<%if (result_profile){ %>
 		              		<img src="${user.userPicture}" width="36px" height="36px" alt="author">
 		              	<%}else{ %>
@@ -53,6 +53,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
                   <c:choose>
 	                  <c:when test="${user.userId ne null }">
                     
+
                     <textarea id="feedContentT" name="feedContentT" class="form-control" placeholder="주식정보를 공유하여 주세요..!"></textarea>
                   
                     <%-- <div contentEditable="true">

@@ -16,9 +16,9 @@ function removeLabelQuotes(data){
 //	});
 //}
 
-function capture(){
+function capture(location){
 	$('#share-btn').click(function() {
-  	    html2canvas(document.getElementById('container')).then(function(canvas) {
+  	    html2canvas(document.getElementById(location)).then(function(canvas) {
   		document.getElementById('tab-content-sharing').appendChild(canvas);
   		$('#tab-content-sharing').css("display","grid");
   		$('#tab-content-sharing').find('canvas').css("margin","0px auto").css("overflow-y","auto");
@@ -26,7 +26,7 @@ function capture(){
 	    var base64URL = canvas.toDataURL('image/jpeg');
 		// AJAX request
         $.ajax({
-           url: 'capture',
+           url: '/sos/stock/capture',
            type: 'post',
            data: {image: base64URL},
            success: function(data){
@@ -46,7 +46,7 @@ function capture(){
 	    var base64URL = canvas.toDataURL('image/jpeg');
 		// AJAX request
         $.ajax({
-           url: 'capture',
+           url: '/sos/stock/capture',
            type: 'post',
            data: {image: base64URL},
            success: function(data){

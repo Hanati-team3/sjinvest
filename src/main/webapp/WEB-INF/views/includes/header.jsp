@@ -110,6 +110,8 @@ if((User)(request.getSession().getAttribute("user")) != null && ((User)(request.
           <!-- 개인정보 시작  -->
           <div class="author-page author vcard inline-items more">
             <div class="author-thumb">
+            
+            
               <c:choose>
                 <c:when test="${user.userPicture eq null}">
                 <%if (result == true){ %>
@@ -119,9 +121,11 @@ if((User)(request.getSession().getAttribute("user")) != null && ((User)(request.
                   <%}%>
                   </c:when>
                 <c:otherwise>
-                  <img alt="author" src="<%=application.getContextPath()%>/resources/img/author-page.jpg"width="36" height="36" class="avatar">
+                  <img alt="author" src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"width="36" height="36" class="avatar">
                 </c:otherwise>
               </c:choose>
+              
+              
               <!-- 마우스 오버 -->
               <div class="more-dropdown more-with-triangle">
                 <div class="mCustomScrollbar" data-mcs-theme="dark">

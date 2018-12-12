@@ -29,9 +29,14 @@
  }
 
 </style>
+<script>
+window.onload =  function(){
+	//document.getElementById("real-container").setAttribute('display', 'none' );
+}
+</script>
 </head>
 <body class="stock">
-
+  
   <%-- 우리한테 필요 없는 고정 양측 사이드바 --%>
   <!-- Fixed Sidebar Left -->
   <%-- <jsp:include page="includes/fixed-sidebar-left.jsp"></jsp:include> --%>
@@ -49,23 +54,23 @@
   <!-- ... end Header -->
   <div class="header-spacer header-spacer-small"></div>
   
-<!--     <div class="container" id="loading-container">
-      <div class="row">
-        <div id="loader">
-            <div class="dot"></div>
+   <div class="container" id="loading-container">
+    <div class="row">
+      <div id="loader">
           <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="lading"></div>
-        </div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="lading"></div>
       </div>
-    </div> -->
+    </div>
+  </div>
     
-  <div class="container" id="real-container">
+  <div class="container" id="real-container" style="display:none;">
     <%-- realtime row 시작 --%>
     <div class="row realtime">
       <!-- realtime start -->
@@ -440,20 +445,66 @@
               </div>
               
               <ul class="notification-list">
-                <c:forEach var="item" items="${news}" varStatus="status">
                 <li>
                   <div class="author-thumb">
-                    <img src="<%=application.getContextPath()%>/resources/img/avatar${status.index+1}-sm.jpg" alt="author">
+                    <img alt="author">
                   </div>
                   <div class="notification-event">
-                    <a href="${item.link}" class="h6 notification-friend">${item.source}</a>
-                    <a href="${item.link}" target="_blank" class="news-title" >${item.title}</a>
+                    <a class="h6 notification-friend">${item.source}</a>
+                    <a target="_blank" class="news-title" >${item.title}</a>
                   </div>
                   <span class="notification-icon">
                     <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
                   </span>
                 </li>
-                </c:forEach>
+                <li>
+                  <div class="author-thumb">
+                    <img alt="author">
+                  </div>
+                  <div class="notification-event">
+                    <a class="h6 notification-friend">${item.source}</a>
+                    <a target="_blank" class="news-title" >${item.title}</a>
+                  </div>
+                  <span class="notification-icon">
+                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
+                  </span>
+                </li>
+                <li>
+                  <div class="author-thumb">
+                    <img alt="author">
+                  </div>
+                  <div class="notification-event">
+                    <a class="h6 notification-friend">${item.source}</a>
+                    <a target="_blank" class="news-title" >${item.title}</a>
+                  </div>
+                  <span class="notification-icon">
+                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
+                  </span>
+                </li>
+                <li>
+                  <div class="author-thumb">
+                    <img alt="author">
+                  </div>
+                  <div class="notification-event">
+                    <a class="h6 notification-friend">${item.source}</a>
+                    <a target="_blank" class="news-title" >${item.title}</a>
+                  </div>
+                  <span class="notification-icon">
+                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
+                  </span>
+                </li>
+                <li>
+                  <div class="author-thumb">
+                    <img alt="author">
+                  </div>
+                  <div class="notification-event">
+                    <a class="h6 notification-friend">${item.source}</a>
+                    <a target="_blank" class="news-title" >${item.title}</a>
+                  </div>
+                  <span class="notification-icon">
+                    <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${item.date}</time></span>
+                  </span>
+                </li>
               </ul>
     
             </div>
@@ -469,239 +520,16 @@
   <!-- ... end Widget Weather -->
 
 
-  <!-- Window-popup-CHAT for responsive min-width: 768px -->
-  <jsp:include page="../popup/popup-chat.jsp"></jsp:include>
-  <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
-
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
+  <script type="text/javascript">
+/*   $(document).ready(function() {
+		$('#real-container').hide();
+  }); */
+  </script>
   <!-- End Include js -->
   <%-- stock-index js --%>
-  <%-- <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index2.js"></script> --%>
-  
-  
-  <script>
-  	var INDEX = {};	//stock-index 전역변수
-  	INDEX.tabList = ["rising-rate", "falling-rate", "foreigner", "institution", "trading-amount", "total-value"];
-  	// index update를 활성화/중지
-  	INDEX.flag = false;
-  	INDEX.isEmptyInterest = false;
-  	
-  	INDEX.interestSize = 0;
-  	INDEX.fieldChartEl = null;													/** 업종별 거래량 차트 */
-  	INDEX.interestChartEls = [];												/** 관심종목 차트 elements들 */
-  	INDEX.tabCharts = document.getElementsByName("tab-charts");					/** 상위 목록 탭 차트 */
-  	INDEX.eachTabChartElements = [false, false, false, false, false, false];	// 차트 처음 만들어지면 차트element 넣기. false이면 처음 만들어질 때.
-  	
-	$(document).ready(function() {
-		// interest 목록 비었을 때 처리
-		if($('.swiper-container').length == 0) INDEX.isEmptyInterest = true;
-		INDEX.interestSize = $('.swiper-slide').length;
-		// interest 목록 길이만큼 false 넣기
-		for(var i = 0; i < INDEX.interestSize; i++) {
-			INDEX.interestChartEls.push(false);
-		}
+  <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index2.js"></script>
 
-		// index 데이터 받아오기
-		getFirstIndexData();
-	});
-  	
-  	/** 초기 데이터를 받아오는 함수 */
-  	function getFirstIndexData() {
-		$.ajax({
-			type : "GET",
-			url : "indexs/first",
-			dataType : "json",
-			contentType: "application/json; charset=utf-8",
-			success : function(data) {
-				console.log("getFirstIndexData data .. ");
-				console.log(data);
-				setFirstIndex(data);
-			},
-			error : function(request, status, error) {
-				console.log("code:" + request.status + "\n" + "message:"
-						+ request.responseText + "\n" + "error:" + error);
-			}
-		});
-  	}
-  	
-  	/** 받아온 초기 데이터를 화면에 뿌리는 함수 */
-  	function setFirstIndex(data) {
-  		// 업종별 거래량 카드 설정
-  		setFieldAmountCard(data.fieldStock);
-  		// 나의 관심종목 카드 설정
-  		if(!INDEX.isEmptyInterest) setMyInterestCard(data.interestMap);
-  		// 코스피 카드 설정
-  		setKospiCard();
-
-  	}
-  	
-  	/** 나의 관심종목 카드 설정 */
-  	function setMyInterestCard(interestMap) {
-  		var interestList = interestMap.interestList;
-  		var interestChartData = interestMap.interestChart;
-
-		console.log("first set my interest card");
-		var interestCharts = document.getElementsByName("interest-line-stacked-chart");
-		
-		$(".stock-my-interest .swiper-wrapper .swiper-slide").each(function(index, item){
-			var icon = "";
-			for (var i = 0; i < interestList.length; i++) {
-				if($(item).find(".company-name a").text() == interestList[i].stockName) {
-				  	// 데이터 설정
-					$(item).find(".indicator").html("전일대비 " + interestList[i].stockChange.toLocaleString() + 
-							"&nbsp;&nbsp;" + interestList[i].stockDiff +"%");
-					// 전일대비 올랐음
-					if(interestList[i].stockDiff > 0) {
-		    			icon = "<i class='fas fa-caret-up' style='font-size:25px;'></i>&nbsp;"
-						$(item).find(".company-stock").removeClass('minus').addClass('plus');
-						$(item).find(".indicator").removeClass('minus').addClass('plus');
-					}
-					// 전일대비 내렸음
-					else if(interestList[i].stockDiff < 0) {
-		    			icon = "<i class='fas fa-caret-down' style='font-size:25px;'></i>&nbsp;"
-						$(item).find(".company-stock").removeClass('plus').addClass('minus');
-						$(item).find(".indicator").removeClass('plus').addClass('minus');
-					}
-					// 전일과 동일
-					else {
-		    			icon = "";
-						$(item).find(".company-stock").removeClass('plus').removeClass('minus');
-						$(item).find(".indicator").removeClass('plus').removeClass('minus');
-					}
-					$(item).find(".company-stock").html(icon + interestList[i].stockPrice.toLocaleString());
-
-					
-  	    			// 차트 설정
-			  		// false면 처음 설정하는 것임
-			  		if(!INDEX.interestChartEls[index]) {
-    	    			var interestChart = interestCharts[index];
-    	    			var ctx_ls = interestChart.getContext("2d");
-    	    			var eachData = interestChartData.data[interestList[i].stockCode];
-    					
-    	    			var data_ls = {
-    	  			        labels: interestChartData.label,
-    	  			        datasets: [
-    	  			            {
-    	  			                label: " 원 ",
-    	  			                backgroundColor: "rgba(57,169,255,0.35)",
-    	  			                borderColor: "#38a9ff",
-    	  			                borderWidth: 2,
-    	  			                pointBorderColor: "#38a9ff",
-    	  			                pointBackgroundColor: "#fff",
-    	  			                pointBorderWidth: 1,
-    	  			                pointRadius: 1,
-    	  			                pointHoverRadius: 1,
-    	  			                data: eachData
-    	  			            }]
-    	  			    };
-    	    			
-    				    var interestChartEl = new Chart(ctx_ls, {
-    				        type: 'line',
-    				        data: data_ls,
-    				        options: {
-    				            legend: {
-    				                display: false
-    				            },
-    				            responsive: true,
-    				            scales: {
-    				                xAxes: [{
-    				                    gridLines: {
-    				                        color: "#f0f4f9"
-    				                    },
-    				                    ticks: {
-    				                        fontColor: '#888da8'
-    				                    }
-    				                }],
-    				                yAxes: [{
-    				                    gridLines: {
-    				                        display: false
-    				                    },
-    				                    ticks: {
-    				                        fontColor: '#888da8'
-    				                    }
-    				                }]
-    				            }
-    				        }
-    				    });
-    				  	INDEX.interestChartEls[index] = interestChartEl;
-			  		}
-			  		// 업데이트
-			  		else {
-			  			var eachData = interestChartData.data[interestList[i].stockCode];
-			  			INDEX.interestChartEls[index].data.labels = interestChartData.label;
-			  			INDEX.interestChartEls[index].datasets[0].data = eachData;
-			  			INDEX.interestChartEls[index].update(0);
-			  		}
-					break;
-				}
-			}
-		});
-
-  	}
-  	
-  	/** 업종별 거래량 카드 설정 */
-  	function setFieldAmountCard(fieldStock) {
-  		// 데이터 설정
-  		var sum = 0;
-    	$('.stock-index-trend li').each(function(index, item){
-    		var eachValue = Number(fieldStock[index][1]);
-    		$(item).find(".fieldName").text(fieldStock[index][0]);
-    		$(item).find(".count-stat").text( numberWithCommas((eachValue / 1000).toFixed(0)) + "K");
-    		sum += Number(eachValue);
-    	});
-    	$('.stock-index-trend .chart-js-pie-color div').html( numberWithCommas((sum / 1000).toFixed(0)) + "K <span>5개 업종의 거래량 합</span>");
-  		
-  		// 처음이면 차트 그리기
-  		if(INDEX.fieldChartEl == null) {
-  			setFieldAmountChart(fieldStock);
-  		}
-  		// 아니면 차트 업데이트
-  		else {
-			INDEX.fieldChartEl.data.labels = [ fieldStock[0][0], fieldStock[1][0], fieldStock[2][0], fieldStock[3][0], fieldStock[4][0] ];
-			INDEX.fieldChartEl.data.datasets[0].data = [ fieldStock[0][1], fieldStock[1][1], fieldStock[2][1], fieldStock[3][1], fieldStock[4][1] ];
-			INDEX.fieldChartEl.update(0);
-  		}
-  	}
-  	
-	/** 업종별 거래량 차트 그리기 */
-	function setFieldAmountChart(fieldStock) {
-		var fieldChart = document.getElementById("field-chart");
-	    var ctx_pc = fieldChart.getContext("2d");
-	    var data_pc = {
-	        labels: [fieldStock[0][0], fieldStock[1][0], fieldStock[2][0], fieldStock[3][0], fieldStock[4][0]],
-	        datasets: [
-	            {
-	                data: [fieldStock[0][1], fieldStock[1][1], fieldStock[2][1], fieldStock[3][1], fieldStock[4][1]],
-	                borderWidth: 0,
-	                backgroundColor: [
-	                    "#7c5ac2",
-	                    "#08ddc1",
-	                    "#ff5e3a",
-	                    "#ffdc1b",
-	                    "#38a9ff"
-	                ]
-	            }]
-	    };
-
-	    INDEX.fieldChartEl  = new Chart(ctx_pc, {
-	        type: 'doughnut',
-	        data: data_pc,
-	        options: {
-	            deferred: {           // enabled by default
-	                delay: 300        // delay of 500 ms after the canvas is considered inside the viewport
-	            },
-	            cutoutPercentage:93,
-	            legend: {
-	                display: false
-	            },
-	            animation: {
-	                animateScale: false
-	            }
-	        }
-	    });
-	}
-	
-  </script>
 </body>
 </html>
