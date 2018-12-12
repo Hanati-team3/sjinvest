@@ -90,6 +90,7 @@
 
 .fade {
     transition: opacity 0.15s linear;
+
 }
 
 .modal.show .modal-dialog {
@@ -330,7 +331,6 @@ button.btn {
         <p>주식이 어려운 그대를 위해 <span>"SJ Team"</span> 이 만든 S.O.S 입니다~~~</p>
       </div>
       <!--/section-title-->
-      
     </div>
   </div>
 </section>
@@ -356,6 +356,7 @@ button.btn {
     </div>
   </div>
 </section>
+
 
 
 <!-- contact us Page
