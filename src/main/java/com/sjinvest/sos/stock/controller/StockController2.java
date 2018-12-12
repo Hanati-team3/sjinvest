@@ -170,10 +170,10 @@ public class StockController2 {
 		Thread chartThread = null;
 		Thread forIndexThread = null;
 		Thread fieldThread = null;
+		Thread newsThread = null;
 		
 		System.out.println("index : " + 1);
 		returnMap.put("companyList", companyService.list());
-		returnMap.put("kospiMap", service.getKospiChartDate(1));
 		System.out.println("index : " + 2);
 		
 		if(user != null) {
@@ -183,29 +183,31 @@ public class StockController2 {
 				interestCompanyNumberList.add(interest.getCompanyNumber());
 			}
 		}
-		
 		chartThread = new Thread(new ChartThread(interestMap, interestCompanyNumberList, returnMap));
 		chartThread.start();
 		System.out.println("index : " + 3);
 		
 		forIndexThread = new Thread(new ForIndexThreadS(returnMap, map, holdingList, interestCompanyNumberList,interestMap, holdingWidgetMap, user));
-		System.out.println("index : " + 3.5);
-		fieldThread = new Thread(new FieldThreadS(returnMap));
-		
-		
-		System.out.println("index : " + 4);
 		forIndexThread.start();
-		System.out.println("index : " + 5);
+		System.out.println("index : " + 3.5);
+		
+		newsThread = new Thread(new NewsThreadS(returnMap));
+		newsThread.start();
+		System.out.println("index : " + 3.8);
+		
+		fieldThread = new Thread(new FieldThreadS(returnMap));
 		fieldThread.start();
-		System.out.println("index : " + 6);
+		System.out.println("index : " + 4);
 		
 		try {
 			fieldThread.join();
 			System.out.println("index : " + 7);
-			forIndexThread.join();
+			newsThread.join();
 			System.out.println("index : " + 8);
-			chartThread.join();
+			forIndexThread.join();
 			System.out.println("index : " + 9);
+			chartThread.join();
+			System.out.println("index : " + 10);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -259,6 +261,21 @@ public class StockController2 {
 		}
 	}
 	
+	/** 인덱스 뉴스 쓰레드 */
+	private class NewsThreadS implements Runnable {
+		Map<String, Object> returnMap;
+		
+		@Override
+		public void run(){
+			returnMap.put("news", service.stockIndexNews());
+			System.out.println("NewsThreadS END...");
+			System.out.println("NewsThreadS returnMap : " + returnMap);
+		}
+		public NewsThreadS(Map<String, Object> map) {
+			this.returnMap = map;
+		}
+	}
+	
 	/** 관심종목의 차트를 interestChartMap에 담는 쓰레드 */
 	private class ForIndexThreadS implements Runnable {	
 		Map<String, Object> returnMap;
@@ -275,6 +292,7 @@ public class StockController2 {
 			map = service.getForIndex(holdingList, interestCompanyNumberList, 1);
 			returnMap.put("realTime", map.get("realTime"));
 			returnMap.put("topTab", map.get("topTab"));
+			returnMap.put("kospi", map.get("kospi"));
 
 			System.out.println("ForIndexThreadS 2");
 			if(user != null) {
@@ -497,7 +515,6 @@ public class StockController2 {
 		System.out.println("indexUpdate params : " + params);
 		Map<String, Object> map = service.getForIndex(params.getHoldingList(), 
 				params.getInterestCompanyNumberList(), params.getTabOption());
-		map.put("kospiStock", service.getKospiData());
 		map.put("topTabOption", params.getTabOption());
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
@@ -560,7 +577,7 @@ public class StockController2 {
 		// 회사 목록
 		model.addAttribute("companyList", companyService.list());
 		// 회사 목록
-		//model.addAttribute("news", service.stockIndexNews());
+		model.addAttribute("news", service.stockIndexNews());
 
 		
 		return "stock/stock-interest";
