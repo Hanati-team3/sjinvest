@@ -84,6 +84,9 @@ public class FeedController {
 		    	feed.setFeedContent(content);
 		    }
 		    System.out.println(feed);*/
+			/*System.out.println(feed.getFeedContent());
+			System.out.println(feed.getFeedContent().replaceAll("\n", "<br>"));
+			feed.setFeedContent(feed.getFeedContent().replaceAll("\r\n", "<br>"));*/
 		    feedService.write(feed);
 		}
 		return listAll();
