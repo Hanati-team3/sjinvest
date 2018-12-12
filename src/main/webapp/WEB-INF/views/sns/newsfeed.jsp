@@ -319,6 +319,22 @@ function searching(){
       });
 }
 
+function searchingByTag(obj){
+	$.ajax({
+      	type : 'post',
+          url: '<%=application.getContextPath()%>/feed/search',
+          data: {
+              text: $(obj).find('.hashtag').text()
+          },
+          dataType : 'json',
+          success : function(data) {
+        	  	if(data){
+	          		showFeedList(data)
+	            }
+			}
+      });
+}
+
 
 
 /** 
@@ -380,7 +396,6 @@ function showFeedList(data){
 		var content = $('div[name=feedContent]');
 		var newContent = data.feedList[i].feedContent;
 		var splitArray = newContent.split(' ');
-		console.log(splitArray)
 		var fullText = ""
 		/* for(var word in splitArray){
 		   console.log(word)
@@ -393,14 +408,14 @@ function showFeedList(data){
 		} */
 		for(var j = 0; j< splitArray.length; j++){
 			var newWord = splitArray[j].split('\n')
-			console.log(newWord);
+			/* console.log(newWord); */
 			if(newWord.length > 2){
-				console.log('뭐지?')
+				/* console.log('뭐지?') */
 				var tempText = ""
 				for(var k=0; k <newWord.length; k++){
 					if(newWord[k].indexOf('#') == 0 || newWord[k].indexOf('$') == 0 || newWord[k].indexOf('@') == 0) // # 문자를 찾는다.
 					   {
-						newWord[k] = '<a href="#"><span class=\"hashtag\">'+ newWord[k] +'</span></a>'; 
+						newWord[k] = '<a href="javascript:void(0);" onclick="searchingByTag(this);" style="color:black"><span class=\"hashtag\">'+ newWord[k] +'</span></a>'; 
 					   }
 					tempText += newWord[k] + ' ';
 				}
@@ -408,7 +423,7 @@ function showFeedList(data){
 			}else{
 				if(splitArray[j].indexOf('#') == 0 || splitArray[j].indexOf('$') == 0 || splitArray[j].indexOf('@') == 0) // # 문자를 찾는다.
 				   {
-					splitArray[j] = '<a href="#"><span class=\"hashtag\">'+splitArray[j]+'</span></a>'; 
+					splitArray[j] = '<a href="javascript:void(0);" onclick="searchingByTag(this)" style="color:black"><span class=\"hashtag\">'+splitArray[j]+'</span></a>'; 
 				   }
 				   fullText += splitArray[j]+' ';
 			}

@@ -235,7 +235,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
 <%-- 더보기 버튼 start --%>
 <a id="load-more-button" href="#" class="btn btn-control btn-more"
   data-load-link="items-to-load.html"
-  data-container="newsfeed-items-grid"> <svg
+  data-container="newsfeed-items-grid" title="1"> <svg
     class="olymp-three-dots-icon">
           <use
       xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon">

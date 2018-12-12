@@ -216,11 +216,11 @@ public class FeedController {
 		SearchParam searchParam = new SearchParam();
 		searchParam.setStartNum(1);
 		searchParam.setEndNum(10);
-		if(text.charAt(0) == '$') {
-//			searchList = companyMapper.findCompany(term.substring(1));
-		}
-		else if(text.charAt(0) == '@') {
-//			searchList = fieldMapper.findField(term.substring(1));
+		if(text.charAt(0) == '$' || text.charAt(0) == '@' ) {
+			List<String> list = new ArrayList<>();
+			list.add(text);
+			searchParam.setKeywords(list);
+			feedList = feedService.listBySearchPage(searchParam);
 		}
 		else {
 			searchParam.setUserSeq(userService.searchUser(text));
