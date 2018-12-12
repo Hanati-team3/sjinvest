@@ -875,9 +875,9 @@ function getFollowList(){
 				//console.log(data.followList);
 				for(var i=0; i<data.followList.length; i++){
 					if(i == 0){
-						$('#follow_list').html('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userId +'</a></div></li>');
+						$('#follow_list').html('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userNickname +'</a></div></li>');
 					}else{
-						$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userId +'</a></div></li>');
+						$('#follow_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followList[i].userNickname +'</a></div></li>');
 					}
 				}
 			}
@@ -1021,9 +1021,9 @@ function getFollowerList(){
 				//console.log(data.followerList);
 				for(var i=0; i<data.followerList.length; i++){
 					if (i == 0){
-    					$('#follower_list').html('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userId +'</a></div></li>');
+    					$('#follower_list').html('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userNickname +'</a></div></li>');
 					}else{
-						$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userId +'</a></div></li>');
+						$('#follower_list').append('<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+data.followerList[i].userSeq+'-sm.jpg" class=\"avatar\"></div><div class=\"author-status\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\" >'+ data.followerList[i].userNickname +'</a></div></li>');
 					}
 				}
 			}
@@ -1124,7 +1124,7 @@ function getRankingList(){
 				for(var i=0; i<data.userRanking.length; i++){
 					
 					$('#rankingList').append(
-							'<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+ data.userRanking[i].userSeq +'-sm.jpg\" class=\"avatar\"></div><div class=\"author-status\" style=\"margin-left:10px;\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\">'+ data.userRanking[i].userId +'</a><div style=\"color:red;\">'+ data.userRanking[i].userTotalMargin +'%</div></div></li>'
+							'<li class=\"inline-items\"><div class=\"author-thumb\"><img alt=\"author\" src=\"<%=application.getContextPath()%>/resources/img/avatar'+ data.userRanking[i].userSeq +'-sm.jpg\" class=\"avatar\"></div><div class=\"author-status\" style=\"margin-left:10px;\"><a href=\"javascript:void(0);\" class=\"h6 author-name\" data-toggle=\"modal\" data-target=\"#user_data\">'+ data.userRanking[i].userNickname +'</a><div style=\"color:red;\">'+ data.userRanking[i].userTotalMargin +'%</div></div></li>'
 					);
 				}
 			}
@@ -1168,10 +1168,10 @@ function appendRankEvent(){
 	$('#rankingList li a').on('click', function(){
 
 		$.ajax({
-			url : '/sos/user/data',
+			url : '/sos/user/dataNick',
 			type : 'post',
 			data : {
-				"userId" : this.text,
+				"userNickname" : this.text,
 				"followUserSeq" : "${user.userSeq}"
 			},
 			success: function(data){
@@ -1194,11 +1194,11 @@ function appendFollowEvent() {
 	$('#follow_list li a').on('click', function(){
 
 		$.ajax({
-			url : '/sos/user/data',
+			url : '/sos/user/dataNick',
 			type : 'post',
 			async : false,
 			data : {
-				"userId" : this.text,
+				"userNickname" : this.text,
 				"followUserSeq" : "${user.userSeq}"
 			},
 			success: function(data){
@@ -1219,11 +1219,11 @@ function appendFollowerEvent(){
 	$('#follower_list li a').on('click', function(){
 
 		$.ajax({
-			url : '/sos/user/data',
+			url : '/sos/user/dataNick',
 			type : 'post',
 			async : false,
 			data : {
-				"userId" : this.text,
+				"userNickname" : this.text,
 				"followUserSeq" : "${user.userSeq}"
 			},
 			success: function(data){
