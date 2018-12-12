@@ -85,7 +85,7 @@ public class StockController {
 		}
 		model.addAttribute("company", company);
 		model.addAttribute("news", news);
-		model.addAttribute("chartData", service.getTimeSeries(companyNumber, ""));
+		model.addAttribute("chartData", service.getChartData(companyNumberList, 1, 0));
 		return "stock/stock-company";
 	}
 

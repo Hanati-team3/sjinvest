@@ -8,6 +8,9 @@
 <script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/html2canvas.js"></script>
 <script>
+var COMPANY = {};
+COMPANY.ChartElements = null
+
 function purchaseButton(){
 	<c:if test="${not empty user}">
 		$('#purchase-button').click(function(e){
@@ -72,112 +75,67 @@ function addInterest(){
 			</c:if>
 		});
 }
-
 function getChangeOption(){
 	$("#chart-option").change(function() {
+		setTimeout(getChangeChart,500);
+	});
+}
+function getChangeChart(){
 		var unitValue = "day";
 		var stepSizeValue = 10;
-		if($(this).children("option:selected").attr("value")==1){
+		var term = 1000;
+		if($("#chart-option").children("option:selected").attr("value")==1){
 			unitValue = "second";
 			stepSizeValue = 10;
-		}else if($(this).children("option:selected").attr("value")==2){
+			term = 1000*60;
+		}else if($("#chart-option").children("option:selected").attr("value")==2){
 			unitValue = "day"
 			stepSizeValue = 5;
-		}else if($(this).children("option:selected").attr("value")==3){
+			term = 1000*60*60*24;
+		}else if($("#chart-option").children("option:selected").attr("value")==3){
 			unitValue = "week"
 			stepSizeValue = 1;
-		}else if($(this).children("option:selected").attr("value")==4){
+			term = 1000*60*60*24*4;
+		}else if($("#chart-option").children("option:selected").attr("value")==4){
 			unitValue = "month"
 			stepSizeValue = 1;
+			term = 1000*60*60*24*4*3;
 		}
 	    $.ajax({ 
 	        type: "POST", 
 	        url: "getchartdata", 
-	        data: {"companyNumber" : "${company.companyNumber}", "type" : $(this).children("option:selected").attr("value")}, 
+	        data: {"companyNumber" : "${company.companyNumber}", "type" : $("#chart-option").children("option:selected").attr("value")}, 
 	        success: function (data) {
-	        	config.data.datasets.splice(0, 1);
-	        	removeLabelQuotes(data);
-	        	var data_lc = {
-	        	        labels: data.label,
-	        	        datasets: [
-	                        {
-	        	                label: " - value",
-	        	                borderColor: "#ffdc1b",
-	        	                borderWidth: 4,
-	        	                pointBorderColor: "#ffdc1b",
-	        	                pointBackgroundColor: "#fff",
-	        	                pointBorderWidth: 4,
-	        	                pointRadius: 6,
-	        	                pointHoverRadius: 8,
-	        	                fill: false,
-	        	                lineTension:0,
-	        	                data: data.data["${company.companyNumber}"]
-	        	            },
-	        				]
-	        	    };
-	        	var option_lc = {
-			            legend: {
-			                display: false
-			            },
-			            responsive: true,
-			            scales: {
-			            	xAxes: [{
-			                    ticks: {
-			                        fontColor: '#888da8',
-			                    },
-			                    gridLines: {
-			                        color: "#f0f4f9"
-			                    },
-			                    type:"time",
-			                    time:{
-			                    	unit:unitValue,
-			                    	unitStepSize: stepSizeValue
-			                    }
-			                }],
-			                yAxes: [{
-			                    gridLines: {
-			                        color: "#f0f4f9"
-			                    },
-			                    ticks: {
-			                        beginAtZero:false,
-			                        fontColor: '#888da8'
-			                    }
-			                }]
-			            }
-			        }
-	        	config.data = data_lc;
-	        	config.opitons = option_lc;
-	        	lineChartEl.update();
-	        	
+	        	for(var i = 0; i < data.label.length; i++){
+	        		data.label[i] = data.label[i].replace("'","").replace("'","");
+	        	}
+	        	COMPANY.ChartElements.data.labels = data.label;
+	        	COMPANY.ChartElements.data.datasets[0].data = data.data["${company.companyNumber}"];
+	        	COMPANY.ChartElements.update(0);
+	        	setTimeout(getChangeChart, term);
 	        }
-	})
 	});
 }
 
 function runChart(){
-	var lineChart = document.getElementById("this-line-chart");
-	
-	if (lineChart !== null) {
-	    var ctx_lc = lineChart.getContext("2d");
-	    
+	if (COMPANY.companyCharts !== null) {
+	    var ctx_lc = COMPANY.companyCharts.getContext("2d");
+	    var companyNumber = "${company.companyNumber}"
 	    var data_lc = {
 	        labels: ${chartData.label},
 	        datasets: [
-                <c:forEach var="eachData" items="${chartData.data}" varStatus="status">
 	            {
-	                label: " - value",
-	                borderColor: "#ffdc1b",
-	                borderWidth: 4,
-	                pointBorderColor: "#ffdc1b",
+	                label: " 원",
+	                backgroundColor: "rgba(57,169,255,0.35)",
+	                borderColor: "#38a9ff",
+	                borderWidth: 2,
+	                pointBorderColor: "#38a9ff",
 	                pointBackgroundColor: "#fff",
-	                pointBorderWidth: 4,
-	                pointRadius: 6,
-	                pointHoverRadius: 8,
-	                fill: false,
-	                lineTension:0,
-	                data: ${eachData}
+	                pointBorderWidth: 1,
+	                pointRadius: 1,
+	                pointHoverRadius: 1,
+	                data: ${chartData.data[companyNumber]}
 	            },
-                </c:forEach>
 				]
 	    };
 	    config = {
@@ -210,7 +168,7 @@ function runChart(){
 		        }
 		    };
 	    
-	    lineChartEl = new Chart(ctx_lc, config);
+	    COMPANY.ChartElements = new Chart(ctx_lc, config);
 	}
 }
 function getStockData(){
@@ -255,12 +213,14 @@ function getStockData(){
 })	
 }
 $(document).ready(function(){
-	getStockData();
-	runChart();
-	getChangeOption();
+//	getStockData();
+	COMPANY.companyCharts = document.getElementById("this-line-chart");
 	addInterest();
 	purchase();
 	purchaseButton();
+	runChart();
+	setTimeout(getChangeChart, 1000);
+	getChangeOption();
 }
 );
 </script>
@@ -399,7 +359,7 @@ $(document).ready(function(){
                 <%-- 구매 버튼 시작--%>
                 <div class="row">
                   <a class="btn btn-primary btn-md-2" id="purchaseModal" data-toggle="modal"
-                      data-target="#stock_buy_modal">구매</a>
+                      data-target="#stock_buy_modal" style="color:white">구매</a>
                 </div>
                 <%-- 구매 버튼 끝 --%>
               </article>
@@ -905,7 +865,7 @@ $(document).ready(function(){
                     </div>
                     <div class="notification-event">
                       <a href="#" class="h6 notification-friend">${eachNews.source}</a>
-                      <a href="${eachNews.link}">${eachNews.title}</a>
+                      <a href="${eachNews.link}" target="_blank">${eachNews.title}</a>
                     </div>
                     <span class="notification-icon">
                       <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">${eachNews.date}</time></span>
