@@ -222,7 +222,7 @@
 			<if test="userRegdate != null">user_regdate = #{userRegdate},</if>
 			<if test="userMoney != 0">user_money = #{userMoney},</if>
 			<if test="userGender != 0">user_gender = #{userGender},</if>
-			<if test="userBirth != null">user_birth = #{userBirth},</if>
+			<if test="userBirth != null">user_birth = TO_DATE(#{userBirth},'YYYY-MM-DD'),</if>
 			<if test="userAuthority != null">user_authority = #{userAuthority},</if>
 		</set>
 		WHERE user_seq = #{userSeq}
