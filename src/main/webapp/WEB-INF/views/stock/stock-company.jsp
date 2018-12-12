@@ -192,7 +192,7 @@ function getStockData(){
 		  $("#highPrice").html(numberWithCommas(data.stock.stockHigh));
           $("#lowPrice").html(numberWithCommas(data.stock.stockLow));
           $("#stockVolume").html(numberWithCommas(data.stock.stockVolume));
-          $("#closingPrice").html(numberWithCommas(data.stock.stockClosingPrice));
+          $("#closingPrice").html(numberWithCommas(data.stock.stockVolumeBefore));
           hour = hour >= 10 ? hour : '0' + hour;  
           minutes = minutes >= 10 ? minutes : '0' + minutes;  
           seconds = seconds >= 10 ? seconds : '0' + seconds;  
@@ -345,7 +345,7 @@ $(document).ready(function(){
                         <ul class="statistics-list-count">
                           <li>
                             <div class="points">
-                              <span> 종가 </span>
+                              <span> 거래량변화량 </span>
                             </div>
                             <div class="count-stat" id="closingPrice">
                               <span class="indicator positive"></span>
