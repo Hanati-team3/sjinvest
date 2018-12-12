@@ -278,13 +278,12 @@ $(document).ready( function() {
 });
 
 
-/* function writeComment(obj){
+function writeComment(obj){
 	console.log("뭐지");
 	var feedSeq = $(obj).attr('title');
 	var content = $(obj).closest("div.comment-div").find('textarea').val()
 	console.log(feedSeq);
 	console.log(content);
-	console.log("내용!!! "+comment);
 	$.ajax({
 	    url : '/sos/comment/writing',
 	    type : 'post',
@@ -301,7 +300,7 @@ $(document).ready( function() {
 	      alert("관리자에게 문의해주세요.");
 	    }
   });
-} */
+}
 
 
 
