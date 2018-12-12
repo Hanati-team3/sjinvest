@@ -88,7 +88,7 @@ public class StockController {
 		model.addAttribute("nonFinancial",nonFinancialService.readByCompanyNumber(companyNumber));
 		model.addAttribute("company", company);
 		model.addAttribute("news", news);
-		model.addAttribute("chartData", service.getChartData(companyNumberList, 1, 0));
+		model.addAttribute("chartData", service.getChartData(companyNumberList, 1, 0, 5));
 		return "stock/stock-company";
 	}
 
@@ -104,7 +104,7 @@ public class StockController {
 	public ResponseEntity<TimeSeries> getChartData(String companyNumber, int type) {
 		List<String> companyNumberList = new ArrayList<String>();
 		companyNumberList.add(companyNumber);
-		return new ResponseEntity<>(service.getChartData(companyNumberList, type, 1), HttpStatus.OK);
+		return new ResponseEntity<>(service.getChartData(companyNumberList, type, 1, 5), HttpStatus.OK);
 	}
 
 	@ResponseBody

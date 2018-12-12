@@ -393,28 +393,28 @@ public class StockServiceImpl implements StockService {
 		return stockDao.forSearch(companyNumberList);
 	}
 	@Override
-	public TimeSeries getChartData(List<String> companyNumberList, int type, int kind) {
+	public TimeSeries getChartData(List<String> companyNumberList, int type, int kind, int term) {
 		StockDao stockDao = new StockDao();
 		String[] date = getDate(type);
-		return stockDao.getChartData(companyNumberList, date[0], date[1], type);
+		return stockDao.getChartData(companyNumberList, date[0], date[1], type, term);
 	}
 	@Override
 	public Map<String, Object> getKospiChartDate(int type) {
 		StockDao stockDao = new StockDao();
 		String[] date = getDate(type);
-		return stockDao.getKospiChartData(date[0],date[1],type);
+		return stockDao.getKospiChartData(date[0],date[1],type, 5);
 	}
 	@Override
 	public Kospi getKospiData() {
 		StockDao stockDao = new StockDao();
-		return (Kospi)stockDao.getKospiChartData("20181101", "20181101", 5).get("kospi");
+		return (Kospi)stockDao.getKospiChartData("20181101", "20181101", 5, 5).get("kospi");
 	}
 	@Override
-	public Map<String, Object> getChartDataWithKospi(List<String> companyNumberList, int type) {
+	public Map<String, Object> getChartDataWithKospi(List<String> companyNumberList, int type, int term) {
 		StockDao stockDao = new StockDao();
 		String[] date = getDate(1);
 		String[] kdate = getDate(type);
-		return stockDao.getChartDataWithKospi(companyNumberList, date[0], date[1], 1, kdate[0], kdate[1], type);
+		return stockDao.getChartDataWithKospi(companyNumberList, date[0], date[1], 1, kdate[0], kdate[1], type, term, 5);
 	}
 	@Override
 	public List<Rank> getRanking(int type) {

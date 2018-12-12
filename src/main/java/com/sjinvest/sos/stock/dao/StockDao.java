@@ -241,7 +241,7 @@ public class StockDao {
         timeSeries.setLabel(dataName);
         return timeSeries;
 	}
-	public TimeSeries convertListTimeSeries(List<String> companyNumber, JsonNode jsonMap, int type) {
+	public TimeSeries convertListTimeSeries(List<String> companyNumber, JsonNode jsonMap, int type, int term) {
 		log.info("log info.... dao convertListTimeSeries..");
 		System.out.println("sysout.... dao convertListTimeSeries..");
 		if(companyNumber.size() == 0) {
@@ -261,7 +261,7 @@ public class StockDao {
         		data.add(objInNode.get("close").asDouble());
         		if(type == 1) {
             		dataName.add("'"+objInNode.get("date").asText().substring(0,2)+":"+objInNode.get("date").asText().substring(2,3)+"0'");
-            		if(innerIndex%5 == 0) {
+            		if(innerIndex%term == 0) {
                 		label.add("'"+objInNode.get("date").asText().substring(0,2)+":"+objInNode.get("date").asText().substring(2,3)+"0'");
             		}else {
             			label.add("");
@@ -298,14 +298,16 @@ public class StockDao {
         System.out.println(timeSeries);
         return timeSeries;
 	}
-	public Map<String, Object> convertKospiListTimeSeries(JsonNode jsonMap) {
+	public Map<String, Object> convertKospiListTimeSeries(JsonNode jsonMap, int term) {
 		Map<String, Object> result = new HashMap<String, Object>();
         JsonNode period = jsonMap.get("kospi");
         TimeSeries timeSeries = new TimeSeries();
         List<Double> data = new ArrayList<Double>();
         List<String> dataName = new ArrayList<String>();
+        List<String> label = new ArrayList<String>();
         if(period.isArray()) {
         	boolean first = true;
+        	int innerIndex = 0; 
         	for(JsonNode objNode : period) {
         		if(first) {
                     Kospi kospi = new Kospi();
@@ -318,15 +320,21 @@ public class StockDao {
         			first=false;
         			continue;
         		}
+        		if(innerIndex%term == 0) {
+            		label.add("'"+objNode.get("date").asText().substring(0,2)+":"+objNode.get("date").asText().substring(2,3)+"0'");
+        		}else {
+        			label.add("");
+        		}
         		data.add(objNode.get("close").asDouble());
         		dataName.add(objNode.get("date").asText());
+        		innerIndex = innerIndex + 1;
         	}
         }
         Map<String, List<Double>> datas = new HashMap<String, List<Double>>();
         datas.put("kospi", data);
         timeSeries.setData(datas);
         timeSeries.setDataName(dataName);
-        timeSeries.setLabel(dataName);
+        timeSeries.setLabel(label);
         result.put("kospiChart", timeSeries);
         return result;
 	}
@@ -403,7 +411,7 @@ public class StockDao {
 		}
 		return result;
 	}
-	public TimeSeries getChartData(List<String> companyNumberList, String startDate, String endDate, int type) {
+	public TimeSeries getChartData(List<String> companyNumberList, String startDate, String endDate, int type, int term) {
 		log.info("dao forHolding...");
 		TimeSeries result = new TimeSeries();
 		String apiURL = "http://54.180.117.83:8003/stock/chart?";
@@ -416,13 +424,13 @@ public class StockDao {
             InputStream in = urlConnection.getInputStream();
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonMap = mapper.readTree(in);
-            return convertListTimeSeries(companyNumberList, jsonMap, type);
+            return convertListTimeSeries(companyNumberList, jsonMap, type, term);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	public Map<String, Object> getKospiChartData(String kstartDate, String kendDate, int ktype) {
+	public Map<String, Object> getKospiChartData(String kstartDate, String kendDate, int ktype, int term) {
 		TimeSeries result = new TimeSeries();
 		String apiURL = "http://54.180.117.83:8003/stock/chart?";
 		String urlString = apiURL + "kstartDate="+kstartDate+"&kendDate="+kendDate+"&ktype="+ktype;
@@ -433,13 +441,13 @@ public class StockDao {
             InputStream in = urlConnection.getInputStream();
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonMap = mapper.readTree(in);
-            return convertKospiListTimeSeries(jsonMap);
+            return convertKospiListTimeSeries(jsonMap, term);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	public Map<String, Object> getChartDataWithKospi(List<String> companyNumberList, String startDate, String endDate, int type, String kStartDate, String kEndDate, int kType) {
+	public Map<String, Object> getChartDataWithKospi(List<String> companyNumberList, String startDate, String endDate, int type, String kStartDate, String kEndDate, int kType, int term, int kterm) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		TimeSeries result = new TimeSeries();
 		String apiURL = "http://54.180.117.83:8003/stock/chart?";
@@ -452,8 +460,8 @@ public class StockDao {
             InputStream in = urlConnection.getInputStream();
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonMap = mapper.readTree(in);
-            map.put("chart", convertListTimeSeries(companyNumberList, jsonMap, type));
-            map.put("kospiChart", convertKospiListTimeSeries(jsonMap).get("kospiChart"));
+            map.put("chart", convertListTimeSeries(companyNumberList, jsonMap, type, term));
+            map.put("kospiChart", convertKospiListTimeSeries(jsonMap, kterm).get("kospiChart"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
