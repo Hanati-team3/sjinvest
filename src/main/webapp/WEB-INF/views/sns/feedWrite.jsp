@@ -53,8 +53,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
                   <c:choose>
 	                  <c:when test="${user.userId ne null }">
                     
-                    <textarea id="feedContentT" name="feedContentT" class="form-control" placeholder="주식정보를 공유하여 주세요..!">
-	                </textarea>
+                    <textarea id="feedContentT" name="feedContentT" class="form-control" placeholder="주식정보를 공유하여 주세요..!"></textarea>
                   
                     <%-- <div contentEditable="true">
                         대표 이미지를 텍스트와 함께 입력이 가능

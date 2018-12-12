@@ -223,27 +223,6 @@ function showwallList(data){
 		$(time[i]).text(data.wallList[i].wallRegdate);
 		var content = $('pre[name=feedContent]');
 		
-		<% Pattern p = Pattern.compile("\\#([0-9a-zA-Z가-힣]*)");
-		    Matcher m = p.matcher(content);
-		    String extractHashTag = null;
-		 
-		    while(m.find()) {
-		    	extractHashTag = sepcialCharacter_replace(m.group());
-		 
-		    	content = content.replace("#"+extractHashTag, "<span class=\"hashtag\">#"+extractHashTag+"</span>");
-	//	    	if(extractHashTag != null) {
-	//	    		System.out.println("최종 추출 해시태그 : "+ extractHashTag);
-	//	    	}
-		    }
-		    if(content != "") {
-		    	feed.setFeedContent(content);
-		    	feedService.write(feed);
-		    } %>
-		
-		
-		
-		
-		
 		$(content[i]).text(data.wallList[i].wallContent);
 		var like = $('span[name=feedLike]')
 		$(like[i]).text(data.wallList[i].wallLikeCnt);
