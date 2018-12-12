@@ -124,41 +124,40 @@
                   <ul class="statistics-list-count">
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-purple"></span><span class="fieldName">${fieldStock.get(0)[0]}</span></span>
+                        <span> <span class="statistics-point bg-purple"></span><span class="fieldName"></span></span>
                       </div>
-                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(0)[1] / 1000}" pattern="#,###"/>K<br></div>
+                      <div class="count-stat"></div>
                       
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-breez"></span><span class="fieldName">${fieldStock.get(1)[0]}</span></span>
+                        <span> <span class="statistics-point bg-breez"></span><span class="fieldName"></span></span>
                       </div>
-                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(1)[1] / 1000}" pattern="#,###"/>K</div>
+                      <div class="count-stat"></div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-primary"></span><span class="fieldName">${fieldStock.get(2)[0]}</span></span>
+                        <span> <span class="statistics-point bg-primary"></span><span class="fieldName"></span></span>
                       </div>
-                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(2)[1] / 1000}" pattern="#,###"/>K</div>
+                      <div class="count-stat"></div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-yellow"></span><span class="fieldName">${fieldStock.get(3)[0]}</span></span>
+                        <span> <span class="statistics-point bg-yellow"></span><span class="fieldName"></span></span>
                       </div>
-                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(3)[1] / 1000}" pattern="#,###"/>K</div>
+                      <div class="count-stat"></div>
                     </li>
                     <li>
                       <div class="points">
-                        <span> <span class="statistics-point bg-blue"></span><span class="fieldName">${fieldStock.get(4)[0]}</span></span>
+                        <span> <span class="statistics-point bg-blue"></span><span class="fieldName"></span></span>
                       </div>
-                      <div class="count-stat"><fmt:formatNumber value="${fieldStock.get(4)[1] / 1000}" pattern="#,###"/>K</div>
+                      <div class="count-stat"></div>
                     </li>
                   </ul>
   
                   <div class="chart-js chart-js-pie-color">
                     <canvas id="field-chart" width="180" height="180"></canvas>
                     <div class="general-statistics"> 
-                      <fmt:formatNumber value="${ (fieldStock.get(0)[1] + fieldStock.get(1)[1] + fieldStock.get(2)[1] + fieldStock.get(3)[1] + fieldStock.get(4)[1]) / 1000}" pattern="#,###"/>K
                       <span>5개 업종의 거래량 합</span> 
                     </div>
                   </div>
@@ -177,32 +176,42 @@
               </div>
   
               <div class="ui-block-content">
-                <div class="swiper-container" data-slide="fade">
-                  <div class="swiper-wrapper">
-                    <c:forEach var="eachInterest" items="${interestMap.interestList}" varStatus="status">
-                      <div class="swiper-slide">
-                        <div class="statistics-slide">
-                          <div class="company-name" data-swiper-parallax="-500">
-                            <a href="<%=application.getContextPath()%>/stock/company/${eachInterest.stockCode}">${eachInterest.stockName}</a>
+              
+                <c:choose>
+                  <c:when test="${user == null}">
+                     <div style="text-align:center;">로그인이 필요합니다.</div>
+                  </c:when>
+                  <c:when test="${interestList.size() == 0}">
+                     <div style="text-align:center;">보유관심종목이 없습니다.</div>
+                  </c:when>
+                  <c:otherwise>
+                    <div class="swiper-container" data-slide="fade">
+                      <div class="swiper-wrapper">
+                        <c:forEach var="eachInterest" items="${interestList}" varStatus="status">
+                          <div class="swiper-slide">
+                            <div class="statistics-slide">
+                              <div class="company-name" data-swiper-parallax="-500">
+                                <a href="<%=application.getContextPath()%>/stock/company/${eachInterest.companyNumber}">${eachInterest.companyName}</a>
+                              </div>
+                              <div class="company-stock" data-swiper-parallax="-500">stocPrice</div>
+                              <span class="indicator">전일대비 stockChange  stockDif %</span>
+                              <div class="chart-js chart-js-line-stacked">
+                                <canvas name="interest-line-stacked-chart" target="${eachInterest.companyNumber}" width="730" height="300"></canvas>
+                              </div>
+                            </div>
                           </div>
-                          <div class="company-stock" data-swiper-parallax="-500">${eachInterest.stockPrice}</div>
-                          <span class="indicator">전일대비 ${eachInterest.stockChange}  +${eachInterest.stockDiff}%</span>
-                          <div class="chart-js chart-js-line-stacked">
-                            <canvas name="interest-line-stacked-chart" target="${eachInterest.stockCode}" width="730" height="300"></canvas>
-                          </div>
-                        </div>
+                        </c:forEach>
                       </div>
-                    </c:forEach>
-                  </div>
-  
-                  <!-- If we need pagination -->
-                  <div class="swiper-pagination pagination-blue"></div>
+                      <!-- If we need pagination -->
+                      <div class="swiper-pagination pagination-blue"></div>
+                    </div>
+                    </c:otherwise>
+                  </c:choose>
                 </div>
               </div>
             </div>
+            <%-- My interest 끝 --%>
           </div>
-          <%-- My interest 끝 --%>
-        </div>
         <%-- row 끝 --%>
         
         <%-- 그래프 row 시작 --%>
@@ -468,150 +477,202 @@
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
   <!-- End Include js -->
   <%-- stock-index js --%>
-  <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index2.js"></script>
+  <%-- <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index2.js"></script> --%>
   
   
   <script>
   	var INDEX = {};	//stock-index 전역변수
   	INDEX.tabList = ["rising-rate", "falling-rate", "foreigner", "institution", "trading-amount", "total-value"];
   	// index update를 활성화/중지
-  	INDEX.flag = true;
+  	INDEX.flag = false;
   	INDEX.isEmptyInterest = false;
-  	INDEX.fieldChartEl = null;
-  	INDEX.tabCharts = document.getElementsByName("tab-charts");
+  	
+  	INDEX.interestSize = 0;
+  	INDEX.fieldChartEl = null;													/** 업종별 거래량 차트 */
+  	INDEX.interestChartEls = [];												/** 관심종목 차트 elements들 */
+  	INDEX.tabCharts = document.getElementsByName("tab-charts");					/** 상위 목록 탭 차트 */
   	INDEX.eachTabChartElements = [false, false, false, false, false, false];	// 차트 처음 만들어지면 차트element 넣기. false이면 처음 만들어질 때.
   	
 	$(document).ready(function() {
-		console.log('ready... model로 받은 어트리뷰트');
-		console.log('${realTime}');
-		console.log('${companyList}');
-		console.log('${fieldStock}');
-		console.log('${kospiMap}');
-		console.log('${topTab}');
-		console.log('${interestMap}');
-		console.log('${holdingWidget}');
-		
-		    
-		
-		// 업종별 거래랑 차트 그리기
-		setFieldAmountChart();
+		// interest 목록 비었을 때 처리
+		if($('.swiper-container').length == 0) INDEX.isEmptyInterest = true;
+		INDEX.interestSize = $('.swiper-slide').length;
+		// interest 목록 길이만큼 false 넣기
+		for(var i = 0; i < INDEX.interestSize; i++) {
+			INDEX.interestChartEls.push(false);
+		}
 
-		// 코스피 차트 그리기
-		runKospiChart(getKospiFromRequest(), true);
-		
-		// 상위 목록 탭 차트 설정
-		var rankList = [];
-		<c:forEach var="eachRank" items="${topTab}" varStatus="status">
-			rankList.push({
-              "stockCode": "${eachRank.stockCode}",
-              "stockName": "${eachRank.stockName}",
-              "stockValue": "${eachRank.stockValue}"
-		});
-    	</c:forEach>
-		setTopTab(rankList, 0);
-		
-		// 관심종목 목록이 0이면
-		if("${interestMap.interestList.size()}" == "0" || "${interestMap.interestList.size()}" == "") {
-			console.log("관심종목 없음");
-			INDEX.isEmptyInterest = false;
-			$('.stock-my-interest .ui-block-content ').html('<div style="text-align:center;">보유관심종목이 없습니다.</div>');
-		}
-		// 0이 아니면 관심종목 차트 그리기
-		else {
-			runInterestChart(getInterestFromRequest(), true);
-		}
-		
-		//탭 클릭시 요청 발생
-		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-			var target = $(e.target).attr("href") // activated tab
-			console.log('탭요청 : ' + target);
-			topTabUpdate(target);
-		});
-		
-		// index update 호출
-		var indexParam = setIndexParam();
-		//setTimeout(indexUpdate(indexParam), 1000);
-		
-		// 차트 업데이트 호출
-		//allChartUpdate(indexParam.interestCompanyNumberList, 1);
-		
-		// 업종별 거래량 업데이트
-		updateField();
+		// index 데이터 받아오기
+		getFirstIndexData();
 	});
-	
-	
-	/** 상위 목록 탭 차트 처음 뜰 때 설정 */
-	function setTopTab(rankList, index) {
-		console.log('ranklist...');
-		console.log(rankList);
-		console.log('index...');
-		console.log(index);
-	    var ctx_ob =  INDEX.tabCharts[index].getContext("2d");
-	    var stockNames = [];
-	    var stockValues = [];
-	    
-	    for(var i = 0; i < 10; i++){
-	    	stockNames[i] = rankList[i].stockName;
-	    	stockValues[i] = rankList[i].stockValue;
-	    }
-	    
-	    var data_ob = {
-	        labels: stockNames,
-	        datasets: [{
-	                backgroundColor: "#38a9ff",
-	                data: stockValues
-	            }]
-	    };
+  	
+  	/** 초기 데이터를 받아오는 함수 */
+  	function getFirstIndexData() {
+		$.ajax({
+			type : "GET",
+			url : "indexs/first",
+			dataType : "json",
+			contentType: "application/json; charset=utf-8",
+			success : function(data) {
+				console.log("getFirstIndexData data .. ");
+				console.log(data);
+				setFirstIndex(data);
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		});
+  	}
+  	
+  	/** 받아온 초기 데이터를 화면에 뿌리는 함수 */
+  	function setFirstIndex(data) {
+  		// 업종별 거래량 카드 설정
+  		setFieldAmountCard(data.fieldStock);
+  		// 나의 관심종목 카드 설정
+  		if(!INDEX.isEmptyInterest) setMyInterestCard(data.interestMap);
+  		// 코스피 카드 설정
+  		setKospiCard();
 
-		INDEX.eachTabChartElements[index] = new Chart(ctx_ob, {
-	        type: 'bar',
-	        data: data_ob,
-	        options: {
-	            deferred: {           // enabled by default
-	                delay: 200        // delay of 500 ms after the canvas is considered inside the viewport
-	            },
-	            tooltips: {
-	                enabled:true
-	            },
-	            legend: {
-	                display: false
-	            },
-	            responsive: true,
-	            scales: {
-	                xAxes: [{
-	                    stacked: true,
-	                    barPercentage:0.6,
-	                    gridLines: {
-	                        display: false
-	                    },
-	                    ticks: {
-	                        fontColor: '#888da8'
-	                    }
-	                }],
-	                yAxes: [{
-	                    stacked: true,
-	                    gridLines: {
-	                        color: "#f0f4f9"
-	                    },
-	                    ticks: {
-	                        beginAtZero:true,
-	                        fontColor: '#888da8'
-	                    }
-	                }]
-	            }
-	        }
-	    });
-	}
-	
-	/* 업종별 거래량 차트 그리기 */
-	function setFieldAmountChart() {
+  	}
+  	
+  	/** 나의 관심종목 카드 설정 */
+  	function setMyInterestCard(interestMap) {
+  		var interestList = interestMap.interestList;
+  		var interestChartData = interestMap.interestChart;
+
+		console.log("first set my interest card");
+		var interestCharts = document.getElementsByName("interest-line-stacked-chart");
+		
+		$(".stock-my-interest .swiper-wrapper .swiper-slide").each(function(index, item){
+			var icon = "";
+			for (var i = 0; i < interestList.length; i++) {
+				if($(item).find(".company-name a").text() == interestList[i].stockName) {
+				  	// 데이터 설정
+					$(item).find(".indicator").html("전일대비 " + interestList[i].stockChange.toLocaleString() + 
+							"&nbsp;&nbsp;" + interestList[i].stockDiff +"%");
+					// 전일대비 올랐음
+					if(interestList[i].stockDiff > 0) {
+		    			icon = "<i class='fas fa-caret-up' style='font-size:25px;'></i>&nbsp;"
+						$(item).find(".company-stock").removeClass('minus').addClass('plus');
+						$(item).find(".indicator").removeClass('minus').addClass('plus');
+					}
+					// 전일대비 내렸음
+					else if(interestList[i].stockDiff < 0) {
+		    			icon = "<i class='fas fa-caret-down' style='font-size:25px;'></i>&nbsp;"
+						$(item).find(".company-stock").removeClass('plus').addClass('minus');
+						$(item).find(".indicator").removeClass('plus').addClass('minus');
+					}
+					// 전일과 동일
+					else {
+		    			icon = "";
+						$(item).find(".company-stock").removeClass('plus').removeClass('minus');
+						$(item).find(".indicator").removeClass('plus').removeClass('minus');
+					}
+					$(item).find(".company-stock").html(icon + interestList[i].stockPrice.toLocaleString());
+
+					
+  	    			// 차트 설정
+			  		// false면 처음 설정하는 것임
+			  		if(!INDEX.interestChartEls[index]) {
+    	    			var interestChart = interestCharts[index];
+    	    			var ctx_ls = interestChart.getContext("2d");
+    	    			var eachData = interestChartData.data[interestList[i].stockCode];
+    					
+    	    			var data_ls = {
+    	  			        labels: interestChartData.label,
+    	  			        datasets: [
+    	  			            {
+    	  			                label: " 원 ",
+    	  			                backgroundColor: "rgba(57,169,255,0.35)",
+    	  			                borderColor: "#38a9ff",
+    	  			                borderWidth: 2,
+    	  			                pointBorderColor: "#38a9ff",
+    	  			                pointBackgroundColor: "#fff",
+    	  			                pointBorderWidth: 1,
+    	  			                pointRadius: 1,
+    	  			                pointHoverRadius: 1,
+    	  			                data: eachData
+    	  			            }]
+    	  			    };
+    	    			
+    				    var interestChartEl = new Chart(ctx_ls, {
+    				        type: 'line',
+    				        data: data_ls,
+    				        options: {
+    				            legend: {
+    				                display: false
+    				            },
+    				            responsive: true,
+    				            scales: {
+    				                xAxes: [{
+    				                    gridLines: {
+    				                        color: "#f0f4f9"
+    				                    },
+    				                    ticks: {
+    				                        fontColor: '#888da8'
+    				                    }
+    				                }],
+    				                yAxes: [{
+    				                    gridLines: {
+    				                        display: false
+    				                    },
+    				                    ticks: {
+    				                        fontColor: '#888da8'
+    				                    }
+    				                }]
+    				            }
+    				        }
+    				    });
+    				  	INDEX.interestChartEls[index] = interestChartEl;
+			  		}
+			  		// 업데이트
+			  		else {
+			  			var eachData = interestChartData.data[interestList[i].stockCode];
+			  			INDEX.interestChartEls[index].data.labels = interestChartData.label;
+			  			INDEX.interestChartEls[index].datasets[0].data = eachData;
+			  			INDEX.interestChartEls[index].update(0);
+			  		}
+					break;
+				}
+			}
+		});
+
+  	}
+  	
+  	/** 업종별 거래량 카드 설정 */
+  	function setFieldAmountCard(fieldStock) {
+  		// 데이터 설정
+  		var sum = 0;
+    	$('.stock-index-trend li').each(function(index, item){
+    		var eachValue = Number(fieldStock[index][1]);
+    		$(item).find(".fieldName").text(fieldStock[index][0]);
+    		$(item).find(".count-stat").text( numberWithCommas((eachValue / 1000).toFixed(0)) + "K");
+    		sum += Number(eachValue);
+    	});
+    	$('.stock-index-trend .chart-js-pie-color div').html( numberWithCommas((sum / 1000).toFixed(0)) + "K <span>5개 업종의 거래량 합</span>");
+  		
+  		// 처음이면 차트 그리기
+  		if(INDEX.fieldChartEl == null) {
+  			setFieldAmountChart(fieldStock);
+  		}
+  		// 아니면 차트 업데이트
+  		else {
+			INDEX.fieldChartEl.data.labels = [ fieldStock[0][0], fieldStock[1][0], fieldStock[2][0], fieldStock[3][0], fieldStock[4][0] ];
+			INDEX.fieldChartEl.data.datasets[0].data = [ fieldStock[0][1], fieldStock[1][1], fieldStock[2][1], fieldStock[3][1], fieldStock[4][1] ];
+			INDEX.fieldChartEl.update(0);
+  		}
+  	}
+  	
+	/** 업종별 거래량 차트 그리기 */
+	function setFieldAmountChart(fieldStock) {
 		var fieldChart = document.getElementById("field-chart");
 	    var ctx_pc = fieldChart.getContext("2d");
 	    var data_pc = {
-	        labels: ["${fieldStock.get(0)[0]}", "${fieldStock.get(1)[0]}", "${fieldStock.get(2)[0]}", "${fieldStock.get(3)[0]}", "${fieldStock.get(4)[0]}"],
+	        labels: [fieldStock[0][0], fieldStock[1][0], fieldStock[2][0], fieldStock[3][0], fieldStock[4][0]],
 	        datasets: [
 	            {
-	                data: ["${fieldStock.get(0)[1]}", "${fieldStock.get(1)[1]}", "${fieldStock.get(2)[1]}", "${fieldStock.get(3)[1]}", "${fieldStock.get(4)[1]}"],
+	                data: [fieldStock[0][1], fieldStock[1][1], fieldStock[2][1], fieldStock[3][1], fieldStock[4][1]],
 	                borderWidth: 0,
 	                backgroundColor: [
 	                    "#7c5ac2",
@@ -641,108 +702,6 @@
 	    });
 	}
 	
-	/* index update 요청을 중지하는 함수 */
-  	function stop() {
-  		INDEX.flag = false;
-  		console.log('stop');
-  	}
-  	
-  	/* request에서 interestMap의 차트 데이터를 찾아서 자바스크립트 객체로 반환하는 함수 */
-  	function getInterestFromRequest() {
-   		var interestChartLabel = [];
-  		var interestName = [];
-  		var interestDataList = [];
-  		
-		<c:forEach var="label" items="${interestMap.interestChart.label}" varStatus="status">
-		interestChartLabel.push("${label}");
-    	</c:forEach>
-  		
-		<c:forEach var="key" items="${interestMap.interestChart.data.keySet()}" varStatus="status">
-		interestName.push("${key}");
-		interestDataList.push(${interestMap.interestChart.data.get(key)});
-    	</c:forEach>
-    	
-		var interestListChart = {
-			label : interestChartLabel,
-			nameList : interestName,
-			dataList : interestDataList
-		};
-		return interestListChart;
-  	}
-	
-  	/* request에서 kospi 차트 데이터를 찾아서 자바스크립트 객체로 반환하는 함수 */
-	function getKospiFromRequest() {
-		var kospiChartLabel = [];
-		var kospiChartData = [];
-		
-		<c:forEach var="label" items="${kospiMap.kospiChart.label}" varStatus="status">
-		kospiChartLabel.push("${label}");
-    	</c:forEach>
-		<c:forEach var="data" items="${kospiMap.kospiChart.data.kospi}" varStatus="status">
-		kospiChartData.push("${data}");
-    	</c:forEach>
-    	
-		var kospiChart = {
-			label : kospiChartLabel,
-			data : kospiChartData
-		};
-		return kospiChart;
-	}
-	
-	/* 첫 화면 출력 후 indexUpdate를 요청하기 위해 요청 파라미터를 설정하여 반환하는 함수 */
-	function setIndexParam() {
-		var indexParam = {};
-		// 유저 아이디 설정
-		// 탭 옵션 설정
-		var activeTabId = $(".stock-top-tab .tab-content").find('.active').attr('id');
-		switch(activeTabId) {
-		//상승률 상위 5
-		case INDEX.tabList[0] :
-			indexParam.tabOption = 1;
-			break;
-		// 하락률 상위 5
-		case INDEX.tabList[1] :
-			indexParam.tabOption = 2;
-			break;
-		// 외국인 순매수 3
-		case INDEX.tabList[2] :
-			indexParam.tabOption = 3;
-			break;
-		// 기관 순매수 3
-		case INDEX.tabList[3] :
-			indexParam.tabOption = 4;
-			break;
-		// 거래량 20
-		case INDEX.tabList[4] :
-			indexParam.tabOption = 5;
-			break;
-		// 시가총액 20
-		case INDEX.tabList[5] :
-			indexParam.tabOption = 6;
-			break;
-		}
-		// 코스피옵션 설정
-		indexParam.kospiOption = 1;
-		// 보유자산 리스트 설정
-		indexParam.holdingList = [];
-		<c:forEach var="eachHolding" items="${holdingWidget.holdingList}" varStatus="status">
-		indexParam.holdingList.push({
-            "holdingSeq": "${eachHolding.holdingSeq}",
-            "companyNumber": "${eachHolding.companyNumber}",
-            "companyName": "${eachHolding.companyName}",
-            "userSeq": "${eachHolding.userSeq}",
-            "holdingAmount": "${eachHolding.holdingAmount}",
-            "holdingTotalMoney": "${eachHolding.holdingTotalMoney}",
-            "holdingRateOfReturn": "${eachHolding.holdingRateOfReturn}"
-		});
-    	</c:forEach>
-		// 관심종목 회사번호 설정
-		indexParam.interestCompanyNumberList = [];
-		<c:forEach var="eachInterest" items="${interestMap.interestList}" varStatus="status">
-		indexParam.interestCompanyNumberList.push("${eachInterest.stockCode}");
-    	</c:forEach>
-		return indexParam;
-	}
   </script>
 </body>
 </html>
