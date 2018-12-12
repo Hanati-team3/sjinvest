@@ -48,10 +48,10 @@ public interface StockService {
 	public Map<String, Object> getForIndex(List<Holding> holdingList, List<String> companyNumberList, int rank);
 	public Map<String, Object> getCompanyData(String companyNumber);
 	public Map<String, Object> getForSearchResult(List<String> companyNumberList);
-	public TimeSeries getChartData(List<String> companyNumberList, int type, int kind);
+	public TimeSeries getChartData(List<String> companyNumberList, int type, int kind, int term);
 	public Map<String, Object> getKospiChartDate(int type);
 	public Kospi getKospiData();
-	public Map<String, Object> getChartDataWithKospi(List<String> companyNumberList, int type);
+	public Map<String, Object> getChartDataWithKospi(List<String> companyNumberList, int type, int term);
 	public List<Rank> getRanking(int type);
 	public List<String[]> getField();
 	public Map<String, Object> getHolding(List<Holding> holdingList);
