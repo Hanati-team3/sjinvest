@@ -7,7 +7,13 @@
 
 <title>Personal Page</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
-
+<style>
+.hashtag{
+  border: 1px solid #AAF0D1;
+  border-radius: 25px;
+  background-color: #AAF0D1;
+}
+</style>
 </head>
 <body>
 
@@ -221,9 +227,33 @@ function showwallList(data){
 		$(nickname[i]).attr('href', 'temp'+i)	/* 변경 필요 */
 		var time = $('time[name=postWriteDate]');
 		$(time[i]).text(data.wallList[i].wallRegdate);
-		var content = $('pre[name=feedContent]');
-		
-		$(content[i]).text(data.wallList[i].wallContent);
+		var content = $('div[name=feedContent]');
+		var newContent = data.wallList[i].wallContent;
+		var splitArray = newContent.split(' ');
+		var fullText = ""
+		for(var j = 0; j< splitArray.length; j++){
+			var newWord = splitArray[j].split('\n')
+			/* console.log(newWord); */
+			if(newWord.length > 2){
+				/* console.log('뭐지?') */
+				var tempText = ""
+				for(var k=0; k <newWord.length; k++){
+					if(newWord[k].indexOf('#') == 0 || newWord[k].indexOf('$') == 0 || newWord[k].indexOf('@') == 0) // # 문자를 찾는다.
+					   {
+						newWord[k] = '<a href="javascript:void(0);" onclick="searchingByTag(this);" style="color:black"><span class=\"hashtag\">'+ newWord[k] +'</span></a>'; 
+					   }
+					tempText += newWord[k] + ' ';
+				}
+				fullText += tempText + ' ';
+			}else{
+				if(splitArray[j].indexOf('#') == 0 || splitArray[j].indexOf('$') == 0 || splitArray[j].indexOf('@') == 0) // # 문자를 찾는다.
+				   {
+					splitArray[j] = '<a href="javascript:void(0);" onclick="searchingByTag(this)" style="color:black"><span class=\"hashtag\">'+splitArray[j]+'</span></a>'; 
+				   }
+				   fullText += splitArray[j]+' ';
+			}
+		}
+		$(content[i]).html(fullText);
 		var like = $('span[name=feedLike]')
 		$(like[i]).text(data.wallList[i].wallLikeCnt);
 		
