@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,9 +42,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class WallController {
 
-	private FeedService feedService;
 	private UserService userService;
-	private CommentService commentService;
 	private WallService service;
 	
 	@ResponseBody
@@ -57,30 +56,27 @@ public class WallController {
 				service.write(wall);
 			}
 		}
-		return listAll();
+		return listAll(wall.getUserSeq());
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> listAll() {
+	@GetMapping(value = "/list/{userSeq}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> listAll(@PathVariable("userSeq")int userSeq) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		List<User> userList = new ArrayList<User>();
-		List<User> replyUser = new ArrayList<User>();
-		List<Feed> feedList = feedService.listAll();
-		List<Comment> commentList = new ArrayList<Comment>();
-		for (Feed feed : feedList) {
-			userList.add(userService.readBySeq(feed.getUserSeq()));
-			List<Comment> comments = commentService.listByFeed(feed.getFeedSeq());
-			for (Comment comment : comments) {
-				commentList.add(comment);
-				replyUser.add(userService.readBySeq(comment.getUserSeq()));
-			}
+		List<Wall> wallList = service.listByUser(1, 10, userSeq);
+		for (Wall wall : wallList) {
+			userList.add(userService.readBySeq(wall.getWriterUserSeq()));
+			
 		}
-		returnData.put("feedList", feedList);
+		returnData.put("wallList", wallList);
 		returnData.put("userList", userList);
-		returnData.put("replyList", commentList);
-		returnData.put("replyUser", replyUser);
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
 
+	@PostMapping(value ="/delete/{userSeq}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> delte(@PathVariable("userSeq")int userSeq, int wallSeq) {
+		service.delete(wallSeq);
+		return listAll(userSeq);
+	}
 }

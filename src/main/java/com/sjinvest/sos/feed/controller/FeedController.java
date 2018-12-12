@@ -206,5 +206,8 @@ public class FeedController {
 		map.put("replyUser", replyUser);
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
+	
+	//공유하기
+	
 
 }

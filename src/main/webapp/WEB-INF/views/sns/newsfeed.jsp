@@ -269,13 +269,13 @@ $(document).ready( function() {
 });
 
 
-function writeComment(obj){
+/* function writeComment(obj){
 	console.log("뭐지");
 	var feedSeq = $(obj).attr('title');
 	var content = $(obj).closest("div.comment-div").find('textarea').val()
 	console.log(feedSeq);
 	console.log(content);
-	/* console.log("내용!!! "+comment); */
+	console.log("내용!!! "+comment);
 	$.ajax({
 	    url : '/sos/comment/writing',
 	    type : 'post',
@@ -292,7 +292,7 @@ function writeComment(obj){
 	      alert("관리자에게 문의해주세요.");
 	    }
   });
-}
+} */
 
 
 
@@ -440,7 +440,7 @@ function showFeedList(data){
 		$(deleteComment[i]).attr('title',data.feedList[i].feedSeq)
 	
 		var moreIcon = $('div[name=moreIcon]');
-		if("${user}" != null){
+		if("${user.userSeq}" != null){
 			var currentUser = "${user.userNickname}";
 			if(currentUser == data.userList[i].userNickname){
 				$(moreIcon[i]).css('display',"");
@@ -623,6 +623,27 @@ function deleteFeed(obj){
 	    }
 	}) 
 }
+
+/* 글 공유 */
+function shareFeed(obj){
+	var feedSeq = $(obj).attr('title');
+	var user = "${user.userNickname}"
+	$.ajax({
+		url : '/sos/feed/share',
+		type : 'post',
+		data : {
+			"feedSeq" : feedSeq
+		},
+		dataType:'json',
+		success: function(data){
+			showFeedList(data); 
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	}) 
+}
+
 /* 댓글 삭제 */
 function deleteComment(obj){
 	var commentSeq = $(obj).attr('id');

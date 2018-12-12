@@ -106,6 +106,11 @@
   <!-- ... end user data -->
 	<script>
 $(document).ready( function(){
+	
+	getwallList();
+	getFollowList();
+	getFollowerList();
+	
 	/* console.log("${onlyOne}") */
 	var userPicture = "${onlyOne.userPicture}";
 	/* console.log(userPicture); */
@@ -128,8 +133,8 @@ $(document).ready( function(){
 		    dataType:'json',
 		    success : function(data) {
 		    	console.log(data)
-		    	$('#feedContentT').val("");
-		    	showFeedList(data)
+		    	$('#wallContentT').val("");
+		    	showwallList(data)
 		    },
 		    error : function() {
 		      alert("관리자에게 문의해주세요.");
@@ -137,19 +142,137 @@ $(document).ready( function(){
 	  });
 	});
 	
-});
-</script>
-
-
-<script type="text/javascript">
-
-$(document).ready(function(){
+	/*
+	 * userData 모달 안에서 follow버튼
+	 */
+	$('#heartIcon').on('click', function(){
+		var followId = $(this).attr('title');
+		$.ajax({
+			url : '/sos/follow/handle',
+			type : 'get',
+			dataType:'json',
+			data : {
+				"userSeq" : "${user.userSeq}",
+				"followUserId" : followId
+			},
+			success : function(data) {
+				modal(data);
+				console.log("follow update 필요");
+				getFollowList();
+			},
+			error : function() {
+				alert("follow추가 error.");
+			}
+		})
+	});
 	
-	getFollowList();
-	getFollowerList();
-	
 });
 
+
+/** 
+ * newsfeed의 list 목록
+ */
+function getwallList(){
+	$.ajax({
+	    url : '/sos/wall/list/'+"${onlyOne.userSeq}",
+	    type : 'get',
+	    dataType: 'json',
+	    success : function(data) {
+	    	if(data){
+          		/* console.log(data) */
+          		showwallList(data);
+	    	}
+	    },
+	    error : function() {
+	      alert("관리자에게 문의해주세요.");
+	    }
+	  });
+}
+
+/* 글 삭제 */
+function deleteFeed(obj){
+	var wallSeq = $(obj).attr('title');
+	$.ajax({
+		url : '/sos/wall/delete/'+"${onlyOne.userSeq}",
+		type : 'post',
+		data : {
+			"wallSeq" : wallSeq
+		},
+		dataType:'json',
+		success: function(data){
+			showFeedList(data); 
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	}) 
+}
+
+/* 받아온 게시글 뿌리는 역할 */
+function showwallList(data){
+	var feedCard = $("#makeFeed");
+	$(feedCard).html("");
+	console.log(data);
+	for (var i = 0; i < data.wallList.length; i++) {
+		/* console.log(data.wallList[i]); */
+		/* var feed = "<>"; */
+		
+		var nickname = $('a[name=postUserNickName]');
+		$(nickname[i]).text(data.userList[i].userNickname)
+		$(nickname[i]).attr('href', 'temp'+i)	/* 변경 필요 */
+		var time = $('time[name=postWriteDate]');
+		$(time[i]).text(data.wallList[i].wallRegdate);
+		var content = $('p[name=feedContent]');
+		$(content[i]).text(data.wallList[i].wallContent);
+		var like = $('span[name=feedLike]')
+		$(like[i]).text(data.wallList[i].wallLikeCnt);
+		
+		
+		/* 프로필 사진 */
+		var userImage = $('img[name=userImage]');
+		var pictureName = data.userList[i].userPicture;
+		if(pictureName != null){
+			if(pictureName.split(':')[0]=='http' || pictureName.split(':')[0] == 'https'){
+				/* console.log(pictureName) */
+				$(userImage[i]).attr('src', pictureName);
+			}else{
+				$(userImage[i]).attr('src', "/sos/resources/img/"+pictureName);
+			}
+		}else{
+			$(userImage[i]).attr('src', '/sos/resources/img/avatar10-sm.jpg');
+		}
+		
+		/* 좋아요, 공유 */
+		var commentCount = $('span[name=feedCommnetCount]')
+		$(commentCount[i]).text(data.wallList[i].wallReplyCnt);
+		var share = $('span[name=feedShare]');
+		$(share[i]).text(data.wallList[i].wallShareCnt);
+		
+		/* 좋아요도 등록 */
+		var likeComment = $('a[name=likebyOthers]')
+		$(likeComment[i]).attr('title',data.wallList[i].wallSeq)
+		/* 삭제 */
+		var deleteComment = $('a[name=deleteFeed]')
+		$(deleteComment[i]).attr('title',data.wallList[i].wallSeq)
+	
+		var moreIcon = $('div[name=moreIcon]');
+		if("${user}" != null){
+			var currentUser = "${user.userNickname}";
+			if(currentUser == data.userList[i].userNickname){
+				$(moreIcon[i]).css('display',"");
+			}else{
+				$(moreIcon[i]).css('display',"none");
+			}
+		}
+		
+		var feed = $('#newsfeed-items-grid').html(); 
+		if(i == 0 ){
+			$(feedCard).html(feed);
+		}else{
+			$(feedCard).append(feed);
+		}
+	}
+}
 
 /** 
  * 내가 following한 친구목록
@@ -228,6 +351,8 @@ function getFollowerList(){
 	})
 	
 }
+
+
 
 </script>
 
