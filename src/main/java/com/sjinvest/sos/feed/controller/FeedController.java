@@ -101,7 +101,14 @@ public class FeedController {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		List<User> userList = new ArrayList<User>();
 		List<User> replyUser = new ArrayList<User>();
-		List<Feed> feedList = feedService.listAll();
+		
+		SearchParam searchParam = new SearchParam();
+		searchParam.setStartNum(1);
+		searchParam.setEndNum(10);
+		
+//		더보기 어떻게 할까....
+		
+		List<Feed> feedList = feedService.listBySearchPage(searchParam);
 		List<Comment> commentList = new ArrayList<Comment>();
 		for (Feed feed : feedList) {
 			userList.add(userService.readBySeq(feed.getUserSeq()));
@@ -117,6 +124,38 @@ public class FeedController {
 		returnData.put("replyUser", replyUser);
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
+	
+	@ResponseBody
+	@GetMapping(value = "/listmore", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> listMore(int startNum) {
+		Map<String, Object> returnData = new HashMap<String, Object>();
+		List<User> userList = new ArrayList<User>();
+		List<User> replyUser = new ArrayList<User>();
+		
+		SearchParam searchParam = new SearchParam();
+		searchParam.setStartNum(1);
+		searchParam.setEndNum(startNum+9);
+		
+		List<Feed> feedList = feedService.listBySearchPage(searchParam);
+		List<Comment> commentList = new ArrayList<Comment>();
+		for (Feed feed : feedList) {
+			userList.add(userService.readBySeq(feed.getUserSeq()));
+			List<Comment> comments = commentService.listByFeed(feed.getFeedSeq());
+			for (Comment comment : comments) {
+				commentList.add(comment);
+				replyUser.add(userService.readBySeq(comment.getUserSeq()));
+			}
+		}
+		returnData.put("feedList", feedList);
+		returnData.put("userList", userList);
+		returnData.put("replyList", commentList);
+		returnData.put("replyUser", replyUser);
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
+	}
+	
+	
+	
+	
 	@ResponseBody
 	@GetMapping(value = "/follow", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String,Object>> listFollow(HttpServletRequest request) {
@@ -216,11 +255,11 @@ public class FeedController {
 		SearchParam searchParam = new SearchParam();
 		searchParam.setStartNum(1);
 		searchParam.setEndNum(10);
-		if(text.charAt(0) == '$') {
-//			searchList = companyMapper.findCompany(term.substring(1));
-		}
-		else if(text.charAt(0) == '@') {
-//			searchList = fieldMapper.findField(term.substring(1));
+		if(text.charAt(0) == '$' || text.charAt(0) == '@' ) {
+			List<String> list = new ArrayList<>();
+			list.add(text);
+			searchParam.setKeywords(list);
+			feedList = feedService.listBySearchPage(searchParam);
 		}
 		else {
 			searchParam.setUserSeq(userService.searchUser(text));
