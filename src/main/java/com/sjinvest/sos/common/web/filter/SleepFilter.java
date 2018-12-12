@@ -19,6 +19,7 @@ import com.sjinvest.sos.interest.mapper.InterestMapper;
 import com.sjinvest.sos.like.mapper.LikeMapper;
 import com.sjinvest.sos.notice.mapper.NoticeMapper;
 import com.sjinvest.sos.setting.mapper.SettingMapper;
+import com.sjinvest.sos.stock.dao.getPath;
 import com.sjinvest.sos.user.mapper.UserMapper;
 import com.sjinvest.sos.user.service.UserService;
 import com.sjinvest.sos.user.service.UserServiceImpl;

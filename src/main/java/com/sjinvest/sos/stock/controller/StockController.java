@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -69,6 +71,8 @@ public class StockController {
 	private WallService wallService;
 	private FeedService feedService;
 	private NonFinancialService nonFinancialService;
+	private ServletContext servletContext;
+	private ResourceLoader resourceLoader;
 
 	// company, search, trade-list 남수현
 
@@ -184,18 +188,24 @@ public class StockController {
 	@ResponseBody
 	@PostMapping(value = "/capture", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String, Object>> capture(String image){
+		try {
+			System.out.println(resourceLoader.getResource("resources/js/html2canvas.js").getURL().getPath());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String path = servletContext.getRealPath("/")+"resources\\img\\sharing\\";
 		String fileName = UUID.randomUUID().toString();
 		FileOutputStream stream = null;
-		fileName = "c:\\captures\\" + fileName + ".jpeg";
 		try {
-			stream = new FileOutputStream(fileName);
+			stream = new FileOutputStream(path + fileName + ".jpeg");
 			stream.write(Base64Utils.decodeBase64ToBytes(image));
 			stream.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("fileName", fileName);
+		map.put("fileName", "/sharing/"+fileName+".jpeg");
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	
