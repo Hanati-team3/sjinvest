@@ -1058,7 +1058,7 @@ function getInterestList(){
 				/* 값이 없는 경우 */
 			}else{
 				for(var i=0; i<data.interestList.length; i++){
-					$('#interest_list').append('<tr><td class="company-number"><div class="author-freshness"><a href="#" class="h6 title">'+ data.interestList[i].companyNumber +'</a></div></td><td class="company-name"><a href="#" class="h6 count">'+ data.interestList[i].companyName +'</a></td></tr>');
+					$('#interest_list').append('<tr><td class="company-number"><div class="author-freshness"><a href="/sos/stock/company/'+ data.interestList[i].companyNumber +'" class="h6 title">'+ data.interestList[i].companyNumber +'</a></div></td><td class="company-name"><a href="/sos/stock/company/'+ data.interestList[i].companyNumber +'" class="h6 count">'+ data.interestList[i].companyName +'</a></td></tr>');
 
 				}
 			}
@@ -1072,7 +1072,7 @@ function getInterestList(){
 }
 
 /** 
- * 주식관심종목 List
+ * 주식보유종목 List
  */
 function getHoldingList(){
 	
@@ -1090,7 +1090,7 @@ function getHoldingList(){
 				/* 값이 없는 경우 */
 			}else{
 				for(var i=0; i<data.holdingList.length; i++){
-					$('#holding_list').append('<tr><td class="company-number"><div class="author-freshness"><a href="#" class="h6 title">'+ data.holdingList[i].companyNumber +'</a></div></td><td class="company-name"><a href="#" class="h6 count">'+ data.holdingList[i].companyName +'</a></td><td class="holding-amount"><a href="#" class="h6 count">'+ data.holdingList[i].holdingAmount +'</a></td></tr>');
+					$('#holding_list').append('<tr><td class="company-number"><div class="author-freshness"><a href="/sos/stock/company/'+data.holdingList[i].companyNumber+'" class="h6 title";>'+ data.holdingList[i].companyNumber +'</a></div></td><td class="company-name"><a href="/sos/stock/company/'+data.holdingList[i].companyNumber+'" class="h6 count">'+ data.holdingList[i].companyName +'</a></td><td class="holding-amount"><a href="#" class="h6 count">'+ data.holdingList[i].holdingAmount +'</a></td></tr>');
 
 				}
 			}
@@ -1102,6 +1102,7 @@ function getHoldingList(){
 	})
 	
 }
+
 
 /** 
  * 주식랭킹 top5
