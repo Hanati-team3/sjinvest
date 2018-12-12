@@ -11,7 +11,7 @@
 		</a>
 
 		<div class="ui-block-title">
-			<h6 class="title" style="font-size: 0.875rem; line-height: 1.3;">회원로그인</h6>
+			<h6 class="title" style="line-height: 1.3;">회원로그인</h6>
 		</div>
 
 		<div class="ui-block-content" id="loginForm">
@@ -47,7 +47,7 @@
                         <!-- form으로 제출하기 때문에 클릭 사용 onclick="loginCheck()" -->
                         <div class="or"></div>
 
-                        <div class="row">
+                        <div class="row" style=" display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px;">
                           <!-- 네이버, 다음 로그인 start -->
                           <a style="width: 50%" id="kakao-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=c7ab399d372865fa6d3eedac2f2b93a6&redirect_uri=http://localhost/sos/user/kakaologin&response_type=code">
                           	<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="88%" height="100%" style="margin-left: 10%;"/>

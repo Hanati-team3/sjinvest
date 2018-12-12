@@ -70,7 +70,9 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
-
+.title{
+	font-size: 1.875rem;
+}
 .fade.show {
     opacity: 1;
 }
@@ -88,6 +90,7 @@
 
 .fade {
     transition: opacity 0.15s linear;
+
 }
 
 .modal.show .modal-dialog {
@@ -188,9 +191,12 @@ svg:not(:root) {
     left: 20px;
 }
 .label-floating .form-control, .label-floating input{
-	padding: 1.3rem 1.1rem .4rem;
+	padding: 2rem 1.1rem .4rem;
     line-height: 1.8;
 
+}
+.remember {
+    margin-bottom: 2rem;
 }
 .remember .checkbox {
     display: inline-block;
@@ -209,21 +215,21 @@ svg:not(:root) {
     color: #888da8;
 }
 .remember a {
-    line-height: 2;
+    line-height: 3;
 }
 
 .fav-page-popup button {
     margin-bottom: 0;
 }
 button.btn {
-    padding: .5rem 1rem;
+    padding: 1rem 1rem;
 }
 .full-width {
     width: 100%;
 }
 .btn-lg{
     padding: 1rem 6rem;
-    font-size: 0.875rem;
+    font-size: 1.575rem;
     /* line-height: 1.5; */
     border-radius: 0.3rem;
 }
@@ -236,14 +242,20 @@ button.btn {
     position: relative;
     width: 100%;
     height: 1px;
-    margin: 1rem 0 2rem 0;
+    margin: 2rem 0 4rem 0;
     background-color: #e6ecf5;
 }
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+.or:after {
+    content: 'OR';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 0 25px;
+    font-size: 10px;
+    z-index: 5;
 }
 </style>
 </head>
@@ -319,7 +331,6 @@ button.btn {
         <p>주식이 어려운 그대를 위해 <span>"SJ Team"</span> 이 만든 S.O.S 입니다~~~</p>
       </div>
       <!--/section-title-->
-      
     </div>
   </div>
 </section>
@@ -345,6 +356,7 @@ button.btn {
     </div>
   </div>
 </section>
+
 
 
 <!-- contact us Page
