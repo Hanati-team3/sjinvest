@@ -68,7 +68,6 @@ public class UserController {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		
 		User user = service.certify(userId, userPw);
-		System.out.println("새로그인?"+ user);
 		
 		// 로그인 성공
 		if(user != null) {
@@ -143,7 +142,7 @@ public class UserController {
 
 		log.info("update : "+ user);
 		
-		System.out.println("받아온 user 정보: "+user);
+		//System.out.println("받아온 user 정보: "+user);
 		
 		User userUpdate = (User) session.getAttribute("user");
 		int userUpdateSeq = userUpdate.getUserSeq();
@@ -263,7 +262,7 @@ public class UserController {
 		List<User> userList = service.totalMarginTop(num);
 		
 		
-		System.out.println("ranking"+userList);
+		//System.out.println("ranking"+userList);
 		returnData.put("userRanking",service.totalMarginTop(num));
 		
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
