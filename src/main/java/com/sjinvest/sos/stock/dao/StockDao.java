@@ -138,6 +138,16 @@ public class StockDao {
         }
         return result;
 	}
+	public Kospi convertKospiInpo(JsonNode jsonMap) {
+        JsonNode kospiNode = jsonMap.get("kospi");
+        Kospi kospi = new Kospi();
+        kospi.setHigh(kospiNode.get(0).get("high").asDouble());
+        kospi.setPrice(kospiNode.get(0).get("price").asDouble());
+        kospi.setLow(kospiNode.get(0).get("low").asDouble());
+        kospi.setLastPrice(kospiNode.get(0).get("lastPrice").asDouble());
+        kospi.setVolume(kospiNode.get(0).get("volume").asInt());
+        return kospi;
+	}
 	public List<Stock> convertStockList(JsonNode jsonMap,String nodeName){
         JsonNode ownStock = jsonMap.get(nodeName);
         List<Stock> stockList = new ArrayList<Stock>();
@@ -348,6 +358,7 @@ public class StockDao {
             result.put("realTime", convertStockMiniList(jsonMap, "realTime"));
             result.put("topTab", convertStockTop(jsonMap));
             result.put("stockList", convertStockList(jsonMap,"OwnStock"));
+            result.put("kospi", convertKospiInpo(jsonMap));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -498,9 +509,10 @@ public class StockDao {
 		fieldNameList.add("화장품");
 		fieldNameList.add("쇼핑/백화점");
 		fieldNameList.add("자동차");
-		List<String[]> fields = stockDao.getField(fieldNameList);
-		for(String[] temp : fields) {
-			System.out.println(temp[0] + " " + temp[1]);
-		}
+//		List<String[]> fields = stockDao.getField(fieldNameList);
+//		for(String[] temp : fields) {
+//			System.out.println(temp[0] + " " + temp[1]);
+//		}
+		System.out.println(stockDao.forIndex(companyList, 1).get("kospi"));
 	}
 }

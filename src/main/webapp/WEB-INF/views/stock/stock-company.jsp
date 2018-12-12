@@ -213,7 +213,7 @@ function getStockData(){
 })	
 }
 $(document).ready(function(){
-//	getStockData();
+	getStockData();
 	COMPANY.companyCharts = document.getElementById("this-line-chart");
 	addInterest();
 	purchase();
