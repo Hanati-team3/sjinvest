@@ -97,8 +97,8 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	
 	            <span name="feedShare"></span>
 	          </a>
-	          <!-- <a class="post-add-icon inline-items"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-	          <a class="post-add-icon inline-items"><i class="fa fa-instagram" aria-hidden="true"></i></a> -->
+	          <a class="post-add-icon inline-items"><i class="fab fa-facebook fa-2x" aria-hidden="true"></i></a>
+	          <a class="post-add-icon inline-items"><i class="fab fa-instagram fa-2x" aria-hidden="true"></i></a>
 	        </div>
 	
 	
