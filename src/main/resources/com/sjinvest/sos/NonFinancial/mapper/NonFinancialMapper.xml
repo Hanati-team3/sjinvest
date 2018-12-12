@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="com.sjinvest.sos.NonFinancial.mapper.NonFinancialMapper">
+	<resultMap type="NonFinancial" id="nonFinancialResultMap">
+		<result column="non_financial_title" property="nonFinancialTitle" />
+		<result column="company_number" property="companyNumber" />
+		<result column="company_name" property="companyName" />
+		<result column="non_financial_content" property="nonFinancialContent" />
+	</resultMap>
+	<!-- 회사 번호로 비재무정보 목록 가져오기 -->
+	<select id="readByCompanyNumber" parameterType="String" resultType="NonFinancial"
+		resultMap="nonFinancialResultMap">
+		SELECT non_financial_title,
+			   company_number, 
+		       company_name, 
+		       non_financial_content 
+		FROM   non_financial 
+		WHERE  company_number = #{value}
+	</select>
+	<!-- 회사 이름으로 비재무정보 목록 가져오기 -->
+	<select id="readByCompanyName" parameterType="String" resultType="NonFinancial"
+		resultMap="nonFinancialResultMap">
+		SELECT non_financial_title,
+			   company_number, 
+		       company_name, 
+		       non_financial_content 
+		FROM   non_financial 
+		WHERE  company_name = #{value}
+	</select>
+</mapper>
