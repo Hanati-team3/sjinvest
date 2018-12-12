@@ -68,7 +68,6 @@ public class UserController {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		
 		User user = service.certify(userId, userPw);
-		System.out.println("새로그인?"+ user);
 		
 		// 로그인 성공
 		if(user != null) {
@@ -146,15 +145,20 @@ public class UserController {
 		//System.out.println("받아온 user 정보: "+user);
 		
 		User userUpdate = (User) session.getAttribute("user");
+		int userUpdateSeq = userUpdate.getUserSeq();
 		
-		userUpdate.setUserNickname(user.getUserNickname());
-		userUpdate.setUserEmail(user.getUserEmail());
-		userUpdate.setUserPw(user.getUserPw());
-		userUpdate.setUserDetail(user.getUserDetail());
-		userUpdate.setUserBirth(user.getUserBirth());
-		userUpdate.setUserGender(user.getUserGender());
 		
-		boolean result = service.updateUser(userUpdate);
+		User newUser = new User();
+
+		newUser.setUserSeq(userUpdateSeq);;
+		newUser.setUserNickname(user.getUserNickname());
+		newUser.setUserEmail(user.getUserEmail());
+		newUser.setUserPw(user.getUserPw());
+		newUser.setUserDetail(user.getUserDetail());
+		//userUpdate.setUserBirth(user.getUserBirth());
+		//userUpdate.setUserGender(user.getUserGender());
+		
+		boolean result = service.updateUser(newUser);
 		
 		//System.out.println("수정된 user 결과: "+ userUpdate);
 
@@ -258,7 +262,7 @@ public class UserController {
 		List<User> userList = service.totalMarginTop(num);
 		
 		
-		System.out.println("ranking"+userList);
+		//System.out.println("ranking"+userList);
 		returnData.put("userRanking",service.totalMarginTop(num));
 		
 		return new ResponseEntity<>(returnData,HttpStatus.OK);

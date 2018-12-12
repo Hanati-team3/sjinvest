@@ -582,7 +582,7 @@ function showFeedList(data){
 					$(replyImage[k]).attr('src', '/sos/resources/img/author-page.jpg')
 				}
 				
-				if("${user}" != null){
+				if('${user.userSeq}' != null){
 					var currentUser = "${user.userNickname}";
 					if(currentUser == data.replyUser[k].userNickname){
 						$(moreIconReply[k]).css('display',"");

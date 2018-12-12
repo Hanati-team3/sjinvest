@@ -7,7 +7,8 @@ boolean result = true;
 
 if((User)(request.getSession().getAttribute("user")) != null && ((User)(request.getSession().getAttribute("user"))).getUserPicture() != null){
   if(((((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("http") || (((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("https"))){
-    result = true;
+	  System.out.println("뭐냐 아오");
+	  result = true;
   }else{
     result = false;
   }
@@ -113,12 +114,12 @@ if((User)(request.getSession().getAttribute("user")) != null && ((User)(request.
             
             
               <c:choose>
-                <c:when test="${user.userPicture eq null}">
-                <%if (result == true){ %>
-                  <img alt="author" src="${user.userPicture}" width="36" height="36" class="avatar">
-                  <%}else if(result == false){ %>
-                  <img alt="author" src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"width="36" height="36" class="avatar">
-                  <%}%>
+                <c:when test="${user.userPicture ne null}">
+	                <%if (result){ %>
+	                  	<img alt="author" src="${user.userPicture}" width="36" height="36" class="avatar">
+	                  <%}else{ %>
+	                  	<img alt="author" src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"width="36" height="36" class="avatar">
+	                  <%}%>
                   </c:when>
                 <c:otherwise>
                   <img alt="author" src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"width="36" height="36" class="avatar">
