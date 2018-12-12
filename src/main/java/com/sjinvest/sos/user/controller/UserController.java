@@ -143,18 +143,23 @@ public class UserController {
 
 		log.info("update : "+ user);
 		
-		//System.out.println("받아온 user 정보: "+user);
+		System.out.println("받아온 user 정보: "+user);
 		
 		User userUpdate = (User) session.getAttribute("user");
+		int userUpdateSeq = userUpdate.getUserSeq();
 		
-		userUpdate.setUserNickname(user.getUserNickname());
-		userUpdate.setUserEmail(user.getUserEmail());
-		userUpdate.setUserPw(user.getUserPw());
-		userUpdate.setUserDetail(user.getUserDetail());
-		userUpdate.setUserBirth(user.getUserBirth());
-		userUpdate.setUserGender(user.getUserGender());
 		
-		boolean result = service.updateUser(userUpdate);
+		User newUser = new User();
+
+		newUser.setUserSeq(userUpdateSeq);;
+		newUser.setUserNickname(user.getUserNickname());
+		newUser.setUserEmail(user.getUserEmail());
+		newUser.setUserPw(user.getUserPw());
+		newUser.setUserDetail(user.getUserDetail());
+		//userUpdate.setUserBirth(user.getUserBirth());
+		//userUpdate.setUserGender(user.getUserGender());
+		
+		boolean result = service.updateUser(newUser);
 		
 		//System.out.println("수정된 user 결과: "+ userUpdate);
 
