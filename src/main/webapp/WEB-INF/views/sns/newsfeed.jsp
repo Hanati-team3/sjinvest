@@ -252,14 +252,14 @@ $(document).ready( function() {
 	
 	$("#writeForm").on("submit", function(event) {
 		event.preventDefault();
-		var feedContent = $('#feedContentT')
-		console.log(feedContent.val())
+		var feedContent = $('#feedContentT').val()
+		feedContent = feedContent.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 		/* console.log("내용!!! "+comment); */
 		$.ajax({
 		    url : '/sos/feed/write',
 		    type : 'post',
 		    data : {
-		    	feedContent : feedContent.val()
+		    	feedContent : feedContent
 		    },
 		    dataType:'json',
 		    success : function(data) {
