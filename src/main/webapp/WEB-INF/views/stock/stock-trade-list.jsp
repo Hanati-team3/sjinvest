@@ -185,19 +185,19 @@ function formatDate(date){
           <jsp:include page="../includes/searchBar.jsp"></jsp:include>
         <%-- 검색 끝 --%>
         <%-- tradelist 필터 시작 --%>
-        <div class="ui-block">
+        <div class="ui-block" style="background-color: #edf2f6;  border: none;">
         	<div class="row">
         		<div  class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">
         			<input type="text" id="datepicker"
                               data-language="en" data-range="true"
                               placeholder="기간을 선택해 주세요" 
-                              class="datepicker-here form-control" style="height: 100%"
+                              class="datepicker-here form-control" style="height: 100%; background-color: white;"
                               required />
         		</div>
         		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
 <!-- 		          <form class="w-search" style="width: 100%;" action="#" method > -->
 		            <div class="w-select form-group with-button is-empty">
-		              <select class="W- type-select" name = "trade-type">
+		              <select class="W- type-select" name = "trade-type" style="background-color: white;">
 		                <option value="0">ALL</option>
 		                <option value="1">SELL</option>
 		                <option value="2">BUY</option>
@@ -292,11 +292,15 @@ function formatDate(date){
 			    <form name="imgForm" id="imgForm" action="/convertToImage" method="post">
 			        <input type="hidden" id="imgData" name="imgData">
 			    </form>
-          <div class="printBtnZone" align="right" >
-              <a id="share-btn" class="btn bg-gray small w-auto">공유하기</a>
-          </div>
-          <div class="printBtnZone" align="right">
-              <a id="boast-btn" class="btn bg-gray small w-auto">자랑하기</a>
+          <div class="row" style="padding: 0 250px; margin-top: 20px;">
+            <div class="printBtnZone" align="right" style='margin: 0 auto;'>
+                <a href="#" id="share-btn" class="btn btn-blue  btn-md-2" style=" display: inline-block;">공유하기</a>
+                <!-- <a id="share-btn" class="btn bg-gray small w-auto">공유하기</a> -->
+            </div>
+            <div class="printBtnZone" align="right" style='margin: 0 auto;'>
+                <a href="#" id="boast-btn" class="btn btn-blue btn-md-2" style=" display: inline-block;">자랑하기</a>
+                <!-- <a id="boast-btn" class="btn bg-gray small w-auto">자랑하기</a> -->
+            </div>
           </div>
             </div>
             <nav aria-label="Page navigation example">
