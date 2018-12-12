@@ -102,6 +102,10 @@ function setKospiStock(kospiStock) {
 
 /** 코스피 차트 설정 */
 function setKospiChart(kospiChart) {
+	for(var i =0; i < kospiChart.label.length; i++) {
+		if((i%5 == 0) && (i % 10 != 0)) kospiChart.label[i] = ""
+		kospiChart.label[i] = kospiChart.label[i].replace("'","").replace("'","");
+	}
 	var lineChart = document.getElementById("kospi-line-chart");
     var ctx_lc = lineChart.getContext("2d");
     var data_lc = {
@@ -193,7 +197,7 @@ function setMyInterestCard(interestMap) {
 		  		// false면 처음 설정하는 것임
 		  		if(!INDEX.interestChartEls[index]) {
 					for(var j = 0; j < interestChartData.label.length; j++){
-						interestChartData.label[i] = interestChartData.label[i].replace("'","").replace("'","");
+						interestChartData.label[j] = interestChartData.label[j].replace("'","").replace("'","");
 					}
 	    			var interestChart = interestCharts[index];
 	    			var ctx_ls = interestChart.getContext("2d");
@@ -333,7 +337,7 @@ function updateInterestChart(interestMap) {
 		  		// false면 처음 설정하는 것임
 		  		if(!INDEX.interestChartEls[index]) {
 					for(var j = 0; j < interestChartData.label.length; j++){
-						interestChartData.label[i] = interestChartData.label[i].replace("'","").replace("'","");
+						interestChartData.label[j] = interestChartData.label[j].replace("'","").replace("'","");
 					}
 	    			var interestChart = interestCharts[index];
 	    			var ctx_ls = interestChart.getContext("2d");
@@ -389,7 +393,7 @@ function updateInterestChart(interestMap) {
 		  		// 업데이트
 		  		else {
 					for(var j = 0; j < interestChartData.label.length; j++){
-						interestChartData.label[i] = interestChartData.label[i].replace("'","").replace("'","");
+						interestChartData.label[j] = interestChartData.label[j].replace("'","").replace("'","");
 					}
 		  			var eachData = interestChartData.data[interestList[i].stockCode];
 		  			INDEX.interestChartEls[index].data.labels = interestChartData.label;
