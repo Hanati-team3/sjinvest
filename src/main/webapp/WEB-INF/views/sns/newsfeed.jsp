@@ -12,6 +12,11 @@
   border-radius: 25px;
   background-color: #AAF0D1;
 }
+img[name=feedImage]:hover{
+	cursor:pointer;
+   -webkit-transform:scale(2);
+
+}
 </style>
 </head>
 <body>

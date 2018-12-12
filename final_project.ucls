@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.14" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="com.sjinvest.sos" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1820" y="933"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="com.sjinvest.sos.comment.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/comment/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="160" y="57"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="com.sjinvest.sos.comment.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/comment/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="154" y="135"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="com.sjinvest.sos.comment.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/comment/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="154" y="210"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="com.sjinvest.sos.comment.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/comment/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="155" y="284"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="com.sjinvest.sos.common.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/common/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="483" y="62"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="7" language="java" name="com.sjinvest.sos.common.security" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/common/security" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="479" y="140"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="8" language="java" name="com.sjinvest.sos.common.web.exception" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/common/web/exception" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="503" y="219"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="9" language="java" name="com.sjinvest.sos.common.web.filter" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/common/web/filter" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="486" y="298"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="10" language="java" name="com.sjinvest.sos.common.web.interceptor" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/common/web/interceptor" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="509" y="375"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="11" language="java" name="com.sjinvest.sos.company.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/company/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="836" y="63"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="12" language="java" name="com.sjinvest.sos.company.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/company/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="832" y="141"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="13" language="java" name="com.sjinvest.sos.company.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/company/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="832" y="207"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="14" language="java" name="com.sjinvest.sos.company.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/company/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="832" y="285"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="15" language="java" name="com.sjinvest.sos.feed.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/feed/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="143" y="531"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="16" language="java" name="com.sjinvest.sos.feed.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/feed/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="137" y="612"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="17" language="java" name="com.sjinvest.sos.feed.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/feed/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="135" y="684"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="18" language="java" name="com.sjinvest.sos.feed.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/feed/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="133" y="758"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="19" language="java" name="com.sjinvest.sos.field.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/field/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="464" y="536"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="20" language="java" name="com.sjinvest.sos.field.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/field/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="469" y="621"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="21" language="java" name="com.sjinvest.sos.field.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/field/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="467" y="693"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="22" language="java" name="com.sjinvest.sos.field.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/field/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="476" y="767"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="23" language="java" name="com.sjinvest.sos.follow.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/follow/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="821" y="531"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="24" language="java" name="com.sjinvest.sos.follow.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/follow/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="825" y="614"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="25" language="java" name="com.sjinvest.sos.follow.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/follow/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="835" y="695"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="26" language="java" name="com.sjinvest.sos.follow.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/follow/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="825" y="776"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="27" language="java" name="com.sjinvest.sos.holding.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/holding/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1190" y="65"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="28" language="java" name="com.sjinvest.sos.holding.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/holding/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1194" y="147"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="29" language="java" name="com.sjinvest.sos.holding.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/holding/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1194" y="219"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="30" language="java" name="com.sjinvest.sos.holding.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/holding/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1201" y="296"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="31" language="java" name="com.sjinvest.sos.interest.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/interest/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1498" y="65"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="32" language="java" name="com.sjinvest.sos.interest.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/interest/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1497" y="151"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="33" language="java" name="com.sjinvest.sos.interest.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/interest/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1500" y="228"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="34" language="java" name="com.sjinvest.sos.interest.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/interest/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1509" y="312"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="35" language="java" name="com.sjinvest.sos.like.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/like/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1173" y="531"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="36" language="java" name="com.sjinvest.sos.like.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/like/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1186" y="618"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="37" language="java" name="com.sjinvest.sos.like.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/like/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1179" y="696"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="38" language="java" name="com.sjinvest.sos.like.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/like/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1176" y="779"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="39" language="java" name="com.sjinvest.sos.NonFinancial.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/NonFinancial/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1522" y="533"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="40" language="java" name="com.sjinvest.sos.NonFinancial.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/NonFinancial/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1523" y="619"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="41" language="java" name="com.sjinvest.sos.NonFinancial.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/NonFinancial/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1523" y="705"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="42" language="java" name="com.sjinvest.sos.notice.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/notice/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1851" y="63"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="43" language="java" name="com.sjinvest.sos.notice.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/notice/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1842" y="152"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="44" language="java" name="com.sjinvest.sos.notice.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/notice/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1842" y="229"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="45" language="java" name="com.sjinvest.sos.notice.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/notice/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1839" y="310"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="46" language="java" name="com.sjinvest.sos.point.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/point/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1498" y="929"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="47" language="java" name="com.sjinvest.sos.point.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/point/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1507" y="1019"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="48" language="java" name="com.sjinvest.sos.point.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/point/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1502" y="1102"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="49" language="java" name="com.sjinvest.sos.point.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/point/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1499" y="1180"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="50" language="java" name="com.sjinvest.sos.setting.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/setting/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1871" y="539"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="51" language="java" name="com.sjinvest.sos.setting.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/setting/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1876" y="629"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="52" language="java" name="com.sjinvest.sos.setting.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/setting/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1867" y="712"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="53" language="java" name="com.sjinvest.sos.setting.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/setting/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1865" y="791"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="54" language="java" name="com.sjinvest.sos.sns.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/sns/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1871" y="1015"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="55" language="java" name="com.sjinvest.sos.stock.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/stock/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="137" y="908"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="56" language="java" name="com.sjinvest.sos.stock.params" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/stock/params" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="139" y="1005"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="57" language="java" name="com.sjinvest.sos.stock.dao" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/stock/dao" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="131" y="1093"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="58" language="java" name="com.sjinvest.sos.stock.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/stock/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="142" y="1182"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="59" language="java" name="com.sjinvest.sos.stock.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/stock/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="145" y="1271"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="60" language="java" name="com.sjinvest.sos.trading.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/trading/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="479" y="903"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="61" language="java" name="com.sjinvest.sos.trading.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/trading/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="480" y="997"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="62" language="java" name="com.sjinvest.sos.trading.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/trading/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="479" y="1095"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="63" language="java" name="com.sjinvest.sos.trading.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/trading/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="486" y="1195"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="64" language="java" name="com.sjinvest.sos.user.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/user/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="819" y="912"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="65" language="java" name="com.sjinvest.sos.user.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/user/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="830" y="1002"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="66" language="java" name="com.sjinvest.sos.user.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/user/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="822" y="1092"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="67" language="java" name="com.sjinvest.sos.user.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/user/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="816" y="1190"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="68" language="java" name="com.sjinvest.sos.wall.mapper" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/wall/mapper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1181" y="919"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="69" language="java" name="com.sjinvest.sos.wall.service" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/wall/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1183" y="1012"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="70" language="java" name="com.sjinvest.sos.wall.controller" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/wall/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1192" y="1099"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="71" language="java" name="com.sjinvest.sos.wall.domain" project="Project_SJinvest" 
+    file="/Project_SJinvest/src/main/java/com/sjinvest/sos/wall/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1182" y="1184"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

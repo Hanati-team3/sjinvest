@@ -13,6 +13,11 @@
   border-radius: 25px;
   background-color: #AAF0D1;
 }
+img[name=feedImage]:hover{
+	cursor:pointer;
+   -webkit-transform:scale(2);
+
+}
 </style>
 </head>
 <body>
@@ -228,6 +233,17 @@ function showwallList(data){
 		$(nickname[i]).attr('href', 'temp'+i)	/* 변경 필요 */
 		var time = $('time[name=postWriteDate]');
 		$(time[i]).text(data.wallList[i].wallRegdate);
+		
+		
+		var feedImage = $('img[name=feedImage]')
+		if(data.feedList[i].feedPicture != null){
+			$(feedImage[i]).attr('src', "/sos/resources/img/"+data.feedList[i].feedPicture);
+			$(feedImage[i]).css('display', "");
+		}else{
+			$(feedImage[i]).attr('src', "");
+			$(feedImage[i]).css('display', "none");
+			
+		}
 		var content = $('div[name=feedContent]');
 		var newContent = data.wallList[i].wallContent;
 		var splitArray = newContent.split(' ');
