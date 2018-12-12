@@ -564,6 +564,11 @@
     				updateSlideCard(map.holdingWidget.holdingList);
     				//항목별 정보 차트 업데이트
     				//updateSlideChart(map.holdingWidget.holdingList);
+    		          var realTimeList = $("ul#scroll li a");
+    		          for(var i = 0; i < realTimeList.length; i++){
+    		        	  realTimeList.eq(i).text((i+1)+"  "+map.realTime[i].stockName+" "+numberWithCommas(map.realTime[i].total));
+    		        	  realTimeList.eq(i).attr('href','company/'+map.realTime[i].stockCode);
+    		          }
     				setTimeout(holdingListUpdate, 2000);
     			},
     			error : function(request, status, error) {

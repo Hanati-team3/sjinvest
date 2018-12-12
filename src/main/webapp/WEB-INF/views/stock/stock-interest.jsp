@@ -40,8 +40,6 @@
     </div>
     <%-- realtime row 끝 --%>
     
-    <a onclick="stop()" href="#">요청종료</a>
-    
     <%-- 사이드 포함 row 시작 --%>
     <div class="row stock-interest-main">
       <!-- Left Sidebar -->
@@ -205,11 +203,6 @@
 
   <!-- ... end Widget Weather -->
 
-
-  <!-- Window-popup-CHAT for responsive min-width: 768px -->
-  <jsp:include page="../popup/popup-chat.jsp"></jsp:include>
-  <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
-
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
   <!-- End Include js -->
@@ -217,7 +210,7 @@
   <script>
 	var INTEREST = {};	//stock-interest 전역변수
   	// interest update를 활성화/중지
-  	INTEREST.flag = false;
+  	INTEREST.flag = true;
   	INTEREST.interestNumberArray = [];
   	
     $(document).ready(function() {
@@ -310,7 +303,14 @@
     			success : function(interestData) {
     				console.log("interestData .. ");
     				console.log(interestData);
-    				setInterestData(interestData);
+    				setInterestData(interestData.stockList);
+    				
+    		        var realTimeList = $("ul#scroll li a");
+    		        for(var i = 0; i < realTimeList.length; i++){
+    		      	  realTimeList.eq(i).text((i+1)+"  "+interestData.realTime[i].stockName+" "+numberWithCommas(interestData.realTime[i].total));
+    		      	  realTimeList.eq(i).attr('href','company/'+interestData.realTime[i].stockCode);
+    		        }
+
     				setTimeout(interestUpdate, 2000);
     			},
     			error : function(request, status, error) {

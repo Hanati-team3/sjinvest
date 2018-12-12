@@ -29,10 +29,6 @@
  }
 
 </style>
-<script>
-window.onload =  function(){
-	//document.getElementById("real-container").setAttribute('display', 'none' );
-}
 </script>
 </head>
 <body class="stock">
@@ -75,14 +71,11 @@ window.onload =  function(){
     <div class="row realtime">
       <!-- realtime start -->
       <div class="col-xl-12 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12" style="float:right">
-        <jsp:include page="../includes/realtime.jsp"></jsp:include>
+      <jsp:include page="../includes/realtime.jsp"></jsp:include>
       </div>
       <!-- ..realtime end -->
     </div>
     <%-- realtime row 끝 --%>
-    
-    
-    <a onclick="stop()" href="#">요청종료</a>
     
     
     <%-- 사이드 포함 row 시작 --%>
