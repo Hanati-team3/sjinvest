@@ -298,22 +298,36 @@
 	<!-- 수익률 랭킹 top -->
 	<select id="totalMarginTop" parameterType="Integer" resultType="User"
 		resultMap="userResultMap">
-		SELECT user_seq, 
-		       user_id, 
-		       user_nickname, 
-		       user_email, 
-		       user_point, 
-		       user_picture, 
-		       user_detail, 
-		       user_regdate,
-		       user_money, 
-		       user_gender, 
-		       user_birth, 
-		       user_authority,
-		       user_total_margin 
-		FROM   users 
-		WHERE  rownum <![CDATA[<=]]> #{value} 
-		ORDER  BY user_total_margin DESC 
+				SELECT A.user_seq user_seq, 
+				       A.user_id user_id, 
+				       A.user_nickname user_nickname, 
+				       A.user_email user_email, 
+				       A.user_point user_point, 
+				       A.user_picture user_picture, 
+				       A.user_detail user_detail, 
+				       A.user_regdate user_regdate,
+				       A.user_money user_money, 
+				       A.user_gender user_gender, 
+				       A.user_birth user_birth, 
+				       A.user_authority user_authority,
+				       A.user_total_margin user_total_margin 
+				FROM   (SELECT user_seq, 
+				       user_id, 
+				       user_nickname, 
+				       user_email, 
+				       user_point, 
+				       user_picture, 
+				       user_detail, 
+				       user_regdate,
+				       user_money, 
+				       user_gender, 
+				       user_birth, 
+				       user_authority,
+				       user_total_margin
+		           FROM USERS
+		           where user_total_margin is not null
+		           ORDER BY user_total_margin desc) A 
+				WHERE  rownum <![CDATA[<=]]> #{value}
 	</select>
 	<!-- 모든 유저 -->
 	<select id="findUser" parameterType="String" resultType="String">
