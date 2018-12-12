@@ -87,7 +87,8 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	                xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
 	
 	            <span name="feedCommnetCount"></span>
-	          </a> <a href="#" class="post-add-icon inline-items"> <svg
+	          </a> 
+	          <a name="shareFeed" href="#" class="post-add-icon inline-items" href="javascript:void(0);" onclick="shareFeed(this)"> <svg
 	              class="olymp-share-icon">
 	                  <use
 	                xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-share-icon"></use></svg>

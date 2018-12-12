@@ -2,14 +2,11 @@ package com.sjinvest.sos.wall.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sjinvest.sos.comment.domain.Comment;
-import com.sjinvest.sos.comment.service.CommentService;
+import com.sjinvest.sos.feed.controller.FeedController;
 import com.sjinvest.sos.feed.domain.Feed;
-import com.sjinvest.sos.feed.domain.SearchParam;
 import com.sjinvest.sos.feed.service.FeedService;
-import com.sjinvest.sos.follow.domain.Follow;
-import com.sjinvest.sos.follow.service.FollowService;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
 import com.sjinvest.sos.wall.domain.Wall;
@@ -44,10 +36,12 @@ public class WallController {
 
 	private UserService userService;
 	private WallService service;
+	private FeedService feedService;
+	private FeedController feedController;
 	
 	@ResponseBody
 	@PostMapping(value = "/write", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> write(HttpSession session, Wall wall, HttpServletRequest request) {
+	public ResponseEntity<Map<String,Object>> write(HttpSession session, Wall wall) {
 		if(session.getAttribute("user") != null) {
 //			System.out.println("네이버 로그인?");
 			wall.setWriterUserSeq(((User)session.getAttribute("user")).getUserSeq());
@@ -78,5 +72,25 @@ public class WallController {
 	public ResponseEntity<Map<String,Object>> delte(@PathVariable("userSeq")int userSeq, int wallSeq) {
 		service.delete(wallSeq);
 		return listAll(userSeq);
+	}
+	
+	
+	//공유하기
+	@PostMapping("/share")
+	public ResponseEntity<Map<String,Object>> add(int wantedSeq, int feedSeq) {
+		feedService.increaseShare(feedSeq);
+		System.out.println(feedSeq);
+		Feed feed = feedService.getOne(feedSeq);
+		System.out.println(feed);
+		Wall wall = new Wall();
+		wall.setUserSeq(wantedSeq);
+		wall.setWallContent("<p>"+userService.readBySeq(feed.getUserSeq()).getUserNickname()+"님의 글을 공유했습니다</p>\n"+"<p>"+feed.getFeedContent()+"</p>");
+		wall.setWriterUserSeq(wantedSeq);
+		if(wall.getWallContent() != "") {
+			service.write(wall);
+		}
+		System.out.println(wall);
+		System.out.println("글 공유 완료");
+		return feedController.listAll();
 	}
 }

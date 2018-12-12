@@ -16,4 +16,5 @@ public interface FeedMapper {
 	public List<Feed> listBySearchPage(Map<String, Object> map);
 	public List<Feed> listBySearchPageByUser(Map<String, Object> map);
 	public boolean decreaseReply(int feedSeq);
+	public Feed getOne(int feedSeq);
 }

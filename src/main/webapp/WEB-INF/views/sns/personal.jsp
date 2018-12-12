@@ -200,7 +200,7 @@ function deleteFeed(obj){
 		},
 		dataType:'json',
 		success: function(data){
-			showFeedList(data); 
+			showwallList(data); 
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
@@ -222,7 +222,7 @@ function showwallList(data){
 		$(nickname[i]).attr('href', 'temp'+i)	/* 변경 필요 */
 		var time = $('time[name=postWriteDate]');
 		$(time[i]).text(data.wallList[i].wallRegdate);
-		var content = $('p[name=feedContent]');
+		var content = $('pre[name=feedContent]');
 		$(content[i]).text(data.wallList[i].wallContent);
 		var like = $('span[name=feedLike]')
 		$(like[i]).text(data.wallList[i].wallLikeCnt);

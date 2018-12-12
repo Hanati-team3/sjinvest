@@ -27,8 +27,10 @@ import com.sjinvest.sos.feed.domain.SearchParam;
 import com.sjinvest.sos.feed.service.FeedService;
 import com.sjinvest.sos.follow.domain.Follow;
 import com.sjinvest.sos.follow.service.FollowService;
+import com.sjinvest.sos.like.domain.Like;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
+import com.sjinvest.sos.wall.domain.Wall;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -206,8 +208,5 @@ public class FeedController {
 		map.put("replyUser", replyUser);
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
-	
-	//공유하기
-	
 
 }

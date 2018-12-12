@@ -381,8 +381,16 @@ function showFeedList(data){
 		/* 좋아요, 공유 */
 		var commentCount = $('span[name=feedCommnetCount]')
 		$(commentCount[i]).text(data.feedList[i].feedReplyCnt);
-		var share = $('span[name=feedShare]');
-		$(share[i]).text(data.feedList[i].feedShareCnt);
+		var shareFeed = $('span[name=feedShare]');
+		$(shareFeed[i]).text(data.feedList[i].feedShareCnt);
+		/* 공유 */
+		var shareFeed = $('a[name=shareFeed]')
+		$(shareFeed[i]).attr('title', data.feedList[i].feedSeq)
+		if("${user.userSeq}" == data.feedList[i].userSeq){
+			$(shareFeed[i]).attr("onclick", "")
+		}else{
+			$(shareFeed[i]).attr("onclick", "shareFeed(this)")
+		}
 		
 		/* 댓글 */
 		var commentCard = $("div[name=makeComment]")
@@ -438,6 +446,7 @@ function showFeedList(data){
 		/* 삭제 */
 		var deleteComment = $('a[name=deleteFeed]')
 		$(deleteComment[i]).attr('title',data.feedList[i].feedSeq)
+		
 	
 		var moreIcon = $('div[name=moreIcon]');
 		if("${user.userSeq}" != null){
@@ -627,16 +636,17 @@ function deleteFeed(obj){
 /* 글 공유 */
 function shareFeed(obj){
 	var feedSeq = $(obj).attr('title');
-	var user = "${user.userNickname}"
 	$.ajax({
-		url : '/sos/feed/share',
+		url : '/sos/wall/share',
 		type : 'post',
 		data : {
-			"feedSeq" : feedSeq
+			"feedSeq" : feedSeq,
+			"wantedSeq" : "${user.userSeq}"
 		},
 		dataType:'json',
 		success: function(data){
-			showFeedList(data); 
+			showFeedList(data);
+			alert('공유 되었습니다.');
 		},
 		error : function() {
 	        alert("관리자에게 문의해주세요.");
