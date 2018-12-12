@@ -40,7 +40,18 @@
 #bottom-footer{
 	background-color: #3f4257;
 }
+#about-us-block{
+	padding-top: 100px;
+	padding-bottom: 0px;
+}
+#testimonials-block{
+	padding: 25px 0;
+}
+#testimonial .item img{
+	width: 400px;
+	height: 400px;
 
+}
 
 </style>
 </head>
@@ -53,7 +64,7 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
-      <a class="navbar-brand" href="index.html"><img src="/sos/resources/img/sos.png" width="95px" class="img-responsive"><span>S.O.S</span></a> </div>
+      <a class="navbar-brand" href="/sos/"><img src="/sos/resources/img/sos.png" width="95px" class="img-responsive"><span>S.O.S</span></a> </div>
     
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
@@ -115,31 +126,32 @@
       </div>
       <!--/section-title-->
       
-      <div class="clearfix"></div>
-      <!--about features list-->
-      <ul class="about-features wow fadeInUp">
-        <li><i class="fa fa-comment-o"></i>
-          <h5>Brand strategy</h5>
-          <p>A brand is a name, term, design, symbol or other feature that distinguishes</p>
-        </li>
-        <li><i class="fa fa-file-image-o"></i>
-          <h5>Art direction</h5>
-          <p>Art director is the title for a variety of similar  job functions in theater</p>
-        </li>
-        <li><i class="fa fa-birthday-cake"></i>
-          <h5>Graphic design</h5>
-          <p>Graphic design is the process of visual communication, and problem-solving</p>
-        </li>
-        <li><i class="fa fa-inbox"></i>
-          <h5>Web Development</h5>
-          <p>Web development is a broad term for the work involved in developing a web site </p>
-        </li>
-      </ul>
-      <!--/about features list--> 
-      
     </div>
   </div>
 </section>
+<section id="testimonials-block" class="text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div id="testimonial" class="owl-carousel owl-theme">
+          <div class="item"> <img src="/sos/resources/index/img/difficult.PNG">
+            <h5>알 수 없는 주식시장...</h5>
+            <p><strong>Dean Martin</strong> CEO Acme Inc.</p>
+          </div>
+          <div class="item"> <img src="/sos/resources/index/img/team/02.jpg">
+            <h5>This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</h5>
+            <p><strong>Rima Martin</strong> CEO Food Inc.</p>
+          </div>
+          <div class="item"> <img src="/sos/resources/index/img/team/03.jpg">
+            <h5>This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</h5>
+            <p><strong>Joe Martin</strong> CEO Chat Inc.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- contact us Page
     ==========================================-->
