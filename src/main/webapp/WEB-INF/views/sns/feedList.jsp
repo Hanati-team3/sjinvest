@@ -69,8 +69,8 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	        </div>
 	      </div>
 	
-  
-	      <p name="feedContent"></p>
+
+	      <div name="feedContent"></div>
           <img name="feedImage" src=""  width="450px" height="200px" alt="picture">
 	
 	      <div class="post-additional-info inline-items">
@@ -97,6 +97,8 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	
 	            <span name="feedShare"></span>
 	          </a>
+	          <!-- <a class="post-add-icon inline-items"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+	          <a class="post-add-icon inline-items"><i class="fa fa-instagram" aria-hidden="true"></i></a> -->
 	        </div>
 	
 	
@@ -232,9 +234,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
 
 
 <%-- 더보기 버튼 start --%>
-<a id="load-more-button" href="#" class="btn btn-control btn-more"
-  data-load-link="items-to-load.html"
-  data-container="newsfeed-items-grid"> <svg
+<a id="load-more-button" class="btn btn-control btn-more" title="11" href="javascript:void(0);" onclick="addPost(this)"> <svg
     class="olymp-three-dots-icon">
           <use
       xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-three-dots-icon">

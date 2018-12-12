@@ -513,6 +513,8 @@ public class StockDao {
 //		for(String[] temp : fields) {
 //			System.out.println(temp[0] + " " + temp[1]);
 //		}
-		System.out.println(stockDao.forIndex(companyList, 1).get("kospi"));
+
+		System.out.println(stockDao.forSearch(companyList));
+
 	}
 }

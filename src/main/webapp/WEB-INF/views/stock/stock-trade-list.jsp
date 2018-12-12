@@ -74,7 +74,7 @@ $(document).ready(function(){
 	addPageNation();
 //	typeChanged();
 //	getStockData();
-	capture();
+	capture('container');
 	/** DatePickerEvent등록*/
 	registDatePickerEvent();
 	writing()

@@ -6,7 +6,9 @@
 <head>
 <title>SOS - 모의투자 보유자산</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
-
+<jsp:include page="../popup/sharing.jsp"></jsp:include>
+<jsp:include page="../popup/boast.jsp"></jsp:include>
+<script src="<%=application.getContextPath()%>/resources/js/html2canvas.js"></script>
 </head>
 
 <body class="stock">
@@ -58,7 +60,6 @@
       <!-- ... end Left Sidebar -->
       <%-- 사이드 제외 컨탠츠 열 시작 --%>
       <div class="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-9 order-md-2 col-sm-12 col-xs-12">
-
         <%-- 검색 시작 --%>
         <div class="ui-block">
           <form class="w-search" style="width: 100%;">
@@ -75,7 +76,7 @@
         <%-- 검색 시작 --%>
 
         <%-- 자산 및 수익률 row 시작 --%>
-        <div class="row">
+        <div class="row" id="forCapture">
           <%-- 자산 카드 시작 --%>
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 total-amount-card">
             <div class="ui-block" data-mh="pie-chart">
@@ -234,6 +235,16 @@
       </div>
       <%-- 사이드 제외 컨텐츠 열 끝 --%>
     </div>
+              <form name="imgForm" id="imgForm" action="/convertToImage" method="post">
+              <input type="hidden" id="imgData" name="imgData">
+          </form>
+          <div class="printBtnZone" align="right" >
+              <a id="share-btn" class="btn bg-gray small w-auto">공유하기</a>
+          </div>
+          <div class="printBtnZone" align="right">
+              <a id="boast-btn" class="btn bg-gray small w-auto">자랑하기</a>
+          </div>
+            </div>
     <%-- 사이드 포함 row 끝 --%>
   </div>
 
@@ -282,6 +293,7 @@
 		setTotalHoldingChart( ${holdingMap.stockTotal}, HOLDING.cashTotal);
 		setSlideChart();
 		holdingListUpdate();
+		capture('forCapture');
 	});
 
 	

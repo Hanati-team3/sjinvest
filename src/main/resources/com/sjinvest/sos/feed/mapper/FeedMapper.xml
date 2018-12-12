@@ -165,7 +165,9 @@
 		                     feed_picture, 
 		                     feed_original_seq 
 		              FROM   feed 
-		              WHERE 		
+		              <if test="keywords!=null or userSeq != null">
+		              WHERE
+		              </if> 		
 		              <if test="keywords != null">
 					  <foreach collection="keywords" item="keyword"  open="(" close=")" separator="or">
                       feed_content LIKE '%' ||  #{keyword} || '%'

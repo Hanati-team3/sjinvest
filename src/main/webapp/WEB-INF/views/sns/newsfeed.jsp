@@ -1,13 +1,18 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
 <head>
 <title>Newsfeed</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-
+<style>
+.hashtag{
+  border: 1px solid #AAF0D1;
+  border-radius: 25px;
+  background-color: #AAF0D1;
+}
+</style>
 </head>
 <body>
 
@@ -72,7 +77,7 @@
 
         <c:if test="${user.userId ne null }">
         <%-- 내 주식정보 위젯 --%>
-        <jsp:include page="../widgets/twitter-feed.jsp"></jsp:include>
+        <jsp:include page="../widgets/mystock-info.jsp"></jsp:include>
         </c:if>
         
         <%-- 모의 투자 랭킹 위젯 --%>
@@ -135,6 +140,7 @@ $(document).ready( function() {
 	getFollowerList();
 	getInterestList();
 	getRankingList();
+	getHoldingList();
 	
     $('#loginForm').submit(function (e) {
 	    e.preventDefault();
@@ -266,6 +272,7 @@ $(document).ready( function() {
 		    }
 	  });
 	});
+	
 });
 
 
@@ -308,6 +315,22 @@ function searching(){
           success : function(data) {
         	  	if(data){
 	          		/* console.log(data); */
+	          		showFeedList(data)
+	            }
+			}
+      });
+}
+
+function searchingByTag(obj){
+	$.ajax({
+      	type : 'post',
+          url: '<%=application.getContextPath()%>/feed/search',
+          data: {
+              text: $(obj).find('.hashtag').text()
+          },
+          dataType : 'json',
+          success : function(data) {
+        	  	if(data){
 	          		showFeedList(data)
 	            }
 			}
@@ -372,7 +395,45 @@ function showFeedList(data){
 			
 		}
 		
-		
+		var content = $('div[name=feedContent]');
+		var newContent = data.feedList[i].feedContent;
+		var splitArray = newContent.split(' ');
+		var fullText = ""
+		/* for(var word in splitArray){
+		   console.log(word)
+			
+		   if(word.indexOf('#') == 0 || word.indexOf('$') == 0 || word.indexOf('@') == 0) // # 문자를 찾는다.
+		   {
+		      word = '<a href="#"><span class=\"hashtag\">'+word+'</span></a>'; 
+		   }
+		   fullText += word+' ';
+		} */
+		for(var j = 0; j< splitArray.length; j++){
+			var newWord = splitArray[j].split('\n')
+			/* console.log(newWord); */
+			if(newWord.length > 2){
+				/* console.log('뭐지?') */
+				var tempText = ""
+				for(var k=0; k <newWord.length; k++){
+					if(newWord[k].indexOf('#') == 0 || newWord[k].indexOf('$') == 0 || newWord[k].indexOf('@') == 0) // # 문자를 찾는다.
+					   {
+						newWord[k] = '<a href="javascript:void(0);" onclick="searchingByTag(this);" style="color:black"><span class=\"hashtag\">'+ newWord[k] +'</span></a>'; 
+					   }
+					tempText += newWord[k] + ' ';
+				}
+				fullText += tempText + ' ';
+			}else{
+				if(splitArray[j].indexOf('#') == 0 || splitArray[j].indexOf('$') == 0 || splitArray[j].indexOf('@') == 0) // # 문자를 찾는다.
+				   {
+					splitArray[j] = '<a href="javascript:void(0);" onclick="searchingByTag(this)" style="color:black"><span class=\"hashtag\">'+splitArray[j]+'</span></a>'; 
+				   }
+				   fullText += splitArray[j]+' ';
+			}
+		}
+		$(content[i]).html(fullText);
+
+		var like = $('span[name=feedLike]');
+		$(like[i]).text(data.feedList[i].feedLikeCnt);
 		
 		/* 프로필 사진 */
 		var userImage = $('img[name=userImage]');
@@ -538,9 +599,262 @@ function showFeedList(data){
 	}
 	/* var replyLI = $('li[name=commentLI]')
 	$(replyLI[replyCnt]).css("display", "none"); */
+	
 }
 
- 
+function addPost(obj){
+	var startNum = $(obj).attr('title')
+	$(obj).attr('title', startNum+10)
+	$.ajax({
+	    url : '/sos/feed/listmore',
+	    type : 'get',
+	    data: {
+	    	startNum : startNum
+	    },
+	    dataType:'json',
+	    success : function(data) {
+	    	if(data){
+          		addFeedList(data);
+            }
+	    },
+	    error : function() {
+	      alert("관리자에게 문의해주세요.");
+	    }
+  });
+}
+
+function addFeedList(data){
+	var feedCard = $("#makeFeed");
+	$(feedCard).html("");
+	console.log(data);
+	for (var i = 0; i < data.feedList.length; i++) {
+		/* console.log(data.feedList[i]); */
+		/* var feed = "<>"; */
+		
+		var nickname = $('a[name=postUserNickName]');
+		$(nickname[i]).text(data.userList[i].userNickname)
+		$(nickname[i]).attr('href', 'temp'+i)	/* 변경 필요 */
+		var time = $('time[name=postWriteDate]');
+		$(time[i]).text(data.feedList[i].feedRegdate);
+		var content = $('p[name=feedContent]');
+		$(content[i]).text(data.feedList[i].feedContent);
+		var like = $('span[name=feedLike]')
+		$(like[i]).text(data.feedList[i].feedLikeCnt);
+		var feedImage = $('img[name=feedImage]')
+		if(data.feedList[i].feedPicture != null){
+			$(feedImage[i]).attr('src', "/sos/resources/img/"+data.feedList[i].feedPicture);
+			$(feedImage[i]).css('display', "");
+		}else{
+			$(feedImage[i]).attr('src', "");
+			$(feedImage[i]).css('display', "none");
+			
+		}
+		
+		var content = $('div[name=feedContent]');
+		var newContent = data.feedList[i].feedContent;
+		var splitArray = newContent.split(' ');
+		var fullText = ""
+		/* for(var word in splitArray){
+		   console.log(word)
+			
+		   if(word.indexOf('#') == 0 || word.indexOf('$') == 0 || word.indexOf('@') == 0) // # 문자를 찾는다.
+		   {
+		      word = '<a href="#"><span class=\"hashtag\">'+word+'</span></a>'; 
+		   }
+		   fullText += word+' ';
+		} */
+		for(var j = 0; j< splitArray.length; j++){
+			var newWord = splitArray[j].split('\n')
+			/* console.log(newWord); */
+			if(newWord.length > 2){
+				/* console.log('뭐지?') */
+				var tempText = ""
+				for(var k=0; k <newWord.length; k++){
+					if(newWord[k].indexOf('#') == 0 || newWord[k].indexOf('$') == 0 || newWord[k].indexOf('@') == 0) // # 문자를 찾는다.
+					   {
+						newWord[k] = '<a href="javascript:void(0);" onclick="searchingByTag(this);" style="color:black"><span class=\"hashtag\">'+ newWord[k] +'</span></a>'; 
+					   }
+					tempText += newWord[k] + ' ';
+				}
+				fullText += tempText + ' ';
+			}else{
+				if(splitArray[j].indexOf('#') == 0 || splitArray[j].indexOf('$') == 0 || splitArray[j].indexOf('@') == 0) // # 문자를 찾는다.
+				   {
+					splitArray[j] = '<a href="javascript:void(0);" onclick="searchingByTag(this)" style="color:black"><span class=\"hashtag\">'+splitArray[j]+'</span></a>'; 
+				   }
+				   fullText += splitArray[j]+' ';
+			}
+		}
+		$(content[i]).html(fullText);
+
+		var like = $('span[name=feedLike]');
+		$(like[i]).text(data.feedList[i].feedLikeCnt);
+		
+		/* 프로필 사진 */
+		var userImage = $('img[name=userImage]');
+		var pictureName = data.userList[i].userPicture;
+		if(pictureName != null){
+			if(pictureName.split(':')[0]=='http' || pictureName.split(':')[0] == 'https'){
+				/* console.log(pictureName) */
+				$(userImage[i]).attr('src', pictureName);
+			}else{
+				$(userImage[i]).attr('src', "/sos/resources/img/"+pictureName);
+			}
+		}else{
+			$(userImage[i]).attr('src', '/sos/resources/img/avatar10-sm.jpg');
+		}
+		
+		/* 좋아요, 공유 */
+		var commentCount = $('span[name=feedCommnetCount]')
+		$(commentCount[i]).text(data.feedList[i].feedReplyCnt);
+		var shareFeed = $('span[name=feedShare]');
+		$(shareFeed[i]).text(data.feedList[i].feedShareCnt);
+		/* 공유 */
+		var shareFeed = $('a[name=shareFeed]')
+		$(shareFeed[i]).attr('title', data.feedList[i].feedSeq)
+		if("${user.userSeq}" == data.feedList[i].userSeq){
+			$(shareFeed[i]).attr("onclick", "")
+		}else{
+			$(shareFeed[i]).attr("onclick", "shareFeed(this)")
+		}
+		
+		/* 댓글 */
+		var commentCard = $("div[name=makeComment]")
+		var reply = $('div[name=commentList]');
+		
+		var replyUL = $('ul[name=commentListUL]');
+		var replyLI = $('li[name=commentLI]');
+		if(data.feedList[i].feedReplyCnt == 0){
+			$(commentCard[i]).css("display", "none");
+			$(commentCard[i]).html(reply[i]);
+		}else{
+			$(commentCard[i]).css("display", "")
+			$(replyUL[i]).css("display", "")
+			$(reply[i]).css("display", "")
+			$(commentCard[i]).html(reply[i]);
+			
+		}
+		
+		/* if(data.feedList[i].feedReplyCnt == 0){
+			$(CommentCard[i]).html("");
+		}else{
+			var replyUL = $('ul[name=commentListUL]');
+			$(reply[i]).css("display", "");
+			for (var j = replyCnt; j < replyCnt + data.feedList[i].feedReplyCnt; j++) {
+				var replyOther = $('li[name=commentFromOther]');
+				var replyName = $('a[name=replyName]');
+				var replyTime = $('time[name=replyTime]');
+				var replyContent = $('p[name=replyContent]');
+				$(replyName[j]).text(data.replyUser[j].userNickname);
+				$(replyTime[j]).text(data.replyList[j].commentRegdate);
+				$(replyContent[j]).text(data.replyList[j].commentContent);
+				console.log(data.replyList[j].commentContent);
+				$(replyOther[j]).css("display", "");
+				if(j == replyCnt){
+					$(replyUL[i]).html(replyOther[j]);
+				}else{
+					$(replyUL[i]).append(replyOther[j]);
+				}
+				$(CommentCard[i]).html(reply[replyTemp++]);
+			}
+			replyCnt += data.feedList[i].feedReplyCnt;
+		} */
+		
+		var writeComment = $('a[name=writeComment]')
+		$(writeComment[i]).attr('title',data.feedList[i].feedSeq)
+		
+		/* 좋아요도 등록 */
+		var likeComment = $('a[name=likebyOthers]')
+		$(likeComment[i]).attr('title',data.feedList[i].feedSeq)
+		/* 수정 */
+		var editComment = $('a[name=editFeed]')
+		$(editComment[i]).attr('title',data.feedList[i].feedSeq)
+		/* 삭제 */
+		var deleteComment = $('a[name=deleteFeed]')
+		$(deleteComment[i]).attr('title',data.feedList[i].feedSeq)
+		
+	
+		var moreIcon = $('div[name=moreIcon]');
+		if("${user.userSeq}" != null){
+			var currentUser = "${user.userNickname}";
+			if(currentUser == data.userList[i].userNickname){
+				$(moreIcon[i]).css('display',"");
+			}else{
+				$(moreIcon[i]).css('display',"none");
+			}
+		}
+		
+		
+		
+		var feed = $('#newsfeed-items-grid').html(); 
+		$(feedCard).append(feed);
+		
+	}
+	var replyCnt = 0
+	/* 댓글 */
+	var replyUL = $('ul[name=commentListUL]');
+	for (var i = 0; i < data.feedList.length; i++) {
+		
+		if(data.feedList[i].feedReplyCnt == 0){
+			
+		}else{
+			for (var j = 0; j < data.feedList[i].feedReplyCnt; j++) {
+				var replyLI = $('li[name=commentLI]')
+				if(j==0){
+					$(replyUL[i]).html(replyLI.html());
+					
+				}else{
+					$(replyUL[i]).append(replyLI.html());
+					//console.log("왜 안 나오니");
+				}
+			}
+			var replyName = $('a[name=replyName]');
+			var replyTime = $('time[name=replyTime]');
+			var replyContent = $('p[name=replyContent]');
+			var replyImage = $('img[name=replyImage]')
+			var deleteComment = $('a[name=deleteComment]')
+			
+			var moreIconReply = $('div[name=moreIconReply]')
+			for (var k = replyCnt; k < replyCnt + data.feedList[i].feedReplyCnt; k++){
+				//console.log("댓글");
+				var replyLI = $('li[name=commentLI]');
+				
+				$(replyName[k]).text(data.replyUser[k].userNickname);
+				$(replyTime[k]).text(data.replyList[k].commentRegdate);
+				$(replyContent[k]).text(data.replyList[k].commentContent);
+				if(data.replyUser[k].userPicture != null){
+					if(data.replyUser[k].userPicture.split(':')[0] == 'http' || data.replyUser[k].userPicture.split(':')[0] == 'https'){
+						//console.log("뭐지");
+						$(replyImage[k]).attr('src', data.replyUser[k].userPicture)
+					}else{
+						$(replyImage[k]).attr('src', '/sos/resources/img/'+data.replyUser[k].userPicture)
+					}
+				}else{
+					$(replyImage[k]).attr('src', '/sos/resources/img/author-page.jpg')
+				}
+				
+				if("${user}" != null){
+					var currentUser = "${user.userNickname}";
+					if(currentUser == data.replyUser[k].userNickname){
+						$(moreIconReply[k]).css('display',"");
+						$(deleteComment[k]).attr('id', data.replyList[k].commentSeq);
+						$(deleteComment[k]).attr('title', data.replyList[k].feedSeq);
+					}else{
+						$(moreIconReply[k]).css('display',"none");
+					}
+				}
+				
+				/* $(replyLI[k]).css("display",""); */
+			}
+			replyCnt += data.feedList[i].feedReplyCnt;
+		}
+	}
+	/* var replyLI = $('li[name=commentLI]')
+	$(replyLI[replyCnt]).css("display", "none"); */
+	
+	
+}
+
 /** 
  * 내가 following한 친구목록
  */
@@ -744,7 +1058,39 @@ function getInterestList(){
 				/* 값이 없는 경우 */
 			}else{
 				for(var i=0; i<data.interestList.length; i++){
-					$('#interest_list').append('<tr><td class="company-name"><div class="author-freshness"><a href="#" class="h6 title">'+ data.interestList[i].companyName +'</a></div></td><td class="stock-price"><a href="#" class="h6 count">38,750</a></td><td class="day-before-rate"><div class="author-freshness plus"><a href="#" class="h6 title">+ 1.90 %</a></div></td></tr>');
+					$('#interest_list').append('<tr><td class="company-number"><div class="author-freshness"><a href="#" class="h6 title">'+ data.interestList[i].companyNumber +'</a></div></td><td class="company-name"><a href="#" class="h6 count">'+ data.interestList[i].companyName +'</a></td></tr>');
+
+				}
+			}
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+	
+}
+
+/** 
+ * 주식관심종목 List
+ */
+function getHoldingList(){
+	
+	//console.log("${user.userSeq}");
+	$.ajax({
+		
+		url : '/sos/holding/list',
+		type : 'get',
+		data : {
+			"userSeq" : "${user.userSeq}"
+		},
+		success: function(data){
+
+			if(data.fail != null){
+				/* 값이 없는 경우 */
+			}else{
+				for(var i=0; i<data.holdingList.length; i++){
+					$('#holding_list').append('<tr><td class="company-number"><div class="author-freshness"><a href="#" class="h6 title">'+ data.holdingList[i].companyNumber +'</a></div></td><td class="company-name"><a href="#" class="h6 count">'+ data.holdingList[i].companyName +'</a></td><td class="holding-amount"><a href="#" class="h6 count">'+ data.holdingList[i].holdingAmount +'</a></td></tr>');
 
 				}
 			}
@@ -917,29 +1263,6 @@ function modal(data){
 		console.log("no팔로우");
 	}
 };
-
-/* function showPersonal(){
-	
-	console.log("담벼락시작");
-	
-	$.ajax({
-		
-		url : '/sos/sns/personal',
-		type : 'get',
-		data : {
-			
-		},
-		success: function(data){
-
- 			console.log("성공이냐?");
-		},
-		error : function() {
-	        alert("관리자에게 문의에게 문의해주세요.");
-	    }
-	
-	})
-
-} */
 
 
 </script>
