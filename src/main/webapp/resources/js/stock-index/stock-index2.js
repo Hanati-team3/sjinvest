@@ -193,7 +193,7 @@ function setMyInterestCard(interestMap) {
 		  		// false면 처음 설정하는 것임
 		  		if(!INDEX.interestChartEls[index]) {
 					for(var j = 0; j < interestChartData.label.length; j++){
-						interestChartData.label[i] = interestChartData.label[i].replace("'","").replace("'","");
+						interestChartData.label[j] = interestChartData.label[j].replace("'","").replace("'","");
 					}
 	    			var interestChart = interestCharts[index];
 	    			var ctx_ls = interestChart.getContext("2d");
@@ -333,7 +333,7 @@ function updateInterestChart(interestMap) {
 		  		// false면 처음 설정하는 것임
 		  		if(!INDEX.interestChartEls[index]) {
 					for(var j = 0; j < interestChartData.label.length; j++){
-						interestChartData.label[i] = interestChartData.label[i].replace("'","").replace("'","");
+						interestChartData.label[j] = interestChartData.label[j].replace("'","").replace("'","");
 					}
 	    			var interestChart = interestCharts[index];
 	    			var ctx_ls = interestChart.getContext("2d");
@@ -389,7 +389,7 @@ function updateInterestChart(interestMap) {
 		  		// 업데이트
 		  		else {
 					for(var j = 0; j < interestChartData.label.length; j++){
-						interestChartData.label[i] = interestChartData.label[i].replace("'","").replace("'","");
+						interestChartData.label[j] = interestChartData.label[j].replace("'","").replace("'","");
 					}
 		  			var eachData = interestChartData.data[interestList[i].stockCode];
 		  			INDEX.interestChartEls[index].data.labels = interestChartData.label;
