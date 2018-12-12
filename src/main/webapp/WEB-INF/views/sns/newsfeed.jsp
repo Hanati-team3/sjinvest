@@ -217,6 +217,7 @@ $(document).ready( function() {
 		    dataType:'json',
 		    success : function(data) {
 		    	if(data){
+		    		console.log('내거');
 	          		/* console.log(data) */
 	          		showFeedList(data);
 	            }
