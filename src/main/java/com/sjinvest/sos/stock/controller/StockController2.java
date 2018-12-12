@@ -330,16 +330,13 @@ public class StockController2 {
 		model.addAttribute("realTime", map.get("realTime"));		
 		// 회사 목록
 		model.addAttribute("companyList", companyService.list());
-		// 회사 목록
-		model.addAttribute("news", service.stockIndexNews());
-
 		
 		return "stock/stock-interest";
 	}
 	
 	/** 주식 interest 업데이트 요청*/
 	@GetMapping(value="/interest/update", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Stock>> interestUpdate(String[] interestCompanyNumberArray) {
+	public ResponseEntity<Map<String,Object>> interestUpdate(String[] interestCompanyNumberArray) {
 		System.out.println("interestUpdate : array[0] " + interestCompanyNumberArray[0]);
 		List<String> interestCompanyNumberList = new ArrayList<>();		/* 관심종목에 있는 종목 번호 리스트 */
 		Map<String, Object> map = new HashMap<>();
@@ -347,7 +344,7 @@ public class StockController2 {
 			interestCompanyNumberList.add(string);
 		}
 		map = service.getForSearchResult(interestCompanyNumberList);
-		return new ResponseEntity<>( (List<Stock>)map.get("stockList"), HttpStatus.OK);
+		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	
 	/** 주식 interest 뉴스 요청*/
