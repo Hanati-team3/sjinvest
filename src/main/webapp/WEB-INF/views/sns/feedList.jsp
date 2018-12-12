@@ -69,7 +69,9 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	        </div>
 	      </div>
 	
+  
 	      <p name="feedContent"></p>
+          <img name="feedImage" src=""  width="450px" height="200px" alt="picture">
 	
 	      <div class="post-additional-info inline-items">
 	

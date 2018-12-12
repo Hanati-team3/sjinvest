@@ -52,7 +52,15 @@ if((User)(request.getSession().getAttribute("user")) != null){
                   class="form-group with-icon label-floating is-empty">
                   <c:choose>
 	                  <c:when test="${user.userId ne null }">
-	                  	<textarea id="feedContentT" name="feedContentT" class="form-control" placeholder="주식정보를 공유하여 주세요..!"></textarea>
+                    
+                    <textarea id="feedContentT" name="feedContentT" class="form-control" placeholder="주식정보를 공유하여 주세요..!">
+	                </textarea>
+                  
+                    <%-- <div contentEditable="true">
+                        대표 이미지를 텍스트와 함께 입력이 가능
+                        <img  src="<%=application.getContextPath()%>/resources/img/author-page.jpg" alt="author">
+                    </div> --%>
+                  
 	                  </c:when>
 	                  <c:otherwise>
 	                  	<textarea class="form-control" placeholder="로그인이 필요합니다." readonly="readonly"></textarea>
