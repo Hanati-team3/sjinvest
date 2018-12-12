@@ -167,6 +167,7 @@ public class StockController2 {
 		public void run(){
 			if(interestCompanyNumberList.size() == 0) {
 				interestMap.put("interestChart", new TimeSeries());
+				resultMap.put("kospiChart", service.getKospiChartDate(1).get("kospiChart"));
 			}
 			else {
 				Map<String, Object> chartMap = service.getChartDataWithKospi(interestCompanyNumberList, 1, 30);
@@ -242,6 +243,10 @@ public class StockController2 {
 				returnMap.put("holdingWidget", holdingWidgetMap);
 				System.out.println("ForIndexThreadS 4");
 			}
+			else {
+				holdingWidgetMap.put("holdingList", holdingList);
+				returnMap.put("holdingWidget", holdingWidgetMap);
+			}
 			
 			System.out.println("ForIndexThread returnMap : " + returnMap);
 			System.out.println("ForIndexThread END...");
@@ -283,10 +288,8 @@ public class StockController2 {
 	@PostMapping(value="/index/chart", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<Map<String, Object>> chartUpdate(@RequestBody IndexChartParams params) {
 		System.out.println("chartUpdate : params " + params);
-		Map<String, Object> map = new HashMap<>();
-		map.put("interestTimeSeries", service.getChartData(params.getInterestCompanyNumberList(), 1, 1, 30));
-		map.put("kospiMap", service.getKospiChartDate(params.getKospiOption()));
-		return new ResponseEntity<>(map, HttpStatus.OK);
+		Map<String, Object> chartMap = service.getChartDataWithKospi(params.getInterestCompanyNumberList(), 1, 30);
+		return new ResponseEntity<>(chartMap, HttpStatus.OK);
 	}
 	
 	/** index의 업종별 거래량 update 요청*/
