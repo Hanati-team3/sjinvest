@@ -169,7 +169,7 @@ public class StockController2 {
 				interestMap.put("interestChart", new TimeSeries());
 			}
 			else {
-				Map<String, Object> chartMap = service.getChartDataWithKospi(interestCompanyNumberList, 1);
+				Map<String, Object> chartMap = service.getChartDataWithKospi(interestCompanyNumberList, 1, 30);
 				interestMap.put("interestChart", chartMap.get("chart"));
 				resultMap.put("kospiChart", chartMap.get("kospiChart"));
 			}
@@ -284,7 +284,7 @@ public class StockController2 {
 	public ResponseEntity<Map<String, Object>> chartUpdate(@RequestBody IndexChartParams params) {
 		System.out.println("chartUpdate : params " + params);
 		Map<String, Object> map = new HashMap<>();
-		map.put("interestTimeSeries", service.getChartData(params.getInterestCompanyNumberList(), 1, 1));
+		map.put("interestTimeSeries", service.getChartData(params.getInterestCompanyNumberList(), 1, 1, 30));
 		map.put("kospiMap", service.getKospiChartDate(params.getKospiOption()));
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}

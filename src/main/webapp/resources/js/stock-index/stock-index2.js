@@ -102,6 +102,10 @@ function setKospiStock(kospiStock) {
 
 /** 코스피 차트 설정 */
 function setKospiChart(kospiChart) {
+	for(var i =0; i < kospiChart.label.length; i++) {
+		if((i%5 == 0) && (i % 10 != 0)) kospiChart.label[i] = ""
+		kospiChart.label[i] = kospiChart.label[i].replace("'","").replace("'","");
+	}
 	var lineChart = document.getElementById("kospi-line-chart");
     var ctx_lc = lineChart.getContext("2d");
     var data_lc = {
