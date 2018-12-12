@@ -43,7 +43,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	        </div>
 	      </div>
 	
-	      <pre name="feedContent"></pre>
+	      <div name="feedContent"></div>
 	
 	      <div class="post-additional-info inline-items">
 	
@@ -92,6 +92,49 @@ if((User)(request.getSession().getAttribute("user")) != null){
 	      </div>
 	
 	    </article>
+	    
+	    <form class="comment-form inline-items">
+	
+	      <div class="post__author author vcard inline-items">
+	      		<c:choose>
+	                  <c:when test="${user.userId ne null }">
+	      			<%if (result_profile){ %>
+	              		<img src="${user.userPicture}" width="36px" height="36px" alt="author">
+	              	<%}else{ %>
+	              		<img src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"  width="36px" height="36px" alt="author">
+	             	<%} %>
+					</c:when>
+	                  <c:otherwise>
+	                  	<img  src="<%=application.getContextPath()%>/resources/img/author-page.jpg" alt="author">
+	                  </c:otherwise>
+                  </c:choose>
+	        <div class="form-group with-icon-right comment-div">
+	        	<c:choose>
+	                  <c:when test="${user.userId ne null }">
+	          			<textarea name="commentForHere" class="form-control" placeholder="댓글을 입력해주세요"></textarea>
+	          		  </c:when>
+          			  <c:otherwise>
+	          			<textarea name="commentForHere" class="form-control" placeholder="로그인 후 이용해주세요" disabled="disabled"></textarea>
+	                  </c:otherwise>
+                  </c:choose>
+	          	
+	          <div class="add-options-message">
+	          <c:choose>
+	                  <c:when test="${user.userId ne null }">
+	                  	<a name="writeComment" onclick="writeComment(this);" class="options-message" title=""> 
+	                  		<svg class="olymp-camera-icon">
+		                    	<use xlink:href="<%=application.getContextPath()%>/resources/icons/icons.svg#olymp-check-icon"></use>
+		                    </svg>
+			            </a>
+	          		  </c:when>
+          			  <c:otherwise>
+	                  </c:otherwise>
+                  </c:choose>
+	            
+	          </div>
+	        </div>
+	      </div>
+	    </form>
 	  </div>
 	</div>
 <%-- ..피드 목록 end --%>

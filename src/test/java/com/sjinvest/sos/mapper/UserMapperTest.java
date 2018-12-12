@@ -63,7 +63,7 @@ public class UserMapperTest {
 		log.info(userMapper);
 		Map<String, String> data = new HashMap<String, String>();
 		data.put("userId", "suhyeon");
-		data.put("userPw", "suhyeon");
+		data.put("userPw", "aaa");
 		User user = userMapper.certify(data);
 		log.info(user);
 	}
@@ -105,7 +105,7 @@ public class UserMapperTest {
 		log.info(userMapper.readBySeqList(userSeqList));
 	}
 	
-	@Test
+	//@Test
 	public void testAllUserList() throws SQLException {
 		log.info(userMapper);
 		List<String> userList = userMapper.findUser("");

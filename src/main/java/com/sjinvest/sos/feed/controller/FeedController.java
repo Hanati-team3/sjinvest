@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +29,8 @@ import com.sjinvest.sos.feed.domain.SearchParam;
 import com.sjinvest.sos.feed.service.FeedService;
 import com.sjinvest.sos.follow.domain.Follow;
 import com.sjinvest.sos.follow.service.FollowService;
-import com.sjinvest.sos.like.domain.Like;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
-import com.sjinvest.sos.wall.domain.Wall;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -53,11 +53,46 @@ public class FeedController {
 //			System.out.println("네이버 로그인?");
 			feed.setUserSeq(((User)session.getAttribute("user")).getUserSeq());
 			/*System.out.println(feed.getFeedContent());*/
-			if(feed.getFeedContent() != "") {
-				feedService.write(feed);
-			}
+			
+//			해시태그 추출하기
+			/*String content = feed.getFeedContent();
+		    Pattern p = Pattern.compile("\\#([0-9a-zA-Z가-힣]*)"); 
+		    Matcher m = p.matcher(content);
+		    String extractHashTag = null;
+		    while(m.find()) {
+		    	extractHashTag = sepcialCharacter_replace(m.group());
+		    	content = content.replace("#"+extractHashTag, "<a src=\\\"\\\" style=\\\"color:black\\\"><span class=\"hashtag\">#"+extractHashTag+"</span></a>");
+//		    	if(extractHashTag != null) {
+//		    		System.out.println("최종 추출 해시태그 : "+ extractHashTag);
+//		    	}
+		    }
+		    p = Pattern.compile("\\@([0-9a-zA-Z가-힣]*)"); 
+		    m = p.matcher(content);
+		    while(m.find()) {
+		    	extractHashTag = sepcialCharacter_replace(m.group());
+		    	content = content.replace("@"+extractHashTag, "<a src=\"\" style=\"color:black\"><span class=\"hashtag\">@"+extractHashTag+"</span></a>");
+		    }
+		    p = Pattern.compile("\\$([0-9a-zA-Z가-힣]*)"); 
+		    m = p.matcher(content);
+		    while(m.find()) {
+		    	extractHashTag = sepcialCharacter_replace(m.group());
+		    	content = content.replace("$"+extractHashTag, "<a src=\\\"\\\" style=\\\"color:black\\\"><span class=\"hashtag\">$"+extractHashTag+"</span></a>");
+		    }
+		    if(content != "") {
+		    	feed.setFeedContent(content);
+		    }
+		    System.out.println(feed);*/
+		    feedService.write(feed);
 		}
 		return listAll();
+	}
+		
+	public String sepcialCharacter_replace(String str) {
+	    str = StringUtils.replaceChars(str, "-_+=!@#$%^&*()[]{}|\\;:'\"<>,.?/~`） ","");
+	    if(str.length() < 1) {
+	    	return null;
+	    }
+	    return str;
 	}
 	
 	@ResponseBody
@@ -66,7 +101,14 @@ public class FeedController {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		List<User> userList = new ArrayList<User>();
 		List<User> replyUser = new ArrayList<User>();
-		List<Feed> feedList = feedService.listAll();
+		
+		SearchParam searchParam = new SearchParam();
+		searchParam.setStartNum(1);
+		searchParam.setEndNum(10);
+		
+//		더보기 어떻게 할까....
+		
+		List<Feed> feedList = feedService.listBySearchPage(searchParam);
 		List<Comment> commentList = new ArrayList<Comment>();
 		for (Feed feed : feedList) {
 			userList.add(userService.readBySeq(feed.getUserSeq()));
@@ -82,6 +124,38 @@ public class FeedController {
 		returnData.put("replyUser", replyUser);
 		return new ResponseEntity<>(returnData,HttpStatus.OK);
 	}
+	
+	@ResponseBody
+	@GetMapping(value = "/listmore", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String,Object>> listMore(int startNum) {
+		Map<String, Object> returnData = new HashMap<String, Object>();
+		List<User> userList = new ArrayList<User>();
+		List<User> replyUser = new ArrayList<User>();
+		
+		SearchParam searchParam = new SearchParam();
+		searchParam.setStartNum(1);
+		searchParam.setEndNum(startNum+9);
+		
+		List<Feed> feedList = feedService.listBySearchPage(searchParam);
+		List<Comment> commentList = new ArrayList<Comment>();
+		for (Feed feed : feedList) {
+			userList.add(userService.readBySeq(feed.getUserSeq()));
+			List<Comment> comments = commentService.listByFeed(feed.getFeedSeq());
+			for (Comment comment : comments) {
+				commentList.add(comment);
+				replyUser.add(userService.readBySeq(comment.getUserSeq()));
+			}
+		}
+		returnData.put("feedList", feedList);
+		returnData.put("userList", userList);
+		returnData.put("replyList", commentList);
+		returnData.put("replyUser", replyUser);
+		return new ResponseEntity<>(returnData,HttpStatus.OK);
+	}
+	
+	
+	
+	
 	@ResponseBody
 	@GetMapping(value = "/follow", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String,Object>> listFollow(HttpServletRequest request) {
@@ -181,11 +255,11 @@ public class FeedController {
 		SearchParam searchParam = new SearchParam();
 		searchParam.setStartNum(1);
 		searchParam.setEndNum(10);
-		if(text.charAt(0) == '$') {
-//			searchList = companyMapper.findCompany(term.substring(1));
-		}
-		else if(text.charAt(0) == '@') {
-//			searchList = fieldMapper.findField(term.substring(1));
+		if(text.charAt(0) == '$' || text.charAt(0) == '@' ) {
+			List<String> list = new ArrayList<>();
+			list.add(text);
+			searchParam.setKeywords(list);
+			feedList = feedService.listBySearchPage(searchParam);
 		}
 		else {
 			searchParam.setUserSeq(userService.searchUser(text));

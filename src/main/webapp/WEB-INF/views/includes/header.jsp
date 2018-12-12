@@ -5,8 +5,7 @@
 <%
 boolean result = true;
 
-if((User)(request.getSession().getAttribute("user")) != null){
-
+if((User)(request.getSession().getAttribute("user")) != null && ((User)(request.getSession().getAttribute("user"))).getUserPicture() != null){
   if(((((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("http") || (((User)request.getSession().getAttribute("user")).getUserPicture().split(":")[0]).equals("https"))){
     result = true;
   }else{
@@ -111,12 +110,22 @@ if((User)(request.getSession().getAttribute("user")) != null){
           <!-- 개인정보 시작  -->
           <div class="author-page author vcard inline-items more">
             <div class="author-thumb">
+            
+            
+              <c:choose>
+                <c:when test="${user.userPicture eq null}">
                 <%if (result == true){ %>
                   <img alt="author" src="${user.userPicture}" width="36" height="36" class="avatar">
                   <%}else if(result == false){ %>
                   <img alt="author" src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"width="36" height="36" class="avatar">
                   <%}%>
-                  
+                  </c:when>
+                <c:otherwise>
+                  <img alt="author" src="<%=application.getContextPath()%>/resources/img/${user.userPicture}"width="36" height="36" class="avatar">
+                </c:otherwise>
+              </c:choose>
+              
+              
               <!-- 마우스 오버 -->
               <div class="more-dropdown more-with-triangle">
                 <div class="mCustomScrollbar" data-mcs-theme="dark">
