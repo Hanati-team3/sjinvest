@@ -511,7 +511,7 @@
 		setTopTab(rankList, 0);
 		
 		// 관심종목 목록이 0이면
-		if(${interestMap.interestList.size()} == 0) {
+		if("${interestMap.interestList.size()}" == "0" || "${interestMap.interestList.size()}" == "") {
 			console.log("관심종목 없음");
 			INDEX.isEmptyInterest = false;
 			$('.stock-my-interest .ui-block-content ').html('<div style="text-align:center;">보유관심종목이 없습니다.</div>');
@@ -672,8 +672,16 @@
 	
   	/* request에서 kospi 차트 데이터를 찾아서 자바스크립트 객체로 반환하는 함수 */
 	function getKospiFromRequest() {
-		var kospiChartLabel = ${kospiMap.kospiChart.label};
-		var kospiChartData = ${kospiMap.kospiChart.data.kospi};
+		var kospiChartLabel = [];
+		var kospiChartData = [];
+		
+		<c:forEach var="label" items="${kospiMap.kospiChart.label}" varStatus="status">
+		kospiChartLabel.push("${label}");
+    	</c:forEach>
+		<c:forEach var="data" items="${kospiMap.kospiChart.data.kospi}" varStatus="status">
+		kospiChartData.push("${data}");
+    	</c:forEach>
+    	
 		var kospiChart = {
 			label : kospiChartLabel,
 			data : kospiChartData
