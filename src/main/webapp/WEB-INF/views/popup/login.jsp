@@ -11,12 +11,12 @@
 		</a>
 
 		<div class="ui-block-title">
-			<h6 class="title">회원로그인</h6>
+			<h6 class="title" style="font-size: 0.875rem; line-height: 1.3;">회원로그인</h6>
 		</div>
 
 		<div class="ui-block-content" id="loginForm">
 			<form method="post"> <!-- id="myform" -->
-				<div class="row">
+				<div class="row" style="display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px;">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="form-group label-floating">
 							<label class="control-label">아이디<sup>*</sup></label>

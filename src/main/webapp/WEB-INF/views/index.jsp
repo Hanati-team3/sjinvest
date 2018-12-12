@@ -64,6 +64,187 @@
 
 }
 
+
+/* modal */
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.fade.show {
+    opacity: 1;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    outline: 0;
+}
+
+.fade {
+    transition: opacity 0.15s linear;
+}
+
+.modal.show .modal-dialog {
+    display: block !important;
+}
+
+.modal.show .modal-dialog {
+    transform: translate(0, 0);
+}
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+}
+.fav-page-popup {
+    width: 470px;
+}
+.window-popup {
+    max-width: calc(100% - 40px);
+}
+.ui-block {
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #e6ecf5;
+    margin-bottom: 15px;
+}
+@media (min-width: 540px)
+.modal-dialog {
+    margin: 30px auto;
+}
+.modal-dialog {
+    position: relative;
+}
+.window-popup .icon-close {
+    opacity: 1;
+    margin-top: 0;
+    margin-right: 0;
+}
+
+.icon-close {
+    position: absolute;
+    top: -25px;
+    right: -25px;
+    color: #888da8;
+    fill: #888da8;
+}
+.close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.icon-close svg {
+    width: 18px;
+    height: 18px;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+.ui-block-title {
+    padding: 23px 25px 18px;
+    line-height: 1;
+    border-bottom: 1px solid #e6ecf5;
+    border-top: 1px solid #e6ecf5;
+    display: table;
+    width: 100%;
+    position: relative;
+}
+.ui-block-title .title {
+    color: #515365;
+}
+
+.ui-block-title > * {
+    margin-bottom: 0;
+    display: table-cell;
+    vertical-align: middle;
+}
+.ui-block-content {
+    padding: 24px 23px 23px;
+}
+.window-popup .form-group {
+    margin-bottom: 25px;
+}
+.form-group {
+    position: relative;
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+.form-group.label-floating label.control-label{
+    position: absolute;
+    pointer-events: none;
+    transition: 0.3s ease all;
+    top: 16px;
+    font-size: 14px;
+    line-height: 1.42857;
+    left: 20px;
+}
+.label-floating .form-control, .label-floating input{
+	padding: 1.3rem 1.1rem .4rem;
+    line-height: 1.8;
+
+}
+.remember .checkbox {
+    display: inline-block;
+    margin-bottom: 0;
+}
+.checkbox label {
+    margin-bottom: 0;
+}
+.checkbox .checkbox-materia{
+	vertical-align: middle;
+    padding-right: 5px;
+    display: inline-block;
+}
+.remember .forgot {
+    float: right;
+    color: #888da8;
+}
+.remember a {
+    line-height: 2;
+}
+
+.fav-page-popup button {
+    margin-bottom: 0;
+}
+button.btn {
+    padding: .5rem 1rem;
+}
+.full-width {
+    width: 100%;
+}
+.btn-lg{
+    padding: 1rem 6rem;
+    font-size: 0.875rem;
+    /* line-height: 1.5; */
+    border-radius: 0.3rem;
+}
+.btn-primary {
+    background-color: #ff5e3a;
+    border-color: #ff5e3a;
+    line-height: 1.25;
+}
+.or {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    margin: 1rem 0 2rem 0;
+    background-color: #e6ecf5;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
 </style>
 </head>
 
