@@ -29,9 +29,14 @@
  }
 
 </style>
+<script>
+window.onload =  function(){
+	//document.getElementById("real-container").setAttribute('display', 'none' );
+}
+</script>
 </head>
 <body class="stock">
-
+  
   <%-- 우리한테 필요 없는 고정 양측 사이드바 --%>
   <!-- Fixed Sidebar Left -->
   <%-- <jsp:include page="includes/fixed-sidebar-left.jsp"></jsp:include> --%>
@@ -65,7 +70,7 @@
     </div>
   </div>
     
-  <div class="container" id="real-container" >
+  <div class="container" id="real-container" style="display:none;">
     <%-- realtime row 시작 --%>
     <div class="row realtime">
       <!-- realtime start -->
@@ -515,12 +520,13 @@
   <!-- ... end Widget Weather -->
 
 
-  <!-- Window-popup-CHAT for responsive min-width: 768px -->
-  <jsp:include page="../popup/popup-chat.jsp"></jsp:include>
-  <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
-
   <!-- Include js -->
   <jsp:include page="../includes/bottom.jsp"></jsp:include>
+  <script type="text/javascript">
+/*   $(document).ready(function() {
+		$('#real-container').hide();
+  }); */
+  </script>
   <!-- End Include js -->
   <%-- stock-index js --%>
   <script src="<%=application.getContextPath()%>/resources/js/stock-index/stock-index2.js"></script>

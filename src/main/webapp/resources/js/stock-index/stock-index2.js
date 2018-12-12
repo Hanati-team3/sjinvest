@@ -17,8 +17,10 @@ function stop() {
 	console.log('stop');
 }
 
+
 $(document).ready(function() {
-	$('#real-container').hide();
+
+	//$('#real-container').hide();
 	// interest 목록 비었을 때 처리
 	if($('.swiper-container').length == 0) INDEX.isEmptyInterest = true;
 	INDEX.interestSize = $('.swiper-slide').length;
@@ -75,9 +77,6 @@ function setFirstIndex(data) {
 	// 상위 10개 탭 설정
 	setTopTab(data.topTab, 0);
 	setNews(data.news);
-	
-	$('#loading-container').hide();
-	$('#real-container').removeAttr('hidden');
 }
 
 /** 뉴스 설정 */
