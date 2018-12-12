@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sjinvest.sos.NonFinancial.service.NonFinancialService;
 import com.sjinvest.sos.company.domain.Company;
 import com.sjinvest.sos.company.service.CompanyService;
 import com.sjinvest.sos.feed.domain.Feed;
@@ -67,6 +68,7 @@ public class StockController {
 	private UserService userService;
 	private WallService wallService;
 	private FeedService feedService;
+	private NonFinancialService nonFinancialService;
 
 	// company, search, trade-list 남수현
 
@@ -83,6 +85,7 @@ public class StockController {
 		} else {
 			model.addAttribute("isInterest", false);
 		}
+		model.addAttribute("nonFinancial",nonFinancialService.readByCompanyNumber(companyNumber));
 		model.addAttribute("company", company);
 		model.addAttribute("news", news);
 		model.addAttribute("chartData", service.getChartData(companyNumberList, 1, 0));
