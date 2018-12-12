@@ -52,10 +52,10 @@ function getFirstIndexData() {
 
 			$('#real-container').show();
 			$('#loading-container').hide();
-			
 			setIndexParam(data.holdingWidget.holdingList, data.interestMap.interestList);
 			indexUpdate();
 			updateField();
+			updateCharts();
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n" + "message:"
@@ -157,6 +157,19 @@ function setKospiChart(kospiChart) {
     INDEX.kospiChartEl = new Chart(ctx_lc, INDEX.config);
 }
 
+/** 코스피 차트 업데이트 */
+function updateKospiChart(kospiChart) {
+	console.log("updateKospiChart");
+	console.log(kospiChart);
+	for(var i = 0; i < kospiChart.label.length; i++){
+		if((i%5 == 0) && (i % 10 != 0)) kospiChart.label[i] = "";
+		kospiChart.label[i] = kospiChart.label[i].replace("'","").replace("'","");
+	}
+	INDEX.kospiChartEl.data.labels = kospiChart.label;
+	INDEX.kospiChartEl.data.datasets[0].data = kospiChart.data.kospi;
+	INDEX.kospiChartEl.update(0);
+}
+
 /** 나의 관심종목 카드 설정 */
 function setMyInterestCard(interestMap) {
 	var interestList = interestMap.interestList;
@@ -170,6 +183,7 @@ function setMyInterestCard(interestMap) {
 		for (var i = 0; i < interestList.length; i++) {
 			if($(item).find(".company-name a").text() == interestList[i].stockName) {
 			  	// 데이터 설정
+				$(item).find(".hidden-stock-code").text(interestList[i].stockCode);
 				$(item).find(".indicator").html("전일대비 " + interestList[i].stockChange.toLocaleString() + 
 						"&nbsp;&nbsp;" + interestList[i].stockDiff +"%");
 				// 전일대비 올랐음
@@ -264,7 +278,9 @@ function setMyInterestCard(interestMap) {
 
 }
 
+/** 나의 관심종목 데이터 설정 */
 function setInterestData(interestList) {
+	console.log("테스트 데이터로 업데이트 확인 (interestList[i].stockPrice * i)");
 	$(".stock-my-interest .swiper-wrapper .swiper-slide").each(function(index, item){
 		var icon = "";
 		for (var i = 0; i < interestList.length; i++) {
@@ -298,111 +314,24 @@ function setInterestData(interestList) {
 }
 
 /** 나의 관심종목 차트 업데이트 */
-function updateInterestChart(interestMap) {
-	var interestList = interestMap.interestList;
-	var interestChartData = interestMap.interestChart;
-
-	console.log("update interest card");
-	var interestCharts = document.getElementsByName("interest-line-stacked-chart");
+function updateInterestChart(chart) {
+	console.log("updateInterestChart");
+	var dataList = chart.data;
+	window.chart = chart;
+	
 	
 	$(".stock-my-interest .swiper-wrapper .swiper-slide").each(function(index, item){
-		var icon = "";
-		for (var i = 0; i < interestList.length; i++) {
-			if($(item).find(".company-name a").text() == interestList[i].stockName) {
-			  	// 데이터 설정
-				$(item).find(".indicator").html("전일대비 " + interestList[i].stockChange.toLocaleString() + 
-						"&nbsp;&nbsp;" + interestList[i].stockDiff +"%");
-				// 전일대비 올랐음
-				if(interestList[i].stockDiff > 0) {
-	    			icon = "<i class='fas fa-caret-up' style='font-size:25px;'></i>&nbsp;"
-					$(item).find(".company-stock").removeClass('minus').addClass('plus');
-					$(item).find(".indicator").removeClass('minus').addClass('plus');
-				}
-				// 전일대비 내렸음
-				else if(interestList[i].stockDiff < 0) {
-	    			icon = "<i class='fas fa-caret-down' style='font-size:25px;'></i>&nbsp;"
-					$(item).find(".company-stock").removeClass('plus').addClass('minus');
-					$(item).find(".indicator").removeClass('plus').addClass('minus');
-				}
-				// 전일과 동일
-				else {
-	    			icon = "";
-					$(item).find(".company-stock").removeClass('plus').removeClass('minus');
-					$(item).find(".indicator").removeClass('plus').removeClass('minus');
-				}
-				$(item).find(".company-stock").html(icon + interestList[i].stockPrice.toLocaleString());
-
-				
-    			// 차트 설정
-		  		// false면 처음 설정하는 것임
-		  		if(!INDEX.interestChartEls[index]) {
-					for(var j = 0; j < interestChartData.label.length; j++){
-						interestChartData.label[j] = interestChartData.label[j].replace("'","").replace("'","");
-					}
-	    			var interestChart = interestCharts[index];
-	    			var ctx_ls = interestChart.getContext("2d");
-	    			var eachData = interestChartData.data[interestList[i].stockCode];
-					
-	    			var data_ls = {
-	  			        labels: interestChartData.label,
-	  			        datasets: [
-	  			            {
-	  			                label: " 원 ",
-	  			                backgroundColor: "rgba(57,169,255,0.35)",
-	  			                borderColor: "#38a9ff",
-	  			                borderWidth: 2,
-	  			                pointBorderColor: "#38a9ff",
-	  			                pointBackgroundColor: "#fff",
-	  			                pointBorderWidth: 1,
-	  			                pointRadius: 1,
-	  			                pointHoverRadius: 1,
-	  			                data: eachData
-	  			            }]
-	  			    };
-	    			
-				    var interestChartEl = new Chart(ctx_ls, {
-				        type: 'line',
-				        data: data_ls,
-				        options: {
-				            legend: {
-				                display: false
-				            },
-				            responsive: true,
-				            scales: {
-				                xAxes: [{
-				                    gridLines: {
-				                        color: "#f0f4f9"
-				                    },
-				                    ticks: {
-				                        fontColor: '#888da8'
-				                    }
-				                }],
-				                yAxes: [{
-				                    gridLines: {
-				                        display: false
-				                    },
-				                    ticks: {
-				                        fontColor: '#888da8'
-				                    }
-				                }]
-				            }
-				        }
-				    });
-				  	INDEX.interestChartEls[index] = interestChartEl;
-		  		}
-		  		// 업데이트
-		  		else {
-					for(var j = 0; j < interestChartData.label.length; j++){
-						interestChartData.label[j] = interestChartData.label[j].replace("'","").replace("'","");
-					}
-		  			var eachData = interestChartData.data[interestList[i].stockCode];
-		  			INDEX.interestChartEls[index].data.labels = interestChartData.label;
-		  			INDEX.interestChartEls[index].datasets[0].data = eachData;
-		  			INDEX.interestChartEls[index].update(0);
-		  		}
-				break;
-			}
+		var stockCode = $(item).find(".hidden-stock-code").text();
+			
+		for(var i = 0; i < chart.label.length; i++){
+			chart.label[i] = chart.label[i].replace("'","").replace("'","");
 		}
+		
+		var eachData = dataList[stockCode];
+		INDEX.interestChartEls[index].data.labels = chart.label;
+		INDEX.interestChartEls[index].data.datasets[0].data = eachData;
+		INDEX.interestChartEls[index].update(0);
+			
 	});
 }
 
@@ -696,7 +625,35 @@ function updateField() {
 				$('.stock-index-trend .chart-js-pie-color div').html( numberWithCommas((sum / 1000).toFixed(0)) + "K <span>5개 업종의 거래량 합</span>");
 				
 				console.log('업데이트 필드');
-				setTimeout(updateField, 6000);
+				setTimeout(updateField, 2000);
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		});
+	};
+}
+
+/** 차트 업데이트 */ 
+function updateCharts() {
+	console.log('update Chart....');
+	if(INDEX.flag) {
+		$.ajax({
+			type : "POST",
+			url : "index/chart",
+			datatype: 'json',
+			data : JSON.stringify({
+				"interestCompanyNumberList" : INDEX.indexParam.interestCompanyNumberList,
+				"kospiOption" : 1
+			}),
+			contentType: "application/json; charset=utf-8",
+			success : function(interestAndKospiChart) {
+				console.log("interestAndKospiChart .. ");
+				console.log(interestAndKospiChart);
+				updateInterestChart(interestAndKospiChart.chart);
+				updateKospiChart(interestAndKospiChart.kospiChart);
+				setTimeout(updateField, 2000);
 			},
 			error : function(request, status, error) {
 				console.log("code:" + request.status + "\n" + "message:"

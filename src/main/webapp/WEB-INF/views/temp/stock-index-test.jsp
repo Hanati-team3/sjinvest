@@ -195,6 +195,7 @@ window.onload =  function(){
                         <c:forEach var="eachInterest" items="${interestList}" varStatus="status">
                           <div class="swiper-slide">
                             <div class="statistics-slide">
+                            <span hidden="true" class="hidden-stock-code"></span>
                               <div class="company-name" data-swiper-parallax="-500">
                                 <a href="<%=application.getContextPath()%>/stock/company/${eachInterest.companyNumber}">${eachInterest.companyName}</a>
                               </div>
@@ -227,12 +228,6 @@ window.onload =  function(){
               <div class="ui-block-title">
                 <!-- <div class="h6 title">KOSPI Line Graphic</div> -->
                 <div><h6 class="title">KOSPI Line Graphic</h6></div>
-                <select class="selectpicker form-control without-border" size="auto">
-                  <option value="LY">1일</option>
-                  <option value="2">1개월</option>
-                  <option value="3">3개월</option>
-                  <option value="3">1년</option>
-                </select>
                 <a href="#" class="more"><i class="far fa-question-circle"></i></a>
               </div>
     
