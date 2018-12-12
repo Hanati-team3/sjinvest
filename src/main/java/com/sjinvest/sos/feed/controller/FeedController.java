@@ -163,7 +163,7 @@ public class FeedController {
 	
 	@ResponseBody
 	@GetMapping(value = "/follow", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> listFollow(HttpServletRequest request) {
+	public ResponseEntity<Map<String,Object>> listFollow(HttpSession session) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		List<User> userList = new ArrayList<User>();
 		List<User> replyUser = new ArrayList<User>();
@@ -173,13 +173,13 @@ public class FeedController {
 		searchParam.setStartNum(1);
 		searchParam.setEndNum(10);
 		
-		if(request.getAttribute("userId") != null) {
-			int userSeq = userService.readById((String)request.getAttribute("userId")).getUserSeq();
+		if(session.getAttribute("user") != null) {
+			int userSeq = ((User)session.getAttribute("user")).getUserSeq();
 			List<Follow> followList = service.listByUserFollow(userSeq);
 			List<Integer> tempList = new ArrayList<Integer>();
 			if(followList.size() != 0) {
 				for (Follow follow : followList) {
-					tempList.add(follow.getUserSeq());
+					tempList.add(follow.getFollowUserSeq());
 				}
 				feedList = feedService.listBySearchPageByFieldName(1, 10, tempList);
 			}
@@ -201,7 +201,7 @@ public class FeedController {
 
 	@ResponseBody
 	@GetMapping(value = "/own", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String,Object>> listOwn(HttpServletRequest request) {
+	public ResponseEntity<Map<String,Object>> listOwn(HttpSession session) {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		List<User> userList = new ArrayList<User>();
 		List<User> replyUser = new ArrayList<User>();
@@ -210,10 +210,9 @@ public class FeedController {
 		SearchParam searchParam = new SearchParam();
 		searchParam.setStartNum(1);
 		searchParam.setEndNum(10);
-//		System.out.println((String)request.getAttribute("userId"));
 		
-		if(request.getAttribute("userId") != null) {
-			searchParam.setUserSeq(userService.readById((String)request.getAttribute("userId")).getUserSeq());
+		if(session.getAttribute("user") != null) {
+			searchParam.setUserSeq(((User)session.getAttribute("user")).getUserSeq());
 			feedList = feedService.listBySearchPage(searchParam);
 			for (Feed feed : feedList) {
 				userList.add(userService.readBySeq(feed.getUserSeq()));
