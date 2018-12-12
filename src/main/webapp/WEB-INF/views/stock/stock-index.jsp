@@ -485,9 +485,9 @@
 		console.log('${realTime}');
 		console.log('${companyList}');
 		console.log('${fieldStock}');
-		console.log('${kospiMap}');
+		console.log("${kospiMap}");
 		console.log('${topTab}');
-		console.log('${interestMap}');
+		console.log("${interestMap}");
 		console.log('${holdingWidget}');
 		
 		    
