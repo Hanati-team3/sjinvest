@@ -51,8 +51,8 @@ public class UserController {
 		log.info("regist : "+ user);
 		
 		user.setUserAuthority("user");
-		
 		boolean result = service.regist(user);
+		
 		System.out.println("회원가입결과: "+ result);
 		
 		return "redirect:/sns/newsfeed";
@@ -68,6 +68,7 @@ public class UserController {
 		Map<String, Object> returnData = new HashMap<String, Object>();
 		
 		User user = service.certify(userId, userPw);
+		System.out.println("새로그인?"+ user);
 		
 		// 로그인 성공
 		if(user != null) {
