@@ -76,7 +76,17 @@ function setFirstIndex(data) {
 	setKospiChart(data.kospiChart);
 	// 상위 10개 탭 설정
 	setTopTab(data.topTab, 0);
-	setNews(data.news);
+	//setNews(data.news);
+	
+
+
+	var realTimeList = $("ul#scroll li a");
+	
+	for(var i = 0; i < realTimeList.length; i++){
+		  realTimeList.eq(i).text((i+1)+"  "+data.realTime[i].stockName+" "+numberWithCommas(data.realTime[i].total));
+		  realTimeList.eq(i).attr('href','company/'+data.realTime[i].stockCode);
+	}
+
 }
 
 /** 뉴스 설정 */
@@ -159,8 +169,6 @@ function setKospiChart(kospiChart) {
 
 /** 코스피 차트 업데이트 */
 function updateKospiChart(kospiChart) {
-	console.log("updateKospiChart");
-	console.log(kospiChart);
 	for(var i = 0; i < kospiChart.label.length; i++){
 		if((i%5 == 0) && (i % 10 != 0)) kospiChart.label[i] = "";
 		kospiChart.label[i] = kospiChart.label[i].replace("'","").replace("'","");
@@ -175,7 +183,6 @@ function setMyInterestCard(interestMap) {
 	var interestList = interestMap.interestList;
 	var interestChartData = interestMap.interestChart;
 
-	console.log("first set my interest card");
 	var interestCharts = document.getElementsByName("interest-line-stacked-chart");
 	
 	$(".stock-my-interest .swiper-wrapper .swiper-slide").each(function(index, item){
@@ -280,7 +287,6 @@ function setMyInterestCard(interestMap) {
 
 /** 나의 관심종목 데이터 설정 */
 function setInterestData(interestList) {
-	console.log("테스트 데이터로 업데이트 확인 (interestList[i].stockPrice * i)");
 	$(".stock-my-interest .swiper-wrapper .swiper-slide").each(function(index, item){
 		var icon = "";
 		for (var i = 0; i < interestList.length; i++) {
@@ -315,10 +321,8 @@ function setInterestData(interestList) {
 
 /** 나의 관심종목 차트 업데이트 */
 function updateInterestChart(chart) {
-	console.log("updateInterestChart");
 	var dataList = chart.data;
 	window.chart = chart;
-	
 	
 	$(".stock-my-interest .swiper-wrapper .swiper-slide").each(function(index, item){
 		var stockCode = $(item).find(".hidden-stock-code").text();
@@ -339,11 +343,6 @@ function updateInterestChart(chart) {
 
 /** 상위 10개 탭 세팅 */
 function setTopTab(rankList, index) {
-	console.log('ranklist...');
-	console.log(rankList);
-	console.log('index...');
-	console.log(index);
-	
 	if(INDEX.tabList[index] != $(".stock-top-tab .tab-content").find('.active').attr('id').replace('#','')) {
 		console.log('다른탭 요청');
 		return;
@@ -586,8 +585,6 @@ function topTabUpdate(target) {
 		dataType : "json",
 		contentType: "application/json; charset=utf-8",
 		success : function(rankList) {
-			console.log("topTabUpdate rankList .. ");
-			console.log(rankList);
 			setTopTab(rankList, Number(tabOption) -1);
 		},
 		error : function(request, status, error) {
@@ -600,7 +597,6 @@ function topTabUpdate(target) {
 
 /** 업종별 거래량 카드 업데이트 */ 
 function updateField() {
-	console.log('updateField....');
 	if(INDEX.flag) {
 		$.ajax({
 			type : "GET",
@@ -608,9 +604,6 @@ function updateField() {
 			datatype: 'json',
 			contentType: "application/json; charset=utf-8",
 			success : function(fieldList) {
-				console.log("fieldList .. ");
-				console.log(fieldList);
-				console.log([fieldList[0][1], fieldList[1][1], fieldList[2][1], fieldList[3][1], fieldList[4][1] ]);
 				// 파이차트 업데이트
 				INDEX.fieldChartEl.data.datasets[0].data = [ fieldList[0][1], fieldList[1][1], fieldList[2][1], fieldList[3][1], fieldList[4][1] ];
 				INDEX.fieldChartEl.update(0);
@@ -621,10 +614,7 @@ function updateField() {
 					$(item).find(".count-stat").text( numberWithCommas((eachValue / 1000).toFixed(0)) + "K");
 					sum += Number(eachValue);
 				});
-				console.log('sum : ' + sum);
 				$('.stock-index-trend .chart-js-pie-color div').html( numberWithCommas((sum / 1000).toFixed(0)) + "K <span>5개 업종의 거래량 합</span>");
-				
-				console.log('업데이트 필드');
 				setTimeout(updateField, 2000);
 			},
 			error : function(request, status, error) {
@@ -637,7 +627,6 @@ function updateField() {
 
 /** 차트 업데이트 */ 
 function updateCharts() {
-	console.log('update Chart....');
 	if(INDEX.flag) {
 		$.ajax({
 			type : "POST",
@@ -649,8 +638,6 @@ function updateCharts() {
 			}),
 			contentType: "application/json; charset=utf-8",
 			success : function(interestAndKospiChart) {
-				console.log("interestAndKospiChart .. ");
-				console.log(interestAndKospiChart);
 				updateInterestChart(interestAndKospiChart.chart);
 				updateKospiChart(interestAndKospiChart.kospiChart);
 				setTimeout(updateField, 2000);
