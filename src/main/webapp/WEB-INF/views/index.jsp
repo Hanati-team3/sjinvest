@@ -34,6 +34,17 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 <style>
+#home-banner:before{
+	background-color: aliceblue;
+}
+#home-banner h1, #home-banner h1 span, #home-banner span {
+	color: red;
+}
+
+.arrow{
+	color: darkslategrey;
+}
+
 .on{
 	background-color: #3f4257 !important;
 }
@@ -104,7 +115,7 @@
 
 <!-- banner Page
     ==========================================-->
-<section id="home-banner" style="background-image: url(/sos/resources/index/img/b-1.jpg);">
+<section id="home-banner" style="background-image: url(/sos/resources/index/img/mainChart.png);">
   <div class="content">
     <div class="container"  data-wow-duration="1s"> <span class="wow fadeIn">BY SJ</span> 
       <h1 class="wow fadeInUp" style="max-width: 750px;"><span>Sns</span> of <span>Stock</span></h1>
@@ -135,7 +146,7 @@
       <div class="col-md-8 col-md-offset-2">
         <div id="testimonial" class="owl-carousel owl-theme">
           <div class="item"> <img src="/sos/resources/index/img/difficult.PNG">
-            <h5>알 수 없는 주식시장...</h5>
+            <h5>너무나 어려운 주식시장... (feat. 어려운 숫자 차트..)</h5>
             <p><strong>Dean Martin</strong> CEO Acme Inc.</p>
           </div>
           <div class="item"> <img src="/sos/resources/index/img/team/02.jpg">
@@ -271,18 +282,18 @@
     <div class="row text-center">
       <div class="col-md-12 wow fadeInDown">
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="c-block"><i class="fa fa-heart-o"></i><span class="counter">17</span>
-            <p>Clients</p>
+          <div class="c-block"><i class="fa fa-heart-o"></i><span class="counter">1606</span>
+            <p>기업</p>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="c-block"><i class="fa fa-envelope-o"></i><span class="counter">456</span>
-            <p>Leads</p>
+          <div class="c-block"><i class="fa fa-envelope-o"></i><span class="counter">23</span>
+            <p>유저</p>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="c-block"><i class="fa fa-folder-o"></i><span class="counter">8596</span>
-            <p>Websites</p>
+          <div class="c-block"><i class="fa fa-folder-o"></i><span class="counter">234</span>
+            <p>게시글 수</p>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -395,12 +406,12 @@
 <script type="text/javascript" src="/sos/resources/index/js/main.js"></script> 
 <script src="/sos/resources/index/js/wow.min.js"></script> 
 <script>
-    /* jQuery(document).ready(function( $ ) {
+    jQuery(document).ready(function( $ ) {
         $('.counter').counterUp({
             delay: 10,
             time: 1000
         });
-    }); */
+    });
 </script> 
 <script>
 new WOW().init();
