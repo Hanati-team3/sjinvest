@@ -256,6 +256,7 @@
   
   <%-- stock-holding-list js --%>
   <script>
+    var imageLocation
 	var HOLDING = {};	//stock-holding-list 전역변수
   	// interest update를 활성화/중지
   	HOLDING.flag = false;
