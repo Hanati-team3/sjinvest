@@ -198,14 +198,15 @@ public class StockController {
 	
 	@ResponseBody
 	@PostMapping(value = "/write-wall", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Map<String, Object>> writeWall(HttpSession session, String imageLocation, String content){
+	public ResponseEntity<Map<String, Object>> writeWall(HttpSession session, String imageLocation, String content, String target){
+		System.out.println("담벼락 쓰기");
 		Wall wall = new Wall();
 		User thisUser = ((User)session.getAttribute("user"));
-		wall.setUserSeq(thisUser.getUserSeq());
+		User targetUser = userService.readByNickname(target);
+		wall.setUserSeq(targetUser.getUserSeq());
 		wall.setWallContent(content);
 		wall.setWallPicture(imageLocation);
 		wall.setWriterUserSeq(thisUser.getUserSeq());
-		System.out.println("월 서비스" + wallService);
 		wallService.write(wall);
 		Map<String, Object> map = new HashMap<String, Object>();
 		return new ResponseEntity<>(map, HttpStatus.OK);
@@ -213,12 +214,14 @@ public class StockController {
 	@ResponseBody
 	@PostMapping(value = "/write-feed", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String, Object>> writeFeed(HttpSession session, String imageLocation, String content){
+		System.out.println("피드 쓰기");
 		Feed feed = new Feed();
 		User thisUser = ((User)session.getAttribute("user"));
 		feed.setUserSeq(thisUser.getUserSeq());
 		feed.setFeedContent(content);
 		feed.setFeedPicture(imageLocation);
 		feedService.write(feed);
+		System.out.println(feed);
 		Map<String, Object> map = new HashMap<String, Object>();
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}

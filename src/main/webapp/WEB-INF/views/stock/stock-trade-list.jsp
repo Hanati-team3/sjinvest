@@ -5,6 +5,7 @@
 <title>SOS - 모의투자 거래내역</title>
 <jsp:include page="../includes/head.jsp"></jsp:include>
 <jsp:include page="../popup/sharing.jsp"></jsp:include>
+<jsp:include page="../popup/boast.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
 <script src="<%=application.getContextPath()%>/resources/js/jquery-3.2.0.min.js"></script>
@@ -15,48 +16,12 @@ var companyNumberList = new Array;
 companyNumberList.push("000270");
 var imageLocation
 
-function capture(){
-	$('#share-btn').click(function() {
-  	    html2canvas(document.getElementById('container')).then(function(canvas) {
-  		document.getElementById('tab-content').appendChild(canvas);
-  		$('#tab-content').css("display","grid");
-  		$('#tab-content').find('canvas').css("margin","0px auto").css("overflow-y","auto");
-//  		$('#sharing').css("width","1000px");
-	    var base64URL = canvas.toDataURL('image/jpeg');
-		// AJAX request
-        $.ajax({
-           url: 'capture',
-           type: 'post',
-           data: {image: base64URL},
-           success: function(data){
-        	  imageLocation = data.fileName;
-//        	  $('#shareImage').attr("src","data");
-              $('#sharing').modal('toggle');
-           }
-        });
-	});
-})
-}
 function research(){
 	$('#reSearch').click(function() {
 		var date = $('#datepicker').datepicker().val();
 		window.location.href ='trade-list?type='+$('.type-select').children('option:selected').attr('value')+'&date='+date;
 })
 }
-function writeFeed(){
-	$('button#write-wall').click(function(){
-        $.ajax({
-            url: 'write-wall',
-            type: 'post',
-            data: {'imageLocation': imageLocation,
-            		'content' : $('textarea.form-control').val()},
-            success: function(data){
-            }
-         });
-	})
-}
-
-
 function getStockData(){
 	$.ajax({ 
         type: "POST", 
@@ -112,7 +77,7 @@ $(document).ready(function(){
 	capture();
 	/** DatePickerEvent등록*/
 	registDatePickerEvent();
-	writeFeed()
+	writing()
 //	dateChaged()
 	research()
 });
