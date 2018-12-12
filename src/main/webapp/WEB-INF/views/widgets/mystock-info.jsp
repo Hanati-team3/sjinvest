@@ -17,13 +17,13 @@
               <table class="forums-table wow">
                 <thead style="background: white;" >
                   <tr>
-                    <th class=company-name><font color="black">기업명</font></th>
-                    <th class="now-price"><font color="black">매수량</font></th>
-                    <th class="chang-percent"><font color="black">임시입니다.</font></th>
+                    <th class=company-name><font color="black">종목번호</font></th>
+                    <th class="now-price"><font color="black">회사명</font></th>
+                    <th class="chang-percent"><font color="black">보유수량</font></th>
                   </tr>
                 </thead>
     
-                <tbody id="mystock-info">
+                <tbody id="holding_list">
                 
                 <!-- 현재주가, 등락률 값 못 받아옴.. -->
                   <!-- <tr>

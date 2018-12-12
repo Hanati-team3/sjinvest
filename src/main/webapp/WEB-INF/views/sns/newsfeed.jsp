@@ -140,6 +140,7 @@ $(document).ready( function() {
 	getFollowerList();
 	getInterestList();
 	getRankingList();
+	getHoldingList();
 	
     $('#loginForm').submit(function (e) {
 	    e.preventDefault();
@@ -1057,7 +1058,39 @@ function getInterestList(){
 				/* 값이 없는 경우 */
 			}else{
 				for(var i=0; i<data.interestList.length; i++){
-					$('#interest_list').append('<tr><td class="field-name"><div class="author-freshness"><a href="#" class="h6 title">'+ data.interestList[i].companyName +'</a></div></td><td class="now-price"><a href="#" class="h6 count">30,500</a></td><td class="chang-percent"><div class="author-freshness plus"><a href="#" class="h6 title">+0.38%</a></div></td></tr>');
+					$('#interest_list').append('<tr><td class="company-number"><div class="author-freshness"><a href="#" class="h6 title">'+ data.interestList[i].companyNumber +'</a></div></td><td class="company-name"><a href="#" class="h6 count">'+ data.interestList[i].companyName +'</a></td></tr>');
+
+				}
+			}
+		},
+		error : function() {
+	        alert("관리자에게 문의해주세요.");
+	    }
+	
+	})
+	
+}
+
+/** 
+ * 주식관심종목 List
+ */
+function getHoldingList(){
+	
+	//console.log("${user.userSeq}");
+	$.ajax({
+		
+		url : '/sos/holding/list',
+		type : 'get',
+		data : {
+			"userSeq" : "${user.userSeq}"
+		},
+		success: function(data){
+
+			if(data.fail != null){
+				/* 값이 없는 경우 */
+			}else{
+				for(var i=0; i<data.holdingList.length; i++){
+					$('#holding_list').append('<tr><td class="company-number"><div class="author-freshness"><a href="#" class="h6 title">'+ data.holdingList[i].companyNumber +'</a></div></td><td class="company-name"><a href="#" class="h6 count">'+ data.holdingList[i].companyName +'</a></td><td class="holding-amount"><a href="#" class="h6 count">'+ data.holdingList[i].holdingAmount +'</a></td></tr>');
 
 				}
 			}
@@ -1230,29 +1263,6 @@ function modal(data){
 		console.log("no팔로우");
 	}
 };
-
-/* function showPersonal(){
-	
-	console.log("담벼락시작");
-	
-	$.ajax({
-		
-		url : '/sos/sns/personal',
-		type : 'get',
-		data : {
-			
-		},
-		success: function(data){
-
- 			console.log("성공이냐?");
-		},
-		error : function() {
-	        alert("관리자에게 문의에게 문의해주세요.");
-	    }
-	
-	})
-
-} */
 
 
 </script>
