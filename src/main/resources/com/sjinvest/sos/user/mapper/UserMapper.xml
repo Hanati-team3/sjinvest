@@ -184,7 +184,7 @@
 		user_point,
 		user_picture,
 		user_detail,
-		to_char(user_regdate, 'YYYY-DD-MM'),
+		to_char(user_regdate, 'YYYY-DD-MM') user_regdate,
 		user_money,
 		user_gender,
 		user_birth,

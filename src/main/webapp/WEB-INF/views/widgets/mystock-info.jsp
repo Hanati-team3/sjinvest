@@ -2,7 +2,7 @@
 <div class="ui-block">
 
   <div class="ui-block-title">
-    <a href="#"><h6>관심종목</h6></a>
+    <a href="#"><h6>나의 주식정보</h6></a>
   </div>
 
   <ul class="widget w-activity-feed notification-list">
@@ -18,12 +18,12 @@
                 <thead style="background: white;" >
                   <tr>
                     <th class=company-name><font color="black">기업명</font></th>
-                    <th class="now-price"><font color="black">현재주가</font></th>
-                    <th class="chang-percent"><font color="black">등락률</font></th>
+                    <th class="now-price"><font color="black">매수량</font></th>
+                    <th class="chang-percent"><font color="black">임시입니다.</font></th>
                   </tr>
                 </thead>
     
-                <tbody id="interest_list">
+                <tbody id="mystock-info">
                 
                 <!-- 현재주가, 등락률 값 못 받아옴.. -->
                   <!-- <tr>
