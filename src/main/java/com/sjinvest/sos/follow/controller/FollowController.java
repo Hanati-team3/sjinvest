@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -65,10 +66,12 @@ public class FollowController {
 		/*System.out.println("생성?" + service.checkFollow(follow));
 		System.out.println(follow.getUserSeq());
 		System.out.println(follow.getFollowUserSeq());*/
-		if(service.checkFollow(follow) != 0) {
-			service.deleteFollow(follow);
-		}else {
-			service.create(follow);
+		if(follow.getFollowUserSeq() != follow.getUserSeq()) {
+			if(service.checkFollow(follow) != 0) {
+				service.deleteFollow(follow);
+			}else {
+				service.create(follow);
+			}
 		}
 		/*
 		Notice notice = new Notice();

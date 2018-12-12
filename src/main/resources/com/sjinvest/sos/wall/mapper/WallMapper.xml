@@ -15,7 +15,7 @@
 		<result column="wall_reply_count" property="wallReplyCnt" />
 		<result column="wall_picture" property="wallPicture" />
 		<result column="wall_original_seq" property="wallOriginalSeq" />
-		<result column="writer_user_seq" property="writerOriginalSeq" />
+		<result column="writer_user_seq" property="writerUserSeq" />
 	</resultMap>
 	<!-- 담벼락 쓰기 -->
 	<insert id="write" parameterType="Wall">

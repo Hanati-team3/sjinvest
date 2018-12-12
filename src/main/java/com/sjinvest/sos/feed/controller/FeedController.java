@@ -27,8 +27,10 @@ import com.sjinvest.sos.feed.domain.SearchParam;
 import com.sjinvest.sos.feed.service.FeedService;
 import com.sjinvest.sos.follow.domain.Follow;
 import com.sjinvest.sos.follow.service.FollowService;
+import com.sjinvest.sos.like.domain.Like;
 import com.sjinvest.sos.user.domain.User;
 import com.sjinvest.sos.user.service.UserService;
+import com.sjinvest.sos.wall.domain.Wall;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -206,5 +208,27 @@ public class FeedController {
 		map.put("replyUser", replyUser);
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
+	
+	@PostMapping("/updateImage")	
+	public String updateImage(HttpServletRequest request, HttpSession session) {
+
+		log.info("updateImage : ");
+		
+		User user = (User)session.getAttribute("user");
+		int userSeq = user.getUserSeq();
+		String feedImage = request.getParameter("file2");
+
+		Feed feed = new Feed();
+		
+		feed.setUserSeq(userSeq);
+		feed.setFeedPicture(feedImage);
+		
+		boolean result = feedService.updateFeed(feed);
+		
+/*		session.removeAttribute("user");
+		session.setAttribute("user", user);
+*/
+		return "redirect:/sns/newfeed";
+	}
 
 }
