@@ -35,7 +35,7 @@ if((User)(request.getSession().getAttribute("user")) != null){
              <form id="writeForm">
                 <div class="author-thumb">
                 	<c:choose>
-	                  <c:when test="${user.userId ne null }">
+	                  <c:when test="${user.userPicture ne null }">
 	                  	<%if (result_profile){ %>
 		              		<img src="${user.userPicture}" width="36px" height="36px" alt="author">
 		              	<%}else{ %>
