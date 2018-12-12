@@ -75,9 +75,11 @@ public class StockController2 {
 	
 	@GetMapping(value="/realtime", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<StockMini>> realtime() {
+		System.out.println("realtime");
 		List<String> tempList = new ArrayList<>();
 		tempList.add("000270");
 		Map<String,Object> tempMap = service.getForSearchResult(tempList);
+		System.out.println("realtime : " + tempMap);
 		return new ResponseEntity<>((List<StockMini>)tempMap.get("realTime"),HttpStatus.OK);
 	}
 	

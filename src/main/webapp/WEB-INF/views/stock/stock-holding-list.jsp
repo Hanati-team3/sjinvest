@@ -229,19 +229,34 @@
           <%-- 보유자산 목록 카드 끝 --%>
         </div>
         <%-- 보유자산 목록 row 끝 --%>
+        <!--  버튼 div  -->
+        <div class="row">
+          <div class="col-xl-12 order-xl-1 col-lg-12 order-lg-1 col-md-12 order-md-1 col-sm-12 col-xs-12">
+            <form name="imgForm" id="imgForm" action="/convertToImage"
+              method="post">
+              <input type="hidden" id="imgData" name="imgData">
+            </form>
+            <div class="row" style="padding: 0 250px;">
+              <div class="printBtnZone" align="right" style='margin: 0 auto;'>
+                <a href="#" id="share-btn" class="btn btn-blue  btn-md-2"
+                  style="display: inline-block;">공유하기</a>
+                <!-- <a id="share-btn" class="btn bg-gray small w-auto">공유하기</a> -->
+              </div>
+              <div class="printBtnZone" align="right" style='margin: 0 auto;'>
+                <a href="#" id="boast-btn" class="btn btn-blue btn-md-2"
+                  style="display: inline-block;">자랑하기</a>
+                <!-- <a id="boast-btn" class="btn bg-gray small w-auto">자랑하기</a> -->
+              </div>
+            </div>
+          </div>
+          <!--  버튼 끝 -->
+        </div>
         
       </div>
       <%-- 사이드 제외 컨텐츠 열 끝 --%>
     </div>
-              <form name="imgForm" id="imgForm" action="/convertToImage" method="post">
-              <input type="hidden" id="imgData" name="imgData">
-          </form>
-          <div class="printBtnZone" align="right" >
-              <a id="share-btn" class="btn bg-gray small w-auto">공유하기</a>
-          </div>
-          <div class="printBtnZone" align="right">
-              <a id="boast-btn" class="btn bg-gray small w-auto">자랑하기</a>
-          </div>
+
+
     <%-- 사이드 포함 row 끝 --%>
   </div>
 
