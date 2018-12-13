@@ -76,7 +76,7 @@ function setFirstIndex(data) {
 	setKospiChart(data.kospiChart);
 	// 상위 10개 탭 설정
 	setTopTab(data.topTab, 0);
-	//setNews(data.news);
+	setNews(data.news);
 	
 
 

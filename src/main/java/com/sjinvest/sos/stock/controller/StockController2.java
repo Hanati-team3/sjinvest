@@ -451,5 +451,8 @@ public class StockController2 {
 		request.getSession().setAttribute("user", newUser);
 		return new ResponseEntity<>(returnValue, HttpStatus.OK);
 	}
-
+	@GetMapping(value="/test/index")
+	public String testIndex() {
+		return "stock/stock-index";
+	}
 }

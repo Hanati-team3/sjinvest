@@ -233,7 +233,7 @@
 	    	// index update 호출
 	    	interestUpdate();
         	// news 가져오기 호출
-        	//getNews();
+        	getNews();
     	}
     	
     });
